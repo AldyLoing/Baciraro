@@ -486,7 +486,7 @@ export default function Home() {
                 src="/IMG_5184.MP4"
                 autoPlay
                 loop
-                muted={false}
+                muted
                 playsInline
                 preload="auto"
                 className="absolute inset-0 h-full w-full object-cover"
