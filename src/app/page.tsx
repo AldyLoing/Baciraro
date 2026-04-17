@@ -139,19 +139,38 @@ export default function Home() {
   const aboutText =
     "Kawasaran adalah tarian perang Minahasa yang kini hidup sebagai tari penyambutan. Geraknya tegas, ritmenya kuat, dan tiap langkah membawa pesan keberanian, disiplin, serta hormat pada leluhur.";
 
+  // Play all videos as muted initially
   const playVideos = () => {
     const videos = [heroVideoRef.current, tributeVideoRef.current, featureVideoRef.current].filter(
       Boolean,
     ) as HTMLVideoElement[];
 
     videos.forEach((video) => {
-      video.defaultMuted = false;
-      video.muted = false;
-      video.volume = 1;
+      // Keep all videos muted by default
+      video.defaultMuted = true;
+      video.muted = true;
+      video.volume = 0;
       void video.play().catch(() => {
         // Ignore play rejection; browser policies may still require direct media control interaction.
       });
     });
+  };
+
+  // Unmute specific video on user interaction
+  const handleVideoClick = (videoRef: React.RefObject<HTMLVideoElement>) => {
+    if (videoRef.current) {
+      // Mute all videos first
+      [heroVideoRef, tributeVideoRef, featureVideoRef].forEach((ref) => {
+        if (ref.current) {
+          ref.current.muted = true;
+          ref.current.volume = 0;
+        }
+      });
+      // Unmute only the clicked video
+      videoRef.current.muted = false;
+      videoRef.current.volume = 1;
+      void videoRef.current.play();
+    }
   };
 
   useEffect(() => {
@@ -165,6 +184,26 @@ export default function Home() {
       window.removeEventListener("pointerdown", retryPlay);
       window.removeEventListener("keydown", retryPlay);
     };
+  }, []);
+
+  // Ensure feature video stays muted but autoplay
+  useEffect(() => {
+    const video = featureVideoRef.current;
+    if (video) {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.play().catch(() => {
+        // Silently handle autoplay restrictions
+      });
+
+      const handleLoadedData = () => {
+        video.muted = true;
+        video.volume = 0;
+      };
+
+      video.addEventListener("loadeddata", handleLoadedData);
+      return () => video.removeEventListener("loadeddata", handleLoadedData);
+    }
   }, []);
 
   const featureCards = [
@@ -210,10 +249,11 @@ export default function Home() {
             src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4"
             autoPlay
             loop
-            muted={false}
+            muted={true}
+            onClick={() => handleVideoClick(heroVideoRef)}
             playsInline
             preload="auto"
-            className="absolute inset-0 h-full w-full object-cover rounded-[3rem] md:rounded-[5rem]"
+            className="absolute inset-0 h-full w-full object-cover rounded-[3rem] md:rounded-[5rem] cursor-pointer"
           />
           <div className="noise-overlay pointer-events-none absolute inset-0 opacity-[0.7] mix-blend-overlay" />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/60" />
@@ -315,10 +355,11 @@ export default function Home() {
                           src="/tribute.mp4"
                           autoPlay
                           loop
-                          muted={false}
+                          muted={true}
+                          onClick={() => handleVideoClick(tributeVideoRef)}
                           playsInline
                           preload="auto"
-                          className="w-full h-full object-cover rounded-md"
+                          className="w-full h-full object-cover rounded-md cursor-pointer"
                         />
                       </motion.div>
                     )}
@@ -486,10 +527,11 @@ export default function Home() {
                 src="/IMG_5184.MP4"
                 autoPlay
                 loop
-                muted
+                muted={true}
+                onClick={() => handleVideoClick(featureVideoRef)}
                 playsInline
                 preload="auto"
-                className="absolute inset-0 h-full w-full object-cover"
+                className="absolute inset-0 h-full w-full object-cover cursor-pointer"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/20 to-transparent" />
               <p className="absolute bottom-4 left-4 text-sm text-primary-text sm:text-base">Gagah, sakral, dan berakar.</p>
