@@ -137,7 +137,7 @@ export default function Home() {
   const featuresInView = useInView(featureGridRef, { once: false, margin: "-100px" });
 
   const aboutText =
-    "Kabasaran adalah tarian perang Minahasa yang kini hidup sebagai tari penyambutan. Geraknya tegas, ritmenya kuat, dan tiap langkah membawa pesan keberanian, disiplin, serta hormat pada leluhur.";
+    "Kawasaran adalah tarian perang Minahasa yang kini hidup sebagai tari penyambutan. Geraknya tegas, ritmenya kuat, dan tiap langkah membawa pesan keberanian, disiplin, serta hormat pada leluhur.";
 
   const playVideos = () => {
     const videos = [heroVideoRef.current, tributeVideoRef.current, featureVideoRef.current].filter(
@@ -204,7 +204,7 @@ export default function Home() {
   return (
     <main className="bg-background text-primary-text">
       <section ref={heroRef} className="h-screen p-4 md:p-6">
-        <div className="relative h-full overflow-hidden rounded-2xl md:rounded-[2rem]">
+        <div className="relative h-full overflow-hidden rounded-[3rem] md:rounded-[5rem]">
           <video
             ref={heroVideoRef}
             src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4"
@@ -213,7 +213,7 @@ export default function Home() {
             muted={false}
             playsInline
             preload="auto"
-            className="absolute inset-0 h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover rounded-[3rem] md:rounded-[5rem]"
           />
           <div className="noise-overlay pointer-events-none absolute inset-0 opacity-[0.7] mix-blend-overlay" />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/60" />
@@ -245,8 +245,8 @@ export default function Home() {
             </motion.div>
           </motion.div>
 
-          <nav className="absolute left-1/2 top-0 z-20 -translate-x-1/2">
-            <div className="flex items-center gap-3 rounded-b-2xl bg-background px-4 py-2 md:gap-12 md:rounded-b-3xl md:px-8 lg:gap-14 sm:gap-6">
+          <nav className="absolute left-1/2 top-0 z-20 -translate-x-1/2 w-full max-w-[95vw] sm:max-w-max">
+            <div className="flex flex-wrap items-center justify-center gap-3 rounded-b-2xl bg-background px-4 py-2 md:gap-12 md:rounded-b-3xl md:px-8 lg:gap-14 sm:gap-6">
               {["Asal-usul", "Makna", "Gerakan", "Busana", "Warisan"].map((item) => (
                 <a
                   key={item}
@@ -270,16 +270,16 @@ export default function Home() {
             <div className="grid grid-cols-1 items-end gap-8 md:grid-cols-12 relative z-20">
               <div className="md:col-span-7 lg:col-span-8">
                 <WordsPullUp
-                  text="Kabasaran"
+                  text="Kawasaran"
                   showAsterisk
                   className="font-medium leading-[0.85] tracking-[-0.07em] text-[24vw] text-primary-text sm:text-[22vw] md:text-[20vw] lg:text-[18vw] xl:text-[17vw] 2xl:text-[18vw]"
                 />
               </div>
 
-              <div className="relative z-30 md:col-span-5 lg:col-span-4 md:pb-6 flex flex-col items-end text-right">
+              <div className="relative z-30 md:col-span-5 lg:col-span-4 md:pb-6 flex flex-col items-center md:items-end text-center md:text-right mb-16 sm:mb-24 md:mb-40 lg:mb-48 xl:mb-56">
                 <motion.div
                   style={{ y: videoParallaxY, rotate: videoParallaxRotate }}
-                  className="mb-2 -mt-40 sm:-mt-48 md:-mt-56 lg:-mt-72 w-[115%] -ml-[15%] md:w-[135%] md:-ml-[35%] lg:w-[150%] lg:-ml-[50%] z-30 relative flex justify-end items-center"
+                  className="mb-6 md:mb-2 mt-4 md:-mt-56 lg:-mt-72 w-full max-w-sm md:w-[135%] md:-ml-[35%] lg:w-[150%] lg:-ml-[50%] z-30 relative flex justify-center md:justify-end items-center"
                 >
                   <AnimatePresence mode="wait">
                     {!isVideoOpen ? (
@@ -318,26 +318,26 @@ export default function Home() {
                           muted={false}
                           playsInline
                           preload="auto"
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover rounded-md"
                         />
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </motion.div>
 
-                <motion.div className="bg-background/40 backdrop-blur-md p-4 rounded-xl border border-white/10 z-30 shadow-xl max-w-sm">
+                  <motion.div className="bg-background/40 backdrop-blur-md p-4 rounded-xl border border-white/10 z-30 shadow-xl w-full max-w-sm">
                   <motion.p
                     initial={{ y: 20, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.7, delay: 0.5, ease: springEase }}
-                    className="text-xs leading-[1.4] text-white sm:text-sm md:text-base text-left"
+                    className="text-xs leading-[1.4] text-white sm:text-sm md:text-base text-center md:text-left"
                   >
                     Tarian ksatria Minahasa yang lahir dari semangat menjaga tanah, lalu bertransformasi menjadi
                     identitas budaya yang gagah, ritmis, dan penuh wibawa.
                   </motion.p>
 
-                  <div className="w-full flex justify-start">
+                  <div className="w-full flex justify-center md:justify-start">
                     <motion.button
                       type="button"
                       initial={{ y: 20, opacity: 0 }}
@@ -426,7 +426,7 @@ export default function Home() {
           <WordsPullUpMultiStyle
             className="mx-auto mt-5 max-w-3xl text-3xl font-normal leading-[0.95] sm:text-4xl sm:leading-[0.9] md:text-5xl lg:text-6xl xl:text-7xl"
             segments={[
-              { text: "Kabasaran bukan sekadar tari," },
+              { text: "Kawasaran bukan sekadar tari," },
               { text: "ia adalah napas keberanian.", className: "font-serif italic" },
               {
                 text: "Setiap hentak langkah menyalakan ingatan, martabat, dan akar tradisi Minahasa.",
