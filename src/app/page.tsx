@@ -157,7 +157,7 @@ export default function Home() {
   };
 
   // Unmute specific video on user interaction
-  const handleVideoClick = (videoRef: React.RefObject<HTMLVideoElement>) => {
+  const handleVideoClick = (videoRef: React.RefObject<HTMLVideoElement | null>) => {
     if (videoRef.current) {
       // Mute all videos first
       [heroVideoRef, tributeVideoRef, featureVideoRef].forEach((ref) => {
