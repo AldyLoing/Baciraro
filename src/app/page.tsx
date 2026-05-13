@@ -117,9 +117,20 @@ export default function Home() {
 
       <header className="relative z-10 border-b border-emerald-100/80 bg-white/70 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.35em] text-emerald-700">Baciraro</p>
-            <p className="mt-1 text-sm text-slate-500">Sustainability Platform</p>
+          <div className="flex items-center gap-3">
+            <div className="relative h-11 w-11 overflow-hidden rounded-full border border-emerald-200 bg-white shadow-sm">
+              <Image
+                src="/Baciraro cap.png"
+                alt="Baciraro logo"
+                fill
+                sizes="44px"
+                className="object-contain p-1.5"
+              />
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-emerald-700">Baciraro</p>
+              <p className="mt-1 text-sm text-slate-500">Sustainability Platform</p>
+            </div>
           </div>
           <nav className="hidden items-center gap-8 text-sm font-medium text-slate-600 md:flex">
             <a href="#ecosystem" className="transition-colors hover:text-emerald-700">
@@ -131,6 +142,9 @@ export default function Home() {
             <a href="#impact" className="transition-colors hover:text-emerald-700">
               Dampak
             </a>
+            <Link href="/ceo" className="transition-colors hover:text-emerald-700">
+              CEO
+            </Link>
             <Link href="/projects" className="transition-colors hover:text-emerald-700">
               Proyek
             </Link>
@@ -148,113 +162,148 @@ export default function Home() {
         </div>
       </header>
 
-      <section className="relative z-10 mx-auto grid max-w-7xl gap-14 px-6 pb-20 pt-16 lg:grid-cols-[1.08fr_0.92fr] lg:px-8 lg:pb-28 lg:pt-24">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="max-w-3xl"
-        >
-          <SectionLabel>Ekosistem Pengelolaan Sampah Terintegrasi</SectionLabel>
-          <h1 className="mt-6 text-4xl font-semibold leading-[1.06] tracking-tight text-slate-900 sm:text-5xl lg:text-7xl">
-            Membangun Ekosistem Pengelolaan Sampah Terintegrasi dari Hulu ke Hilir
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
-            Baciraro menghadirkan solusi pengelolaan sampah berbasis circular economy melalui edukasi,
-            daur ulang, inovasi teknologi, dan pemberdayaan masyarakat.
-          </p>
+      <section className="relative z-10 min-h-screen overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(34,197,94,0.16),_transparent_60%),radial-gradient(circle_at_bottom_left,_rgba(250,204,21,0.12),_transparent_50%)]" />
+        <div className="pointer-events-none absolute -left-28 top-1/2 h-[28rem] w-[28rem] -translate-y-1/2 rounded-full bg-emerald-400/15 blur-3xl" />
+        <div className="pointer-events-none absolute -right-28 bottom-10 h-[24rem] w-[24rem] rounded-full bg-amber-300/10 blur-3xl" />
 
-          <div className="mt-8 flex flex-wrap gap-4">
-            <a
-              href="#ecosystem"
-              className="inline-flex items-center gap-3 rounded-full bg-emerald-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-700/20 transition-transform hover:-translate-y-0.5"
-            >
-              Jelajahi Ekosistem
-              <ArrowRight className="h-4 w-4" />
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-3 rounded-full border border-emerald-200 bg-white px-6 py-3.5 text-sm font-semibold text-slate-800 shadow-sm transition-transform hover:-translate-y-0.5"
-            >
-              Kerja Sama
-            </a>
-          </div>
-
-          <div className="mt-10 grid gap-4 sm:grid-cols-3">
-            {[
-              "Circular economy end-to-end",
-              "Digital monitoring system",
-              "CSR dan kemitraan lintas sektor",
-            ].map((item) => (
-              <div
-                key={item}
-                className="rounded-2xl border border-emerald-100 bg-white/80 p-4 text-sm text-slate-600 shadow-[0_10px_40px_rgba(15,23,42,0.05)] backdrop-blur"
-              >
-                {item}
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.08 }}
-          className="relative"
-        >
-          <div className="absolute -left-8 top-10 h-24 w-24 rounded-full bg-amber-300/30 blur-2xl" />
-          <div className="absolute -right-8 bottom-10 h-28 w-28 rounded-full bg-emerald-300/30 blur-2xl" />
-
-          <div className="relative overflow-hidden rounded-[2rem] border border-emerald-100 bg-white p-4 shadow-[0_30px_100px_rgba(15,23,42,0.12)] sm:p-6">
-            <div className="overflow-hidden rounded-[1.5rem] bg-slate-900">
-              <div className="relative aspect-[4/4.5] w-full">
-                <Image
-                  src="/baciraro ecosystem.jpeg"
-                  alt="Baciraro ecosystem"
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 46vw"
-                  className="object-cover opacity-95"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/10 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
-                  <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-medium text-white backdrop-blur">
-                    <ShieldCheck className="h-4 w-4 text-amber-300" />
-                    Sustainability Intelligence
-                  </div>
-                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                    {[
-                      { label: "Model integrasi", value: "Hulu ke hilir" },
-                      { label: "Platform", value: "Sampah + digital" },
-                    ].map((item) => (
-                      <div
-                        key={item.label}
-                        className="rounded-2xl border border-white/10 bg-white/10 p-4 text-white backdrop-blur"
-                      >
-                        <p className="text-xs uppercase tracking-[0.25em] text-white/60">{item.label}</p>
-                        <p className="mt-2 text-lg font-semibold">{item.value}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+        <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 py-16 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="mx-auto flex w-full max-w-5xl flex-col items-center text-center"
+          >
+            <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-white/80 backdrop-blur">
+              <span className="h-2 w-2 rounded-full bg-emerald-400" />
+              Ekosistem Pengelolaan Sampah Terintegrasi
             </div>
 
-            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+            <div className="relative mb-10 h-80 w-64 overflow-hidden rounded-[2.5rem] sm:h-[23rem] sm:w-72">
+              <Image
+                src="/Baciraro cap.png"
+                alt="Baciraro logo"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 288px"
+                className="object-contain p-4"
+              />
+            </div>
+
+            <div className="relative max-w-6xl">
+              <p className="font-serif text-4xl italic tracking-tight text-white/90 sm:text-5xl lg:text-6xl">
+                Our Company
+              </p>
+              <h1 className="mt-2 text-5xl font-black leading-none tracking-tight text-white sm:text-6xl lg:text-[7.5rem]">
+                BACIRARO
+              </h1>
+              <p className="mx-auto mt-4 max-w-4xl text-lg leading-8 text-slate-200 sm:text-xl">
+                Baciraro adalah perusahaan yang membangun sistem pengelolaan sampah terintegrasi dari
+                edukasi, pengumpulan, daur ulang, hingga produk dan pelacakan digital.
+              </p>
+            </div>
+
+            <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
+              <a
+                href="#ecosystem"
+                className="inline-flex items-center gap-3 rounded-full bg-emerald-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/20 transition-transform hover:-translate-y-0.5"
+              >
+                Jelajahi Ekosistem
+                <ArrowRight className="h-4 w-4" />
+              </a>
+              <a
+                href="#ceo"
+                className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur transition-transform hover:-translate-y-0.5"
+              >
+                Lihat CEO
+              </a>
+            </div>
+
+            <div className="mt-12 grid w-full gap-4 sm:grid-cols-3">
               {[
-                { icon: Leaf, label: "Edukasi", value: "Masyarakat" },
-                { icon: Recycle, label: "Pengolahan", value: "Daur ulang" },
-                { icon: Cpu, label: "Tracking", value: "Digital" },
+                "Circular economy end-to-end",
+                "Digital monitoring system",
+                "CSR dan kemitraan lintas sektor",
               ].map((item) => (
-                <div key={item.label} className="rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-4">
-                  <item.icon className="h-5 w-5 text-emerald-700" />
-                  <p className="mt-3 text-xs uppercase tracking-[0.22em] text-slate-500">{item.label}</p>
-                  <p className="mt-2 text-base font-semibold text-slate-900">{item.value}</p>
+                <div
+                  key={item}
+                  className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-slate-200 backdrop-blur"
+                >
+                  {item}
                 </div>
               ))}
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      <section id="ceo" className="relative z-10 overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 py-24 text-white lg:py-28">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(34,197,94,0.16),_transparent_60%),radial-gradient(circle_at_bottom_left,_rgba(250,204,21,0.12),_transparent_50%)]" />
+        <div className="pointer-events-none absolute left-1/2 top-20 h-80 w-80 -translate-x-1/2 rounded-full bg-emerald-400/15 blur-3xl" />
+
+        <div className="relative mx-auto flex max-w-5xl flex-col items-center px-6 text-center lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8 }}
+            className="flex w-full flex-col items-center"
+          >
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-white/80 backdrop-blur">
+              <span className="h-2 w-2 rounded-full bg-emerald-400" />
+              Our CEO
+            </p>
+
+            <div className="relative mt-10 h-80 w-64 overflow-hidden rounded-[2.5rem] shadow-[0_30px_120px_rgba(0,0,0,0.45)] sm:h-[23rem] sm:w-72">
+              <Image
+                src="/Marlon.png"
+                alt="Marlon Kamagi"
+                fill
+                sizes="(max-width: 768px) 100vw, 288px"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/25 via-transparent to-transparent" />
+            </div>
+
+            <div className="mt-10 max-w-4xl">
+              <p className="font-serif text-4xl italic tracking-tight text-white/90 sm:text-5xl lg:text-6xl">
+                Hello, I&apos;m
+              </p>
+              <h2 className="mt-2 text-5xl font-black leading-none tracking-tight text-white sm:text-6xl lg:text-[6.5rem]">
+                Marlon Kamagi
+              </h2>
+              <p className="mt-5 text-2xl font-semibold text-emerald-300 sm:text-3xl">
+                Chief Executive Officer
+              </p>
+              <p className="mt-3 text-lg text-slate-300 sm:text-xl">
+                Community Development Worker
+              </p>
+              <p className="mx-auto mt-8 max-w-3xl text-base leading-8 text-slate-200 sm:text-lg">
+                Pemimpin Baciraro yang membawa pengalaman di community development, riset sosial-lingkungan,
+                dan aksi iklim untuk membangun ekosistem yang berdampak.
+              </p>
+            </div>
+
+            <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
+              <Link
+                href="/ceo"
+                className="inline-flex items-center gap-3 rounded-full bg-emerald-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/20 transition-transform hover:-translate-y-0.5"
+              >
+                Lihat Halaman CEO
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <a
+                href="https://marlonkamagi.wixsite.com/marlonkamagi"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur transition-transform hover:-translate-y-0.5"
+              >
+                Sumber Profil
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
       <section id="about" className="relative z-10 mx-auto max-w-7xl px-6 pb-8 lg:px-8">
