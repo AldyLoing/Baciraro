@@ -2,8 +2,40 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Leaf, Droplets, Zap, Award } from "lucide-react";
+
+const galleryImages = [
+  {
+    src: "/elmast/WhatsApp%20Image%202026-05-22%20at%2022.50.07.jpeg",
+    alt: "Aktivitas ELMAST 1",
+  },
+  {
+    src: "/elmast/WhatsApp%20Image%202026-05-22%20at%2022.50.08%20(1).jpeg",
+    alt: "Aktivitas ELMAST 2",
+  },
+  {
+    src: "/elmast/WhatsApp%20Image%202026-05-22%20at%2022.50.08.jpeg",
+    alt: "Aktivitas ELMAST 3",
+  },
+  {
+    src: "/elmast/WhatsApp%20Image%202026-05-22%20at%2022.50.09%20(1).jpeg",
+    alt: "Aktivitas ELMAST 4",
+  },
+  {
+    src: "/elmast/WhatsApp%20Image%202026-05-22%20at%2022.50.09.jpeg",
+    alt: "Aktivitas ELMAST 5",
+  },
+  {
+    src: "/elmast/WhatsApp%20Image%202026-05-22%20at%2022.50.10%20(1).jpeg",
+    alt: "Aktivitas ELMAST 6",
+  },
+  {
+    src: "/elmast/WhatsApp%20Image%202026-05-22%20at%2022.50.10.jpeg",
+    alt: "Aktivitas ELMAST 7",
+  },
+];
 
 const products = [
   {
@@ -89,8 +121,8 @@ function HeroSection() {
 
             <div className="relative aspect-square overflow-hidden rounded-[2rem] border border-emerald-100 bg-white p-4 shadow-2xl">
               <Image
-                src="/elmast.png"
-                alt="ELMAST Greenovasi"
+                src="/elmast.jpeg"
+                alt="Logo ELMAST Greenovasi"
                 fill
                 className="object-contain p-8"
                 priority
@@ -110,7 +142,7 @@ function TechnologySection() {
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div className="aspect-square relative overflow-hidden rounded-[2rem] border border-emerald-100 bg-green-50 p-4">
             <Image
-              src="/elmast.png"
+              src="/elmast.jpeg"
               alt="Teknologi ELMAST"
               fill
               className="object-contain p-8"
@@ -132,6 +164,95 @@ function TechnologySection() {
             </div>
           </div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function GallerySection() {
+  const [activeImage, setActiveImage] = useState<{ src: string; alt: string } | null>(null);
+
+  useEffect(() => {
+    if (!activeImage) {
+      return;
+    }
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setActiveImage(null);
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [activeImage]);
+
+  return (
+    <section className="relative py-20 px-6 lg:px-8 bg-white">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-12 text-center">
+          <h2 className="text-4xl font-bold text-slate-900 mb-4">Dokumentasi ELMAST</h2>
+          <p className="mx-auto max-w-2xl text-lg text-slate-600">
+            Dokumentasi implementasi dan aktivitas pengolahan sampah organik menjadi energi serta pupuk berkelanjutan.
+          </p>
+        </div>
+
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {galleryImages.map((image, index) => (
+            <motion.div
+              key={image.src}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.45, delay: index * 0.06 }}
+              className="group overflow-hidden rounded-[1.25rem] border border-emerald-100 bg-white shadow-[0_10px_30px_rgba(0,147,69,0.08)]"
+            >
+              <button
+                type="button"
+                onClick={() => setActiveImage(image)}
+                className="relative block aspect-[4/3] w-full overflow-hidden text-left"
+                aria-label={`Buka ${image.alt} dalam ukuran penuh`}
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  className="object-cover transition duration-500 group-hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+              </button>
+            </motion.div>
+          ))}
+        </div>
+
+        {activeImage && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+            onClick={() => setActiveImage(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Pratinjau gambar ELMAST"
+          >
+            <div className="relative h-[85vh] w-full max-w-6xl" onClick={(event) => event.stopPropagation()}>
+              <Image
+                src={activeImage.src}
+                alt={activeImage.alt}
+                fill
+                className="object-contain"
+                sizes="100vw"
+                priority
+              />
+              <button
+                type="button"
+                onClick={() => setActiveImage(null)}
+                className="absolute right-2 top-2 rounded-full bg-black/60 px-3 py-1.5 text-sm font-semibold text-white hover:bg-black/80"
+                aria-label="Tutup gambar"
+              >
+                Tutup
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
@@ -262,6 +383,7 @@ export default function ElmastPage() {
     <main className="relative overflow-hidden">
       <HeroSection />
       <TechnologySection />
+      <GallerySection />
       <ProductsSection />
       <SolutionsSection />
       <BenefitsSection />
