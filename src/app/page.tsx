@@ -7,6 +7,7 @@ import {
   ArrowRight,
   BarChart3,
   Building2,
+  BriefcaseBusiness,
   Cpu,
   Factory,
   Leaf,
@@ -50,6 +51,13 @@ const ecosystemCards = [
     description:
       "Komunitas pengembang teknologi yang membangun platform digital pengelolaan sampah.",
     icon: Cpu,
+  },
+  {
+    name: "CBD Baciraro",
+    href: "/cbd-baciraro",
+    description:
+      "Chief Business Development and Financial yang fokus pada analisis bisnis, kontrol risiko, dan penguatan ekosistem Baciraro.",
+    icon: BriefcaseBusiness,
   },
 ];
 
@@ -104,6 +112,39 @@ function SectionHeading({
         {title}
       </h2>
       <p className="mt-4 text-base leading-8 text-slate-600 sm:text-lg">{description}</p>
+    </div>
+  );
+}
+
+function EcosystemCardImage({
+  card,
+}: {
+  card: (typeof ecosystemCards)[number];
+}) {
+  if (card.image) {
+    return (
+      <Image
+        src={card.image}
+        alt={card.name}
+        fill
+        sizes="(max-width: 768px) 100vw, 28vw"
+        className="object-contain p-2 transition-transform duration-500 group-hover:scale-[1.02]"
+      />
+    );
+  }
+
+  return (
+    <div className="flex h-full items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.18),_transparent_55%),linear-gradient(135deg,_#ecfdf5,_#ffffff)] p-6 text-center">
+      <div className="max-w-xs">
+        <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-emerald-600 text-2xl font-black text-white shadow-lg shadow-emerald-600/20">
+          CBD
+        </div>
+        <p className="mt-5 text-sm font-semibold uppercase tracking-[0.28em] text-emerald-700">Baciraro</p>
+        <p className="mt-2 text-lg font-semibold text-slate-900">{card.name}</p>
+        <p className="mt-2 text-sm leading-7 text-slate-600">
+          Analisis bisnis, visibilitas finansial, dan penguatan keputusan berbasis data.
+        </p>
+      </div>
     </div>
   );
 }
@@ -345,7 +386,7 @@ export default function Home() {
       <section id="ecosystem" className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
         <SectionHeading
           eyebrow="Baciraro Ecosystem"
-          title="Empat entitas yang saling terhubung untuk menciptakan nilai dari sampah."
+              title="Lima entitas yang saling terhubung untuk menciptakan nilai dari sampah."
           description="Setiap unit menjalankan fungsi berbeda, tetapi terhubung dalam satu sistem terintegrasi yang mendorong dampak sosial, ekonomi, dan lingkungan."
         />
 
@@ -373,13 +414,7 @@ export default function Home() {
                 className="group overflow-hidden rounded-[1.75rem] border border-emerald-100 bg-white shadow-[0_20px_70px_rgba(15,23,42,0.07)]"
               >
                 <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-emerald-50 to-white p-4 sm:p-5">
-                  <Image
-                    src={card.image}
-                    alt={card.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 28vw"
-                    className="object-contain p-2 transition-transform duration-500 group-hover:scale-[1.02]"
-                  />
+                  <EcosystemCardImage card={card} />
                   <div className="absolute left-4 top-4 rounded-full bg-white/90 p-2 text-emerald-700 shadow-sm backdrop-blur">
                     <card.icon className="h-4 w-4" />
                   </div>
