@@ -252,11 +252,11 @@ export default function Home() {
           <AnimatePresence>
             {isMobileMenuOpen && (
               <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.35, ease: springEase }}
-                className="md:hidden border-t border-white/5 bg-[#0c0f0c]/95 backdrop-blur-xl px-6 py-6 flex flex-col gap-2 relative z-10"
+                initial={{ opacity: 0, y: -12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="md:hidden border-t border-white/5 bg-[#0c0f0c]/95 backdrop-blur-xl px-6 py-6 flex flex-col gap-2 relative z-10 will-change-[transform,opacity]"
               >
                 {[
                   { name: "Ekosistem", href: "#ecosystem" },
@@ -306,17 +306,16 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: springEase }}
-            className="mx-auto flex w-full max-w-5xl flex-col items-center text-center"
+            className="mx-auto flex w-full max-w-5xl flex-col items-center text-center -mt-6 md:-mt-12"
           >
-            <div className="relative mb-10 h-64 w-64 md:h-72 md:w-72 overflow-hidden rounded-[3rem] border border-white/10 bg-black/30 p-8 shadow-2xl backdrop-blur-sm">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.2),_transparent_70%)]" />
+            <div className="relative mb-6 h-64 w-64 md:h-72 md:w-72 flex items-center justify-center">
               <Image
                 src="/Baciraro cap.png"
                 alt="Baciraro logo"
                 fill
                 priority
                 sizes="288px"
-                className="object-contain p-6 drop-shadow-[0_20px_50px_rgba(16,185,129,0.35)]"
+                className="object-contain p-2 drop-shadow-[0_25px_60px_rgba(16,185,129,0.45)]"
               />
             </div>
 
