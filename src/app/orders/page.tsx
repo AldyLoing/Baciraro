@@ -99,7 +99,7 @@ function HeroSection() {
             <div className="relative aspect-square overflow-hidden rounded-[3rem] border border-white/5 bg-white p-6 shadow-2xl">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(99,102,241,0.08),_transparent_70%)]" />
               <Image
-                src="/orders.png"
+                src="/Orders.png"
                 alt="ORDERS"
                 fill
                 className="object-contain p-8 drop-shadow-[0_15px_30px_rgba(99,102,241,0.15)]"
@@ -120,7 +120,7 @@ function AboutSection() {
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div className="aspect-square relative overflow-hidden rounded-[3rem] border border-white/5 bg-white p-6 shadow-2xl">
             <Image
-              src="/orders.png"
+              src="/Orders.png"
               alt="Tentang ORDERS"
               fill
               className="object-contain p-8 drop-shadow-[0_15px_30px_rgba(99,102,241,0.1)]"
