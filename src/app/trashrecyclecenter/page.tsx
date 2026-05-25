@@ -3,7 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Recycle, TrendingUp, Package, Zap } from "lucide-react";
+import { ArrowLeft, ArrowRight, Recycle, TrendingUp, Package, Zap } from "lucide-react";
+
+const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const wasteTypes = [
   {
@@ -30,38 +32,48 @@ const processSteps = [
   { step: "Bahan Baku", description: "Transformasi menjadi bahan baku siap industri" },
 ];
 
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-400 backdrop-blur shadow-lg">
+      <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+      {children}
+    </p>
+  );
+}
+
 function HeroSection() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-blue-50 via-white to-teal-50 pt-20 pb-16 px-6 lg:px-8">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(0,147,69,0.06),_transparent_40%),radial-gradient(circle_at_bottom_left,_rgba(59,130,246,0.08),_transparent_50%)]" />
+    <section className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-16">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.12),_transparent_60%)]" />
 
-      <div className="relative z-10 mx-auto max-w-7xl">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-4 py-2 mb-6">
-              <span className="h-2 w-2 rounded-full bg-amber-400" />
-              <span className="text-xs font-semibold uppercase tracking-wide text-emerald-700">Trash Recycle Center</span>
+          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: springEase }}>
+            <div className="mb-6">
+              <SectionLabel>Trash Recycle Center</SectionLabel>
             </div>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight tracking-tight text-slate-900">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-normal leading-tight tracking-[-0.04em] text-white">
               Mengubah Sampah Menjadi Sumber Daya Bernilai
             </h1>
 
-            <p className="mt-6 text-lg leading-8 text-slate-600 max-w-2xl">
+            <p className="mt-6 text-base md:text-lg leading-relaxed text-zinc-400 max-w-2xl">
               Unit usaha daur ulang yang berperan sebagai offtaker dan pengolah sampah menjadi bahan baku berkualitas untuk industri kreatif dan manufaktur.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
               <a
                 href="#process"
-                className="inline-flex items-center gap-3 rounded-full bg-emerald-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-700/20 transition-transform hover:-translate-y-0.5"
+                className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3 shadow-lg"
               >
                 Lihat Proses
-                <ArrowRight className="h-4 w-4" />
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black">
+                  <ArrowRight className="h-3 w-3 text-white" />
+                </span>
               </a>
               <a
                 href="#output"
-                className="inline-flex items-center gap-3 rounded-full border border-emerald-200 bg-white px-6 py-3.5 text-sm font-semibold text-slate-800 transition-transform hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur hover:bg-white/10 transition-all duration-300"
               >
                 Lihat Output
               </a>
@@ -71,18 +83,19 @@ function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: springEase }}
             className="relative"
           >
-            <div className="absolute -left-8 top-1/4 h-32 w-32 rounded-full bg-emerald-300/20 blur-2xl" />
-            <div className="absolute -right-8 bottom-1/4 h-40 w-40 rounded-full bg-blue-300/20 blur-2xl" />
+            <div className="absolute -left-8 top-1/4 h-32 w-32 rounded-full bg-emerald-500/10 blur-2xl" />
+            <div className="absolute -right-8 bottom-1/4 h-40 w-40 rounded-full bg-amber-500/5 blur-2xl" />
 
-            <div className="relative aspect-square overflow-hidden rounded-[2rem] border border-emerald-100 bg-white p-4 shadow-2xl">
+            <div className="relative aspect-square overflow-hidden rounded-[3rem] border border-white/5 bg-zinc-900/20 p-6 shadow-2xl backdrop-blur-sm">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.15),_transparent_70%)]" />
               <Image
                 src="/trc.png"
                 alt="Trash Recycle Center"
                 fill
-                className="object-contain p-8"
+                className="object-contain p-8 drop-shadow-[0_15px_30px_rgba(16,185,129,0.2)]"
                 priority
               />
             </div>
@@ -95,12 +108,15 @@ function HeroSection() {
 
 function WasteTypesSection() {
   return (
-    <section className="relative py-20 px-6 lg:px-8 bg-white">
+    <section className="relative py-20 px-6 lg:px-8 bg-zinc-950/20">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">Jenis Sampah yang Kami Proses</h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Kami menangani berbagai jenis sampah dengan teknologi dan proses yang terstandar
+          <SectionLabel>Komoditas Pengolahan</SectionLabel>
+          <h2 className="text-3xl sm:text-4xl font-normal leading-[1.15] tracking-tight text-white mt-6 mb-4">
+            Jenis Sampah yang Kami Proses
+          </h2>
+          <p className="text-base text-zinc-400 max-w-2xl mx-auto">
+            Kami menangani berbagai jenis sampah dengan teknologi dan proses pemilahan yang terstandar.
           </p>
         </div>
 
@@ -111,14 +127,14 @@ function WasteTypesSection() {
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group rounded-[1.75rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-white p-6 shadow-[0_10px_40px_rgba(0,147,69,0.08)]"
+              transition={{ duration: 0.6, delay: index * 0.1, ease: springEase }}
+              className="group rounded-[2.25rem] border border-white/5 bg-zinc-900/20 p-6 shadow-xl backdrop-blur-sm hover:border-white/10 hover:bg-zinc-900/30 transition-all duration-300"
             >
-              <div className="inline-flex rounded-2xl bg-emerald-50 p-3 mb-4 text-emerald-700">
+              <div className="inline-flex rounded-2xl bg-emerald-500/10 p-3 mb-4 text-emerald-400">
                 <waste.icon className="h-6 w-6" />
               </div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-3">{waste.name}</h3>
-              <p className="text-slate-600 leading-7">{waste.description}</p>
+              <h3 className="text-xl font-normal text-white mb-3">{waste.name}</h3>
+              <p className="text-zinc-400 leading-relaxed text-sm">{waste.description}</p>
             </motion.div>
           ))}
         </div>
@@ -129,9 +145,14 @@ function WasteTypesSection() {
 
 function ProcessSection() {
   return (
-    <section id="process" className="relative py-20 px-6 lg:px-8 bg-gradient-to-b from-emerald-50 to-white">
+    <section id="process" className="relative py-20 px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <h2 className="text-4xl font-bold text-slate-900 mb-12 text-center">Alur Pengolahan Sampah</h2>
+        <div className="text-center mb-12">
+          <SectionLabel>Alur Operasional</SectionLabel>
+          <h2 className="text-3xl sm:text-4xl font-normal leading-[1.15] tracking-tight text-white mt-6 mb-12">
+            Proses Kerja Daur Ulang
+          </h2>
+        </div>
 
         <div className="grid gap-4 md:grid-cols-4">
           {processSteps.map((item, index) => (
@@ -140,17 +161,17 @@ function ProcessSection() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="rounded-[1.5rem] border border-emerald-100 bg-white p-5 shadow-sm"
+                transition={{ duration: 0.5, delay: index * 0.1, ease: springEase }}
+                className="rounded-[2rem] border border-white/5 bg-zinc-900/20 p-6 backdrop-blur-sm shadow-xl"
               >
-                <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 font-bold mb-3">
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500/20 border border-emerald-500/30 font-bold text-emerald-400 mb-4">
                   {index + 1}
                 </div>
-                <h3 className="font-semibold text-slate-900 mb-2">{item.step}</h3>
-                <p className="text-sm text-slate-600">{item.description}</p>
+                <h3 className="font-semibold text-white mb-2">{item.step}</h3>
+                <p className="text-xs text-zinc-400 leading-relaxed">{item.description}</p>
               </motion.div>
               {index < processSteps.length - 1 && (
-                <ArrowRight className="absolute -right-2 top-1/2 hidden md:block -translate-y-1/2 text-emerald-300 h-5 w-5" />
+                <ArrowRight className="absolute -right-2 top-1/2 hidden md:block -translate-y-1/2 text-emerald-500/30 h-5 w-5" />
               )}
             </div>
           ))}
@@ -162,44 +183,44 @@ function ProcessSection() {
 
 function OutputSection() {
   return (
-    <section id="output" className="relative py-20 px-6 lg:px-8 bg-white">
+    <section id="output" className="relative py-20 px-6 lg:px-8 bg-zinc-950/20">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
-            <h2 className="text-4xl font-bold text-slate-900 mb-6">Output & Dampak</h2>
+            <h2 className="text-4xl font-normal leading-[1.15] tracking-tight text-white mb-6">Output & Dampak Keberlanjutan</h2>
             <div className="space-y-6">
-              <div className="rounded-[1.5rem] border border-emerald-100 bg-emerald-50 p-6">
-                <h3 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
-                  <Package className="h-5 w-5 text-emerald-700" />
+              <div className="rounded-[2rem] border border-white/5 bg-zinc-900/20 p-6 shadow-xl backdrop-blur-sm">
+                <h3 className="font-semibold text-white mb-2 flex items-center gap-2">
+                  <Package className="h-5 w-5 text-emerald-400" />
                   Bahan Baku Industri Kreatif
                 </h3>
-                <p className="text-slate-600">Plastic compound, kertas kraft, baja galvanised untuk kerajinan dan manufaktur</p>
+                <p className="text-sm text-zinc-400 leading-relaxed">Plastic compound, kertas kraft, baja galvanis untuk kerajinan dan manufaktur hijau.</p>
               </div>
 
-              <div className="rounded-[1.5rem] border border-emerald-100 bg-emerald-50 p-6">
-                <h3 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
-                  <Zap className="h-5 w-5 text-emerald-700" />
+              <div className="rounded-[2rem] border border-white/5 bg-zinc-900/20 p-6 shadow-xl backdrop-blur-sm">
+                <h3 className="font-semibold text-white mb-2 flex items-center gap-2">
+                  <Zap className="h-5 w-5 text-emerald-400" />
                   Distribusi Marketplace & Wisata
                 </h3>
-                <p className="text-slate-600">Produk daur ulang dipasarkan melalui marketplace online dan desa wisata</p>
+                <p className="text-sm text-zinc-400 leading-relaxed">Produk daur ulang dipasarkan melalui marketplace online dan desa wisata terpadu.</p>
               </div>
 
-              <div className="rounded-[1.5rem] border border-emerald-100 bg-emerald-50 p-6">
-                <h3 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
-                  <TrendingUp className="h-5 w-5 text-emerald-700" />
+              <div className="rounded-[2rem] border border-white/5 bg-zinc-900/20 p-6 shadow-xl backdrop-blur-sm">
+                <h3 className="font-semibold text-white mb-2 flex items-center gap-2">
+                  <TrendingUp className="h-5 w-5 text-emerald-400" />
                   Nilai Ekonomi & Sosial
                 </h3>
-                <p className="text-slate-600">Pembukaan lapangan kerja lokal dan peningkatan pendapatan masyarakat</p>
+                <p className="text-sm text-zinc-400 leading-relaxed">Pembukaan lapangan kerja lokal dan peningkatan pendapatan masyarakat di wilayah sekitar unit.</p>
               </div>
             </div>
           </div>
 
-          <div className="aspect-square relative overflow-hidden rounded-[2rem] border border-emerald-100 bg-blue-50 p-4">
+          <div className="aspect-square relative overflow-hidden rounded-[3rem] border border-white/5 bg-zinc-900/20 p-6 shadow-2xl backdrop-blur-sm">
             <Image
               src="/trc.png"
               alt="Output TRC"
               fill
-              className="object-contain p-8"
+              className="object-contain p-8 drop-shadow-[0_15px_30px_rgba(16,185,129,0.15)]"
             />
           </div>
         </div>
@@ -210,24 +231,26 @@ function OutputSection() {
 
 function CTASection() {
   return (
-    <section className="relative py-20 px-6 lg:px-8 bg-gradient-to-r from-emerald-950 to-emerald-900 text-white">
+    <section className="relative py-20 px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <div className="rounded-[2rem] bg-white/10 backdrop-blur border border-white/10 p-12 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Kerja Sama Pengelolaan Sampah</h2>
-          <p className="text-lg text-emerald-50 max-w-2xl mx-auto mb-8">
-            Kami membuka peluang kerjasama untuk industri, pemerintah, dan komunitas dalam pengelolaan sampah terintegrasi
+        <div className="rounded-[3rem] border border-white/5 bg-gradient-to-br from-zinc-950 via-zinc-900 to-emerald-950/20 p-8 sm:p-12 text-center shadow-2xl backdrop-blur-sm">
+          <h2 className="text-3xl sm:text-4xl font-normal leading-[1.1] tracking-tight text-white mb-4">Kerja Sama Pengelolaan Sampah</h2>
+          <p className="text-base text-zinc-400 max-w-2xl mx-auto mb-8 leading-relaxed">
+            Kami membuka peluang kerjasama untuk industri, pemerintah, dan komunitas dalam pengelolaan sampah secara profesional dan bernilai tambah.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <a
               href="mailto:halo@baciraro.id"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-emerald-700 hover:bg-emerald-50 transition"
+              className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-black shadow-lg"
             >
               Hubungi Kami
-              <ArrowRight className="h-4 w-4" />
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-black">
+                <ArrowRight className="h-3 w-3 text-white" />
+              </span>
             </a>
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white hover:bg-white/20 transition"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur hover:bg-white/10 transition-all duration-300"
             >
               Kembali ke Ekosistem
             </Link>
@@ -240,7 +263,42 @@ function CTASection() {
 
 export default function TrashRecycleCenterPage() {
   return (
-    <main className="relative overflow-hidden">
+    <main className="relative overflow-hidden bg-background text-foreground min-h-screen">
+      {/* Background and grain overlays */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.12),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(250,204,21,0.08),_transparent_30%),linear-gradient(180deg,_#000000_0%,_#050805_100%)]" />
+      <div className="pointer-events-none absolute left-[-8rem] top-[22rem] h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl -z-10" />
+      <div className="pointer-events-none absolute right-[-8rem] top-[48rem] h-96 w-96 rounded-full bg-amber-500/5 blur-3xl -z-10" />
+      <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.12] -z-10" />
+
+      <header className="sticky top-0 z-50 border-b border-white/5 bg-black/40 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+          <Link href="/" className="transition-colors hover:text-white">
+            <div className="flex items-center gap-3">
+              <div className="relative h-10 w-10 overflow-hidden rounded-full border border-white/10 bg-white/5 shadow-inner">
+                <Image
+                  src="/Baciraro cap.png"
+                  alt="Baciraro logo"
+                  fill
+                  sizes="40px"
+                  className="object-contain p-1.5"
+                />
+              </div>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-emerald-400">Baciraro</p>
+                <p className="text-[11px] text-zinc-500">Recycle Center Profile</p>
+              </div>
+            </div>
+          </Link>
+          <Link
+            href="/#ecosystem"
+            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold tracking-wider uppercase text-white shadow-lg backdrop-blur-md transition-transform hover:-translate-y-0.5 hover:bg-white/10"
+          >
+            <ArrowLeft className="h-3 w-3 mr-1" />
+            Kembali
+          </Link>
+        </div>
+      </header>
+
       <HeroSection />
       <WasteTypesSection />
       <ProcessSection />

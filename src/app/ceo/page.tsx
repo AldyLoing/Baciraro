@@ -16,6 +16,8 @@ import {
   Lightbulb,
 } from "lucide-react";
 
+const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 const ceoData = {
   name: "Marlon Kamagi",
   title: "Chief Executive Officer",
@@ -62,8 +64,8 @@ const ceoData = {
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-800 shadow-sm">
-      <span className="h-2 w-2 rounded-full bg-amber-400" />
+    <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-400 backdrop-blur shadow-lg">
+      <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
       {children}
     </p>
   );
@@ -71,69 +73,85 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 export default function CEOPage() {
   return (
-    <main className="relative overflow-hidden bg-[#f5faf5] text-slate-900">
-      <div className="pointer-events-none absolute inset-0 -z-0 bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.14),_transparent_30%),radial-gradient(circle_at_top_right,_rgba(250,204,21,0.12),_transparent_26%),linear-gradient(180deg,_rgba(255,255,255,0.95),_rgba(245,250,245,1))]" />
+    <main className="relative overflow-hidden bg-background text-foreground min-h-screen">
+      {/* Background and grain overlays */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.12),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(250,204,21,0.08),_transparent_30%),linear-gradient(180deg,_#000000_0%,_#050805_100%)]" />
+      <div className="pointer-events-none absolute left-[-8rem] top-[22rem] h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl -z-10" />
+      <div className="pointer-events-none absolute right-[-8rem] top-[48rem] h-96 w-96 rounded-full bg-amber-500/5 blur-3xl -z-10" />
+      <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.12] -z-10" />
 
-      <header className="relative z-10 border-b border-emerald-100/80 bg-white/70 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
-          <Link href="/" className="transition-colors hover:text-emerald-700">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-emerald-700">Baciraro</p>
-              <p className="mt-1 text-sm text-slate-500">Sustainability Platform</p>
+      <header className="sticky top-0 z-50 border-b border-white/5 bg-black/40 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+          <Link href="/" className="transition-colors hover:text-white">
+            <div className="flex items-center gap-3">
+              <div className="relative h-10 w-10 overflow-hidden rounded-full border border-white/10 bg-white/5 shadow-inner">
+                <Image
+                  src="/Baciraro cap.png"
+                  alt="Baciraro logo"
+                  fill
+                  sizes="40px"
+                  className="object-contain p-1.5"
+                />
+              </div>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-emerald-400">Baciraro</p>
+                <p className="text-[11px] text-zinc-500">Sustainability Platform</p>
+              </div>
             </div>
           </Link>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-4 py-2 text-sm font-semibold text-emerald-800 shadow-sm transition-transform hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold tracking-wider uppercase text-white shadow-lg backdrop-blur-md transition-transform hover:-translate-y-0.5 hover:bg-white/10"
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="h-3 w-3 mr-1" />
             Kembali
           </Link>
         </div>
       </header>
 
-      <section className="relative z-10 min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 py-20">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(34,197,94,0.15),_transparent_60%),radial-gradient(circle_at_bottom_left,_rgba(250,204,21,0.1),_transparent_50%)]" />
-        <div className="pointer-events-none absolute top-20 left-1/2 -translate-x-1/2 h-96 w-96 rounded-full bg-emerald-400/20 blur-3xl" />
+      {/* CEO Hero Section */}
+      <section className="relative z-10 min-h-[90vh] flex items-center justify-center pt-16 pb-12">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,_rgba(16,185,129,0.15),_transparent_60%)]" />
         
-        <div className="relative z-10 mx-auto max-w-4xl px-6 text-center lg:px-8">
+        <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, ease: springEase }}
             className="mb-12"
           >
             <div className="inline-flex justify-center mb-8">
-              <div className="relative w-64 h-80 overflow-hidden rounded-[2.5rem] shadow-2xl">
+              <div className="relative w-64 h-80 overflow-hidden rounded-[3rem] border border-white/10 shadow-[0_20px_80px_rgba(0,0,0,0.6)]">
                 <Image
                   src="/Marlon.png"
                   alt={ceoData.name}
                   fill
                   priority
                   sizes="(max-width: 768px) 100vw, 256px"
-                  className="object-cover"
+                  className="object-cover transition-transform duration-500 hover:scale-105"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
               </div>
             </div>
 
             <div className="space-y-4">
-              <p className="text-emerald-400 text-sm font-semibold uppercase tracking-[0.3em]">Chief Executive Officer</p>
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white">
+              <p className="text-emerald-400 text-xs font-semibold uppercase tracking-[0.3em]">Chief Executive Officer</p>
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-normal leading-none tracking-[-0.04em] text-white">
                 {ceoData.name}
               </h1>
-              <p className="text-2xl sm:text-3xl font-semibold text-emerald-300">{ceoData.subtitle}</p>
-              <p className="text-lg text-slate-300">{ceoData.title}</p>
+              <p className="font-serif text-3xl italic tracking-tight text-emerald-300/85">{ceoData.subtitle}</p>
+              <p className="text-sm uppercase tracking-[0.2em] text-zinc-500">{ceoData.title}</p>
             </div>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: springEase }}
             className="mt-12 space-y-4"
           >
             {ceoData.description.map((para, index) => (
-              <p key={index} className="leading-8 text-slate-200 text-lg max-w-2xl mx-auto">
+              <p key={index} className="leading-relaxed text-zinc-300 text-base md:text-lg max-w-2xl mx-auto">
                 {para}
               </p>
             ))}
@@ -142,21 +160,23 @@ export default function CEOPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="mt-12 flex flex-col sm:flex-row gap-4 justify-center items-center"
+            transition={{ duration: 0.8, delay: 0.4, ease: springEase }}
+            className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <a
               href={`mailto:${ceoData.contact.email}`}
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-white font-semibold hover:bg-emerald-700 transition-colors"
+              className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3 shadow-lg"
             >
-              <Mail className="h-5 w-5" />
               Hubungi Marlon
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black">
+                <Mail className="h-3.5 w-3.5 text-white" />
+              </span>
             </a>
             <a
               href={`tel:${ceoData.contact.phone}`}
-              className="inline-flex items-center gap-2 rounded-full border border-emerald-400 bg-transparent px-6 py-3 text-emerald-300 font-semibold hover:bg-emerald-400/10 transition-colors"
+              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur transition-all hover:bg-white/10"
             >
-              <Phone className="h-5 w-5" />
+              <Phone className="h-4 w-4 text-emerald-400" />
               {ceoData.contact.phone}
             </a>
           </motion.div>
@@ -173,61 +193,69 @@ export default function CEOPage() {
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center h-12 w-12 rounded-full border border-emerald-400 bg-emerald-400/10 text-emerald-300 hover:bg-emerald-400/20 transition-colors"
+                className="inline-flex items-center justify-center h-12 w-12 rounded-full border border-white/10 bg-white/5 text-zinc-400 hover:text-white hover:bg-white/10 transition-colors shadow-lg"
                 title={social.name}
               >
-                <social.icon className="h-6 w-6" />
+                <social.icon className="h-5 w-5" />
               </a>
             ))}
           </motion.div>
         </div>
       </section>
 
+      {/* Info Cards Section */}
       <section className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:px-8">
-        <div className="rounded-2xl border border-emerald-100 bg-white p-8">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">Informasi Kontak</h3>
-          <div className="mt-6 grid gap-6 sm:grid-cols-3">
+        <div className="rounded-[3rem] border border-white/5 bg-zinc-900/20 p-8 shadow-2xl backdrop-blur-sm">
+          <h3 className="text-xs font-semibold uppercase tracking-[0.25em] text-zinc-500 mb-6">Informasi Kontak</h3>
+          <div className="grid gap-6 sm:grid-cols-3">
             <a
               href={`tel:${ceoData.contact.phone}`}
-              className="flex items-start gap-3 p-4 rounded-xl border border-emerald-100 hover:bg-emerald-50 transition-colors"
+              className="flex items-start gap-4 p-5 rounded-[2rem] border border-white/5 bg-zinc-950/40 hover:bg-zinc-950/60 hover:border-white/10 transition-all duration-300"
             >
-              <Phone className="h-6 w-6 text-emerald-700 mt-1" />
+              <div className="rounded-2xl bg-emerald-500/10 p-3 text-emerald-400">
+                <Phone className="h-6 w-6" />
+              </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Telepon</p>
-                <p className="mt-1 font-semibold text-slate-900">{ceoData.contact.phone}</p>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 font-semibold">Telepon</p>
+                <p className="mt-1 font-semibold text-white">{ceoData.contact.phone}</p>
               </div>
             </a>
             <a
               href={`mailto:${ceoData.contact.email}`}
-              className="flex items-start gap-3 p-4 rounded-xl border border-emerald-100 hover:bg-emerald-50 transition-colors"
+              className="flex items-start gap-4 p-5 rounded-[2rem] border border-white/5 bg-zinc-950/40 hover:bg-zinc-950/60 hover:border-white/10 transition-all duration-300"
             >
-              <Mail className="h-6 w-6 text-emerald-700 mt-1" />
+              <div className="rounded-2xl bg-emerald-500/10 p-3 text-emerald-400">
+                <Mail className="h-6 w-6" />
+              </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Email</p>
-                <p className="mt-1 font-semibold text-slate-900 break-all">{ceoData.contact.email}</p>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 font-semibold">Email</p>
+                <p className="mt-1 font-semibold text-white break-all">{ceoData.contact.email}</p>
               </div>
             </a>
             <a
               href={`https://${ceoData.contact.website}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-start gap-3 p-4 rounded-xl border border-emerald-100 hover:bg-emerald-50 transition-colors"
+              className="flex items-start gap-4 p-5 rounded-[2rem] border border-white/5 bg-zinc-950/40 hover:bg-zinc-950/60 hover:border-white/10 transition-all duration-300"
             >
-              <Globe className="h-6 w-6 text-emerald-700 mt-1" />
+              <div className="rounded-2xl bg-emerald-500/10 p-3 text-emerald-400">
+                <Globe className="h-6 w-6" />
+              </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Website</p>
-                <p className="mt-1 font-semibold text-slate-900">{ceoData.contact.website}</p>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 font-semibold">Website</p>
+                <p className="mt-1 font-semibold text-white">{ceoData.contact.website}</p>
               </div>
             </a>
           </div>
         </div>
       </section>
 
-      <section className="relative z-10 bg-emerald-50 py-20 lg:py-24">
+      {/* Expertise Section */}
+      <section className="relative z-10 py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mb-12">
             <SectionLabel>Keahlian & Kompetensi</SectionLabel>
-            <h2 className="mt-6 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+            <h2 className="mt-6 text-3xl font-normal leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-5xl">
               Pengalaman dan Keahlian Bertahun-tahun
             </h2>
           </div>
@@ -240,39 +268,44 @@ export default function CEOPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.55, delay: index * 0.08 }}
-                className="rounded-[1.75rem] border border-emerald-100 bg-white p-6 shadow-sm hover:shadow-md transition-shadow"
+                className="rounded-[2.25rem] border border-white/5 bg-zinc-900/20 p-6 shadow-xl backdrop-blur-sm hover:border-white/10 hover:bg-zinc-900/30 transition-all duration-300"
               >
-                <item.icon className="h-8 w-8 text-emerald-700" />
-                <h3 className="mt-4 text-lg font-semibold text-slate-900">{item.title}</h3>
-                <p className="mt-2 text-slate-600">{item.description}</p>
+                <div className="rounded-2xl bg-emerald-500/10 p-3 text-emerald-400 w-fit">
+                  <item.icon className="h-7 w-7" />
+                </div>
+                <h3 className="mt-6 text-xl font-normal text-white">{item.title}</h3>
+                <p className="mt-2 text-zinc-400 leading-relaxed text-sm">{item.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Footer CTA Section */}
       <section className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
-        <div className="rounded-[2rem] border border-emerald-100 bg-gradient-to-br from-emerald-50 to-white p-8 text-center lg:p-12">
-          <h2 className="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+        <div className="rounded-[3rem] border border-white/5 bg-gradient-to-br from-zinc-950 via-zinc-900 to-emerald-950/20 p-8 text-center lg:p-12 shadow-2xl backdrop-blur-sm">
+          <h2 className="text-3xl font-normal leading-[1.1] tracking-tight text-white">
             Tertarik untuk Berkolaborasi?
           </h2>
-          <p className="mt-4 text-lg text-slate-600">
-            Hubungi Marlon Kamagi untuk diskusi lebih lanjut tentang Baciraro atau peluang kerjasama
+          <p className="mt-4 text-base text-zinc-400 max-w-xl mx-auto">
+            Hubungi Marlon Kamagi untuk diskusi lebih lanjut tentang Baciraro atau peluang kemitraan lingkungan.
           </p>
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
             <a
               href={`mailto:${ceoData.contact.email}`}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-emerald-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-700/20 transition-transform hover:-translate-y-0.5"
+              className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3"
             >
-              <Mail className="h-4 w-4" />
               Kirim Email
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black">
+                <Mail className="h-3.5 w-3.5 text-white" />
+              </span>
             </a>
             <a
               href={`tel:${ceoData.contact.phone}`}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-200 bg-white px-6 py-3.5 text-sm font-semibold text-slate-800 shadow-sm transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur hover:bg-white/10 transition-all duration-300"
             >
-              <Phone className="h-4 w-4" />
-              Hubungi
+              <Phone className="h-4 w-4 text-emerald-400" />
+              Hubungi langsung
             </a>
           </div>
         </div>

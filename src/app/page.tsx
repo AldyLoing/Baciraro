@@ -19,6 +19,8 @@ import {
   Users,
 } from "lucide-react";
 
+const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 const ecosystemCards = [
   {
     name: "Yayasan Tana Nyiur Lestari",
@@ -89,8 +91,8 @@ const serviceCards = [
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-800 shadow-sm">
-      <span className="h-2 w-2 rounded-full bg-amber-400" />
+    <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-400 backdrop-blur shadow-lg">
+      <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
       {children}
     </p>
   );
@@ -108,10 +110,10 @@ function SectionHeading({
   return (
     <div className="max-w-3xl">
       <SectionLabel>{eyebrow}</SectionLabel>
-      <h2 className="mt-5 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+      <h2 className="mt-5 text-3xl font-normal leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-5xl">
         {title}
       </h2>
-      <p className="mt-4 text-base leading-8 text-slate-600 sm:text-lg">{description}</p>
+      <p className="mt-4 text-base leading-7 text-zinc-400 sm:text-lg">{description}</p>
     </div>
   );
 }
@@ -128,20 +130,20 @@ function EcosystemCardImage({
         alt={card.name}
         fill
         sizes="(max-width: 768px) 100vw, 28vw"
-        className="object-contain p-2 transition-transform duration-500 group-hover:scale-[1.02]"
+        className="object-contain p-4 transition-transform duration-500 group-hover:scale-[1.04]"
       />
     );
   }
 
   return (
-    <div className="flex h-full items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.18),_transparent_55%),linear-gradient(135deg,_#ecfdf5,_#ffffff)] p-6 text-center">
+    <div className="flex h-full items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.1),_transparent_55%),linear-gradient(135deg,_#090d09,_#000000)] p-6 text-center">
       <div className="max-w-xs">
-        <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-emerald-600 text-2xl font-black text-white shadow-lg shadow-emerald-600/20">
+        <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-[2rem] border border-emerald-500/20 bg-emerald-950/40 text-2xl font-black text-emerald-400 shadow-xl backdrop-blur-sm">
           CBD
         </div>
-        <p className="mt-5 text-sm font-semibold uppercase tracking-[0.28em] text-emerald-700">Baciraro</p>
-        <p className="mt-2 text-lg font-semibold text-slate-900">{card.name}</p>
-        <p className="mt-2 text-sm leading-7 text-slate-600">
+        <p className="mt-5 text-[10px] font-bold uppercase tracking-[0.28em] text-emerald-400">Baciraro</p>
+        <p className="mt-2 text-lg font-normal text-white">{card.name}</p>
+        <p className="mt-2 text-xs leading-relaxed text-zinc-400">
           Analisis bisnis, visibilitas finansial, dan penguatan keputusan berbasis data.
         </p>
       </div>
@@ -151,110 +153,113 @@ function EcosystemCardImage({
 
 export default function Home() {
   return (
-    <main className="relative overflow-hidden bg-[#f5faf5] text-slate-900">
-      <div className="pointer-events-none absolute inset-0 -z-0 bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.14),_transparent_30%),radial-gradient(circle_at_top_right,_rgba(250,204,21,0.12),_transparent_26%),linear-gradient(180deg,_rgba(255,255,255,0.95),_rgba(245,250,245,1))]" />
-      <div className="pointer-events-none absolute left-[-8rem] top-[22rem] h-72 w-72 rounded-full bg-emerald-300/20 blur-3xl" />
-      <div className="pointer-events-none absolute right-[-8rem] top-[48rem] h-72 w-72 rounded-full bg-amber-300/20 blur-3xl" />
+    <main className="relative overflow-hidden bg-background text-foreground min-h-screen">
+      {/* Background and grain overlays */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.12),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(250,204,21,0.08),_transparent_30%),linear-gradient(180deg,_#000000_0%,_#050805_100%)]" />
+      <div className="pointer-events-none absolute left-[-8rem] top-[22rem] h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl -z-10" />
+      <div className="pointer-events-none absolute right-[-8rem] top-[48rem] h-96 w-96 rounded-full bg-amber-500/5 blur-3xl -z-10" />
+      <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.12] -z-10" />
 
-      <header className="relative z-10 border-b border-emerald-100/80 bg-white/70 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
+      <header className="sticky top-0 z-50 border-b border-white/5 bg-black/40 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
           <div className="flex items-center gap-3">
-            <div className="relative h-11 w-11 overflow-hidden rounded-full border border-emerald-200 bg-white shadow-sm">
+            <div className="relative h-10 w-10 overflow-hidden rounded-full border border-white/10 bg-white/5 shadow-inner">
               <Image
                 src="/Baciraro cap.png"
                 alt="Baciraro logo"
                 fill
-                sizes="44px"
+                sizes="40px"
                 className="object-contain p-1.5"
               />
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-emerald-700">Baciraro</p>
-              <p className="mt-1 text-sm text-slate-500">Sustainability Platform</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-emerald-400">Baciraro</p>
+              <p className="text-[11px] text-zinc-500">Sustainability Platform</p>
             </div>
           </div>
-          <nav className="hidden items-center gap-8 text-sm font-medium text-slate-600 md:flex">
-            <a href="#ecosystem" className="transition-colors hover:text-emerald-700">
+          <nav className="hidden items-center gap-8 text-xs font-semibold uppercase tracking-wider text-zinc-400 md:flex">
+            <a href="#ecosystem" className="transition-colors hover:text-white">
               Ekosistem
             </a>
-            <a href="#flow" className="transition-colors hover:text-emerald-700">
+            <a href="#flow" className="transition-colors hover:text-white">
               Alur Sistem
             </a>
-            <a href="#impact" className="transition-colors hover:text-emerald-700">
+            <a href="#impact" className="transition-colors hover:text-white">
               Dampak
             </a>
-            <Link href="/ceo" className="transition-colors hover:text-emerald-700">
+            <Link href="/ceo" className="transition-colors hover:text-white">
               CEO
             </Link>
-            <Link href="/projects" className="transition-colors hover:text-emerald-700">
+            <Link href="/projects" className="transition-colors hover:text-white">
               Proyek
             </Link>
-            <a href="#contact" className="transition-colors hover:text-emerald-700">
+            <a href="#contact" className="transition-colors hover:text-white">
               Kontak
             </a>
           </nav>
           <Link
             href="/creative"
-            className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-4 py-2 text-sm font-semibold text-emerald-800 shadow-sm transition-transform hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold tracking-wider uppercase text-white shadow-lg backdrop-blur-md transition-transform hover:-translate-y-0.5 hover:bg-white/10"
           >
             Baciraro Creative
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
       </header>
 
-      <section className="relative z-10 min-h-screen overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(34,197,94,0.16),_transparent_60%),radial-gradient(circle_at_bottom_left,_rgba(250,204,21,0.12),_transparent_50%)]" />
-        <div className="pointer-events-none absolute -left-28 top-1/2 h-[28rem] w-[28rem] -translate-y-1/2 rounded-full bg-emerald-400/15 blur-3xl" />
-        <div className="pointer-events-none absolute -right-28 bottom-10 h-[24rem] w-[24rem] rounded-full bg-amber-300/10 blur-3xl" />
-
-        <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 py-16 lg:px-8">
+      {/* Hero Section */}
+      <section className="relative z-10 min-h-[90vh] flex items-center justify-center pt-16 pb-12">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,_rgba(16,185,129,0.15),_transparent_60%)]" />
+        
+        <div className="relative mx-auto w-full max-w-7xl px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 1, ease: springEase }}
             className="mx-auto flex w-full max-w-5xl flex-col items-center text-center"
           >
-            <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-white/80 backdrop-blur">
-              <span className="h-2 w-2 rounded-full bg-emerald-400" />
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-400 backdrop-blur-md">
+              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
               Ekosistem Pengelolaan Sampah Terintegrasi
             </div>
 
-            <div className="relative mb-10 h-80 w-64 overflow-hidden rounded-[2.5rem] sm:h-[23rem] sm:w-72">
+            <div className="relative mb-10 h-64 w-64 md:h-72 md:w-72 overflow-hidden rounded-[3rem] border border-white/5 bg-zinc-900/30 p-8 shadow-2xl backdrop-blur-sm">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.15),_transparent_70%)]" />
               <Image
                 src="/Baciraro cap.png"
                 alt="Baciraro logo"
                 fill
                 priority
-                sizes="(max-width: 768px) 100vw, 288px"
-                className="object-contain p-4"
+                sizes="288px"
+                className="object-contain p-6 drop-shadow-[0_20px_50px_rgba(16,185,129,0.25)]"
               />
             </div>
 
-            <div className="relative max-w-6xl">
-              <p className="font-serif text-4xl italic tracking-tight text-white/90 sm:text-5xl lg:text-6xl">
+            <div className="relative max-w-5xl">
+              <p className="font-serif text-3xl md:text-4xl italic tracking-tight text-emerald-300/80">
                 Our Company
               </p>
-              <h1 className="mt-2 text-5xl font-black leading-none tracking-tight text-white sm:text-6xl lg:text-[7.5rem]">
+              <h1 className="mt-2 text-6xl font-normal leading-[0.85] tracking-[-0.05em] text-white sm:text-7xl md:text-8xl lg:text-[7.5rem]">
                 BACIRARO
               </h1>
-              <p className="mx-auto mt-4 max-w-4xl text-lg leading-8 text-slate-200 sm:text-xl">
-                Baciraro adalah perusahaan yang membangun sistem pengelolaan sampah terintegrasi dari
-                edukasi, pengumpulan, daur ulang, hingga produk dan pelacakan digital.
+              <p className="mx-auto mt-6 max-w-3xl text-base md:text-lg leading-relaxed text-zinc-400">
+                Baciraro adalah perusahaan yang membangun sistem pengelolaan sampah terintegrasi dari edukasi, pengumpulan, daur ulang, hingga produk turunan kreatif dan pelacakan digital.
               </p>
             </div>
 
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
               <a
                 href="#ecosystem"
-                className="inline-flex items-center gap-3 rounded-full bg-emerald-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/20 transition-transform hover:-translate-y-0.5"
+                className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3 shadow-lg hover:bg-zinc-100"
               >
                 Jelajahi Ekosistem
-                <ArrowRight className="h-4 w-4" />
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black transition-transform group-hover:scale-110">
+                  <ArrowRight className="h-3 w-3 text-white" />
+                </span>
               </a>
               <a
                 href="#ceo"
-                className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur transition-transform hover:-translate-y-0.5"
+                className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur transition-all hover:bg-white/10 hover:border-white/20"
               >
                 Lihat CEO
               </a>
@@ -268,7 +273,7 @@ export default function Home() {
               ].map((item) => (
                 <div
                   key={item}
-                  className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-slate-200 backdrop-blur"
+                  className="rounded-2xl border border-white/5 bg-zinc-900/20 p-5 text-sm font-medium text-zinc-300 backdrop-blur-md shadow-lg"
                 >
                   {item}
                 </div>
@@ -278,10 +283,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="ceo" className="relative z-10 overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 py-24 text-white lg:py-28">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(34,197,94,0.16),_transparent_60%),radial-gradient(circle_at_bottom_left,_rgba(250,204,21,0.12),_transparent_50%)]" />
-        <div className="pointer-events-none absolute left-1/2 top-20 h-80 w-80 -translate-x-1/2 rounded-full bg-emerald-400/15 blur-3xl" />
-
+      {/* CEO Profile Preview */}
+      <section id="ceo" className="relative z-10 overflow-hidden py-24 text-white lg:py-28">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.12),_transparent_60%)]" />
+        <div className="pointer-events-none absolute left-1/2 top-20 h-80 w-80 -translate-x-1/2 rounded-full bg-emerald-500/10 blur-3xl" />
+        
         <div className="relative mx-auto flex max-w-5xl flex-col items-center px-6 text-center lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -290,73 +296,75 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="flex w-full flex-col items-center"
           >
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-white/80 backdrop-blur">
-              <span className="h-2 w-2 rounded-full bg-emerald-400" />
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-400 backdrop-blur-md shadow-lg">
+              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
               Our CEO
             </p>
 
-            <div className="relative mt-10 h-80 w-64 overflow-hidden rounded-[2.5rem] shadow-[0_30px_120px_rgba(0,0,0,0.45)] sm:h-[23rem] sm:w-72">
+            <div className="relative mt-10 h-80 w-64 overflow-hidden rounded-[3rem] border border-white/10 shadow-[0_20px_80px_rgba(0,0,0,0.6)] sm:h-[23rem] sm:w-72">
               <Image
                 src="/Marlon.png"
                 alt="Marlon Kamagi"
                 fill
                 sizes="(max-width: 768px) 100vw, 288px"
-                className="object-cover"
+                className="object-cover transition-transform duration-500 hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/25 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
             </div>
 
             <div className="mt-10 max-w-4xl">
-              <p className="font-serif text-4xl italic tracking-tight text-white/90 sm:text-5xl lg:text-6xl">
+              <p className="font-serif text-3xl md:text-4xl italic tracking-tight text-emerald-300/80">
                 Hello, I&apos;m
               </p>
-              <h2 className="mt-2 text-5xl font-black leading-none tracking-tight text-white sm:text-6xl lg:text-[6.5rem]">
+              <h2 className="mt-2 text-5xl font-normal leading-none tracking-[-0.04em] text-white sm:text-6xl lg:text-[5.5rem]">
                 Marlon Kamagi
               </h2>
-              <p className="mt-5 text-2xl font-semibold text-emerald-300 sm:text-3xl">
+              <p className="mt-4 text-xl font-medium text-emerald-400 sm:text-2xl">
                 Chief Executive Officer
               </p>
-              <p className="mt-3 text-lg text-slate-300 sm:text-xl">
+              <p className="mt-2 text-sm uppercase tracking-[0.2em] text-zinc-500">
                 Community Development Worker
               </p>
-              <p className="mx-auto mt-8 max-w-3xl text-base leading-8 text-slate-200 sm:text-lg">
-                Pemimpin Baciraro yang membawa pengalaman di community development, riset sosial-lingkungan,
-                dan aksi iklim untuk membangun ekosistem yang berdampak.
+              <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-zinc-400">
+                Pemimpin Baciraro yang membawa pengalaman luas di bidang pengembangan komunitas, riset aksi sosial-lingkungan, dan fasilitasi perubahan iklim untuk memperkuat ekosistem keberlanjutan.
               </p>
             </div>
 
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
               <Link
                 href="/ceo"
-                className="inline-flex items-center gap-3 rounded-full bg-emerald-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/20 transition-transform hover:-translate-y-0.5"
+                className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3"
               >
                 Lihat Halaman CEO
-                <ArrowRight className="h-4 w-4" />
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black transition-transform group-hover:scale-110">
+                  <ArrowRight className="h-3 w-3 text-white" />
+                </span>
               </Link>
               <a
                 href="https://marlonkamagi.wixsite.com/marlonkamagi"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur transition-transform hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur transition-all hover:bg-white/10"
               >
                 Sumber Profil
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4" text-zinc-500 />
               </a>
             </div>
           </motion.div>
         </div>
       </section>
 
-      <section id="about" className="relative z-10 mx-auto max-w-7xl px-6 pb-8 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-          <div className="overflow-hidden rounded-[2rem] border border-emerald-100 bg-white p-4 shadow-[0_30px_80px_rgba(15,23,42,0.08)]">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-emerald-50">
+      {/* About Section */}
+      <section id="about" className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div className="overflow-hidden rounded-[3rem] border border-white/5 bg-zinc-900/20 p-6 shadow-2xl backdrop-blur-sm">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-zinc-950 border border-white/5">
               <Image
                 src="/Baciraro cap.png"
                 alt="Baciraro cap"
                 fill
                 sizes="(max-width: 1024px) 100vw, 40vw"
-                className="object-contain p-8"
+                className="object-contain p-8 drop-shadow-[0_15px_30px_rgba(16,185,129,0.15)]"
               />
             </div>
           </div>
@@ -364,8 +372,8 @@ export default function Home() {
           <div>
             <SectionHeading
               eyebrow="Tentang Baciraro"
-              title="Satu ekosistem untuk menghubungkan edukasi, pengolahan, inovasi, dan digitalisasi."
-              description="Baciraro dirancang sebagai ekosistem yang mengintegrasikan edukasi lingkungan, pengolahan sampah, inovasi teknologi, dan digitalisasi untuk menciptakan sistem yang berkelanjutan dan bernilai ekonomi."
+              title="Satu ekosistem terpadu untuk menghubungkan edukasi, pengolahan, inovasi, dan digitalisasi."
+              description="Baciraro dirancang untuk menyelesaikan problem lingkungan dengan pendekatan sirkular yang inklusif, menghubungkan program komunitas secara langsung ke offtaker industri."
             />
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {[
@@ -374,7 +382,7 @@ export default function Home() {
                 "Menyediakan dashboard dan jejak dampak yang transparan.",
                 "Mendukung kolaborasi CSR, pemerintah, dan desa.",
               ].map((item) => (
-                <div key={item} className="rounded-2xl border border-emerald-100 bg-white p-4 text-sm leading-7 text-slate-600 shadow-sm">
+                <div key={item} className="rounded-2xl border border-white/5 bg-zinc-900/20 p-5 text-sm leading-relaxed text-zinc-400 shadow-lg backdrop-blur-sm">
                   {item}
                 </div>
               ))}
@@ -383,16 +391,17 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Ecosystem Section */}
       <section id="ecosystem" className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
         <SectionHeading
           eyebrow="Baciraro Ecosystem"
-              title="Lima entitas yang saling terhubung untuk menciptakan nilai dari sampah."
+          title="Lima entitas yang saling terhubung untuk menciptakan nilai dari sampah."
           description="Setiap unit menjalankan fungsi berbeda, tetapi terhubung dalam satu sistem terintegrasi yang mendorong dampak sosial, ekonomi, dan lingkungan."
         />
 
         <div className="mt-10 grid gap-6">
-          <div className="overflow-hidden rounded-[2rem] border border-emerald-100 bg-white p-4 shadow-[0_30px_80px_rgba(15,23,42,0.08)]">
-            <div className="relative aspect-[16/10] overflow-hidden rounded-[1.5rem] bg-slate-100">
+          <div className="overflow-hidden rounded-[3rem] border border-white/5 bg-zinc-900/20 p-6 shadow-2xl backdrop-blur-sm">
+            <div className="relative aspect-[16/10] overflow-hidden rounded-[2rem] bg-zinc-950 border border-white/5">
               <Image
                 src="/baciraro ecosystem.jpeg"
                 alt="Baciraro ecosystem overview"
@@ -403,7 +412,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2">
             {ecosystemCards.map((card, index) => (
               <motion.article
                 key={card.name}
@@ -411,23 +420,23 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.55, delay: index * 0.08 }}
-                className="group overflow-hidden rounded-[1.75rem] border border-emerald-100 bg-white shadow-[0_20px_70px_rgba(15,23,42,0.07)]"
+                className="group overflow-hidden rounded-[2rem] border border-white/5 bg-zinc-900/20 shadow-xl backdrop-blur-sm transition-all duration-300 hover:border-white/10 hover:bg-zinc-900/30"
               >
-                <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-emerald-50 to-white p-4 sm:p-5">
+                <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-zinc-950 via-zinc-900 to-emerald-950/20 p-6 border-b border-white/5">
                   <EcosystemCardImage card={card} />
-                  <div className="absolute left-4 top-4 rounded-full bg-white/90 p-2 text-emerald-700 shadow-sm backdrop-blur">
-                    <card.icon className="h-4 w-4" />
+                  <div className="absolute left-6 top-6 rounded-full border border-white/10 bg-black/60 p-2.5 text-emerald-400 shadow-lg backdrop-blur">
+                    <card.icon className="h-5 w-5" />
                   </div>
                 </div>
-                <div className="p-5">
-                  <h3 className="text-lg font-semibold text-slate-900">{card.name}</h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">{card.description}</p>
+                <div className="p-6">
+                  <h3 className="text-xl font-normal text-white">{card.name}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-zinc-400">{card.description}</p>
                   <Link
                     href={card.href}
-                    className="mt-5 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-4 py-2 text-sm font-semibold text-emerald-800 shadow-sm transition-transform hover:-translate-y-0.5 hover:border-emerald-300"
+                    className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-xs font-semibold tracking-wider uppercase text-white shadow-lg backdrop-blur hover:bg-white/10 transition-colors"
                   >
                     Buka Halaman
-                    <ArrowRight className="h-4 w-4" />
+                    <ArrowRight className="h-3 w-3 text-emerald-400" />
                   </Link>
                 </div>
               </motion.article>
@@ -436,30 +445,31 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="flow" className="relative z-10 bg-gradient-to-b from-emerald-950 to-emerald-900 py-20 text-white lg:py-24">
+      {/* Flow Section */}
+      <section id="flow" className="relative z-10 py-20 text-white lg:py-24 overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.12),_transparent_60%)]" />
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionLabel>Alur Sistem</SectionLabel>
           <div className="mt-5 max-w-3xl">
-            <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
+            <h2 className="text-3xl font-normal leading-[1.15] tracking-tight sm:text-4xl lg:text-5xl">
               Dari sampah menjadi data, lalu kembali menjadi nilai.
             </h2>
-            <p className="mt-4 text-base leading-8 text-emerald-50/80 sm:text-lg">
-              Visualisasi ini menunjukkan bagaimana Baciraro menghubungkan edukasi, pengumpulan, daur ulang,
-              produk turunan, dan pelacakan digital dalam satu rantai nilai.
+            <p className="mt-4 text-base leading-relaxed text-zinc-400 sm:text-lg">
+              Visualisasi ini menunjukkan bagaimana Baciraro menghubungkan edukasi, pengumpulan, daur ulang, produk turunan, dan pelacakan digital dalam satu rantai nilai.
             </p>
           </div>
 
           <div className="mt-12 grid gap-4 md:grid-cols-3 xl:grid-cols-6">
             {flowSteps.map((step, index) => (
               <div key={step} className="relative">
-                <div className="rounded-[1.5rem] border border-white/10 bg-white/8 p-5 backdrop-blur-md">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-300 font-bold text-emerald-950">
+                <div className="rounded-[1.75rem] border border-white/5 bg-zinc-900/20 p-6 backdrop-blur-sm shadow-xl">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500/20 border border-emerald-500/30 font-bold text-emerald-400">
                     0{index + 1}
                   </div>
-                  <p className="mt-4 text-lg font-semibold">{step}</p>
+                  <p className="mt-4 text-lg font-medium text-white">{step}</p>
                 </div>
                 {index < flowSteps.length - 1 ? (
-                  <ArrowRight className="absolute -right-2 top-1/2 hidden h-5 w-5 -translate-y-1/2 text-amber-300 xl:block" />
+                  <ArrowRight className="absolute -right-2 top-1/2 hidden h-5 w-5 -translate-y-1/2 text-emerald-500/40 xl:block" />
                 ) : null}
               </div>
             ))}
@@ -467,11 +477,12 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Impact Section */}
       <section id="impact" className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
         <SectionHeading
           eyebrow="Impact"
-          title="Dampak yang terlihat, terukur, dan mudah dipresentasikan untuk CSR maupun publik."
-          description="Bagian ini menampilkan indikator utama agar Baciraro mudah dipakai sebagai materi website resmi, proposal kerja sama, dan presentasi kelembagaan."
+          title="Dampak yang terlihat, terukur, dan mudah dipresentasikan."
+          description="Bagian ini menampilkan indikator utama agar Baciraro mudah dipakai sebagai materi presentasi, website resmi, dan laporan kelembagaan."
         />
 
         <div className="mt-10 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
@@ -483,23 +494,25 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.55, delay: index * 0.08 }}
-                className="rounded-[1.5rem] border border-emerald-100 bg-white p-5 shadow-[0_20px_60px_rgba(15,23,42,0.06)]"
+                className="rounded-[2rem] border border-white/5 bg-zinc-900/20 p-6 shadow-xl backdrop-blur-sm"
               >
-                <metric.icon className="h-5 w-5 text-emerald-700" />
-                <p className="mt-8 text-3xl font-semibold tracking-tight text-slate-900">{metric.value}</p>
-                <p className="mt-2 text-sm text-slate-500">{metric.label}</p>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400">
+                  <metric.icon className="h-5 w-5" />
+                </div>
+                <p className="mt-8 text-3xl font-semibold tracking-tight text-white">{metric.value}</p>
+                <p className="mt-2 text-sm text-zinc-400">{metric.label}</p>
               </motion.div>
             ))}
           </div>
 
-          <div className="rounded-[2rem] border border-emerald-100 bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.06)]">
+          <div className="rounded-[2.25rem] border border-white/5 bg-zinc-900/20 p-6 shadow-xl backdrop-blur-sm">
             <div className="flex items-center gap-3">
-              <div className="rounded-2xl bg-emerald-50 p-3 text-emerald-700">
+              <div className="rounded-2xl bg-emerald-500/10 p-3 text-emerald-400">
                 <BarChart3 className="h-5 w-5" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-slate-900">Dashboard dampak</p>
-                <p className="text-sm text-slate-500">Monitoring terpusat untuk stakeholder</p>
+                <p className="text-sm font-semibold text-white">Dashboard dampak</p>
+                <p className="text-xs text-zinc-500">Monitoring terpusat untuk stakeholder</p>
               </div>
             </div>
             <div className="mt-6 space-y-4">
@@ -508,8 +521,8 @@ export default function Home() {
                 "Rekap partisipasi komunitas dan mitra aktif.",
                 "Jejak proyek digital untuk bank sampah dan tracking.",
               ].map((item) => (
-                <div key={item} className="flex items-start gap-3 rounded-2xl bg-emerald-50 px-4 py-4 text-sm leading-7 text-slate-700">
-                  <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" />
+                <div key={item} className="flex items-start gap-3 rounded-2xl bg-zinc-950/40 border border-white/5 px-4 py-4 text-sm leading-relaxed text-zinc-400">
+                  <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
                   <span>{item}</span>
                 </div>
               ))}
@@ -518,10 +531,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Services Section */}
       <section className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
         <SectionHeading
           eyebrow="Layanan / Kerja Sama"
-          title="Dirancang untuk perusahaan, pemerintah, dan desa yang ingin membangun sistem pengelolaan sampah terpadu."
+          title="Dirancang untuk perusahaan, pemerintah, dan desa yang ingin membangun sistem terpadu."
           description="Baciraro dapat disesuaikan untuk kebutuhan operasional, pemberdayaan masyarakat, hingga transformasi digital di level organisasi."
         />
 
@@ -533,16 +547,16 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6, delay: index * 0.08 }}
-              className="rounded-[1.75rem] border border-emerald-100 bg-white p-6 shadow-[0_18px_60px_rgba(15,23,42,0.06)]"
+              className="rounded-[2rem] border border-white/5 bg-zinc-900/20 p-6 shadow-xl backdrop-blur-sm"
             >
-              <div className="inline-flex rounded-2xl bg-emerald-50 p-3 text-emerald-700">
+              <div className="inline-flex rounded-2xl bg-emerald-500/10 p-3.5 text-emerald-400">
                 <card.icon className="h-5 w-5" />
               </div>
-              <h3 className="mt-5 text-xl font-semibold text-slate-900">{card.title}</h3>
-              <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600">
+              <h3 className="mt-6 text-xl font-normal text-white">{card.title}</h3>
+              <ul className="mt-4 space-y-3 text-sm leading-relaxed text-zinc-400">
                 {card.points.map((point) => (
-                  <li key={point} className="flex gap-2">
-                    <span className="mt-2 h-2 w-2 rounded-full bg-amber-400" />
+                  <li key={point} className="flex gap-2.5">
+                    <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400 animate-pulse" />
                     <span>{point}</span>
                   </li>
                 ))}
@@ -552,64 +566,68 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Creative CTA Section */}
       <section className="relative z-10 mx-auto max-w-7xl px-6 pb-20 lg:px-8 lg:pb-24">
-        <div className="overflow-hidden rounded-[2.25rem] bg-emerald-950 px-6 py-10 text-white shadow-[0_30px_100px_rgba(4,120,87,0.28)] sm:px-10 sm:py-12 lg:px-12">
+        <div className="overflow-hidden rounded-[3rem] border border-white/5 bg-gradient-to-br from-zinc-950 via-zinc-900 to-emerald-950/20 px-8 py-12 text-white shadow-2xl backdrop-blur-sm sm:px-12 lg:px-16">
           <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
             <div>
               <SectionLabel>Baciraro Creative</SectionLabel>
-              <h2 className="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
+              <h2 className="mt-6 text-4xl font-normal leading-[1.1] tracking-tight">
                 Unit produk kreatif dari hasil daur ulang.
               </h2>
-              <p className="mt-4 max-w-2xl text-base leading-8 text-emerald-50/80 sm:text-lg">
+              <p className="mt-4 max-w-xl text-base leading-relaxed text-zinc-400">
                 Jelajahi halaman khusus Baciraro Creative untuk melihat produk kreatif yang lahir dari material daur ulang dan rantai nilai circular economy.
               </p>
             </div>
             <div className="flex justify-start lg:justify-end">
               <Link
                 href="/creative"
-                className="inline-flex items-center gap-3 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-emerald-950 transition-transform hover:-translate-y-0.5"
+                className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3"
               >
                 Lihat Produk Kreatif
-                <ArrowRight className="h-4 w-4" />
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black transition-transform group-hover:scale-110">
+                  <ArrowRight className="h-3 w-3 text-white" />
+                </span>
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="contact" className="relative z-10 border-t border-emerald-100 bg-white/80">
+      {/* Contact Section */}
+      <section id="contact" className="relative z-10 border-t border-white/5 bg-black/60 py-10">
         <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-20">
           <div>
             <SectionHeading
-              eyebrow="Call to Action"
+              eyebrow="Hubungi Kami"
               title="Mari bangun sistem pengelolaan sampah yang lebih terhubung, terukur, dan berdampak."
               description="Hubungi Baciraro untuk diskusi kemitraan, implementasi CSR, program pemerintah daerah, atau pengembangan sistem digital pengelolaan sampah."
             />
           </div>
 
-          <div className="rounded-[2rem] border border-emerald-100 bg-emerald-50 p-6 shadow-sm">
+          <div className="rounded-[2.25rem] border border-white/5 bg-zinc-900/20 p-6 shadow-xl backdrop-blur-sm">
             <div className="grid gap-4 sm:grid-cols-2">
               {[
                 { title: "Email", value: "halo@baciraro.id" },
                 { title: "WhatsApp", value: "+62 8xx-xxxx-xxxx" },
               ].map((item) => (
-                <div key={item.title} className="rounded-2xl bg-white p-4 shadow-sm">
-                  <p className="text-xs uppercase tracking-[0.25em] text-slate-400">{item.title}</p>
-                  <p className="mt-2 text-base font-semibold text-slate-900">{item.value}</p>
+                <div key={item.title} className="rounded-2xl border border-white/5 bg-zinc-950/40 p-4 shadow-lg">
+                  <p className="text-[10px] uppercase tracking-[0.25em] text-zinc-500 font-semibold">{item.title}</p>
+                  <p className="mt-2 text-base font-semibold text-white">{item.value}</p>
                 </div>
               ))}
             </div>
             <div className="mt-6 flex flex-wrap gap-3">
               <a
                 href="mailto:halo@baciraro.id"
-                className="inline-flex items-center gap-3 rounded-full bg-emerald-700 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-700/20"
+                className="inline-flex items-center gap-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-3.5 text-xs font-semibold uppercase tracking-wider transition-colors shadow-lg shadow-emerald-600/10"
               >
                 Hubungi Tim Baciraro
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-3.5 w-3.5" />
               </a>
               <a
                 href="#ecosystem"
-                className="inline-flex items-center gap-3 rounded-full border border-emerald-200 bg-white px-5 py-3 text-sm font-semibold text-slate-800"
+                className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 text-zinc-300 hover:text-white px-5 py-3.5 text-xs font-semibold uppercase tracking-wider transition-colors"
               >
                 Lihat Ekosistem Lagi
               </a>

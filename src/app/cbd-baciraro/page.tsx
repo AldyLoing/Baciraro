@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -14,6 +15,8 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react";
+
+const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const profile = {
   name: "Nobel Andrew Andries",
@@ -114,8 +117,8 @@ const environmentalExperience = [
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-800 shadow-sm">
-      <span className="h-2 w-2 rounded-full bg-amber-400" />
+    <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-400 backdrop-blur shadow-lg">
+      <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
       {children}
     </p>
   );
@@ -131,87 +134,100 @@ function InfoCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-[1.75rem] border border-emerald-100 bg-white p-6 shadow-sm">
+    <div className="rounded-[2.25rem] border border-white/5 bg-zinc-900/20 p-6 shadow-xl backdrop-blur-sm hover:border-white/10 hover:bg-zinc-900/30 transition-all duration-300">
       <div className="flex items-center gap-3">
-        <div className="rounded-2xl bg-emerald-50 p-3 text-emerald-700">
+        <div className="rounded-2xl bg-emerald-500/10 p-3 text-emerald-400">
           <Icon className="h-6 w-6" />
         </div>
-        <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+        <h3 className="text-xl font-normal text-white">{title}</h3>
       </div>
-      <div className="mt-5 text-sm leading-7 text-slate-600">{children}</div>
+      <div className="mt-5 text-sm leading-relaxed text-zinc-400">{children}</div>
     </div>
   );
 }
 
 export default function CBDBaciraroPage() {
   return (
-    <main className="relative overflow-hidden bg-[#f5faf5] text-slate-900">
-      <div className="pointer-events-none absolute inset-0 -z-0 bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.14),_transparent_30%),radial-gradient(circle_at_top_right,_rgba(250,204,21,0.12),_transparent_26%),linear-gradient(180deg,_rgba(255,255,255,0.95),_rgba(245,250,245,1))]" />
+    <main className="relative overflow-hidden bg-background text-foreground min-h-screen">
+      {/* Background and grain overlays */}
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.12),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(250,204,21,0.08),_transparent_30%),linear-gradient(180deg,_#000000_0%,_#050805_100%)]" />
+      <div className="pointer-events-none absolute left-[-8rem] top-[22rem] h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl -z-10" />
+      <div className="pointer-events-none absolute right-[-8rem] top-[48rem] h-96 w-96 rounded-full bg-amber-500/5 blur-3xl -z-10" />
+      <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.12] -z-10" />
 
-      <header className="relative z-10 border-b border-emerald-100/80 bg-white/70 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
-          <Link href="/" className="transition-colors hover:text-emerald-700">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-emerald-700">Baciraro</p>
-              <p className="mt-1 text-sm text-slate-500">CBD Profile</p>
+      <header className="sticky top-0 z-50 border-b border-white/5 bg-black/40 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+          <Link href="/" className="transition-colors hover:text-white">
+            <div className="flex items-center gap-3">
+              <div className="relative h-10 w-10 overflow-hidden rounded-full border border-white/10 bg-white/5 shadow-inner">
+                <Image
+                  src="/Baciraro cap.png"
+                  alt="Baciraro logo"
+                  fill
+                  sizes="40px"
+                  className="object-contain p-1.5"
+                />
+              </div>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-emerald-400">Baciraro</p>
+                <p className="text-[11px] text-zinc-500">CBD Profile</p>
+              </div>
             </div>
           </Link>
           <Link
             href="/#ecosystem"
-            className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-4 py-2 text-sm font-semibold text-emerald-800 shadow-sm transition-transform hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold tracking-wider uppercase text-white shadow-lg backdrop-blur-md transition-transform hover:-translate-y-0.5 hover:bg-white/10"
           >
-            <ArrowLeft className="h-4 w-4" />
-            Kembali ke Ekosistem
+            <ArrowLeft className="h-3 w-3 mr-1" />
+            Kembali
           </Link>
         </div>
       </header>
 
-      <section className="relative z-10 overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-emerald-950 py-20 text-white lg:py-28">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(34,197,94,0.16),_transparent_60%),radial-gradient(circle_at_bottom_left,_rgba(250,204,21,0.12),_transparent_50%)]" />
-        <div className="pointer-events-none absolute left-1/2 top-20 h-80 w-80 -translate-x-1/2 rounded-full bg-emerald-400/15 blur-3xl" />
-
+      {/* CBD Hero Section */}
+      <section className="relative z-10 overflow-hidden pt-20 pb-16">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.12),_transparent_60%)]" />
+        
         <div className="relative mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, ease: springEase }}
             className="max-w-3xl"
           >
             <SectionLabel>CBD Baciraro</SectionLabel>
-            <p className="mt-6 text-sm font-semibold uppercase tracking-[0.3em] text-emerald-300">
+            <p className="mt-6 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400">
               Chief Business Development & Financial
             </p>
-            <h1 className="mt-4 text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
+            <h1 className="mt-4 text-5xl font-normal leading-tight tracking-[-0.04em] text-white sm:text-6xl lg:text-7xl">
               {profile.name}
             </h1>
-            <p className="mt-4 text-2xl font-semibold text-emerald-200">{profile.title}</p>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-200">{profile.bio}</p>
-            <p className="mt-4 max-w-3xl text-base leading-8 text-slate-300">{profile.description}</p>
+            <p className="mt-4 font-serif text-3xl italic tracking-tight text-emerald-300/85">{profile.title}</p>
+            <p className="mt-6 text-base md:text-lg leading-relaxed text-zinc-300">{profile.bio}</p>
+            <p className="mt-4 text-sm leading-relaxed text-zinc-400">{profile.description}</p>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15 }}
+            transition={{ duration: 0.8, delay: 0.15, ease: springEase }}
             className="flex items-end"
           >
-            <div className="w-full rounded-[2rem] border border-white/10 bg-white/8 p-6 shadow-[0_30px_120px_rgba(0,0,0,0.35)] backdrop-blur">
-              <div className="aspect-[4/5] rounded-[1.5rem] border border-white/10 bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.26),_transparent_40%),linear-gradient(135deg,_rgba(255,255,255,0.12),_rgba(255,255,255,0.02))] p-6">
-                <div className="flex h-full flex-col justify-between rounded-[1.25rem] border border-white/10 p-5">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.35em] text-white/70">Baciraro</p>
-                    <p className="mt-3 text-3xl font-black leading-tight text-white">CBD</p>
-                    <p className="mt-2 text-sm text-emerald-200">Business development, financial control, and risk visibility.</p>
+            <div className="w-full rounded-[3rem] border border-white/5 bg-zinc-900/20 p-6 shadow-2xl backdrop-blur-sm">
+              <div className="aspect-[4/5] rounded-[2rem] border border-white/5 bg-zinc-950/60 p-6 flex flex-col justify-between">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-zinc-500">Baciraro</p>
+                  <p className="mt-3 text-4xl font-normal tracking-[-0.03em] text-white">CBD</p>
+                  <p className="mt-2 text-xs leading-relaxed text-zinc-400">Business development, financial control, and risk visibility.</p>
+                </div>
+                <div className="space-y-3 text-xs text-zinc-300">
+                  <div className="rounded-2xl border border-white/5 bg-zinc-900/30 p-4">
+                    <p className="font-semibold text-white">Independent analysis</p>
+                    <p className="mt-1 text-zinc-400">Sistem bisnis, biaya, arus kas, dan dampak secara objektif.</p>
                   </div>
-                  <div className="space-y-3 text-sm text-slate-200">
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                      <p className="font-semibold text-white">Independent analysis</p>
-                      <p className="mt-1">Sistem bisnis, biaya, arus kas, dan dampak.</p>
-                    </div>
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                      <p className="font-semibold text-white">Objective control</p>
-                      <p className="mt-1">Membantu keputusan yang lebih jelas dan terukur.</p>
-                    </div>
+                  <div className="rounded-2xl border border-white/5 bg-zinc-900/30 p-4">
+                    <p className="font-semibold text-white">Objective control</p>
+                    <p className="mt-1 text-zinc-400">Membantu memperjelas arah keputusan dan efisiensi sistem.</p>
                   </div>
                 </div>
               </div>
@@ -220,16 +236,17 @@ export default function CBDBaciraroPage() {
         </div>
       </section>
 
-      <section className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
+      {/* Experience & Education Section */}
+      <section className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:px-8">
         <div className="grid gap-6 lg:grid-cols-2">
           <InfoCard title="Pengalaman Kerja" icon={Briefcase}>
             <div className="space-y-4">
               {workExperience.map((item) => (
-                <div key={`${item.company}-${item.role}`} className="rounded-2xl border border-emerald-100 bg-emerald-50/40 p-4">
-                  <p className="text-sm font-semibold text-emerald-800">{item.role}</p>
-                  <p className="mt-1 text-sm text-slate-700">{item.company}</p>
-                  <p className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-500">{item.period}</p>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">{item.description}</p>
+                <div key={`${item.company}-${item.role}`} className="rounded-[1.75rem] border border-white/5 bg-zinc-950/40 p-5 shadow-lg">
+                  <p className="text-sm font-semibold text-emerald-400">{item.role}</p>
+                  <p className="mt-1 text-sm text-white font-medium">{item.company}</p>
+                  <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-zinc-500 font-semibold">{item.period}</p>
+                  <p className="mt-3 text-xs leading-relaxed text-zinc-400">{item.description}</p>
                 </div>
               ))}
             </div>
@@ -238,9 +255,11 @@ export default function CBDBaciraroPage() {
           <InfoCard title="Pendidikan" icon={GraduationCap}>
             <ul className="space-y-3">
               {education.map((item) => (
-                <li key={item} className="flex gap-3 rounded-2xl border border-emerald-100 bg-emerald-50/40 p-4">
-                  <Building2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-700" />
-                  <span>{item}</span>
+                <li key={item} className="flex gap-3 rounded-[1.75rem] border border-white/5 bg-zinc-950/40 p-5 shadow-lg items-center">
+                  <div className="rounded-xl bg-emerald-500/10 p-2 text-emerald-400">
+                    <Building2 className="h-5 w-5 shrink-0" />
+                  </div>
+                  <span className="text-sm text-zinc-300 font-medium">{item}</span>
                 </li>
               ))}
             </ul>
@@ -248,33 +267,34 @@ export default function CBDBaciraroPage() {
         </div>
       </section>
 
-      <section className="relative z-10 bg-emerald-50 py-20 lg:py-24">
+      {/* Technical and Non Technical Skills */}
+      <section className="relative z-10 py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mb-12">
             <SectionLabel>Keahlian</SectionLabel>
-            <h2 className="mt-6 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+            <h2 className="mt-6 text-3xl font-normal leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-5xl">
               Kompetensi teknis dan non-teknis
             </h2>
           </div>
 
           <div className="grid gap-6 lg:grid-cols-2">
             <InfoCard title="Teknis" icon={Calculator}>
-              <ul className="space-y-2">
+              <ul className="space-y-3">
                 {skills.technical.map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <Scale className="mt-1 h-4 w-4 shrink-0 text-emerald-700" />
-                    <span>{item}</span>
+                  <li key={item} className="flex gap-3 items-center">
+                    <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-zinc-300 font-medium">{item}</span>
                   </li>
                 ))}
               </ul>
             </InfoCard>
 
             <InfoCard title="Non Teknis" icon={Users}>
-              <ul className="space-y-2">
+              <ul className="space-y-3">
                 {skills.nonTechnical.map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <ShieldCheck className="mt-1 h-4 w-4 shrink-0 text-emerald-700" />
-                    <span>{item}</span>
+                  <li key={item} className="flex gap-3 items-center">
+                    <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-zinc-300 font-medium">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -283,10 +303,11 @@ export default function CBDBaciraroPage() {
         </div>
       </section>
 
+      {/* Environmental Experience */}
       <section className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
         <div className="mb-12">
           <SectionLabel>Pengalaman Lingkungan</SectionLabel>
-          <h2 className="mt-6 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+          <h2 className="mt-6 text-3xl font-normal leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-5xl">
             Konteks kerja yang mendukung ekosistem Baciraro
           </h2>
         </div>
@@ -299,13 +320,15 @@ export default function CBDBaciraroPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.55, delay: index * 0.08 }}
-              className="rounded-[1.75rem] border border-emerald-100 bg-white p-6 shadow-sm"
+              className="rounded-[2.25rem] border border-white/5 bg-zinc-900/20 p-6 shadow-xl backdrop-blur-sm"
             >
-              <item.icon className="h-8 w-8 text-emerald-700" />
-              <h3 className="mt-4 text-lg font-semibold text-slate-900">{item.title}</h3>
-              <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600">
+              <div className="rounded-2xl bg-emerald-500/10 p-3 text-emerald-400 w-fit">
+                <item.icon className="h-7 w-7" />
+              </div>
+              <h3 className="mt-6 text-xl font-normal text-white">{item.title}</h3>
+              <ul className="mt-6 space-y-3">
                 {item.points.map((point) => (
-                  <li key={point} className="rounded-2xl bg-emerald-50/60 p-4">
+                  <li key={point} className="rounded-2xl bg-zinc-950/40 border border-white/5 p-4 text-xs leading-relaxed text-zinc-400 shadow-md">
                     {point}
                   </li>
                 ))}
@@ -315,24 +338,28 @@ export default function CBDBaciraroPage() {
         </div>
       </section>
 
+      {/* Footer CTA Section */}
       <section className="relative z-10 mx-auto max-w-7xl px-6 pb-24 lg:px-8">
-        <div className="rounded-[2rem] border border-emerald-100 bg-gradient-to-br from-emerald-50 to-white p-8 text-center lg:p-12">
-          <h2 className="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+        <div className="rounded-[3rem] border border-white/5 bg-gradient-to-br from-zinc-950 via-zinc-900 to-emerald-950/20 p-8 text-center lg:p-12 shadow-2xl backdrop-blur-sm">
+          <h2 className="text-3xl font-normal leading-[1.1] tracking-tight text-white">
             CBD Baciraro untuk analisa yang lebih jelas dan terukur
           </h2>
-          <p className="mt-4 text-lg leading-8 text-slate-600">
+          <p className="mt-4 text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed">
             Profil ini ditempatkan di ekosistem Baciraro sebagai penguat area business development, financial control, dan risk assessment.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/#ecosystem"
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-transform hover:-translate-y-0.5 hover:bg-emerald-700"
+              className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-black shadow-lg"
             >
               Lihat Ekosistem
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-black">
+                <ArrowLeft className="h-3 w-3 text-white rotate-180" />
+              </span>
             </Link>
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white px-6 py-3 text-sm font-semibold text-emerald-800 shadow-sm transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur hover:bg-white/10 transition-all duration-300"
             >
               Kembali ke Beranda
             </Link>
