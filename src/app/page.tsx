@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import Footer from "@/components/Footer";
 import {
   ArrowRight,
   BarChart3,
@@ -17,6 +19,8 @@ import {
   ShieldCheck,
   Sprout,
   Users,
+  Menu,
+  X,
 } from "lucide-react";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -41,7 +45,7 @@ const ecosystemCards = [
   {
     name: "ELMAST Greenovasi",
     href: "/elmast",
-    image: "/elmast.jpeg",
+    image: "/elmast.png",
     description:
       "Pengolahan sampah organik menjadi gas dan pupuk organik, termasuk solusi eceng gondok.",
     icon: Sprout,
@@ -152,6 +156,8 @@ function EcosystemCardImage({
 }
 
 export default function Home() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <main className="relative overflow-hidden bg-background text-foreground min-h-screen">
       {/* Background and grain overlays */}
@@ -160,57 +166,141 @@ export default function Home() {
       <div className="pointer-events-none absolute right-[-8rem] top-[48rem] h-96 w-96 rounded-full bg-amber-500/5 blur-3xl -z-10" />
       <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.12] -z-10" />
 
-      <header className="sticky top-0 z-50 border-b border-white/5 bg-black/40 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-          <div className="flex items-center gap-3">
-            <div className="relative h-10 w-10 overflow-hidden rounded-full border border-white/10 bg-white/5 shadow-inner">
+      <header className="sticky top-0 z-50 w-full px-4 sm:px-6 lg:px-8 pt-4 pb-2">
+        <div className="mx-auto max-w-7xl rounded-3xl md:rounded-full border border-white/5 bg-[#0c0f0c]/90 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden transition-all duration-300">
+          {/* Subtle green ambient glow behind the navbar */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(16,185,129,0.06),_transparent_75%)] pointer-events-none" />
+          <div className="bg-noise absolute inset-0 opacity-[0.03] pointer-events-none" />
+
+          <div className="flex items-center justify-between px-6 py-3.5 relative z-10">
+            <div className="flex items-center gap-3.5">
               <Image
                 src="/Baciraro cap.png"
                 alt="Baciraro logo"
-                fill
-                sizes="40px"
-                className="object-contain p-1.5"
+                width={52}
+                height={52}
+                className="object-contain transition-transform hover:scale-105 duration-300"
               />
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-emerald-400 flex items-center gap-1.5">
+                  Baciraro
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#f87171] animate-pulse" />
+                </p>
+                <p className="text-[11px] text-zinc-500 font-medium">Sustainability Platform</p>
+              </div>
             </div>
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-emerald-400">Baciraro</p>
-              <p className="text-[11px] text-zinc-500">Sustainability Platform</p>
+
+            <nav className="hidden items-center gap-1 md:flex">
+              <a
+                href="#ecosystem"
+                className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-white rounded-full transition-all duration-300 hover:bg-white/5 border border-transparent hover:border-white/5"
+              >
+                Ekosistem
+              </a>
+              <a
+                href="#flow"
+                className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-white rounded-full transition-all duration-300 hover:bg-white/5 border border-transparent hover:border-white/5"
+              >
+                Alur Sistem
+              </a>
+              <a
+                href="#impact"
+                className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-white rounded-full transition-all duration-300 hover:bg-white/5 border border-transparent hover:border-white/5"
+              >
+                Dampak
+              </a>
+              <Link
+                href="/ceo"
+                className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-white rounded-full transition-all duration-300 hover:bg-white/5 border border-transparent hover:border-white/5"
+              >
+                CEO
+              </Link>
+              <Link
+                href="/projects"
+                className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-white rounded-full transition-all duration-300 hover:bg-white/5 border border-transparent hover:border-white/5"
+              >
+                Proyek
+              </Link>
+              <a
+                href="#contact"
+                className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-white rounded-full transition-all duration-300 hover:bg-white/5 border border-transparent hover:border-white/5"
+              >
+                Kontak
+              </a>
+            </nav>
+
+            <div className="flex items-center gap-2">
+              <Link
+                href="/creative"
+                className="hidden sm:inline-flex items-center gap-2 rounded-full border border-[#f87171]/20 bg-[#f87171]/5 px-4 py-2 text-xs font-semibold tracking-wider uppercase text-[#f87171] shadow-[0_0_15px_rgba(248,113,113,0.1)] transition-all hover:scale-102 hover:bg-[#f87171]/10 hover:border-[#f87171]/40 duration-300"
+              >
+                Baciraro Creative
+                <ArrowRight className="h-3 w-3" />
+              </Link>
+
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="flex md:hidden items-center justify-center h-10 w-10 rounded-full border border-white/10 bg-white/5 text-zinc-400 hover:text-white transition-all focus:outline-none"
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </button>
             </div>
           </div>
-          <nav className="hidden items-center gap-8 text-xs font-semibold uppercase tracking-wider text-zinc-400 md:flex">
-            <a href="#ecosystem" className="transition-colors hover:text-white">
-              Ekosistem
-            </a>
-            <a href="#flow" className="transition-colors hover:text-white">
-              Alur Sistem
-            </a>
-            <a href="#impact" className="transition-colors hover:text-white">
-              Dampak
-            </a>
-            <Link href="/ceo" className="transition-colors hover:text-white">
-              CEO
-            </Link>
-            <Link href="/projects" className="transition-colors hover:text-white">
-              Proyek
-            </Link>
-            <a href="#contact" className="transition-colors hover:text-white">
-              Kontak
-            </a>
-          </nav>
-          <Link
-            href="/creative"
-            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold tracking-wider uppercase text-white shadow-lg backdrop-blur-md transition-transform hover:-translate-y-0.5 hover:bg-white/10"
-          >
-            Baciraro Creative
-            <ArrowRight className="h-3 w-3" />
-          </Link>
+
+          {/* Mobile Navigation Drawer */}
+          <AnimatePresence>
+            {isMobileMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.35, ease: springEase }}
+                className="md:hidden border-t border-white/5 bg-[#0c0f0c]/95 backdrop-blur-xl px-6 py-6 flex flex-col gap-2 relative z-10"
+              >
+                {[
+                  { name: "Ekosistem", href: "#ecosystem" },
+                  { name: "Alur Sistem", href: "#flow" },
+                  { name: "Dampak", href: "#impact" },
+                  { name: "CEO", href: "/ceo" },
+                  { name: "Proyek", href: "/projects" },
+                  { name: "Kontak", href: "#contact" },
+                ].map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="py-3 text-center text-sm font-semibold uppercase tracking-wider text-zinc-400 hover:text-white rounded-xl transition-all border border-transparent hover:bg-white/5"
+                  >
+                    {link.name}
+                  </a>
+                ))}
+                <Link
+                  href="/creative"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="inline-flex sm:hidden items-center justify-center gap-2 rounded-full border border-[#f87171]/20 bg-[#f87171]/5 px-4 py-3 text-xs font-semibold tracking-wider uppercase text-[#f87171] shadow-[0_0_15px_rgba(248,113,113,0.1)] transition-all mt-2"
+                >
+                  Baciraro Creative
+                  <ArrowRight className="h-3 w-3" />
+                </Link>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="relative z-10 min-h-[90vh] flex items-center justify-center pt-16 pb-12">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,_rgba(16,185,129,0.15),_transparent_60%)]" />
-        
+      <section className="relative z-10 min-h-[90vh] flex items-center justify-center pt-16 pb-12 overflow-hidden">
+        {/* Background image */}
+        <div
+          className="absolute inset-0 -z-10 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/bg.png')" }}
+        />
+        {/* Dark overlay to keep premium dark aesthetic and ensure text legibility */}
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/75 via-black/55 to-black/75" />
+        {/* Subtle emerald tint overlay */}
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_30%,_rgba(16,185,129,0.12),_transparent_60%)]" />
+
         <div className="relative mx-auto w-full max-w-7xl px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -218,31 +308,26 @@ export default function Home() {
             transition={{ duration: 1, ease: springEase }}
             className="mx-auto flex w-full max-w-5xl flex-col items-center text-center"
           >
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-400 backdrop-blur-md">
-              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-              Ekosistem Pengelolaan Sampah Terintegrasi
-            </div>
-
-            <div className="relative mb-10 h-64 w-64 md:h-72 md:w-72 overflow-hidden rounded-[3rem] border border-white/5 bg-zinc-900/30 p-8 shadow-2xl backdrop-blur-sm">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.15),_transparent_70%)]" />
+            <div className="relative mb-10 h-64 w-64 md:h-72 md:w-72 overflow-hidden rounded-[3rem] border border-white/10 bg-black/30 p-8 shadow-2xl backdrop-blur-sm">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.2),_transparent_70%)]" />
               <Image
                 src="/Baciraro cap.png"
                 alt="Baciraro logo"
                 fill
                 priority
                 sizes="288px"
-                className="object-contain p-6 drop-shadow-[0_20px_50px_rgba(16,185,129,0.25)]"
+                className="object-contain p-6 drop-shadow-[0_20px_50px_rgba(16,185,129,0.35)]"
               />
             </div>
 
             <div className="relative max-w-5xl">
-              <p className="font-serif text-3xl md:text-4xl italic tracking-tight text-emerald-300/80">
+              <p className="font-serif text-3xl md:text-4xl italic tracking-tight text-emerald-300">
                 Our Company
               </p>
-              <h1 className="mt-2 text-6xl font-normal leading-[0.85] tracking-[-0.05em] text-white sm:text-7xl md:text-8xl lg:text-[7.5rem]">
+              <h1 className="mt-2 text-5xl font-normal leading-[0.85] tracking-[-0.05em] text-white sm:text-7xl md:text-8xl lg:text-[7.5rem] drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]">
                 BACIRARO
               </h1>
-              <p className="mx-auto mt-6 max-w-3xl text-base md:text-lg leading-relaxed text-zinc-400">
+              <p className="mx-auto mt-6 max-w-3xl text-base md:text-lg leading-relaxed text-zinc-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
                 Baciraro adalah perusahaan yang membangun sistem pengelolaan sampah terintegrasi dari edukasi, pengumpulan, daur ulang, hingga produk turunan kreatif dan pelacakan digital.
               </p>
             </div>
@@ -250,7 +335,7 @@ export default function Home() {
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
               <a
                 href="#ecosystem"
-                className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3 shadow-lg hover:bg-zinc-100"
+                className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3 shadow-[0_4px_24px_rgba(0,0,0,0.4)] hover:bg-zinc-100"
               >
                 Jelajahi Ekosistem
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black transition-transform group-hover:scale-110">
@@ -259,7 +344,7 @@ export default function Home() {
               </a>
               <a
                 href="#ceo"
-                className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur transition-all hover:bg-white/10 hover:border-white/20"
+                className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-black/30 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur transition-all hover:bg-black/50 hover:border-white/30"
               >
                 Lihat CEO
               </a>
@@ -273,7 +358,7 @@ export default function Home() {
               ].map((item) => (
                 <div
                   key={item}
-                  className="rounded-2xl border border-white/5 bg-zinc-900/20 p-5 text-sm font-medium text-zinc-300 backdrop-blur-md shadow-lg"
+                  className="rounded-2xl border border-white/10 bg-black/30 p-5 text-sm font-medium text-zinc-200 backdrop-blur-md shadow-lg"
                 >
                   {item}
                 </div>
@@ -287,7 +372,7 @@ export default function Home() {
       <section id="ceo" className="relative z-10 overflow-hidden py-24 text-white lg:py-28">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.12),_transparent_60%)]" />
         <div className="pointer-events-none absolute left-1/2 top-20 h-80 w-80 -translate-x-1/2 rounded-full bg-emerald-500/10 blur-3xl" />
-        
+
         <div className="relative mx-auto flex max-w-5xl flex-col items-center px-6 text-center lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -347,7 +432,7 @@ export default function Home() {
                 className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur transition-all hover:bg-white/10"
               >
                 Sumber Profil
-                <ArrowRight className="h-4 w-4" text-zinc-500 />
+                <ArrowRight className="h-4 w-4 text-zinc-500" />
               </a>
             </div>
           </motion.div>
@@ -357,14 +442,14 @@ export default function Home() {
       {/* About Section */}
       <section id="about" className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-          <div className="overflow-hidden rounded-[3rem] border border-white/5 bg-zinc-900/20 p-6 shadow-2xl backdrop-blur-sm">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-zinc-950 border border-white/5">
+          <div className="flex items-center justify-center p-6">
+            <div className="relative h-72 w-72 md:h-80 md:w-80">
               <Image
                 src="/Baciraro cap.png"
                 alt="Baciraro cap"
                 fill
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                className="object-contain p-8 drop-shadow-[0_15px_30px_rgba(16,185,129,0.15)]"
+                sizes="(max-width: 1024px) 100vw, 320px"
+                className="object-contain p-2 drop-shadow-[0_20px_50px_rgba(16,185,129,0.25)]"
               />
             </div>
           </div>
@@ -422,7 +507,10 @@ export default function Home() {
                 transition={{ duration: 0.55, delay: index * 0.08 }}
                 className="group overflow-hidden rounded-[2rem] border border-white/5 bg-zinc-900/20 shadow-xl backdrop-blur-sm transition-all duration-300 hover:border-white/10 hover:bg-zinc-900/30"
               >
-                <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-zinc-950 via-zinc-900 to-emerald-950/20 p-6 border-b border-white/5">
+                <div className={`relative aspect-[4/3] overflow-hidden p-6 border-b border-white/5 ${card.name === "ORDERS"
+                    ? "bg-white"
+                    : "bg-gradient-to-br from-zinc-950 via-zinc-900 to-emerald-950/20"
+                  }`}>
                   <EcosystemCardImage card={card} />
                   <div className="absolute left-6 top-6 rounded-full border border-white/10 bg-black/60 p-2.5 text-emerald-400 shadow-lg backdrop-blur">
                     <card.icon className="h-5 w-5" />
@@ -635,6 +723,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <Footer />
     </main>
   );
 }

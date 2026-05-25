@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Footer from "@/components/Footer";
 import { ArrowLeft, ArrowRight, Leaf, Droplets, Zap, Award } from "lucide-react";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -134,7 +135,7 @@ function HeroSection() {
             <div className="relative aspect-square overflow-hidden rounded-[3rem] border border-white/5 bg-zinc-900/20 p-6 shadow-2xl backdrop-blur-sm">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.15),_transparent_70%)]" />
               <Image
-                src="/elmast.jpeg"
+                src="/elmast.png"
                 alt="ELMAST Logo"
                 fill
                 className="object-contain p-8 drop-shadow-[0_15px_30px_rgba(16,185,129,0.2)]"
@@ -155,7 +156,7 @@ function TechnologySection() {
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div className="aspect-square relative overflow-hidden rounded-[3rem] border border-white/5 bg-zinc-900/20 p-6 shadow-2xl backdrop-blur-sm">
             <Image
-              src="/elmast.jpeg"
+              src="/elmast.png"
               alt="Teknologi ELMAST"
               fill
               className="object-contain p-8 drop-shadow-[0_15px_30px_rgba(16,185,129,0.15)]"
@@ -407,32 +408,39 @@ export default function ElmastPage() {
       <div className="pointer-events-none absolute right-[-8rem] top-[48rem] h-96 w-96 rounded-full bg-amber-500/5 blur-3xl -z-10" />
       <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.12] -z-10" />
 
-      <header className="sticky top-0 z-50 border-b border-white/5 bg-black/40 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-          <Link href="/" className="transition-colors hover:text-white">
-            <div className="flex items-center gap-3">
-              <div className="relative h-10 w-10 overflow-hidden rounded-full border border-white/10 bg-white/5 shadow-inner">
+      <header className="sticky top-0 z-50 w-full px-4 sm:px-6 lg:px-8 pt-4 pb-2">
+        <div className="mx-auto max-w-7xl rounded-full border border-white/5 bg-[#0c0f0c]/90 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden">
+          {/* Subtle green ambient glow behind the navbar */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(16,185,129,0.06),_transparent_75%)] pointer-events-none" />
+          <div className="bg-noise absolute inset-0 opacity-[0.03] pointer-events-none" />
+
+          <div className="flex items-center justify-between px-6 py-3.5 relative z-10">
+            <Link href="/" className="transition-colors hover:text-white">
+              <div className="flex items-center gap-3.5">
                 <Image
                   src="/Baciraro cap.png"
                   alt="Baciraro logo"
-                  fill
-                  sizes="40px"
-                  className="object-contain p-1.5"
+                  width={52}
+                  height={52}
+                  className="object-contain transition-transform hover:scale-105 duration-300"
                 />
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-emerald-400 flex items-center gap-1.5">
+                    Baciraro
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#f87171] animate-pulse" />
+                  </p>
+                  <p className="text-[11px] text-zinc-500 font-medium">ELMAST Greenovasi Profile</p>
+                </div>
               </div>
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-emerald-400">Baciraro</p>
-                <p className="text-[11px] text-zinc-500">ELMAST Greenovasi Profile</p>
-              </div>
-            </div>
-          </Link>
-          <Link
-            href="/#ecosystem"
-            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold tracking-wider uppercase text-white shadow-lg backdrop-blur-md transition-transform hover:-translate-y-0.5 hover:bg-white/10"
-          >
-            <ArrowLeft className="h-3 w-3 mr-1" />
-            Kembali
-          </Link>
+            </Link>
+            <Link
+              href="/#ecosystem"
+              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold tracking-wider uppercase text-white shadow-lg backdrop-blur-md transition-all hover:scale-102 hover:bg-white/10 hover:border-white/20 duration-300"
+            >
+              <ArrowLeft className="h-3 w-3 mr-1" />
+              Kembali
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -443,6 +451,8 @@ export default function ElmastPage() {
       <SolutionsSection />
       <BenefitsSection />
       <CTASection />
+
+      <Footer />
     </main>
   );
 }
