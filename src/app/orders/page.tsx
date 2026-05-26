@@ -2,11 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import Footer from "@/components/Footer";
 import { ArrowLeft, ArrowRight, Code, Smartphone, BarChart3, Zap } from "lucide-react";
-
-const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
+import FlowArt, { FlowSection } from "@/components/ui/story-scroll";
 
 const products = [
   {
@@ -39,253 +37,13 @@ const visionPoints = [
   "Pengambilan keputusan berbasis data",
 ];
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-400 backdrop-blur shadow-lg">
-      <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-      {children}
-    </p>
-  );
-}
-
-function HeroSection() {
-  return (
-    <section className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-16">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(99,102,241,0.1),_transparent_60%)]" />
-
-      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: springEase }}>
-            <div className="mb-6">
-              <SectionLabel>ORDERS</SectionLabel>
-            </div>
-
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-normal leading-tight tracking-[-0.04em] text-white">
-              Membangun Teknologi untuk Keberlanjutan
-            </h1>
-
-            <p className="mt-6 text-base md:text-lg leading-relaxed text-zinc-400 max-w-2xl">
-              Komunitas pengembang teknologi yang mendukung digitalisasi pengelolaan sampah dalam ekosistem Baciraro dengan inovasi, kolaborasi, dan keahlian tinggi.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-4">
-              <a
-                href="#solutions"
-                className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3 shadow-lg"
-              >
-                Lihat Solusi
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black">
-                  <ArrowRight className="h-3 w-3 text-white" />
-                </span>
-              </a>
-              <a
-                href="#vision"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur hover:bg-white/10 transition-all duration-300"
-              >
-                Lihat Visi
-              </a>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1, ease: springEase }}
-            className="relative"
-          >
-            <div className="absolute -left-8 top-1/4 h-32 w-32 rounded-full bg-indigo-500/10 blur-2xl" />
-            <div className="absolute -right-8 bottom-1/4 h-40 w-40 rounded-full bg-emerald-500/5 blur-2xl" />
-
-            <div className="relative aspect-square overflow-hidden rounded-[3rem] border border-white/5 bg-white p-6 shadow-2xl">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(99,102,241,0.08),_transparent_70%)]" />
-              <Image
-                src="/Orders.png"
-                alt="ORDERS"
-                fill
-                className="object-contain p-8 drop-shadow-[0_15px_30px_rgba(99,102,241,0.15)]"
-                priority
-              />
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function AboutSection() {
-  return (
-    <section className="relative py-20 px-6 lg:px-8 bg-zinc-950/20">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-          <div className="aspect-square relative overflow-hidden rounded-[3rem] border border-white/5 bg-white p-6 shadow-2xl">
-            <Image
-              src="/Orders.png"
-              alt="Tentang ORDERS"
-              fill
-              className="object-contain p-8 drop-shadow-[0_15px_30px_rgba(99,102,241,0.1)]"
-            />
-          </div>
-
-          <div>
-            <h2 className="text-4xl font-normal leading-[1.15] tracking-tight text-white mb-6">Tentang ORDERS</h2>
-            <div className="space-y-4 text-base leading-relaxed text-zinc-400">
-              <p>
-                ORDERS adalah komunitas pengembang teknologi yang didedikasikan untuk menciptakan solusi digital inovatif dalam pengelolaan sampah secara transparan.
-              </p>
-              <p>
-                Kami berkomitmen untuk mentransformasi cara ekosistem Baciraro beroperasi melalui sistem berbasis data yang scalable, aman, dan berfokus pada kemudahan pengguna.
-              </p>
-              <p>
-                Dengan tim pengembang berpengalaman dan visi keberlanjutan yang kuat, kami merancang platform untuk mempertemukan pemangku kepentingan dalam satu ruang digital terintegrasi.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ProductsSection() {
-  return (
-    <section className="relative py-20 px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="text-center mb-12">
-          <SectionLabel>Produk & Karya</SectionLabel>
-          <h2 className="text-3xl sm:text-4xl font-normal leading-[1.15] tracking-tight text-white mt-6 mb-4">Sistem yang Telah Dibangun</h2>
-          <p className="text-base text-zinc-400 max-w-2xl mx-auto">
-            Platform digital tangguh untuk memantau data operasional circular economy ekosistem Baciraro secara berkala.
-          </p>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-3">
-          {products.map((product, index) => (
-            <motion.div
-              key={product.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: index * 0.1, ease: springEase }}
-              className="group rounded-[2.25rem] border border-white/5 bg-zinc-900/20 p-6 shadow-xl backdrop-blur-sm hover:border-white/10 hover:bg-zinc-900/30 transition-all duration-300"
-            >
-              <div className="inline-flex rounded-2xl bg-indigo-500/10 p-3 mb-4 text-indigo-400">
-                <product.icon className="h-6 w-6" />
-              </div>
-              <h3 className="text-xl font-normal text-white mb-3">{product.name}</h3>
-              <p className="text-zinc-400 leading-relaxed text-sm">{product.description}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function SolutionsSection() {
-  return (
-    <section id="solutions" className="relative py-20 px-6 lg:px-8 bg-zinc-950/20">
-      <div className="mx-auto max-w-7xl">
-        <h2 className="text-4xl font-normal tracking-tight text-white mb-12 text-center">Solusi Digital Kami</h2>
-
-        <div className="grid gap-6 md:grid-cols-3">
-          {solutions.map((solution, index) => (
-            <motion.div
-              key={solution.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: index * 0.1, ease: springEase }}
-              className="rounded-[2rem] border border-white/5 bg-zinc-900/20 p-6 shadow-xl backdrop-blur-sm hover:border-white/10 transition-all"
-            >
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400 mb-4 animate-pulse">
-                <Code className="h-6 w-6" />
-              </div>
-              <h3 className="text-lg font-semibold text-white mb-2">{solution.name}</h3>
-              <p className="text-xs text-zinc-400 leading-relaxed">{solution.description}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function VisionSection() {
-  return (
-    <section id="vision" className="relative py-20 px-6 lg:px-8 overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(99,102,241,0.1),_transparent_50%)]" />
-
-      <div className="relative z-10 mx-auto max-w-7xl">
-        <h2 className="text-4xl font-normal tracking-tight text-center text-white mb-12">Visi: Digitalisasi Berkelanjutan</h2>
-
-        <div className="max-w-3xl mx-auto mb-12">
-          <p className="text-xl leading-relaxed text-zinc-300 mb-8 text-center">
-            Teknologi adalah sarana vital untuk melacak data dampak lingkungan secara transparan, mendorong circular economy yang efisien dan berkelanjutan.
-          </p>
-
-          <div className="grid gap-4 md:grid-cols-2">
-            {visionPoints.map((point, index) => (
-              <motion.div
-                key={point}
-                initial={{ opacity: 0, x: -12 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex items-center gap-3 rounded-full border border-white/5 bg-zinc-950/40 p-4 shadow-md"
-              >
-                <Zap className="h-5 w-5 shrink-0 text-emerald-400" />
-                <span className="text-sm text-zinc-300 font-medium">{point}</span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function CTASection() {
-  return (
-    <section className="relative py-20 px-6 lg:px-8 bg-zinc-950/20">
-      <div className="mx-auto max-w-7xl">
-        <div className="rounded-[3rem] border border-white/5 bg-gradient-to-br from-zinc-950 via-zinc-900 to-emerald-950/20 p-8 sm:p-12 text-center shadow-2xl backdrop-blur-sm">
-          <h2 className="text-3xl sm:text-4xl font-normal leading-[1.1] tracking-tight text-white mb-4">Kolaborasi Inovasi Teknologi</h2>
-          <p className="text-base text-zinc-400 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Kami menyambut kolaborasi dengan para pengembang, desainer, dan wirausahawan sosial yang bersemangat untuk memajukan transformasi teknologi hijau.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <a
-              href="mailto:halo@baciraro.id"
-              className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-black shadow-lg"
-            >
-              Hubungi Kami
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-black">
-                <ArrowRight className="h-3 w-3 text-white" />
-              </span>
-            </a>
-            <Link
-              href="/"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur hover:bg-white/10 transition-all duration-300"
-            >
-              Kembali ke Ekosistem
-            </Link>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export default function OrdersPage() {
   return (
-    <main className="relative overflow-hidden bg-background text-foreground min-h-screen">
-      {/* Background and grain overlays */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.12),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(250,204,21,0.08),_transparent_30%),linear-gradient(180deg,_#000000_0%,_#050805_100%)]" />
-      <div className="pointer-events-none absolute left-[-8rem] top-[22rem] h-96 w-96 rounded-full bg-indigo-500/10 blur-3xl -z-10" />
-      <div className="pointer-events-none absolute right-[-8rem] top-[48rem] h-96 w-96 rounded-full bg-emerald-500/5 blur-3xl -z-10" />
-      <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.12] -z-10" />
+    <main className="relative bg-[#050805] text-white min-h-screen">
+      {/* Background grain overlays */}
+      <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.06] z-10" />
 
+      {/* Sticky Header */}
       <header className="sticky top-0 z-50 w-full px-4 sm:px-6 lg:px-8 pt-4 pb-2">
         <div className="mx-auto max-w-7xl rounded-full border border-white/5 bg-[#0c0f0c]/90 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden">
           {/* Subtle green ambient glow behind the navbar */}
@@ -322,13 +80,260 @@ export default function OrdersPage() {
         </div>
       </header>
 
-      <HeroSection />
-      <AboutSection />
-      <ProductsSection />
-      <SolutionsSection />
-      <VisionSection />
-      <CTASection />
-      
+      {/* GSAP Story Scroll Presentation */}
+      <FlowArt aria-label="ORDERS Interactive Story Flow">
+        
+        {/* Slide 01: Hero / Who We Are */}
+        <FlowSection aria-label="ORDERS Hero" style={{ backgroundColor: '#050805', color: '#fff' }}>
+          <div className="flex flex-col h-full justify-between gap-6 pt-[2vh]">
+            <div className="flex items-center justify-between">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-400">01 — Who We Are</p>
+              <span className="text-xs font-mono opacity-50">ORDERS Ecosystem</span>
+            </div>
+            
+            <hr className="border-none border-t border-white/10" />
+            
+            <div className="my-auto flex flex-col lg:flex-row gap-12 lg:items-center justify-between">
+              <div className="flex-1 space-y-6">
+                <h1 className="text-[clamp(2.5rem,7vw,7.5rem)] font-bold leading-[0.9] uppercase tracking-tight text-white">
+                  Tech for
+                  <br />
+                  <span className="text-emerald-400">Circular</span>
+                  <br />
+                  Future
+                </h1>
+                <p className="max-w-[55ch] text-[clamp(0.95rem,1.8vw,1.25rem)] font-normal leading-relaxed text-zinc-400">
+                  Komunitas pengembang teknologi yang mendukung digitalisasi pengelolaan sampah dalam ekosistem Baciraro dengan inovasi, kolaborasi, dan keahlian tinggi.
+                </p>
+              </div>
+              
+              <div className="flex-1 flex justify-center lg:justify-end">
+                <div className="relative w-full max-w-[340px] sm:max-w-[400px] aspect-square overflow-hidden rounded-[2.5rem] border border-white/5 bg-white p-6 shadow-2xl">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.08),_transparent_70%)] pointer-events-none" />
+                  <Image
+                    src="/Orders.png"
+                    alt="ORDERS Logo Illustration"
+                    fill
+                    className="object-contain p-8 drop-shadow-[0_10px_25px_rgba(0,0,0,0.08)]"
+                    priority
+                  />
+                </div>
+              </div>
+            </div>
+            
+            <hr className="border-none border-t border-white/10" />
+            
+            <div className="flex justify-between items-center text-xs opacity-60">
+              <span>Baciraro Sustainability Platform</span>
+            </div>
+          </div>
+        </FlowSection>
+
+        {/* Slide 02: Tentang / Our Mission */}
+        <FlowSection aria-label="Tentang ORDERS" style={{ backgroundColor: '#022c22', color: '#fff' }}>
+          <div className="flex flex-col h-full justify-between gap-6 pt-[2vh]">
+            <div className="flex items-center justify-between">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-300">02 — The Mission</p>
+              <span className="text-xs font-mono opacity-50">Tentang ORDERS</span>
+            </div>
+            
+            <hr className="border-none border-t border-white/10" />
+            
+            <div className="my-auto grid gap-12 lg:grid-cols-2 items-center">
+              <div className="space-y-6">
+                <h2 className="text-[clamp(2.5rem,6vw,6.5rem)] font-bold leading-[0.9] uppercase tracking-tight text-white">
+                  Digital
+                  <br />
+                  Solidarity &
+                  <br />
+                  <span className="text-emerald-300">Trust</span>
+                </h2>
+                <div className="space-y-4 text-[clamp(0.9rem,1.5vw,1.15rem)] font-normal leading-relaxed text-zinc-300">
+                  <p>
+                    ORDERS adalah komunitas pengembang teknologi yang didedikasikan untuk menciptakan solusi digital inovatif dalam pengelolaan sampah secara transparan.
+                  </p>
+                  <p>
+                    Kami berkomitmen untuk mentransformasi cara ekosistem Baciraro beroperasi melalui sistem berbasis data yang scalable, aman, dan berfokus pada kemudahan pengguna.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="rounded-[2rem] border border-white/10 bg-zinc-950/40 p-8 space-y-6 backdrop-blur shadow-2xl">
+                <h3 className="text-lg font-bold uppercase tracking-wider text-emerald-300">Visi Keberlanjutan</h3>
+                <p className="text-sm text-zinc-400 leading-relaxed">
+                  Dengan tim pengembang berpengalaman dan visi keberlanjutan yang kuat, kami merancang platform untuk mempertemukan pemangku kepentingan dalam satu ruang digital terintegrasi.
+                </p>
+                <div className="pt-6 border-t border-white/5 flex gap-8">
+                  <div>
+                    <p className="text-emerald-300 text-2xl font-bold font-mono">100%</p>
+                    <p className="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">Open-Source Dev</p>
+                  </div>
+                  <div>
+                    <p className="text-emerald-300 text-2xl font-bold font-mono">Secure</p>
+                    <p className="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">Real-time Audits</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <hr className="border-none border-t border-white/10" />
+            <p className="text-xs opacity-60">Empowering Green Technology Systems</p>
+          </div>
+        </FlowSection>
+
+        {/* Slide 03: Produk & Karya */}
+        <FlowSection aria-label="Produk & Karya" style={{ backgroundColor: '#064e3b', color: '#fff' }}>
+          <div className="flex flex-col h-full justify-between gap-6 pt-[2vh]">
+            <div className="flex items-center justify-between">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-300">03 — Products</p>
+              <span className="text-xs font-mono opacity-50">Sistem yang Dibangun</span>
+            </div>
+            
+            <hr className="border-none border-t border-white/10" />
+            
+            <div className="my-auto space-y-6">
+              <div>
+                <h2 className="text-[clamp(2rem,5vw,5.5rem)] font-bold uppercase tracking-tight text-white mb-2 leading-none">
+                  Sistem Digital Tangguh
+                </h2>
+                <p className="text-zinc-300 text-sm max-w-xl">
+                  Platform digital yang memantau data operasional circular economy ekosistem Baciraro secara berkala.
+                </p>
+              </div>
+              
+              <div className="grid gap-6 md:grid-cols-3">
+                {products.map((product) => {
+                  const IconComponent = product.icon;
+                  return (
+                    <div
+                      key={product.name}
+                      className="group rounded-[2rem] border border-white/10 bg-zinc-950/60 p-6 shadow-xl backdrop-blur-sm hover:border-emerald-400/30 hover:bg-zinc-950/80 transition-all duration-300 flex flex-col justify-between min-h-[200px]"
+                    >
+                      <div>
+                        <div className="inline-flex rounded-xl bg-emerald-500/10 p-3 mb-4 text-emerald-400 group-hover:scale-110 transition-transform duration-300">
+                          <IconComponent className="h-6 w-6" />
+                        </div>
+                        <h3 className="text-base font-bold text-white mb-2 group-hover:text-emerald-300 transition-colors">{product.name}</h3>
+                      </div>
+                      <p className="text-zinc-400 leading-relaxed text-xs">{product.description}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            
+            <hr className="border-none border-t border-white/10" />
+            <p className="text-xs opacity-60">Scalable Waste Management Architectures</p>
+          </div>
+        </FlowSection>
+
+        {/* Slide 04: Solusi & Visi */}
+        <FlowSection aria-label="Solusi & Visi" style={{ backgroundColor: '#0f172a', color: '#fff' }}>
+          <div className="flex flex-col h-full justify-between gap-6 pt-[2vh]">
+            <div className="flex items-center justify-between">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-400">04 — Solutions & Vision</p>
+              <span className="text-xs font-mono opacity-50">Pilar Keberlanjutan</span>
+            </div>
+            
+            <hr className="border-none border-t border-white/10" />
+            
+            <div className="my-auto grid gap-8 lg:grid-cols-2 items-center">
+              <div className="space-y-6">
+                <h2 className="text-[clamp(2rem,5vw,5.5rem)] font-bold uppercase tracking-tight text-white leading-[0.95]">
+                  Platform
+                  <br />
+                  <span className="text-indigo-400">Digital</span>
+                  <br />
+                  Waste
+                </h2>
+                
+                <div className="space-y-3">
+                  {solutions.map((sol) => (
+                    <div key={sol.name} className="flex gap-4 items-start p-3.5 rounded-2xl bg-zinc-900/40 border border-white/5 hover:border-indigo-500/20 transition-all duration-300">
+                      <div className="h-2 w-2 rounded-full bg-indigo-400 mt-2 shrink-0 animate-pulse" />
+                      <div>
+                        <h4 className="text-xs font-bold text-white uppercase tracking-wider">{sol.name}</h4>
+                        <p className="text-[11px] text-zinc-400 mt-1">{sol.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="rounded-[2.5rem] border border-white/5 bg-zinc-950/60 p-8 space-y-6">
+                <h3 className="text-base font-bold text-white uppercase tracking-wider">Visi Digitalisasi</h3>
+                <p className="text-xs text-zinc-400">
+                  Teknologi adalah sarana vital untuk melacak data dampak lingkungan secara transparan, mendorong circular economy yang efisien dan berkelanjutan.
+                </p>
+                
+                <div className="grid gap-3">
+                  {visionPoints.map((point) => (
+                    <div
+                      key={point}
+                      className="flex items-center gap-3 rounded-full border border-white/5 bg-zinc-900/20 p-3 shadow-md hover:bg-zinc-900/40 transition-colors"
+                    >
+                      <Zap className="h-4 w-4 shrink-0 text-indigo-400" />
+                      <span className="text-xs text-zinc-300 font-medium">{point}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            <hr className="border-none border-t border-white/10" />
+            <p className="text-xs opacity-60">Decentralized Data and Civic Collaboration</p>
+          </div>
+        </FlowSection>
+
+        {/* Slide 05: Kolaborasi & CTA */}
+        <FlowSection aria-label="Hubungi Kami" style={{ backgroundColor: '#0a0d0a', color: '#fff' }}>
+          <div className="flex flex-col h-full justify-between gap-6 pt-[2vh]">
+            <div className="flex items-center justify-between">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-400">05 — Join Us</p>
+              <span className="text-xs font-mono opacity-50">Kolaborasi</span>
+            </div>
+            
+            <hr className="border-none border-t border-white/10" />
+            
+            <div className="my-auto text-center max-w-3xl mx-auto space-y-8">
+              <h2 className="text-[clamp(2.5rem,6vw,6.5rem)] font-bold leading-[0.9] uppercase tracking-tight text-white">
+                Ready to <br />
+                <span className="text-emerald-400">Collaborate?</span>
+              </h2>
+              <p className="text-sm md:text-base text-zinc-400 max-w-xl mx-auto leading-relaxed">
+                Kami menyambut kolaborasi dengan para pengembang, desainer, dan wirausahawan sosial yang bersemangat untuk memajukan transformasi teknologi hijau.
+              </p>
+              
+              <div className="flex flex-wrap gap-4 justify-center pt-4">
+                <a
+                  href="mailto:halo@baciraro.id"
+                  className="group inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 text-xs font-semibold uppercase tracking-wider text-black shadow-lg transition-all hover:scale-105 duration-300"
+                >
+                  Hubungi Kami
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black">
+                    <ArrowRight className="h-3.5 w-3.5 text-white transition-transform group-hover:translate-x-0.5" />
+                  </span>
+                </a>
+                <Link
+                  href="/"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-8 py-4 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur hover:bg-white/10 transition-all duration-300"
+                >
+                  Kembali ke Ekosistem
+                </Link>
+              </div>
+            </div>
+            
+            <hr className="border-none border-t border-white/10" />
+            
+            <div className="flex justify-between items-center text-[10px] md:text-xs opacity-60">
+              <span>&copy; {new Date().getFullYear()} ORDERS. All rights reserved.</span>
+              <span>Akar Tradisi, Wajah Masa Depan.</span>
+            </div>
+          </div>
+        </FlowSection>
+      </FlowArt>
+
+      {/* Global Footer (slides up naturally after FlowArt is finished scrolling) */}
       <Footer />
     </main>
   );

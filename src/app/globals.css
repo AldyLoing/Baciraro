@@ -8,6 +8,7 @@
   --foreground: #fafafa;
   --muted: #1f1f1f;
   --primary: #f87171;
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
 }
 
 @theme inline {

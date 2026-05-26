@@ -21,6 +21,7 @@ import {
   Users,
   Menu,
   X,
+  Plus,
 } from "lucide-react";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -67,7 +68,74 @@ const ecosystemCards = [
   },
 ];
 
-const flowSteps = ["Sampah", "Edukasi", "Pengumpulan", "Daur Ulang", "Produk", "Digital Tracking"];
+const flowStepsDetailed = [
+  {
+    number: "01",
+    title: "Sampah",
+    tagline: "Mengenali Setiap Sumber Dampak",
+    description: "Pemetaan jenis dan titik timbulan sampah secara presisi di wilayah urban dan rural sebagai langkah awal sirkularitas.",
+    metric: "18+ Titik",
+    metricLabel: "Pemetaan Aktif Wilayah",
+    subdata: "Organik, Anorganik & Residu",
+    icon: MapPin,
+    color: "emerald",
+  },
+  {
+    number: "02",
+    title: "Edukasi",
+    tagline: "Membangun Kesadaran Kolektif",
+    description: "Pendampingan langsung di sekolah, komunitas, dan desa untuk mengintegrasikan kebiasaan memilah sejak dari rumah.",
+    metric: "1.200+",
+    metricLabel: "Siswa & Warga Terlibat",
+    subdata: "15+ Desa & 5+ Modul Aktif",
+    icon: Users,
+    color: "coral",
+  },
+  {
+    number: "03",
+    title: "Pengumpulan",
+    tagline: "Menjemput Keberlanjutan",
+    description: "Sistem penjemputan sampah terpilah terjadwal dengan integrasi data logistik penimbangan digital.",
+    metric: "500+ Ton",
+    metricLabel: "Sampah Terkumpul",
+    subdata: "Efisiensi Rute Logistik +24%",
+    icon: Package,
+    color: "emerald",
+  },
+  {
+    number: "04",
+    title: "Daur Ulang",
+    tagline: "Mentransformasi Material Sisa",
+    description: "Pengolahan sampah organik menjadi kompos berkualitas tinggi dan pemilahan bahan plastik premium untuk industri manufaktur.",
+    metric: "85%",
+    metricLabel: "Reduksi Sampah ke TPA",
+    subdata: "Kemitraan Offtaker Industri",
+    icon: Recycle,
+    color: "coral",
+  },
+  {
+    number: "05",
+    title: "Produk",
+    tagline: "Estetika yang Berkelanjutan",
+    description: "Penciptaan produk kriya berkualitas tinggi, furnitur ekologis, dan suvenir bernilai ekonomi tinggi di bawah Baciraro Creative.",
+    metric: "40+ Karya",
+    metricLabel: "Produk Kreatif Tercipta",
+    subdata: "100% Bahan Daur Ulang Terlacak",
+    icon: Sprout,
+    color: "emerald",
+  },
+  {
+    number: "06",
+    title: "Digital Tracking",
+    tagline: "Menjaga Kepercayaan Publik",
+    description: "Pencatatan jejak sampah secara end-to-end oleh platform digital ORDERS untuk menjamin kredibilitas laporan sirkularitas.",
+    metric: "100%",
+    metricLabel: "Transparansi Data",
+    subdata: "Audit Dampak Real-time untuk CSR",
+    icon: Cpu,
+    color: "coral",
+  },
+];
 
 const impactMetrics = [
   { value: "1.200+ ton", label: "Sampah terkelola", icon: Package },
@@ -154,6 +222,73 @@ function EcosystemCardImage({
     </div>
   );
 }
+
+const Integration = ({
+  icon: Icon,
+  name,
+  description,
+  href,
+  image,
+}: {
+  icon: any;
+  name: string;
+  description: string;
+  href: string;
+  image?: string;
+}) => {
+  const needsWhiteBg = name === "ORDERS" || name === "ELMAST Greenovasi";
+
+  return (
+    <Link
+      href={href}
+      className="group flex h-full flex-col justify-between rounded-2xl border border-white/5 bg-[#0a0d0a]/60 p-4 transition-all duration-300 hover:border-emerald-500/30 hover:bg-[#0f140f]/60 hover:shadow-[0_8px_30px_rgba(16,185,129,0.06)] hover:scale-[1.01]"
+    >
+      <div className="space-y-4">
+        {needsWhiteBg ? (
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white border border-white/10 overflow-hidden relative p-2 shrink-0 transition-all duration-300 group-hover:scale-105">
+            {image && (
+              <Image
+                src={image}
+                alt={name}
+                width={44}
+                height={44}
+                className="object-contain"
+              />
+            )}
+          </div>
+        ) : (
+          <div className="flex h-14 w-14 items-center justify-start transition-all duration-300 group-hover:scale-105 shrink-0 relative">
+            {image ? (
+              <Image
+                src={image}
+                alt={name}
+                width={56}
+                height={56}
+                className="object-contain h-full w-full object-left"
+              />
+            ) : (
+              <div className="text-xs font-black tracking-wider text-emerald-400 bg-emerald-950/40 flex items-center justify-center h-full w-full rounded-xl border border-emerald-500/20">
+                CBD
+              </div>
+            )}
+          </div>
+        )}
+        <div className="space-y-1">
+          <h3 className="text-sm font-semibold text-white tracking-tight group-hover:text-emerald-400 transition-colors">
+            {name}
+          </h3>
+          <p className="text-xs text-zinc-400 leading-relaxed line-clamp-2">
+            {description}
+          </p>
+        </div>
+      </div>
+      <div className="mt-4 flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-zinc-500 transition-colors group-hover:text-emerald-400">
+        Buka Detail
+        <ArrowRight className="h-2.5 w-2.5 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />
+      </div>
+    </Link>
+  );
+};
 
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -440,16 +575,18 @@ export default function Home() {
 
       {/* About Section */}
       <section id="about" className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-          <div className="flex items-center justify-center p-6">
-            <div className="relative h-72 w-72 md:h-80 md:w-80">
-              <Image
-                src="/Baciraro cap.png"
-                alt="Baciraro cap"
-                fill
-                sizes="(max-width: 1024px) 100vw, 320px"
-                className="object-contain p-2 drop-shadow-[0_20px_50px_rgba(16,185,129,0.25)]"
-              />
+        <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+          <div className="flex items-center justify-center">
+            <div className="relative w-full aspect-[4/3] max-w-md overflow-hidden rounded-[2rem] border border-white/5 bg-zinc-900/20 p-3 shadow-2xl backdrop-blur-sm">
+              <div className="relative h-full w-full overflow-hidden rounded-2xl bg-zinc-950 border border-white/5">
+                <Image
+                  src="/baciraro ecosystem.jpeg"
+                  alt="Baciraro Ecosystem"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 450px"
+                  className="object-cover transition-transform duration-500 hover:scale-102"
+                />
+              </div>
             </div>
           </div>
 
@@ -476,90 +613,224 @@ export default function Home() {
       </section>
 
       {/* Ecosystem Section */}
-      <section id="ecosystem" className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
-        <SectionHeading
-          eyebrow="Baciraro Ecosystem"
-          title="Lima entitas yang saling terhubung untuk menciptakan nilai dari sampah."
-          description="Setiap unit menjalankan fungsi berbeda, tetapi terhubung dalam satu sistem terintegrasi yang mendorong dampak sosial, ekonomi, dan lingkungan."
-        />
-
-        <div className="mt-10 grid gap-6">
-          <div className="overflow-hidden rounded-[3rem] border border-white/5 bg-zinc-900/20 p-6 shadow-2xl backdrop-blur-sm">
-            <div className="relative aspect-[16/10] overflow-hidden rounded-[2rem] bg-zinc-950 border border-white/5">
-              <Image
-                src="/baciraro ecosystem.jpeg"
-                alt="Baciraro ecosystem overview"
-                fill
-                sizes="100vw"
-                className="object-cover"
-              />
-            </div>
-          </div>
-
-          <div className="grid gap-6 sm:grid-cols-2">
-            {ecosystemCards.map((card, index) => (
-              <motion.article
-                key={card.name}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.55, delay: index * 0.08 }}
-                className="group overflow-hidden rounded-[2rem] border border-white/5 bg-zinc-900/20 shadow-xl backdrop-blur-sm transition-all duration-300 hover:border-white/10 hover:bg-zinc-900/30"
-              >
-                <div className={`relative aspect-[4/3] overflow-hidden p-6 border-b border-white/5 ${card.name === "ORDERS"
-                    ? "bg-white"
-                    : "bg-gradient-to-br from-zinc-950 via-zinc-900 to-emerald-950/20"
-                  }`}>
-                  <EcosystemCardImage card={card} />
-                  <div className="absolute left-6 top-6 rounded-full border border-white/10 bg-black/60 p-2.5 text-emerald-400 shadow-lg backdrop-blur">
-                    <card.icon className="h-5 w-5" />
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-normal text-white">{card.name}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-zinc-400">{card.description}</p>
-                  <Link
-                    href={card.href}
-                    className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-xs font-semibold tracking-wider uppercase text-white shadow-lg backdrop-blur hover:bg-white/10 transition-colors"
+      <section id="ecosystem" className="relative z-10 py-20 lg:py-28 overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.03),_transparent_55%)]" />
+        
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid gap-12 md:grid-cols-2 md:items-center">
+            
+            {/* Left Column: Heading and Testimonial */}
+            <div className="flex flex-col gap-10 md:gap-14">
+              <div className="space-y-6">
+                <SectionLabel>Baciraro Ecosystem</SectionLabel>
+                <h2 className="text-4xl font-normal leading-[1.15] tracking-tight text-white sm:text-5xl lg:text-[3.25rem]">
+                  Lima entitas yang saling terhubung.
+                </h2>
+                <p className="max-w-xl text-base leading-relaxed text-zinc-400 sm:text-lg">
+                  Setiap unit menjalankan fungsi berbeda, tetapi terhubung dalam satu sistem terintegrasi yang mendorong dampak sosial, ekonomi, dan lingkungan dari hulu ke hilir.
+                </p>
+                <div className="pt-2">
+                  <a
+                    href="#flow"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 px-5 py-3 text-xs font-semibold uppercase tracking-wider text-white shadow-lg backdrop-blur transition-all duration-300 hover:border-emerald-500/20"
                   >
-                    Buka Halaman
-                    <ArrowRight className="h-3 w-3 text-emerald-400" />
-                  </Link>
+                    Jelajahi Alur Kerja
+                    <ArrowRight className="h-3.5 w-3.5 text-emerald-400" />
+                  </a>
                 </div>
-              </motion.article>
-            ))}
+              </div>
+
+              {/* CEO Testimonial Box */}
+              <div className="grid grid-cols-[auto_1fr] gap-4 rounded-2xl border border-white/5 bg-[#0a0d0a]/40 p-5 backdrop-blur-sm shadow-xl">
+                <div className="relative flex aspect-square h-12 w-12 shrink-0 overflow-hidden rounded-full border border-white/10 bg-zinc-900/60 shadow-lg">
+                  <Image
+                    src="/Marlon.png"
+                    alt="Marlon Kamagi"
+                    fill
+                    sizes="48px"
+                    className="object-cover object-top"
+                  />
+                </div>
+                <blockquote>
+                  <p className="text-sm italic leading-relaxed text-zinc-300">
+                    &ldquo;Sinergi antar entitas adalah kunci untuk menciptakan sirkularitas sampah yang nyata dan berkelanjutan dari hulu ke hilir.&rdquo;
+                  </p>
+                  <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
+                    <cite className="font-semibold not-italic text-white">Marlon Kamagi</cite>
+                    <span className="hidden h-1 w-1 rounded-full bg-zinc-600 sm:inline" />
+                    <p className="text-zinc-500">CEO, Baciraro Sustainability</p>
+                  </div>
+                </blockquote>
+              </div>
+            </div>
+
+            {/* Right Column: Premium Masked Grid */}
+            <div className="relative -mx-6 px-6 [mask-image:radial-gradient(ellipse_100%_100%_at_50%_0%,#000_75%,transparent_100%)] sm:mx-auto sm:max-w-xl md:mx-0 md:px-0 md:ml-auto md:w-full">
+              <div className="grid gap-3 sm:grid-cols-2">
+                {ecosystemCards.map((card, index) => (
+                  <motion.div
+                    key={card.name}
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.06 }}
+                  >
+                    <Integration
+                      icon={card.icon}
+                      name={card.name}
+                      description={card.description}
+                      href={card.href}
+                      image={card.image}
+                    />
+                  </motion.div>
+                ))}
+                
+                {/* 6th Slot: Dash Partnership Call to Action Card */}
+                <motion.div
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 5 * 0.06 }}
+                >
+                  <Link
+                    href="#contact"
+                    className="group flex h-full flex-col justify-between rounded-2xl border border-dashed border-emerald-500/20 bg-emerald-950/5 p-4 transition-all duration-300 hover:border-emerald-500/40 hover:bg-emerald-950/10 hover:shadow-[0_8px_30px_rgba(16,185,129,0.05)] hover:scale-[1.01]"
+                  >
+                    <div className="space-y-4">
+                      <div className="flex h-14 w-14 items-center justify-start text-emerald-400 transition-transform duration-300 group-hover:scale-105 shrink-0">
+                        <Plus className="h-8 w-8" />
+                      </div>
+                      <div className="space-y-1">
+                        <h3 className="text-sm font-semibold text-emerald-400 tracking-tight">
+                          Kemitraan Lintas Sektor
+                        </h3>
+                        <p className="text-xs text-zinc-500 leading-relaxed line-clamp-2">
+                          Kolaborasi CSR, program pemerintah daerah, atau penguatan sistem persampahan desa.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="mt-4 flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                      Hubungi Kami
+                      <ArrowRight className="h-2.5 w-2.5 transition-transform group-hover:translate-x-0.5" />
+                    </div>
+                  </Link>
+                </motion.div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
 
       {/* Flow Section */}
-      <section id="flow" className="relative z-10 py-20 text-white lg:py-24 overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.12),_transparent_60%)]" />
+      <section id="flow" className="relative z-10 py-24 text-white lg:py-32 overflow-hidden">
+        {/* Background ambient spot glow - Green Observatory */}
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_40%,_rgba(16,185,129,0.04),_transparent_70%)]" />
+        
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <SectionLabel>Alur Sistem</SectionLabel>
-          <div className="mt-5 max-w-3xl">
-            <h2 className="text-3xl font-normal leading-[1.15] tracking-tight sm:text-4xl lg:text-5xl">
-              Dari sampah menjadi data, lalu kembali menjadi nilai.
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-zinc-400 sm:text-lg">
-              Visualisasi ini menunjukkan bagaimana Baciraro menghubungkan edukasi, pengumpulan, daur ulang, produk turunan, dan pelacakan digital dalam satu rantai nilai.
-            </p>
+          <div className="flex flex-col items-center text-center">
+            <SectionLabel>Alur Sistem</SectionLabel>
+            <div className="mt-6 max-w-3xl">
+              <h2 className="text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl text-white">
+                Dari sampah menjadi data, <br />
+                <span className="font-serif italic text-emerald-300">lalu kembali menjadi nilai.</span>
+              </h2>
+              <p className="mt-5 text-base md:text-lg leading-relaxed text-zinc-400 max-w-[65ch]">
+                Visualisasi ini menunjukkan bagaimana Baciraro menghubungkan edukasi, pengumpulan, daur ulang, produk turunan, dan pelacakan digital dalam satu rantai nilai ekonomi sirkular yang tepercaya.
+              </p>
+            </div>
           </div>
 
-          <div className="mt-12 grid gap-4 md:grid-cols-3 xl:grid-cols-6">
-            {flowSteps.map((step, index) => (
-              <div key={step} className="relative">
-                <div className="rounded-[1.75rem] border border-white/5 bg-zinc-900/20 p-6 backdrop-blur-sm shadow-xl">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500/20 border border-emerald-500/30 font-bold text-emerald-400">
-                    0{index + 1}
+          <div className="relative mt-24 space-y-16 md:space-y-24 max-w-5xl mx-auto">
+            {/* Desktop Central Timeline Spine */}
+            <div className="absolute left-6 md:left-1/2 top-4 bottom-4 w-[1px] -translate-x-1/2 bg-gradient-to-b from-emerald-500/20 via-yellow-500/10 to-[#f87171]/20 hidden md:block" />
+
+            {/* Mobile Left-aligned Timeline Spine */}
+            <div className="absolute left-6 top-4 bottom-4 w-[1px] -translate-x-1/2 bg-gradient-to-b from-emerald-500/20 via-yellow-500/10 to-[#f87171]/20 md:hidden" />
+
+            {flowStepsDetailed.map((step, index) => {
+              const StepIcon = step.icon;
+              const isEven = index % 2 === 0;
+              
+              return (
+                <div 
+                  key={step.number} 
+                  className="relative flex flex-col md:flex-row items-start justify-between pl-12 md:pl-0 w-full group/step"
+                >
+                  {/* Circular Glow Node Marker */}
+                  <div className="absolute left-6 md:left-1/2 top-8 md:top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/5 bg-[#050805] flex items-center justify-center z-20 shadow-xl transition-all duration-500 group-hover/step:border-emerald-500/20">
+                    <div className={`h-4 w-4 rounded-full ${step.color === 'coral' ? 'bg-[#f87171] shadow-[0_0_12px_rgba(248,113,113,0.6)]' : 'bg-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.6)]'} flex items-center justify-center`}>
+                      <span className="h-1.5 w-1.5 rounded-full bg-white opacity-40 animate-ping" />
+                    </div>
                   </div>
-                  <p className="mt-4 text-lg font-medium text-white">{step}</p>
+
+                  {/* Desktop Left Side Card */}
+                  <div className={`w-full md:w-[45%] ${isEven ? 'md:order-1' : 'md:order-2 md:opacity-0 md:pointer-events-none md:invisible h-0 md:h-auto overflow-hidden md:overflow-visible'}`}>
+                    <motion.div
+                      initial={{ opacity: 0, x: -40, y: 15 }}
+                      whileInView={{ opacity: 1, x: 0, y: 0 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ duration: 0.8, ease: springEase }}
+                      className="relative rounded-[2.5rem] border border-white/5 bg-[#0c0f0c]/60 p-6 sm:p-8 md:p-10 shadow-2xl backdrop-blur-md group/card hover:border-emerald-500/20 hover:bg-[#0f140f]/60 transition-all duration-500"
+                    >
+                      {/* Ambient card spot glow */}
+                      <div className={`absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 pointer-events-none bg-[radial-gradient(circle_at_30%_30%,_${step.color === 'coral' ? 'rgba(248,113,113,0.04)' : 'rgba(16,185,129,0.04)'},_transparent_70%)]`} />
+
+                      <div className="flex justify-between items-start gap-4">
+                        <div>
+                          <span className={`font-serif italic text-lg ${step.color === 'coral' ? 'text-[#f87171]/90' : 'text-emerald-300/90'}`}>
+                            {step.tagline}
+                          </span>
+                          <h3 className="text-2xl md:text-3xl font-normal text-white tracking-tight mt-1 leading-none">
+                            {step.number}. {step.title}
+                          </h3>
+                        </div>
+                        <div className={`rounded-2xl ${step.color === 'coral' ? 'bg-[#f87171]/10 text-[#f87171]' : 'bg-emerald-500/10 text-emerald-400'} p-3.5 group-hover/card:scale-110 transition-transform duration-300 shrink-0`}>
+                          <StepIcon className="h-6 w-6" />
+                        </div>
+                      </div>
+
+                      <p className="mt-4 text-zinc-400 text-sm leading-relaxed font-sans max-w-[45ch]">
+                        {step.description}
+                      </p>
+                    </motion.div>
+                  </div>
+
+                  {/* Desktop Right Side Card */}
+                  <div className={`w-full md:w-[45%] ${!isEven ? 'md:order-2' : 'md:order-1 md:opacity-0 md:pointer-events-none md:invisible h-0 md:h-auto overflow-hidden md:overflow-visible'}`}>
+                    <motion.div
+                      initial={{ opacity: 0, x: 40, y: 15 }}
+                      whileInView={{ opacity: 1, x: 0, y: 0 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ duration: 0.8, ease: springEase }}
+                      className="relative rounded-[2.5rem] border border-white/5 bg-[#0c0f0c]/60 p-6 sm:p-8 md:p-10 shadow-2xl backdrop-blur-md group/card hover:border-emerald-500/20 hover:bg-[#0f140f]/60 transition-all duration-500"
+                    >
+                      {/* Ambient card spot glow */}
+                      <div className={`absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 pointer-events-none bg-[radial-gradient(circle_at_30%_30%,_${step.color === 'coral' ? 'rgba(248,113,113,0.04)' : 'rgba(16,185,129,0.04)'},_transparent_70%)]`} />
+
+                      <div className="flex justify-between items-start gap-4">
+                        <div>
+                          <span className={`font-serif italic text-lg ${step.color === 'coral' ? 'text-[#f87171]/90' : 'text-emerald-300/90'}`}>
+                            {step.tagline}
+                          </span>
+                          <h3 className="text-2xl md:text-3xl font-normal text-white tracking-tight mt-1 leading-none">
+                            {step.number}. {step.title}
+                          </h3>
+                        </div>
+                        <div className={`rounded-2xl ${step.color === 'coral' ? 'bg-[#f87171]/10 text-[#f87171]' : 'bg-emerald-500/10 text-emerald-400'} p-3.5 group-hover/card:scale-110 transition-transform duration-300 shrink-0`}>
+                          <StepIcon className="h-6 w-6" />
+                        </div>
+                      </div>
+
+                      <p className="mt-4 text-zinc-400 text-sm leading-relaxed font-sans max-w-[45ch]">
+                        {step.description}
+                      </p>
+                    </motion.div>
+                  </div>
+
                 </div>
-                {index < flowSteps.length - 1 ? (
-                  <ArrowRight className="absolute -right-2 top-1/2 hidden h-5 w-5 -translate-y-1/2 text-emerald-500/40 xl:block" />
-                ) : null}
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

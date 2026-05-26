@@ -4,6 +4,7 @@ import Image from "next/image";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Check, Play, X } from "lucide-react";
 import { useEffect, useRef, useState, type RefObject } from "react";
+import { LogoCloud } from "@/components/ui/logo-cloud-2";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -283,27 +284,11 @@ export default function CreativePage() {
       <section className="overflow-hidden border-t border-white/5 py-16">
         <div className="m-auto max-w-7xl px-6">
           <div className="flex flex-col items-center gap-8 md:flex-row">
-            <div className="w-full text-center md:max-w-44 md:border-r md:border-white/10 md:pr-6 md:text-right">
+            <div className="w-full text-center md:max-w-44 md:border-r md:border-white/10 md:pr-6 md:text-right shrink-0">
               <p className="text-sm text-zinc-400">Powering the best teams</p>
             </div>
-            <div className="flex w-full flex-wrap items-center justify-center gap-8 py-4 md:justify-start">
-              {[
-                "/Baciraro cap.png",
-                "/Logo (1).png",
-                "/Logo Kemenbud.png",
-                "/Baciraro cap.png",
-                "/Logo (1).png",
-                "/Logo Kemenbud.png",
-              ].map((src, index) => (
-                <Image
-                  key={`${src}-${index}`}
-                  src={src}
-                  alt="Partner logo"
-                  width={160}
-                  height={48}
-                  className="h-10 w-auto object-contain opacity-60 grayscale transition-all duration-500 hover:opacity-100 hover:grayscale-0 sm:h-12"
-                />
-              ))}
+            <div className="flex-1 w-full overflow-hidden">
+              <LogoCloud />
             </div>
           </div>
         </div>
