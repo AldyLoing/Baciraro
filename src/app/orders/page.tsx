@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { ArrowLeft, ArrowRight, Code, Smartphone, BarChart3, Zap } from "lucide-react";
+import { ArrowRight, Code, Smartphone, BarChart3, Zap } from "lucide-react";
 import FlowArt, { FlowSection } from "@/components/ui/story-scroll";
 
 const products = [
@@ -43,42 +44,7 @@ export default function OrdersPage() {
       {/* Background grain overlays */}
       <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.06] z-10" />
 
-      {/* Sticky Header */}
-      <header className="sticky top-0 z-50 w-full px-4 sm:px-6 lg:px-8 pt-4 pb-2">
-        <div className="mx-auto max-w-7xl rounded-full border border-white/5 bg-[#0c0f0c]/90 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden">
-          {/* Subtle green ambient glow behind the navbar */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(16,185,129,0.06),_transparent_75%)] pointer-events-none" />
-          <div className="bg-noise absolute inset-0 opacity-[0.03] pointer-events-none" />
-          
-          <div className="flex items-center justify-between px-6 py-3.5 relative z-10">
-            <Link href="/" className="transition-colors hover:text-white">
-              <div className="flex items-center gap-3.5">
-                <Image
-                  src="/Baciraro cap.png"
-                  alt="Baciraro logo"
-                  width={52}
-                  height={52}
-                  className="object-contain transition-transform hover:scale-105 duration-300"
-                />
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-emerald-400 flex items-center gap-1.5">
-                    Baciraro
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#f87171] animate-pulse" />
-                  </p>
-                  <p className="text-[11px] text-zinc-500 font-medium">ORDERS Profile</p>
-                </div>
-              </div>
-            </Link>
-            <Link
-              href="/#ecosystem"
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold tracking-wider uppercase text-white shadow-lg backdrop-blur-md transition-all hover:scale-102 hover:bg-white/10 hover:border-white/20 duration-300"
-            >
-              <ArrowLeft className="h-3 w-3 mr-1" />
-              Kembali
-            </Link>
-          </div>
-        </div>
-      </header>
+      <Header subtitle="ORDERS" />
 
       {/* GSAP Story Scroll Presentation */}
       <FlowArt aria-label="ORDERS Interactive Story Flow">
