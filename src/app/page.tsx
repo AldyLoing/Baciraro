@@ -59,13 +59,6 @@ const ecosystemCards = [
       "Komunitas pengembang teknologi yang membangun platform digital pengelolaan sampah.",
     icon: Cpu,
   },
-  {
-    name: "CBD Baciraro",
-    href: "/cbd-baciraro",
-    description:
-      "Chief Business Development and Financial yang fokus pada analisis bisnis, kontrol risiko, dan penguatan ekosistem Baciraro.",
-    icon: BriefcaseBusiness,
-  },
 ];
 
 const flowStepsDetailed = [
@@ -210,8 +203,10 @@ function EcosystemCardImage({
   return (
     <div className="flex h-full items-center justify-center bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.1),_transparent_55%),linear-gradient(135deg,_#090d09,_#000000)] p-6 text-center">
       <div className="max-w-xs">
-        <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-[2rem] border border-emerald-500/20 bg-emerald-950/40 text-2xl font-black text-emerald-400 shadow-xl backdrop-blur-sm">
-          CBD
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-[2rem] border border-emerald-500/20 bg-emerald-950/40 text-xs font-black text-emerald-400 shadow-xl backdrop-blur-sm p-3 text-center">
+          Chief Business
+          <br />
+          Development
         </div>
         <p className="mt-5 text-[10px] font-bold uppercase tracking-[0.28em] text-emerald-400">Baciraro</p>
         <p className="mt-2 text-lg font-normal text-white">{card.name}</p>
@@ -266,9 +261,9 @@ const Integration = ({
                 height={56}
                 className="object-contain h-full w-full object-left"
               />
-            ) : (
-              <div className="text-xs font-black tracking-wider text-emerald-400 bg-emerald-950/40 flex items-center justify-center h-full w-full rounded-xl border border-emerald-500/20">
-                CBD
+              ) : (
+              <div className="text-xs font-black tracking-wider text-emerald-400 bg-emerald-950/40 flex items-center justify-center h-full w-full rounded-xl border border-emerald-500/20 text-center px-2">
+                Chief Business Development
               </div>
             )}
           </div>
@@ -345,16 +340,16 @@ export default function Home() {
                 Dampak
               </a>
               <Link
-                href="/ceo"
+                href="/leadership"
                 className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-white rounded-full transition-all duration-300 hover:bg-white/5 border border-transparent hover:border-white/5"
               >
-                CEO
+                Leadership
               </Link>
               <Link
                 href="/projects"
                 className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-white rounded-full transition-all duration-300 hover:bg-white/5 border border-transparent hover:border-white/5"
               >
-                Proyek
+                Proyek & Rekam Jejak
               </Link>
               <a
                 href="#contact"
@@ -397,8 +392,8 @@ export default function Home() {
                   { name: "Ekosistem", href: "#ecosystem" },
                   { name: "Alur Sistem", href: "#flow" },
                   { name: "Dampak", href: "#impact" },
-                  { name: "CEO", href: "/ceo" },
-                  { name: "Proyek", href: "/projects" },
+                  { name: "Leadership", href: "/leadership" },
+                  { name: "Proyek & Rekam Jejak", href: "/projects" },
                   { name: "Kontak", href: "#contact" },
                 ].map((link) => (
                   <a
@@ -477,10 +472,10 @@ export default function Home() {
                 </span>
               </a>
               <a
-                href="#ceo"
+                href="#leadership"
                 className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-black/30 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur transition-all hover:bg-black/50 hover:border-white/30"
               >
-                Lihat CEO
+                Lihat Leadership
               </a>
             </div>
 
@@ -488,7 +483,6 @@ export default function Home() {
               {[
                 "Circular economy end-to-end",
                 "Digital monitoring system",
-                "CSR dan kemitraan lintas sektor",
               ].map((item) => (
                 <div
                   key={item}
@@ -503,7 +497,7 @@ export default function Home() {
       </section>
 
       {/* CEO Profile Preview */}
-      <section id="ceo" className="relative z-10 overflow-hidden py-24 text-white lg:py-28">
+      <section id="leadership" className="relative z-10 overflow-hidden py-24 text-white lg:py-28">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.12),_transparent_60%)]" />
         <div className="pointer-events-none absolute left-1/2 top-20 h-80 w-80 -translate-x-1/2 rounded-full bg-emerald-500/10 blur-3xl" />
 
@@ -517,7 +511,7 @@ export default function Home() {
           >
             <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-400 backdrop-blur-md shadow-lg">
               <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-              Our CEO
+              Our Leadership
             </p>
 
             <div className="relative mt-10 h-80 w-64 overflow-hidden rounded-[3rem] border border-white/10 shadow-[0_20px_80px_rgba(0,0,0,0.6)] sm:h-[23rem] sm:w-72">
@@ -551,10 +545,10 @@ export default function Home() {
 
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
               <Link
-                href="/ceo"
+                href="/leadership"
                 className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3"
               >
-                Lihat Halaman CEO
+                Lihat Halaman Leadership
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black transition-transform group-hover:scale-110">
                   <ArrowRight className="h-3 w-3 text-white" />
                 </span>
@@ -656,10 +650,10 @@ export default function Home() {
                     &ldquo;Sinergi antar entitas adalah kunci untuk menciptakan sirkularitas sampah yang nyata dan berkelanjutan dari hulu ke hilir.&rdquo;
                   </p>
                   <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
-                    <cite className="font-semibold not-italic text-white">Marlon Kamagi</cite>
-                    <span className="hidden h-1 w-1 rounded-full bg-zinc-600 sm:inline" />
-                    <p className="text-zinc-500">CEO, Baciraro Sustainability</p>
-                  </div>
+                        <cite className="font-semibold not-italic text-white">Marlon Kamagi</cite>
+                        <span className="hidden h-1 w-1 rounded-full bg-zinc-600 sm:inline" />
+                        <p className="text-zinc-500">CEO, Baciraro Sustainability</p>
+                      </div>
                 </blockquote>
               </div>
             </div>
@@ -685,36 +679,7 @@ export default function Home() {
                   </motion.div>
                 ))}
                 
-                {/* 6th Slot: Dash Partnership Call to Action Card */}
-                <motion.div
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 5 * 0.06 }}
-                >
-                  <Link
-                    href="#contact"
-                    className="group flex h-full flex-col justify-between rounded-2xl border border-dashed border-emerald-500/20 bg-emerald-950/5 p-4 transition-all duration-300 hover:border-emerald-500/40 hover:bg-emerald-950/10 hover:shadow-[0_8px_30px_rgba(16,185,129,0.05)] hover:scale-[1.01]"
-                  >
-                    <div className="space-y-4">
-                      <div className="flex h-14 w-14 items-center justify-start text-emerald-400 transition-transform duration-300 group-hover:scale-105 shrink-0">
-                        <Plus className="h-8 w-8" />
-                      </div>
-                      <div className="space-y-1">
-                        <h3 className="text-sm font-semibold text-emerald-400 tracking-tight">
-                          Kemitraan Lintas Sektor
-                        </h3>
-                        <p className="text-xs text-zinc-500 leading-relaxed line-clamp-2">
-                          Kolaborasi CSR, program pemerintah daerah, atau penguatan sistem persampahan desa.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="mt-4 flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-emerald-400">
-                      Hubungi Kami
-                      <ArrowRight className="h-2.5 w-2.5 transition-transform group-hover:translate-x-0.5" />
-                    </div>
-                  </Link>
-                </motion.div>
+                {/* partnership CTA removed per content update */}
               </div>
             </div>
 

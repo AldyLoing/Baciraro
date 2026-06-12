@@ -56,7 +56,7 @@ export default function Footer() {
                 { name: "Yayasan Tana Nyiur Lestari", href: "/tananyiurlestari" },
                 { name: "Trash Recycle Center", href: "/trashrecyclecenter" },
                 { name: "ELMAST Greenovasi", href: "/elmast" },
-                { name: "CBD & Financial", href: "/cbd-baciraro" },
+                { name: "Leadership", href: "/leadership" },
               ].map((item) => (
                 <li key={item.name}>
                   <Link
@@ -79,8 +79,8 @@ export default function Footer() {
             <ul className="space-y-4 text-xs font-medium">
               {[
                 { name: "Beranda", href: "/" },
-                { name: "CEO Profile", href: "/ceo" },
-                { name: "Proyek Inisiatif", href: "/projects" },
+                { name: "Leadership", href: "/leadership" },
+                { name: "Proyek & Rekam Jejak", href: "/projects" },
                 { name: "Baciraro Creative", href: "/creative" },
               ].map((item) => (
                 <li key={item.name}>
