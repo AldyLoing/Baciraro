@@ -1,6 +1,6 @@
 <div align="center">
 
-\\\\\\
+\\\\
 # Baciraro
 
 **A modern sustainability platform that connects education, collection, recycling, digital tracking, and circular value creation in one cohesive ecosystem.**
