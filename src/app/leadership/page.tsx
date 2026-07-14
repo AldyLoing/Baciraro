@@ -91,7 +91,7 @@ const techDirData: DivisionData = {
   members: [
     { name: "Jemsi Indrakusuma", role: "Technical Operations Engineer", initials: "JI", photo: "/Jemsi Indrakusuma.png" },
     { name: "Calvin Kakase", role: "Technical & Systems Engineer", initials: "CK", linkedin: "https://www.linkedin.com/in/calvinkakase/", instagram: "https://www.instagram.com/clvnkkse_/", email: "sscalvinkakase@gmail.com", photo: "/Calvin Kakase.png" },
-    { name: "Hizkia Kamagi", role: "Technical Support Engineer", initials: "HK" },
+    { name: "Hizkia Kamagi", role: "Technical Support Engineer", initials: "HK", photo: "/Hizkia Kamagi.png" },
   ],
 };
 
