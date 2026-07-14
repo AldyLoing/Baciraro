@@ -4,17 +4,6 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import {
-  Mail,
-  Phone,
-  Briefcase,
-  MessageCircle,
-  Share2,
-  Award,
-  Users,
-  Globe,
-  Lightbulb,
-} from "lucide-react";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -22,303 +11,410 @@ const ceoData = {
   name: "Marlon Kamagi",
   title: "Chief Executive Officer",
   subtitle: "Community Development Worker",
-  bio: "Perencana Sosial yang berpengalaman dalam pembangunan berkelanjutan, penelitian sosial dan lingkungan, serta pemberdayaan komunitas berbasis participatory approach.",
   description: [
     "Salah seorang Climate Leader pada The Climate Reality Project Indonesia dengan aktivitas mengkampanyekan realitas iklim akibat pemanasan global.",
     "Vibrant Fasilitator untuk membangun komunitas menuju keagungan insani dan kemaslahatan bersama.",
     "Dengan teknik fasilitasi yang inovatif dan vibrant communication skill, Marlon memudahkan dalam membangun antusias dan mentransfer pengetahuan kepada komunitas.",
   ],
-  contact: {
-    phone: "+62 81356198513",
-    email: "marlonkamagi@outlook.com",
-    website: "marlonkamagi.wixsite.com/marlonkamagi",
-  },
-  social: [
-    { name: "Facebook", icon: Share2, url: "http://www.facebook.com/marlonorangkulawi" },
-    { name: "Twitter", icon: MessageCircle, url: "https://twitter.com/markfromkulawi" },
-    { name: "LinkedIn", icon: Briefcase, url: "http://id.linkedin.com/pub/marlon-kamagi/1b/389/437/" },
-  ],
-  expertise: [
-    {
-      title: "Community Development",
-      description: "Pengembangan komunitas berbasis partisipasi dan pemberdayaan lokal",
-      icon: Users,
-    },
-    {
-      title: "Climate Action",
-      description: "Leadership dalam aksi iklim dan edukasi lingkungan berkelanjutan",
-      icon: Globe,
-    },
-    {
-      title: "Facilitation",
-      description: "Teknik fasilitasi inovatif untuk transfer pengetahuan dan pengorganisasian masyarakat",
-      icon: Lightbulb,
-    },
-    {
-      title: "Social Research",
-      description: "Penelitian kualitatif dan kuantitatif di bidang sosial dan lingkungan",
-      icon: Award,
-    },
+  linkedin: "http://id.linkedin.com/pub/marlon-kamagi/1b/389/437/",
+  email: "marlonkamagi@outlook.com",
+};
+
+type Member = { name: string; role: string; initials: string; email?: string; linkedin?: string; instagram?: string; photo?: string };
+
+type DivisionData = {
+  name: string;
+  title: string;
+  subtitle: string;
+  photo?: string;
+  linkedin?: string;
+  email?: string;
+  instagram?: string;
+  divisionLabel: string;
+  members: Member[];
+};
+
+const businessData: DivisionData = {
+  name: "Nobel Andrew Andries",
+  title: "Chief Business & Development Officer",
+  subtitle: "Independent Financial & Business Analyst",
+  photo: "/Nobel Andrew Andries.png",
+  linkedin: "https://www.linkedin.com/in/nobel-andrew-andries-34abb386/",
+  divisionLabel: "Business & Development Division",
+  members: [
+    { name: "Natasya Lumingkewas", role: "Finance & Administration Officer", initials: "NL", photo: "/Natasya Lumingkewas v2.png", linkedin: "https://www.linkedin.com/in/natasya-lumingkewas/", instagram: "https://www.instagram.com/ntsylumingkewas/" },
+    { name: "Faith Alexander", role: "Public Relations & Community Engagement Officer", initials: "FA", photo: "/Faith Alexander v2.png", instagram: "https://www.instagram.com/feyyitt/" },
+    { name: "Daniel Kamagi", role: "Business Development Officer", initials: "DK", photo: "/Daniel Kamagi.png", instagram: "https://www.instagram.com/kamagidaniel/", linkedin: "https://www.linkedin.com/in/daniel-kamagi-0a2a52379/" },
   ],
 };
 
-const cbdData = {
-  name: "Nobel Andrew Andries",
-  title: "Chief Business Development",
-  subtitle: "Independent Financial & Business Analyst",
-  description: [
-    "Analis keuangan yang berfokus pada rekonstruksi laporan keuangan, analisa biaya, arus kas, dan penilaian risiko bisnis.",
-    "Berpengalaman dalam mengembangkan strategi bisnis berkelanjutan dan kemitraan strategis untuk mendorong pertumbuhan ekosistem Baciraro.",
+const techData: DivisionData = {
+  name: "Aldy Loing",
+  title: "Chief Technology Officer",
+  subtitle: "Software Engineer & Digital Architect",
+  photo: "/Aldy Loing.png",
+  linkedin: "https://www.linkedin.com/in/aldyloing/",
+  instagram: "https://www.instagram.com/aldy_loing/",
+  email: "loingaldy@gmail.com",
+  divisionLabel: "Technology Division",
+  members: [
+    { name: "Kevin Pesik", role: "Lead Software Engineer & AI Architect", initials: "KP", photo: "/Kevin Pesik.png", linkedin: "https://www.linkedin.com/in/kevin-pesik-115b24280/", instagram: "https://www.instagram.com/lac_kvn/" },
+    { name: "Jazel Kandou", role: "Software Developer", initials: "JK", photo: "/Jazel Kandou v2.png", instagram: "https://www.instagram.com/jazeeray/", linkedin: "https://www.linkedin.com/in/jazel-ray-verald-kandou-jazee241103/" },
+    { name: "Given Tambalean", role: "Product Innovation & Digital Creative Officer", initials: "GT", photo: "/Given Tambalean.png", linkedin: "https://www.linkedin.com/in/feergio-given-majesti-tambalean/", instagram: "https://www.instagram.com/giventambalean/" },
   ],
 };
+
+const opsData: DivisionData = {
+  name: "Clay Lalamentik",
+  title: "Chief Operating Officer",
+  subtitle: "Operational & Supply Chain Strategist",
+  photo: "/Clay.png",
+  linkedin: "#",
+  email: "clay@baciraro.com",
+  divisionLabel: "Operations & Communications Division",
+  members: [
+    { name: "Rizky Mema", role: "Digital Content & Media Officer", initials: "RM", photo: "/Rizky Mema.png", instagram: "https://www.instagram.com/rizkymema/", linkedin: "https://www.linkedin.com/in/rizky-oktavian-teddy-mema-947336370/" },
+    { name: "Friestha Arikalang", role: "Administration & Documentation Officer", initials: "FA", photo: "/Friestha Arikalang.png", linkedin: "https://www.linkedin.com/in/friesthaarikalang/", instagram: "https://www.instagram.com/fristaarikalang/", email: "friesthafricilia@gmail.com" },
+    { name: "Giordyano Anhar", role: "Creative Design & Media Officer", initials: "GA", photo: "/Giordyano Anhar.png", instagram: "https://www.instagram.com/gioran_30/" },
+  ],
+};
+
+const techDirData: DivisionData = {
+  name: "Owen Kalumata",
+  title: "Technical Director",
+  subtitle: "Technical Operations & Systems Lead",
+  photo: "/Owen Kalumata.png",
+  linkedin: "https://www.linkedin.com/in/owen-kalumata/",
+  instagram: "https://www.instagram.com/_owenklmt/",
+  email: "owen@baciraro.com",
+  divisionLabel: "Technical Division",
+  members: [
+    { name: "Jemsi Indrakusuma", role: "Technical Operations Engineer", initials: "JI", photo: "/Jemsi Indrakusuma.png" },
+    { name: "Calvin Kakase", role: "Technical & Systems Engineer", initials: "CK", linkedin: "https://www.linkedin.com/in/calvinkakase/", instagram: "https://www.instagram.com/clvnkkse_/", email: "sscalvinkakase@gmail.com", photo: "/Calvin Kakase.png" },
+    { name: "Hizkia Kamagi", role: "Technical Support Engineer", initials: "HK" },
+  ],
+};
+
+function LinkedInIcon({ className = "h-[18px] w-[18px]" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+    </svg>
+  );
+}
+
+function InstagramIcon({ className = "h-[18px] w-[18px]" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+    </svg>
+  );
+}
+
+function EmailIcon({ className = "h-[18px] w-[18px]" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.42l-9 5.4-9-5.4V6l9 5.4L21 6v2.42z" />
+    </svg>
+  );
+}
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-400 backdrop-blur shadow-lg">
+    <div className="inline-flex items-center gap-2.5 rounded-full border border-white/[0.06] bg-white/[0.03] px-5 py-2 text-[11px] font-bold uppercase tracking-[0.28em] text-emerald-400 backdrop-blur">
       <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
       {children}
-    </p>
+    </div>
+  );
+}
+
+function IconBtn({ href, label, children }: { href: string; label: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center justify-center rounded-full border border-white/[0.07] bg-white/[0.04] text-zinc-400 transition-all duration-300 hover:border-[#f87171]/25 hover:bg-[#f87171]/[0.06] hover:text-[#f87171]"
+      aria-label={label}
+    >
+      {children}
+    </a>
+  );
+}
+
+function MemberCard({ member }: { member: Member }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.6, ease: springEase }}
+      className="group rounded-[20px] border border-white/[0.07] bg-white/[0.02] backdrop-blur overflow-hidden transition-all duration-300 hover:border-white/[0.12] hover:shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:-translate-y-0.5"
+    >
+      <div className="relative w-full aspect-[4/5] overflow-hidden">
+        {member.photo ? (
+          <Image src={member.photo} alt={member.name} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 33vw" />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-emerald-500/[0.06] to-black/90">
+            <span className="font-serif text-3xl text-emerald-400/60">{member.initials}</span>
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/[0.55] via-transparent to-transparent pointer-events-none" />
+      </div>
+      <div className="p-4 pb-5">
+        <h3 className="font-serif text-[17px] font-normal leading-tight text-white">{member.name}</h3>
+        <p className="mt-1 text-xs text-zinc-400 leading-relaxed">{member.role}</p>
+        <div className="mt-3 flex gap-1.5">
+          {member.linkedin && (
+            <IconBtn href={member.linkedin} label={`${member.name} LinkedIn`}>
+              <LinkedInIcon className="h-[13px] w-[13px]" />
+            </IconBtn>
+          )}
+          {member.instagram && (
+            <IconBtn href={member.instagram} label={`${member.name} Instagram`}>
+              <InstagramIcon className="h-[13px] w-[13px]" />
+            </IconBtn>
+          )}
+          {member.email && (
+            <IconBtn href={`mailto:${member.email}`} label={`${member.name} Email`}>
+              <EmailIcon className="h-[13px] w-[13px]" />
+            </IconBtn>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function DivisionSection({ data }: { data: DivisionData }) {
+  const gridClass = data.members.length === 2
+    ? "grid-cols-1 sm:grid-cols-2"
+    : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
+
+  return (
+    <section className="border-t border-white/[0.04] py-16 lg:py-20">
+      <div className="grid gap-12 lg:grid-cols-[340px_1fr] lg:gap-14">
+        <motion.div
+          initial={{ opacity: 0, x: -24 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, ease: springEase }}
+          className="rounded-[20px] border border-white/[0.07] bg-white/[0.02] backdrop-blur p-8"
+        >
+          <div className="relative w-full aspect-[4/5] rounded-[16px] overflow-hidden border border-white/[0.05] shadow-[0_16px_48px_rgba(0,0,0,0.5)] mb-5">
+            {data.photo ? (
+              <Image src={data.photo} alt={data.name} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="340px" />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-emerald-500/[0.08] to-black/90">
+                <span className="font-serif text-5xl text-emerald-400/60">
+                  {data.name.split(" ").map((n) => n[0]).join("")}
+                </span>
+              </div>
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/[0.4] via-transparent to-transparent pointer-events-none" />
+          </div>
+          <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#f87171] mb-1">
+            {data.title}
+          </p>
+          <h2 className="font-serif text-[26px] font-normal leading-tight text-white">{data.name}</h2>
+          <p className="mt-1 text-sm text-zinc-400">{data.subtitle}</p>
+          <div className="mt-4 flex gap-2">
+            {data.linkedin && (
+              <IconBtn href={data.linkedin} label={`${data.name} LinkedIn`}>
+                <LinkedInIcon />
+              </IconBtn>
+            )}
+            {data.instagram && (
+              <IconBtn href={data.instagram} label={`${data.name} Instagram`}>
+                <InstagramIcon />
+              </IconBtn>
+            )}
+            {data.email && (
+              <IconBtn href={`mailto:${data.email}`} label={`${data.name} Email`}>
+                <EmailIcon />
+              </IconBtn>
+            )}
+          </div>
+        </motion.div>
+
+        <div>
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: springEase }}
+            className="text-[11px] font-bold uppercase tracking-[0.28em] text-emerald-400 pb-3 border-b border-white/[0.05] mb-8"
+          >
+            {data.divisionLabel}
+          </motion.p>
+          <div className={`grid gap-5 ${gridClass}`}>
+            {data.members.map((member) => (
+              <MemberCard key={member.name} member={member} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
 export default function LeadershipPage() {
   return (
-    <main className="relative overflow-hidden bg-background text-foreground min-h-screen">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.12),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(250,204,21,0.08),_transparent_30%),linear-gradient(180deg,_#000000_0%,_#050805_100%)]" />
-      <div className="pointer-events-none absolute left-[-8rem] top-[22rem] h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl -z-10" />
-      <div className="pointer-events-none absolute right-[-8rem] top-[48rem] h-96 w-96 rounded-full bg-amber-500/5 blur-3xl -z-10" />
-      <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.12] -z-10" />
+    <main className="relative overflow-hidden bg-black text-[#fafafa] min-h-screen">
+      <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.08] bg-noise" />
+      <div className="pointer-events-none fixed inset-0 z-0"
+        style={{
+          background: `
+            radial-gradient(ellipse 70% 50% at 20% 15%, rgba(16,185,129,0.10), transparent 60%),
+            radial-gradient(ellipse 50% 40% at 80% 25%, rgba(248,113,113,0.05), transparent 50%),
+            radial-gradient(ellipse 60% 50% at 50% 50%, rgba(16,185,129,0.06), transparent 60%),
+            radial-gradient(ellipse 80% 50% at 30% 75%, rgba(16,185,129,0.04), transparent 50%),
+            radial-gradient(ellipse 50% 40% at 70% 85%, rgba(248,113,113,0.03), transparent 50%),
+            linear-gradient(180deg, #000000 0%, #050805 100%)
+          `
+        }}
+      />
 
       <Header subtitle="Leadership" />
 
-      <section className="relative z-10 min-h-[90vh] flex items-center justify-center pt-16 pb-12">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,_rgba(16,185,129,0.15),_transparent_60%)]" />
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
 
-        <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-8">
+        {/* ===== HERO ===== */}
+        <section className="pt-20 pb-10 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: springEase }}
-            className="mb-12"
+            transition={{ duration: 0.7, ease: springEase }}
           >
-            <div className="inline-flex justify-center mb-8">
-              <div className="relative w-64 h-80 overflow-hidden rounded-[3rem] border border-white/10 shadow-[0_20px_80px_rgba(0,0,0,0.6)]">
+            <SectionLabel>Leadership</SectionLabel>
+          </motion.div>
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: springEase }}
+            className="mt-5 font-serif text-[clamp(48px,7vw,88px)] font-normal leading-[1.08] tracking-[-0.04em] text-white"
+          >
+            Leadership Team
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: springEase }}
+            className="mt-4 max-w-[640px] mx-auto text-[15px] text-zinc-300 leading-relaxed"
+          >
+            Tim kepemimpinan Baciraro yang berdedikasi untuk mendorong inovasi, memperkuat kolaborasi, dan menciptakan dampak berkelanjutan bagi masyarakat dan lingkungan.
+          </motion.p>
+        </section>
+
+        {/* ===== CEO ===== */}
+        <section className="pb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 32 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.3, ease: springEase }}
+            className="relative rounded-[36px] p-8 lg:p-[60px_56px] border border-emerald-500/15 backdrop-blur-[20px]"
+            style={{
+              background: "radial-gradient(ellipse 80% 60% at 30% 40%, rgba(16,185,129,0.06), transparent 70%), rgba(255,255,255,0.02)",
+              boxShadow: "0 0 80px rgba(16,185,129,0.06), 0 0 160px rgba(16,185,129,0.04), inset 0 0 80px rgba(16,185,129,0.02)",
+            }}
+          >
+            <div className="pointer-events-none absolute inset-[-1px] rounded-[36px]"
+              style={{
+                padding: 1,
+                background: "linear-gradient(135deg, rgba(16,185,129,0.25), transparent 40%, transparent 60%, rgba(248,113,113,0.10))",
+                WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+                WebkitMaskComposite: "xor",
+                maskComposite: "exclude",
+              }}
+            />
+            <div className="grid gap-10 lg:grid-cols-[340px_1fr] lg:items-start">
+              <div className="relative w-full aspect-[4/5] rounded-[28px] overflow-hidden border border-white/[0.06] shadow-[0_24px_80px_rgba(0,0,0,0.6)]">
                 <Image
                   src="/Marlon.png"
                   alt={ceoData.name}
                   fill
                   priority
-                  sizes="(max-width: 768px) 100vw, 256px"
-                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  className="object-cover transition-transform duration-[0.6s] hover:scale-105"
+                  sizes="340px"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <p className="text-emerald-400 text-xs font-semibold uppercase tracking-[0.3em]">Chief Executive Officer</p>
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-normal leading-none tracking-[-0.04em] text-white">
-                {ceoData.name}
-              </h1>
-              <p className="font-serif text-3xl italic tracking-tight text-emerald-300/85">{ceoData.subtitle}</p>
-              <p className="text-sm uppercase tracking-[0.2em] text-zinc-500">{ceoData.title}</p>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: springEase }}
-            className="mt-12 space-y-4"
-          >
-            {ceoData.description.map((para, index) => (
-              <p key={index} className="leading-relaxed text-zinc-300 text-base md:text-lg max-w-2xl mx-auto">
-                {para}
-              </p>
-            ))}
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: springEase }}
-            className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center"
-          >
-            <a
-              href={`mailto:${ceoData.contact.email}`}
-              className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3 shadow-lg"
-            >
-              Hubungi Marlon
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black">
-                <Mail className="h-3.5 w-3.5 text-white" />
-              </span>
-            </a>
-            <a
-              href={`tel:${ceoData.contact.phone}`}
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur transition-all hover:bg-white/10"
-            >
-              <Phone className="h-4 w-4 text-emerald-400" />
-              {ceoData.contact.phone}
-            </a>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-12 flex gap-4 justify-center"
-          >
-            {ceoData.social.map((social) => (
-              <a
-                key={social.name}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center h-12 w-12 rounded-full border border-white/10 bg-white/5 text-zinc-400 hover:text-white hover:bg-white/10 transition-colors shadow-lg"
-                title={social.name}
-              >
-                <social.icon className="h-5 w-5" />
-              </a>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      <section className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:px-8">
-        <div className="rounded-[3rem] border border-white/5 bg-zinc-900/20 p-8 shadow-2xl backdrop-blur-sm">
-          <h3 className="text-xs font-semibold uppercase tracking-[0.25em] text-zinc-500 mb-6">Informasi Kontak</h3>
-          <div className="grid gap-6 sm:grid-cols-3">
-            <a
-              href={`tel:${ceoData.contact.phone}`}
-              className="flex items-start gap-4 p-5 rounded-[2rem] border border-white/5 bg-zinc-950/40 hover:bg-zinc-950/60 hover:border-white/10 transition-all duration-300"
-            >
-              <div className="rounded-2xl bg-emerald-500/10 p-3 text-emerald-400">
-                <Phone className="h-6 w-6" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
               </div>
               <div>
-                <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 font-semibold">Telepon</p>
-                <p className="mt-1 font-semibold text-white">{ceoData.contact.phone}</p>
-              </div>
-            </a>
-            <a
-              href={`mailto:${ceoData.contact.email}`}
-              className="flex items-start gap-4 p-5 rounded-[2rem] border border-white/5 bg-zinc-950/40 hover:bg-zinc-950/60 hover:border-white/10 transition-all duration-300"
-            >
-              <div className="rounded-2xl bg-emerald-500/10 p-3 text-emerald-400">
-                <Mail className="h-6 w-6" />
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 font-semibold">Email</p>
-                <p className="mt-1 font-semibold text-white break-all">{ceoData.contact.email}</p>
-              </div>
-            </a>
-            <a
-              href={`https://${ceoData.contact.website}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-start gap-4 p-5 rounded-[2rem] border border-white/5 bg-zinc-950/40 hover:bg-zinc-950/60 hover:border-white/10 transition-all duration-300"
-            >
-              <div className="rounded-2xl bg-emerald-500/10 p-3 text-emerald-400">
-                <Globe className="h-6 w-6" />
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 font-semibold">Website</p>
-                <p className="mt-1 font-semibold text-white">{ceoData.contact.website}</p>
-              </div>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative z-10 py-20 lg:py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mb-12">
-            <SectionLabel>Keahlian & Kompetensi</SectionLabel>
-            <h2 className="mt-6 text-3xl font-normal leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-5xl">
-              Pengalaman dan Keahlian Bertahun-tahun
-            </h2>
-          </div>
-
-          <div className="grid gap-6 sm:grid-cols-2">
-            {ceoData.expertise.map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.55, delay: index * 0.08 }}
-                className="rounded-[2.25rem] border border-white/5 bg-zinc-900/20 p-6 shadow-xl backdrop-blur-sm hover:border-white/10 hover:bg-zinc-900/30 transition-all duration-300"
-              >
-                <div className="rounded-2xl bg-emerald-500/10 p-3 text-emerald-400 w-fit">
-                  <item.icon className="h-7 w-7" />
+                <p className="text-[12px] font-bold uppercase tracking-[0.25em] text-[#f87171] mb-2">
+                  Chief Executive Officer (CEO)
+                </p>
+                <h2 className="font-serif text-[clamp(40px,5vw,64px)] font-normal leading-[1.08] tracking-[-0.03em] text-white">
+                  {ceoData.name}
+                </h2>
+                <p className="font-serif text-[22px] italic text-emerald-400 mt-2">
+                  {ceoData.subtitle}
+                </p>
+                <div className="mt-5 space-y-3 max-w-[560px]">
+                  {ceoData.description.map((para, i) => (
+                    <p key={i} className="text-[14px] leading-relaxed text-zinc-300">{para}</p>
+                  ))}
                 </div>
-                <h3 className="mt-6 text-xl font-normal text-white">{item.title}</h3>
-                <p className="mt-2 text-zinc-400 leading-relaxed text-sm">{item.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+                <div className="flex gap-3 mt-6">
+                  <IconBtn href={ceoData.linkedin} label="LinkedIn">
+                    <LinkedInIcon className="h-[18px] w-[18px]" />
+                  </IconBtn>
+                  <IconBtn href={`mailto:${ceoData.email}`} label="Email">
+                    <EmailIcon className="h-[18px] w-[18px]" />
+                  </IconBtn>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </section>
 
-      <section className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:px-8 border-t border-white/5">
-        <div className="mb-12">
-          <SectionLabel>Chief Business Development</SectionLabel>
-          <h2 className="mt-6 text-3xl font-normal leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-5xl">
-            {cbdData.name}
-          </h2>
-          <p className="mt-2 text-emerald-400 font-serif italic text-xl">{cbdData.subtitle}</p>
-          <p className="mt-2 text-sm uppercase tracking-[0.2em] text-zinc-500">{cbdData.title}</p>
-        </div>
+        {/* ===== SECTIONS ===== */}
+        <DivisionSection data={businessData} />
+        <DivisionSection data={techData} />
+        <DivisionSection data={opsData} />
+        <DivisionSection data={techDirData} />
 
-        <div className="max-w-3xl space-y-4">
-          {cbdData.description.map((para, index) => (
-            <p key={index} className="text-base leading-relaxed text-zinc-300">
-              {para}
-            </p>
-          ))}
-        </div>
-
-        <div className="mt-8">
-          <a
-            href="https://www.linkedin.com/in/nobel-andrew-andries-34abb386/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-xs font-semibold uppercase tracking-wider text-white hover:bg-white/10 transition-all duration-300"
+        {/* ===== FOOTER ===== */}
+        <footer className="border-t border-white/[0.04] py-20 pb-16 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: springEase }}
+            className="max-w-[720px] mx-auto rounded-[28px] border border-white/[0.07] bg-white/[0.02] backdrop-blur p-12 lg:p-14 relative"
           >
-            <Briefcase className="h-4 w-4 text-emerald-400" />
-            Lihat profil LinkedIn
-          </a>
-        </div>
-      </section>
+            <span className="absolute top-2 left-6 font-serif text-[80px] leading-none text-emerald-500/10 pointer-events-none select-none">
+              &ldquo;
+            </span>
+            <p className="font-serif text-[22px] italic leading-relaxed text-[#e8e8e8]">
+              Kami percaya bahwa kolaborasi, inovasi, dan integritas adalah kunci untuk menciptakan perubahan nyata.
+            </p>
+          </motion.div>
 
-      <section className="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-24">
-        <div className="rounded-[3rem] border border-white/5 bg-gradient-to-br from-zinc-950 via-zinc-900 to-emerald-950/20 p-8 text-center lg:p-12 shadow-2xl backdrop-blur-sm">
-          <h2 className="text-3xl font-normal leading-[1.1] tracking-tight text-white">
-            Tertarik untuk Berkolaborasi?
-          </h2>
-          <p className="mt-4 text-base text-zinc-400 max-w-xl mx-auto">
-            Hubungi Marlon Kamagi untuk diskusi lebih lanjut tentang Baciraro atau peluang kemitraan lingkungan.
-          </p>
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
-            <a
-              href={`mailto:${ceoData.contact.email}`}
-              className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3"
-            >
-              Kirim Email
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black">
-                <Mail className="h-3.5 w-3.5 text-white" />
-              </span>
-            </a>
-            <a
-              href={`tel:${ceoData.contact.phone}`}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur hover:bg-white/10 transition-all duration-300"
-            >
-              <Phone className="h-4 w-4 text-emerald-400" />
-              Hubungi langsung
-            </a>
-          </div>
-        </div>
-      </section>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.15, ease: springEase }}
+            className="mt-14"
+          >
+            <p className="font-serif text-[28px] tracking-[-0.02em] text-white">Baciraro</p>
+            <p className="text-[13px] text-emerald-400 mt-1">The Green Observatory</p>
+            <div className="w-[60px] h-px bg-emerald-500/15 mx-auto my-6" />
+            <div className="flex flex-wrap justify-center gap-2">
+              {["Inovasi", "Kolaborasi", "Integritas", "Keberlanjutan"].map((v) => (
+                <span
+                  key={v}
+                  className="px-4 py-1.5 rounded-full border border-emerald-500/[0.12] bg-emerald-500/[0.04] text-[12px] font-semibold tracking-[0.06em] text-emerald-400"
+                >
+                  {v}
+                </span>
+              ))}
+            </div>
+            <p className="text-[12px] text-zinc-600 mt-5">Baciraro &mdash; Leadership Team</p>
+          </motion.div>
+        </footer>
+
+      </div>
 
       <Footer />
     </main>

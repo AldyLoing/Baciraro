@@ -7,12 +7,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Menu, X } from "lucide-react";
 
 const navLinks = [
-  { name: "Ekosistem", href: "/#ecosystem" },
-  { name: "Alur Sistem", href: "/#flow" },
-  { name: "Dampak", href: "/#impact" },
-  { name: "Leadership", href: "/leadership" },
-  { name: "Proyek & Rekam Jejak", href: "/projects" },
-  { name: "Kontak", href: "/#contact" },
+  { name: "Home", href: "/" },
+  { name: "About", href: "/#about" },
+  { name: "Projects", href: "/projects" },
+  { name: "Contact", href: "/#contact" },
 ];
 
 export default function Header({ subtitle }: { subtitle?: string }) {
@@ -46,12 +44,12 @@ export default function Header({ subtitle }: { subtitle?: string }) {
             </div>
           </Link>
 
-          <nav className="hidden items-center gap-1 md:flex">
+          <nav className="hidden items-center gap-1.5 md:flex">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-zinc-400 hover:text-white rounded-full transition-all duration-300 hover:bg-white/5 border border-transparent hover:border-white/5"
+                className="px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-full transition-all duration-300 border text-zinc-400 hover:text-white hover:bg-white/5 border-transparent hover:border-white/5"
               >
                 {link.name}
               </Link>
@@ -60,11 +58,11 @@ export default function Header({ subtitle }: { subtitle?: string }) {
 
           <div className="flex items-center gap-2">
             <Link
-              href="/creative"
-              className="hidden sm:inline-flex items-center gap-2 rounded-full border border-[#f87171]/20 bg-[#f87171]/5 px-4 py-2 text-xs font-semibold tracking-wider uppercase text-[#f87171] shadow-[0_0_15px_rgba(248,113,113,0.1)] transition-all hover:scale-102 hover:bg-[#f87171]/10 hover:border-[#f87171]/40 duration-300"
+              href="/#contact"
+              className="hidden sm:inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold tracking-wider uppercase text-white transition-all hover:scale-102 hover:bg-white/10 hover:border-white/20 duration-300"
             >
-              Baciraro Creative
-              <ArrowRight className="h-3 w-3" />
+              Kolaborasi CSR
+              <ArrowRight className="h-3 w-3 text-emerald-400" />
             </Link>
 
             <button
@@ -91,19 +89,11 @@ export default function Header({ subtitle }: { subtitle?: string }) {
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="py-3 text-center text-sm font-semibold uppercase tracking-wider text-zinc-400 hover:text-white rounded-xl transition-all border border-transparent hover:bg-white/5"
+                  className="py-3 text-center text-sm font-semibold uppercase tracking-wider rounded-xl transition-all border text-zinc-400 hover:text-white hover:bg-white/5 border-transparent"
                 >
                   {link.name}
                 </Link>
               ))}
-              <Link
-                href="/creative"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="inline-flex sm:hidden items-center justify-center gap-2 rounded-full border border-[#f87171]/20 bg-[#f87171]/5 px-4 py-3 text-xs font-semibold tracking-wider uppercase text-[#f87171] shadow-[0_0_15px_rgba(248,113,113,0.1)] transition-all mt-2"
-              >
-                Baciraro Creative
-                <ArrowRight className="h-3 w-3" />
-              </Link>
             </motion.div>
           )}
         </AnimatePresence>

@@ -506,7 +506,7 @@ function TimelineSection() {
       <div className="mb-12">
         <SectionHeading
           eyebrow="Timeline"
-          title="Perjalanan Baciraro 2020\u20132025"
+          title="Perjalanan Baciraro dari 2012"
           description="Evolusi ekosistem pengelolaan sampah dari startup digital lokal menjadi gerakan nasional pengelolaan sampah sirkular berkelanjutan."
         />
       </div>

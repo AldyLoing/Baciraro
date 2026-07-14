@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 
 // Use the provided logo in public as the site icon/favicons
 export const metadata: Metadata = {
-  title: "Baciraro | Ekosistem Pengelolaan Sampah Terintegrasi",
+  title: "Baciraro | Solusi Circular Economy & CSR Lingkungan Terintegrasi",
   description:
-    "Baciraro menghadirkan ekosistem pengelolaan sampah berbasis circular economy, teknologi, dan pemberdayaan masyarakat.",
+    "Baciraro membangun ekosistem pengelolaan sampah terintegrasi melalui edukasi, daur ulang, pemberdayaan masyarakat, program kreatif, dan digital tracking dampak lingkungan.",
   icons: {
     icon: "/Baciraro cap.png",
     apple: "/Baciraro cap.png",
