@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import { getDb } from "@/lib/db";
+import { createAdminClient } from "@/utils/supabase/admin";
 
 const SECRET = process.env.JWT_SECRET || "baciraro-secret-dev";
 
@@ -15,8 +15,12 @@ function getUser(req: NextRequest) {
 }
 
 export async function GET() {
-  const db = getDb();
-  const products = db.prepare("SELECT * FROM products WHERE is_active = 1 ORDER BY id DESC").all();
+  const supabase = createAdminClient();
+  const { data: products } = await supabase
+    .from("products")
+    .select("*")
+    .eq("is_active", true)
+    .order("id", { ascending: false });
   return NextResponse.json({ products });
 }
 
@@ -27,21 +31,23 @@ export async function POST(req: NextRequest) {
   }
 
   const { slug, title, description, category, story, materials, total_plastic_kg, image_url, gallery } = await req.json();
-  const db = getDb();
+  const supabase = createAdminClient();
 
-  try {
-    const stmt = db.prepare(`
-      INSERT INTO products (slug, title, description, category, story, materials, total_plastic_kg, image_url, gallery)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `);
-    const result = stmt.run(
-      slug, title, description, category, story || "",
-      JSON.stringify(materials || []), total_plastic_kg || 0, image_url || "",
-      JSON.stringify(gallery || [])
-    );
-    return NextResponse.json({ id: result.lastInsertRowid }, { status: 201 });
-  } catch (e: unknown) {
-    const msg = e instanceof Error ? e.message : "Unknown error";
-    return NextResponse.json({ error: msg }, { status: 400 });
+  const { data, error } = await supabase
+    .from("products")
+    .insert({
+      slug, title, description, category,
+      story: story || "",
+      materials: materials || [],
+      total_plastic_kg: total_plastic_kg || 0,
+      image_url: image_url || "",
+      gallery: gallery || [],
+    })
+    .select("id")
+    .single();
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 400 });
   }
+  return NextResponse.json({ id: data.id }, { status: 201 });
 }

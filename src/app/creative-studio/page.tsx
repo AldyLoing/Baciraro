@@ -260,15 +260,10 @@ export default function CreativeStudioPage() {
 
   if (mode === "gate") {
     return (
-      <main className="relative min-h-screen bg-black text-[#fafafa] overflow-hidden">
+      <main className="relative min-h-screen text-[#fafafa] overflow-hidden">
+        <div aria-hidden="true" className="page-bg" />
+        <div className="relative z-[1]">
         <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.08] bg-noise" />
-        <div className="pointer-events-none fixed inset-0 z-0" style={{
-          background: `
-            radial-gradient(ellipse 80% 50% at 50% 40%, rgba(16,185,129,0.12), transparent 70%),
-            radial-gradient(ellipse 50% 40% at 80% 20%, rgba(248,113,113,0.06), transparent 50%),
-            linear-gradient(180deg, #000000 0%, #050805 100%)
-          `
-        }} />
         <Header subtitle="Creative Studio" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
           <section className="min-h-[80vh] flex flex-col items-center justify-center text-center py-20">
@@ -309,6 +304,7 @@ export default function CreativeStudioPage() {
           </section>
         </div>
         <Footer />
+        </div>
       </main>
     );
   }
@@ -332,18 +328,10 @@ export default function CreativeStudioPage() {
   };
 
   return (
-    <main className="relative min-h-screen bg-black text-[#fafafa] overflow-hidden">
+    <main className="relative min-h-screen text-[#fafafa] overflow-hidden">
+      <div aria-hidden="true" className="page-bg" />
+      <div className="relative z-[1]">
       <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.08] bg-noise" />
-      <div className="pointer-events-none fixed inset-0 z-0" style={{
-        background: `
-          radial-gradient(ellipse 70% 50% at 20% 15%, rgba(16,185,129,0.10), transparent 60%),
-          radial-gradient(ellipse 50% 40% at 80% 25%, rgba(248,113,113,0.05), transparent 50%),
-          radial-gradient(ellipse 60% 50% at 50% 50%, rgba(16,185,129,0.06), transparent 60%),
-          radial-gradient(ellipse 80% 50% at 30% 75%, rgba(16,185,129,0.04), transparent 50%),
-          radial-gradient(ellipse 50% 40% at 70% 85%, rgba(248,113,113,0.03), transparent 50%),
-          linear-gradient(180deg, #000000 0%, #050805 100%)
-        `
-      }} />
       <Header subtitle="Creative Studio" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
@@ -639,6 +627,7 @@ export default function CreativeStudioPage() {
       </div>
 
       <Footer />
+      </div>
     </main>
   );
 }

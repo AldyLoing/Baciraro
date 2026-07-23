@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import { getDb } from "@/lib/db";
+import { createAdminClient } from "@/utils/supabase/admin";
 
 const SECRET = process.env.JWT_SECRET || "baciraro-secret-dev";
 
@@ -22,18 +22,22 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
 
   const { id } = await params;
   const { code, start_date, estimated_harvest, status, type, material, notes } = await req.json();
-  const db = getDb();
+  const supabase = createAdminClient();
 
-  try {
-    db.prepare(`
-      UPDATE compost_buckets SET code=?, start_date=?, estimated_harvest=?, status=?, type=?, material=?, notes=?, updated_at=datetime('now')
-      WHERE id=?
-    `).run(code, start_date, estimated_harvest, status, type, material, notes, id);
-    return NextResponse.json({ ok: true });
-  } catch (e: unknown) {
-    const msg = e instanceof Error ? e.message : "Unknown error";
-    return NextResponse.json({ error: msg }, { status: 400 });
+  const { error } = await supabase
+    .from("compost_buckets")
+    .update({
+      code, start_date, estimated_harvest, status, type,
+      material: material || "",
+      notes: notes || "",
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", id);
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 400 });
   }
+  return NextResponse.json({ ok: true });
 }
 
 export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -43,7 +47,7 @@ export async function DELETE(req: NextRequest, { params }: { params: Promise<{ i
   }
 
   const { id } = await params;
-  const db = getDb();
-  db.prepare("DELETE FROM compost_buckets WHERE id = ?").run(id);
+  const supabase = createAdminClient();
+  await supabase.from("compost_buckets").delete().eq("id", id);
   return NextResponse.json({ ok: true });
 }

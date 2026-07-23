@@ -125,7 +125,9 @@ export default function CreativePage() {
   };
 
   return (
-    <main className="bg-background text-primary-text">
+    <main className="relative overflow-hidden text-primary-text min-h-screen">
+      <div aria-hidden="true" className="page-bg" />
+      <div className="relative z-[1]">
       <section ref={heroRef} className="h-screen p-4 md:p-6">
         <div className="relative h-full overflow-hidden rounded-[3rem] md:rounded-[5rem]">
           <video
@@ -371,6 +373,7 @@ export default function CreativePage() {
           </div>
         </div>
       </section>
+      </div>
     </main>
   );
 }

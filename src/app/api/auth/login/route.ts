@@ -1,15 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { getDb } from "@/lib/db";
+import { createAdminClient } from "@/utils/supabase/admin";
 
 const SECRET = process.env.JWT_SECRET || "baciraro-secret-dev";
 
 export async function POST(req: NextRequest) {
   const { username, password } = await req.json();
-  const db = getDb();
+  const supabase = createAdminClient();
 
-  const user = db.prepare("SELECT * FROM users WHERE username = ?").get(username) as { id: number; username: string; password: string; name: string } | undefined;
+  const { data: user } = await supabase
+    .from("users")
+    .select("id, username, password, name")
+    .eq("username", username)
+    .single();
 
   if (!user || !bcrypt.compareSync(password, user.password)) {
     return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });

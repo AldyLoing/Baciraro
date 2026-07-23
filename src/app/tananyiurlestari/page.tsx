@@ -254,11 +254,9 @@ function CTASection() {
 
 export default function TanaNyiurPage() {
   return (
-    <main className="relative overflow-hidden bg-background text-foreground min-h-screen">
-      {/* Background and grain overlays */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.12),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(250,204,21,0.08),_transparent_30%),linear-gradient(180deg,_#000000_0%,_#050805_100%)]" />
-      <div className="pointer-events-none absolute left-[-8rem] top-[22rem] h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl -z-10" />
-      <div className="pointer-events-none absolute right-[-8rem] top-[48rem] h-96 w-96 rounded-full bg-amber-500/5 blur-3xl -z-10" />
+    <main className="relative overflow-hidden text-foreground min-h-screen">
+      <div aria-hidden="true" className="page-bg" />
+      <div className="relative z-[1]">
       <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.12] -z-10" />
 
       <Header subtitle="Yayasan TNL" />
@@ -270,6 +268,7 @@ export default function TanaNyiurPage() {
       <CTASection />
       
       <Footer />
+      </div>
     </main>
   );
 }

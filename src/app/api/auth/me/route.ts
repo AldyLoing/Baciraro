@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import { getDb } from "@/lib/db";
+import { createAdminClient } from "@/utils/supabase/admin";
 
 const SECRET = process.env.JWT_SECRET || "baciraro-secret-dev";
 
@@ -12,8 +12,13 @@ export async function GET(req: NextRequest) {
 
   try {
     const decoded = jwt.verify(token, SECRET) as { id: number; username: string; name: string };
-    const db = getDb();
-    const user = db.prepare("SELECT id, username, name FROM users WHERE id = ?").get(decoded.id);
+    const supabase = createAdminClient();
+    const { data: user } = await supabase
+      .from("users")
+      .select("id, username, name")
+      .eq("id", decoded.id)
+      .single();
+
     if (!user) {
       return NextResponse.json({ user: null });
     }

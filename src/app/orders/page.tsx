@@ -40,9 +40,10 @@ const visionPoints = [
 
 export default function OrdersPage() {
   return (
-    <main className="relative bg-[#050805] text-white min-h-screen">
-      {/* Background grain overlays */}
-      <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.06] z-10" />
+    <main className="relative overflow-hidden text-white min-h-screen">
+      <div aria-hidden="true" className="page-bg" />
+      <div className="relative z-[1]">
+      <div className="bg-noise pointer-events-none fixed inset-0 opacity-[0.06] z-0" />
 
       <Header subtitle="ORDERS" />
 
@@ -301,6 +302,7 @@ export default function OrdersPage() {
 
       {/* Global Footer (slides up naturally after FlowArt is finished scrolling) */}
       <Footer />
+      </div>
     </main>
   );
 }

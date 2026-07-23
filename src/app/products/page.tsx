@@ -62,15 +62,10 @@ export default function ProductsPage() {
     : products.filter((p) => p.category === activeCategory);
 
   return (
-    <main className="relative min-h-screen bg-black text-[#fafafa] overflow-hidden">
+    <main className="relative min-h-screen text-[#fafafa] overflow-hidden">
+      <div aria-hidden="true" className="page-bg" />
+      <div className="relative z-[1]">
       <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.08] bg-noise" />
-      <div className="pointer-events-none fixed inset-0 z-0" style={{
-        background: `
-          radial-gradient(ellipse 80% 50% at 50% 20%, rgba(16,185,129,0.10), transparent 60%),
-          radial-gradient(ellipse 50% 40% at 80% 40%, rgba(248,113,113,0.05), transparent 50%),
-          linear-gradient(180deg, #000000 0%, #050805 100%)
-        `
-      }} />
       <Header subtitle="Products" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-20">
@@ -160,6 +155,7 @@ export default function ProductsPage() {
       </div>
 
       <Footer />
+      </div>
     </main>
   );
 }

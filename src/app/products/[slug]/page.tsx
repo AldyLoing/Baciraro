@@ -82,18 +82,23 @@ export default function ProductDetailPage() {
 
   if (loading) {
     return (
-      <main className="relative min-h-screen bg-black text-[#fafafa] overflow-hidden">
+      <main className="relative min-h-screen text-[#fafafa] overflow-hidden">
+        <div aria-hidden="true" className="page-bg" />
+        <div className="relative z-[1]">
         <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.08] bg-noise" />
         <Header subtitle="Products" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-20 text-center text-zinc-500 text-sm">Memuat produk...</div>
         <Footer />
+        </div>
       </main>
     );
   }
 
   if (notFound || !product) {
     return (
-      <main className="relative min-h-screen bg-black text-[#fafafa] overflow-hidden">
+      <main className="relative min-h-screen text-[#fafafa] overflow-hidden">
+        <div aria-hidden="true" className="page-bg" />
+        <div className="relative z-[1]">
         <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.08] bg-noise" />
         <Header subtitle="Products" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-20 text-center">
@@ -104,6 +109,7 @@ export default function ProductDetailPage() {
           </Link>
         </div>
         <Footer />
+        </div>
       </main>
     );
   }
@@ -121,16 +127,10 @@ export default function ProductDetailPage() {
   const Icon = categoryIcons[product.category] || Package;
 
   return (
-    <main className="relative min-h-screen bg-black text-[#fafafa] overflow-hidden">
+    <main className="relative min-h-screen text-[#fafafa] overflow-hidden">
+      <div aria-hidden="true" className="page-bg" />
+      <div className="relative z-[1]">
       <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.08] bg-noise" />
-      <div className="pointer-events-none fixed inset-0 z-0" style={{
-        background: `
-          radial-gradient(ellipse 70% 50% at 30% 20%, rgba(16,185,129,0.08), transparent 60%),
-          radial-gradient(ellipse 40% 30% at 80% 30%, rgba(248,113,113,0.04), transparent 50%),
-          radial-gradient(ellipse 60% 40% at 50% 60%, rgba(16,185,129,0.04), transparent 50%),
-          linear-gradient(180deg, #000000 0%, #050805 100%)
-        `
-      }} />
       <Header subtitle="Products" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-20">
@@ -263,6 +263,7 @@ export default function ProductDetailPage() {
 
       <QRModal open={showQR} onClose={() => setShowQR(false)} url={qrUrl} title={product.title} />
       <Footer />
+      </div>
     </main>
   );
 }

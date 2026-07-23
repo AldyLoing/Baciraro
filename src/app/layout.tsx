@@ -37,7 +37,7 @@ export default function RootLayout({
         <link rel="icon" href="/Baciraro cap.png" />
         <link rel="apple-touch-icon" href="/Baciraro cap.png" />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-screen flex flex-col">{children}</body>
     </html>
   );
 }

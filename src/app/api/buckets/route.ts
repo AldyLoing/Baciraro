@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import { getDb } from "@/lib/db";
+import { createAdminClient } from "@/utils/supabase/admin";
 
 const SECRET = process.env.JWT_SECRET || "baciraro-secret-dev";
 
@@ -15,8 +15,11 @@ function getUser(req: NextRequest) {
 }
 
 export async function GET() {
-  const db = getDb();
-  const buckets = db.prepare("SELECT * FROM compost_buckets ORDER BY id DESC").all();
+  const supabase = createAdminClient();
+  const { data: buckets } = await supabase
+    .from("compost_buckets")
+    .select("*")
+    .order("id", { ascending: false });
   return NextResponse.json({ buckets });
 }
 
@@ -27,17 +30,22 @@ export async function POST(req: NextRequest) {
   }
 
   const { code, start_date, estimated_harvest, status, type, material, notes } = await req.json();
-  const db = getDb();
+  const supabase = createAdminClient();
 
-  try {
-    const stmt = db.prepare(`
-      INSERT INTO compost_buckets (code, start_date, estimated_harvest, status, type, material, notes)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
-    `);
-    const result = stmt.run(code, start_date, estimated_harvest, status || "fermenting", type || "both", material || "", notes || "");
-    return NextResponse.json({ id: result.lastInsertRowid }, { status: 201 });
-  } catch (e: unknown) {
-    const msg = e instanceof Error ? e.message : "Unknown error";
-    return NextResponse.json({ error: msg }, { status: 400 });
+  const { data, error } = await supabase
+    .from("compost_buckets")
+    .insert({
+      code, start_date, estimated_harvest,
+      status: status || "fermenting",
+      type: type || "both",
+      material: material || "",
+      notes: notes || "",
+    })
+    .select("id")
+    .single();
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 400 });
   }
+  return NextResponse.json({ id: data.id }, { status: 201 });
 }

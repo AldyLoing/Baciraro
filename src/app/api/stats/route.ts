@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import { getDb } from "@/lib/db";
+import { createAdminClient } from "@/utils/supabase/admin";
 
 const SECRET = process.env.JWT_SECRET || "baciraro-secret-dev";
 
@@ -15,9 +15,17 @@ function getUser(req: NextRequest) {
 }
 
 export async function GET() {
-  const db = getDb();
-  const stats = db.prepare("SELECT * FROM waste_stats ORDER BY id DESC LIMIT 1").get();
-  return NextResponse.json({ stats: stats || { organic_kg: 0, inorganic_kg: 0, products_count: 0 } });
+  const supabase = createAdminClient();
+  const { data } = await supabase
+    .from("waste_stats")
+    .select("*")
+    .order("id", { ascending: false })
+    .limit(1)
+    .single();
+
+  return NextResponse.json({
+    stats: data || { organic_kg: 0, inorganic_kg: 0, products_count: 0 },
+  });
 }
 
 export async function PUT(req: NextRequest) {
@@ -27,14 +35,24 @@ export async function PUT(req: NextRequest) {
   }
 
   const { organic_kg, inorganic_kg, products_count } = await req.json();
-  const db = getDb();
+  const supabase = createAdminClient();
 
-  const existing = db.prepare("SELECT id FROM waste_stats ORDER BY id DESC LIMIT 1").get() as { id: number } | undefined;
+  const { data: existing } = await supabase
+    .from("waste_stats")
+    .select("id")
+    .order("id", { ascending: false })
+    .limit(1)
+    .single();
 
   if (existing) {
-    db.prepare("UPDATE waste_stats SET organic_kg=?, inorganic_kg=?, products_count=?, updated_at=datetime('now') WHERE id=?").run(organic_kg, inorganic_kg, products_count, existing.id);
+    await supabase
+      .from("waste_stats")
+      .update({ organic_kg, inorganic_kg, products_count, updated_at: new Date().toISOString() })
+      .eq("id", existing.id);
   } else {
-    db.prepare("INSERT INTO waste_stats (organic_kg, inorganic_kg, products_count) VALUES (?, ?, ?)").run(organic_kg, inorganic_kg, products_count);
+    await supabase
+      .from("waste_stats")
+      .insert({ organic_kg, inorganic_kg, products_count });
   }
 
   return NextResponse.json({ ok: true });

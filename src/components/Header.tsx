@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,17 +8,48 @@ import { ArrowRight, Menu, X } from "lucide-react";
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "About", href: "/#about" },
+  { name: "About", href: "/about" },
   { name: "Produk", href: "/products" },
   { name: "Track Record", href: "/track-record" },
-  { name: "Contact", href: "/#contact" },
+  { name: "Leadership", href: "/leadership" },
+  { name: "Creative Studio", href: "/creative-studio" },
+  { name: "Baciraro Creative", href: "/creative" },
+  { name: "Contact", href: "/contact" },
 ];
 
 export default function Header({ subtitle }: { subtitle?: string }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const delta = currentScrollY - lastScrollY.current;
+
+      if (currentScrollY < 60) {
+        setIsVisible(true);
+      } else if (Math.abs(delta) < 12) {
+        lastScrollY.current = currentScrollY;
+        return;
+      } else if (delta > 0) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full px-4 sm:px-6 lg:px-8 pt-4 pb-2">
+    <motion.header
+      animate={{ y: isVisible ? 0 : "-100%" }}
+      transition={{ duration: 0.25, ease: "easeInOut" }}
+      className="sticky top-0 z-50 w-full px-4 sm:px-6 lg:px-8 pt-4 pb-2"
+    >
       <div className="mx-auto max-w-7xl rounded-3xl md:rounded-full border border-white/5 bg-[#0c0f0c]/90 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden transition-all duration-300">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(16,185,129,0.06),_transparent_75%)] pointer-events-none" />
         <div className="bg-noise absolute inset-0 opacity-[0.03] pointer-events-none" />
@@ -50,7 +81,7 @@ export default function Header({ subtitle }: { subtitle?: string }) {
               <Link
                 key={link.name}
                 href={link.href}
-                className="px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-full transition-all duration-300 border text-zinc-400 hover:text-white hover:bg-white/5 border-transparent hover:border-white/5"
+                className="px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-wider rounded-full transition-all duration-300 border text-zinc-400 hover:text-white hover:bg-white/5 border-transparent hover:border-white/5"
               >
                 {link.name}
               </Link>
@@ -59,7 +90,7 @@ export default function Header({ subtitle }: { subtitle?: string }) {
 
           <div className="flex items-center gap-2">
             <Link
-              href="/#contact"
+              href="/contact"
               className="hidden sm:inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold tracking-wider uppercase text-white transition-all hover:scale-102 hover:bg-white/10 hover:border-white/20 duration-300"
             >
               Kolaborasi CSR
@@ -99,6 +130,6 @@ export default function Header({ subtitle }: { subtitle?: string }) {
           )}
         </AnimatePresence>
       </div>
-    </header>
+    </motion.header>
   );
 }

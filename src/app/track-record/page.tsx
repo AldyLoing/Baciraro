@@ -306,9 +306,9 @@ export default function TrackRecordPage() {
   }, []);
 
   return (
-    <main className="relative overflow-hidden bg-background text-foreground min-h-screen">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(34,197,94,0.12),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(250,204,21,0.08),_transparent_30%),linear-gradient(180deg,_#000000_0%,_#050805_100%)]" />
-      <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.12] -z-10" />
+    <main className="relative overflow-hidden text-foreground min-h-screen bg-transparent">
+      <div aria-hidden="true" className="page-bg" />
+      <div className="relative z-[1]">
 
       <Header subtitle="Rekam Jejak" />
 
@@ -353,6 +353,7 @@ export default function TrackRecordPage() {
       <CTASection />
 
       <Footer />
+      </div>
     </main>
   );
 }

@@ -12,8 +12,9 @@
   "dependencies": {
     "@gsap/react": "^2.1.2",
     "@remotion/player": "^4.0.466",
+    "@supabase/ssr": "^0.12.3",
+    "@supabase/supabase-js": "^2.110.8",
     "bcryptjs": "^3.0.3",
-    "better-sqlite3": "^12.11.1",
     "framer-motion": "^12.38.0",
     "gsap": "^3.15.0",
     "jsonwebtoken": "^9.0.3",
@@ -30,20 +31,18 @@
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^16.2.0",
     "@types/bcryptjs": "^2.4.6",
-    "@types/better-sqlite3": "^7.6.13",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20",
     "@types/qrcode": "^1.5.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^17.4.2",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
     "jsdom": "^25.0.0",
     "tailwindcss": "^4",
+    "tsx": "^4.23.1",
     "typescript": "^5",
     "vitest": "^0.34.5"
-  },
-  "allowScripts": {
-    "better-sqlite3@12.11.1": true
   }
 }
