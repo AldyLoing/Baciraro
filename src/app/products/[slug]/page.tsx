@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Recycle, Leaf, Palette, Code2, QrCode, Package, ArrowLeft, Trash2, Star, Heart } from "lucide-react";
+import { Recycle, Leaf, Palette, Code2, QrCode, Package, ArrowLeft, Trash2, Star, Heart, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -209,14 +209,25 @@ export default function ProductDetailPage() {
               </div>
             )}
 
-            {/* QR Button */}
-            <button
-              onClick={openQR}
-              className="mt-6 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 px-6 py-3.5 text-sm font-semibold text-white transition-all hover:gap-4"
-            >
-              <QrCode className="h-5 w-5 text-emerald-400" />
-              Lihat QR
-            </button>
+            {/* Actions */}
+            <div className="mt-6 flex flex-wrap gap-3">
+              <button
+                onClick={openQR}
+                className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 px-6 py-3.5 text-sm font-semibold text-white transition-all hover:gap-4"
+              >
+                <QrCode className="h-5 w-5 text-emerald-400" />
+                Lihat QR
+              </button>
+              <a
+                href={`https://wa.me/6288212835350?text=${encodeURIComponent(`Halo, saya ingin memesan produk ${product.title}, bisa dibantu?`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 rounded-full bg-emerald-500 hover:bg-emerald-400 px-6 py-3.5 text-sm font-bold text-black transition-all hover:gap-4"
+              >
+                <MessageCircle className="h-5 w-5" />
+                Pesan via WhatsApp
+              </a>
+            </div>
           </motion.div>
         </div>
 

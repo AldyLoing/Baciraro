@@ -3,16 +3,18 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Heart, Star, Send } from "lucide-react";
+import { Heart, Star, Send, LogIn } from "lucide-react";
+import { useCustomerAuth } from "@/lib/customer-auth-context";
+import AuthModal from "@/components/AuthModal";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function ClaimPage() {
   const params = useParams();
-  const slug = params.slug as string;
   const code = params.code as string;
 
-  const [qr, setQr] = useState<any>(null);
+  const { customer, loading: authLoading } = useCustomerAuth();
+  const [qr, setQr] = useState<Record<string, any> | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -24,9 +26,10 @@ export default function ClaimPage() {
   const [reviewRating, setReviewRating] = useState(0);
   const [submittingReview, setSubmittingReview] = useState(false);
   const [done, setDone] = useState(false);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [pointsEarned, setPointsEarned] = useState(0);
 
   const fetchQr = async () => {
-    setLoading(true);
     const res = await fetch(`/api/qr/${code}`);
     if (!res.ok) { setError("QR Code tidak ditemukan"); setLoading(false); return; }
     const data = await res.json();
@@ -38,6 +41,13 @@ export default function ClaimPage() {
 
   useEffect(() => { fetchQr(); }, [code]);
 
+  useEffect(() => {
+    if (customer && qr && !qr.buyer_name) {
+      setName(customer.name);
+      setPhone(customer.phone || "");
+    }
+  }, [customer, qr]);
+
   const handleClaim = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
@@ -48,6 +58,12 @@ export default function ClaimPage() {
       body: JSON.stringify({ buyer_name: name, buyer_phone: phone }),
     });
     setSubmitting(false);
+
+    if (customer) {
+      const productPoints = qr?.products?.points_per_scan || 10;
+      setPointsEarned(productPoints);
+    }
+
     await fetchQr();
   };
 
@@ -65,7 +81,7 @@ export default function ClaimPage() {
     await fetchQr();
   };
 
-  if (loading) return (
+  if (loading || authLoading) return (
     <main className="min-h-screen bg-black flex items-center justify-center">
       <p className="text-zinc-500 text-sm">Memuat...</p>
     </main>
@@ -92,13 +108,46 @@ export default function ClaimPage() {
         className="w-full max-w-md"
       >
         {!isClaimed ? (
-          /* MODE 1: Claim - input nama pembeli */
           <div className="rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur p-8 text-center">
             <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
               <Heart className="h-7 w-7 text-emerald-400" />
             </div>
             <h1 className="font-serif text-2xl text-white mb-2">Registrasi Pembeli</h1>
-            <p className="text-sm text-zinc-400 mb-6">Masukkan nama pembeli untuk produk ini</p>
+            <p className="text-sm text-zinc-400 mb-6">Masukkan data kamu untuk produk ini</p>
+
+            {!customer && (
+              <div className="mb-6 p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5">
+                <p className="text-xs text-zinc-400 mb-3">Dapatkan poin dengan masuk / daftar akun!</p>
+                <button
+                  onClick={() => setAuthModalOpen(true)}
+                  className="inline-flex items-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all"
+                >
+                  <LogIn className="h-3.5 w-3.5" />
+                  Masuk / Daftar
+                </button>
+              </div>
+            )}
+
+            {customer && (
+              <div className="mb-6 p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5">
+                <div className="flex items-center gap-3">
+                  {customer.photo_url ? (
+                    <img src={customer.photo_url} alt="" className="h-10 w-10 rounded-full object-cover" />
+                  ) : (
+                    <div className="h-10 w-10 rounded-full bg-emerald-500 flex items-center justify-center text-sm font-bold text-black">
+                      {customer.name.split(" ").map(n => n[0]).join("").toUpperCase().slice(0, 2)}
+                    </div>
+                  )}
+                  <div className="text-left">
+                    <p className="text-sm text-white font-semibold">{customer.name}</p>
+                    <p className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">
+                      Poin: {customer.total_points}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
             <form onSubmit={handleClaim} className="space-y-4">
               <input
                 value={name}
@@ -118,12 +167,11 @@ export default function ClaimPage() {
                 disabled={submitting || !name.trim()}
                 className="w-full rounded-full bg-emerald-500 hover:bg-emerald-400 text-black py-3 text-sm font-bold transition-all disabled:opacity-40"
               >
-                {submitting ? "Menyimpan..." : "Simpan"}
+                {submitting ? "Menyimpan..." : customer ? "Klaim & Dapatkan Poin" : "Simpan"}
               </button>
             </form>
           </div>
         ) : hasReview && done ? (
-          /* MODE 3: After review submitted - thank you */
           <div className="rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur p-8 text-center">
             <motion.div
               initial={{ scale: 0 }}
@@ -135,6 +183,9 @@ export default function ClaimPage() {
             </motion.div>
             <h1 className="font-serif text-3xl text-white mb-2">Terima Kasih!</h1>
             <p className="text-emerald-400 font-semibold text-lg mb-1">{qr.buyer_name}</p>
+            {pointsEarned > 0 && (
+              <p className="text-sm text-amber-400 font-semibold mb-1">+{pointsEarned} Poin</p>
+            )}
             <p className="text-sm text-zinc-400 mb-6">Kontribusimu sangat berarti bagi lingkungan.</p>
             <div className="flex justify-center gap-1 mb-4">
               {[1,2,3,4,5].map((s) => (
@@ -144,13 +195,15 @@ export default function ClaimPage() {
             <p className="text-sm text-zinc-300 italic">&ldquo;{qr.review_text}&rdquo;</p>
           </div>
         ) : !hasReview ? (
-          /* MODE 2: Claimed, input review */
           <div className="rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur p-8 text-center">
             <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
               <Heart className="h-7 w-7 text-emerald-400" fill="#34d399" />
             </div>
             <h1 className="font-serif text-2xl text-white mb-1">Terima Kasih</h1>
             <p className="text-emerald-400 font-semibold text-lg mb-4">{qr.buyer_name}</p>
+            {pointsEarned > 0 && (
+              <p className="text-sm text-amber-400 font-semibold mb-4">+{pointsEarned} Poin berhasil ditambahkan!</p>
+            )}
             <p className="text-sm text-zinc-400 mb-6">Berikan kesan dan pesanmu tentang produk ini</p>
             <form onSubmit={handleReview} className="space-y-4">
               <div className="flex justify-center gap-2">
@@ -178,7 +231,6 @@ export default function ClaimPage() {
             </form>
           </div>
         ) : (
-          /* MODE 4: Already reviewed - show existing review */
           <div className="rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur p-8 text-center">
             <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
               <Heart className="h-7 w-7 text-emerald-400" fill="#34d399" />
@@ -201,6 +253,8 @@ export default function ClaimPage() {
           </div>
         )}
       </motion.div>
+
+      <AuthModal open={authModalOpen} onClose={() => setAuthModalOpen(false)} onSuccess={() => fetchQr()} />
     </main>
   );
 }

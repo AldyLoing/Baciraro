@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { CustomerAuthProvider } from "@/lib/customer-auth-context";
+import ScanFab from "@/components/ScanFab";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,7 +14,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Use the provided logo in public as the site icon/favicons
 export const metadata: Metadata = {
   title: "Baciraro | Solusi Circular Economy & CSR Lingkungan Terintegrasi",
   description:
@@ -37,7 +38,12 @@ export default function RootLayout({
         <link rel="icon" href="/Baciraro cap.png" />
         <link rel="apple-touch-icon" href="/Baciraro cap.png" />
       </head>
-      <body className="min-h-screen flex flex-col">{children}</body>
+      <body className="min-h-screen flex flex-col">
+        <CustomerAuthProvider>
+          {children}
+          <ScanFab />
+        </CustomerAuthProvider>
+      </body>
     </html>
   );
 }

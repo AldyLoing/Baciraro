@@ -111,5 +111,36 @@ CREATE TABLE IF NOT EXISTS qr_codes (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- 9. storage bucket for product images
+-- 9. customers (auth & points)
+CREATE TABLE IF NOT EXISTS customers (
+  id BIGSERIAL PRIMARY KEY,
+  email TEXT UNIQUE NOT NULL,
+  password TEXT NOT NULL,
+  name TEXT NOT NULL,
+  phone TEXT DEFAULT '',
+  photo_url TEXT DEFAULT '',
+  total_points INTEGER DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 10. points_transactions (points ledger)
+CREATE TABLE IF NOT EXISTS points_transactions (
+  id BIGSERIAL PRIMARY KEY,
+  customer_id BIGINT NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
+  qr_code_id BIGINT REFERENCES qr_codes(id),
+  points INTEGER NOT NULL DEFAULT 10,
+  description TEXT DEFAULT '',
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 11. Add customer_id to qr_codes
+ALTER TABLE qr_codes ADD COLUMN IF NOT EXISTS customer_id BIGINT REFERENCES customers(id);
+
+-- 12. Add points_per_scan to products (configurable by admin)
+ALTER TABLE products ADD COLUMN IF NOT EXISTS points_per_scan INTEGER DEFAULT 10;
+
+-- 13. storage bucket for product images
 -- Run this separately in Supabase Storage -> Create bucket "product-images" (public)
+
+-- 14. storage bucket for customer photos
+-- Run this separately in Supabase Storage -> Create bucket "customer-photos" (public)

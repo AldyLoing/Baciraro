@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Recycle, Leaf, Palette, Code2, ArrowRight } from "lucide-react";
+import { Recycle, Leaf, Palette, Code2, ArrowRight, MessageCircle } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -139,12 +139,25 @@ export default function ProductsPage() {
                     <div className="p-5">
                       <h3 className="font-serif text-[17px] text-white group-hover:text-emerald-400 transition-colors">{product.title}</h3>
                       <p className="mt-2 text-xs text-zinc-400 leading-relaxed line-clamp-2">{product.description}</p>
-                      {totalKg > 0 && (
-                        <div className="mt-3 flex items-center gap-2 text-[10px] text-emerald-400 font-semibold">
-                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                          {totalKg} kg bahan terselamatkan
-                        </div>
-                      )}
+                      <div className="mt-3 flex items-center justify-between">
+                        {totalKg > 0 && (
+                          <div className="flex items-center gap-2 text-[10px] text-emerald-400 font-semibold">
+                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                            {totalKg} kg bahan terselamatkan
+                          </div>
+                        )}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            window.open(`https://wa.me/6288212835350?text=${encodeURIComponent(`Halo, saya ingin memesan produk ${product.title}, bisa dibantu?`)}`, '_blank', 'noopener');
+                          }}
+                          className="ml-auto inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1.5 text-[10px] font-bold text-emerald-400 hover:bg-emerald-500 hover:text-black transition-all"
+                        >
+                          <MessageCircle className="h-3 w-3" />
+                          Pesan
+                        </button>
+                      </div>
                     </div>
                   </Link>
                 </motion.div>

@@ -8,6 +8,7 @@ import EcosystemRadial from "@/components/EcosystemRadial";
 import FlowHorizontal from "@/components/FlowHorizontal";
 import CreativeShowcase from "@/components/CreativeShowcase";
 import ImpactSection from "@/components/ImpactSection";
+import PointsDashboard from "@/components/PointsDashboard";
 import ServicesSection from "@/components/ServicesSection";
 import CEOSection from "@/components/CEOSection";
 import ReviewMarquee from "@/components/ReviewMarquee";
@@ -26,6 +27,7 @@ export default function Home() {
         <FlowHorizontal />
         <CreativeShowcase />
         <ImpactSection />
+        <PointsDashboard />
         <ReviewMarquee />
         <ServicesSection />
         <CEOSection />

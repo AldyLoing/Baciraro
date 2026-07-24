@@ -4,7 +4,9 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Menu, X } from "lucide-react";
+import { Menu, X, User, LogOut, Award } from "lucide-react";
+import { useCustomerAuth } from "@/lib/customer-auth-context";
+import AuthModal from "./AuthModal";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -18,9 +20,15 @@ const navLinks = [
 ];
 
 export default function Header({ subtitle }: { subtitle?: string }) {
+  const { customer, loading, logout } = useCustomerAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownPos, setDropdownPos] = useState({ right: 0, top: 0 });
   const lastScrollY = useRef(0);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,6 +51,35 @@ export default function Header({ subtitle }: { subtitle?: string }) {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target as Node)
+      ) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const updateDropdownPos = () => {
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setDropdownPos({ right: window.innerWidth - rect.right, top: rect.bottom + 8 });
+    }
+  };
+
+  const initials = customer?.name
+    ?.split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2) || "?";
 
   return (
     <motion.header
@@ -89,13 +126,32 @@ export default function Header({ subtitle }: { subtitle?: string }) {
           </nav>
 
           <div className="flex items-center gap-2">
-            <Link
-              href="/contact"
-              className="hidden sm:inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold tracking-wider uppercase text-white transition-all hover:scale-102 hover:bg-white/10 hover:border-white/20 duration-300"
-            >
-              Kolaborasi CSR
-              <ArrowRight className="h-3 w-3 text-emerald-400" />
-            </Link>
+            {loading ? (
+              <div className="hidden sm:block h-9 w-9 rounded-full border border-white/10 bg-white/5 animate-pulse" />
+            ) : customer ? (
+              <button
+                ref={buttonRef}
+                onClick={() => { updateDropdownPos(); setDropdownOpen(!dropdownOpen); }}
+                className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white transition-all hover:bg-white/10 hover:border-white/20 duration-300"
+              >
+                {customer.photo_url ? (
+                  <img src={customer.photo_url} alt="" className="h-6 w-6 rounded-full object-cover" />
+                ) : (
+                  <span className="h-6 w-6 rounded-full bg-emerald-500 flex items-center justify-center text-[10px] font-bold text-black">
+                    {initials}
+                  </span>
+                )}
+                <span className="hidden sm:inline">{customer.name}</span>
+              </button>
+            ) : (
+              <button
+                onClick={() => setAuthModalOpen(true)}
+                className="hidden sm:inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold tracking-wider uppercase text-white transition-all hover:scale-102 hover:bg-white/10 hover:border-white/20 duration-300"
+              >
+                <User className="h-3 w-3 text-emerald-400" />
+                Daftar / Masuk
+              </button>
+            )}
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -126,10 +182,80 @@ export default function Header({ subtitle }: { subtitle?: string }) {
                   {link.name}
                 </Link>
               ))}
+              <div className="border-t border-white/5 pt-4 mt-2">
+                {customer ? (
+                  <div className="flex flex-col gap-2">
+                    <Link
+                      href="/account"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="py-3 text-center text-sm font-semibold uppercase tracking-wider rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-emerald-400"
+                    >
+                      Profil & Poin
+                    </Link>
+                    <button
+                      onClick={() => { logout(); setIsMobileMenuOpen(false); }}
+                      className="py-3 text-center text-sm font-semibold uppercase tracking-wider rounded-xl border border-white/5 text-zinc-400"
+                    >
+                      Keluar
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => { setAuthModalOpen(true); setIsMobileMenuOpen(false); }}
+                    className="w-full py-3 text-center text-sm font-semibold uppercase tracking-wider rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-emerald-400"
+                  >
+                    Daftar / Masuk
+                  </button>
+                )}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
+
+      <AnimatePresence>
+        {dropdownOpen && customer && (
+          <motion.div
+            ref={dropdownRef}
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.15 }}
+            style={{ position: "fixed", right: dropdownPos.right, top: dropdownPos.top }}
+            className="w-48 rounded-2xl border border-white/10 bg-[#0c0f0c] backdrop-blur-xl shadow-2xl overflow-hidden z-[100]"
+          >
+            <div className="px-4 py-3 border-b border-white/5">
+              <p className="text-xs text-zinc-400">Total Poin</p>
+              <p className="text-lg font-bold text-emerald-400">{customer.total_points}</p>
+            </div>
+            <Link
+              href="/account"
+              onClick={() => setDropdownOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 text-sm text-zinc-300 hover:text-white hover:bg-white/5 transition-all"
+            >
+              <User className="h-4 w-4 text-zinc-500" />
+              Profil
+            </Link>
+            <Link
+              href="/account#points"
+              onClick={() => setDropdownOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 text-sm text-zinc-300 hover:text-white hover:bg-white/5 transition-all"
+            >
+              <Award className="h-4 w-4 text-zinc-500" />
+              Riwayat Poin
+            </Link>
+            <button
+              onClick={() => { logout(); setDropdownOpen(false); }}
+              className="flex items-center gap-3 w-full px-4 py-3 text-sm text-zinc-300 hover:text-red-400 hover:bg-white/5 transition-all border-t border-white/5"
+            >
+              <LogOut className="h-4 w-4 text-zinc-500" />
+              Keluar
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AuthModal open={authModalOpen} onClose={() => setAuthModalOpen(false)} />
     </motion.header>
   );
 }
