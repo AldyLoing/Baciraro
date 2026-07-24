@@ -160,14 +160,16 @@ export default function LeadershipPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    createClient()
-      .from("team_members")
-      .select("*")
-      .order("sort_order", { ascending: true })
-      .then(({ data }) => {
+    (async () => {
+      try {
+        const { data } = await createClient()
+          .from("team_members")
+          .select("*")
+          .order("sort_order", { ascending: true });
         if (data) setMembers(data as TeamMember[]);
-        setLoading(false);
-      });
+      } catch {}
+      setLoading(false);
+    })();
   }, []);
 
   const ceo = members.find((m) => m.division === "ceo");
