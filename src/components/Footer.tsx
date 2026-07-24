@@ -2,7 +2,37 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Cpu } from "lucide-react";
+import { ArrowUpRight, MessageCircle, User, Mail, Palette, Recycle, Leaf, Music } from "lucide-react";
+
+const categoryLinks = [
+  { name: "Semua Produk", href: "/products", icon: null, color: "" },
+  { name: "Plastik", href: "/products", icon: Recycle, color: "bg-blue-500" },
+  { name: "Kriya", href: "/products", icon: Palette, color: "bg-amber-500" },
+  { name: "Organik", href: "/products", icon: Leaf, color: "bg-emerald-500" },
+];
+
+const ecosystemLinks = [
+  {
+    name: "Tana Nyiur Lestari",
+    href: "/tananyiurlestari",
+    role: "Edukasi & Pemberdayaan",
+  },
+  {
+    name: "Trash Recycle Center",
+    href: "/trashrecyclecenter",
+    role: "Pengumpulan & Pengolahan",
+  },
+  {
+    name: "ELMAST Greenovasi",
+    href: "/elmast",
+    role: "Teknologi Organik",
+  },
+  {
+    name: "ORDERS",
+    href: "/orders",
+    role: "Digital & Data",
+  },
+];
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -11,14 +41,13 @@ export default function Footer() {
 
   return (
     <footer className="relative z-10 border-t border-white/5 bg-[#0c0f0c] text-zinc-400 overflow-hidden">
-      {/* Subtle green ambient glow behind footer content */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(16,185,129,0.04),_transparent_70%)] pointer-events-none" />
       <div className="bg-noise absolute inset-0 opacity-[0.02] pointer-events-none" />
 
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20 relative z-10">
         <div className="grid gap-12 sm:gap-16 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:gap-10">
-          
-          {/* Column 1: Brand & Logo */}
+
+          {/* Column 1 — BACIRARO */}
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-3">
               <div className="relative h-10 w-10 overflow-hidden rounded-full border border-white/10 bg-white/5 shadow-inner">
@@ -32,32 +61,33 @@ export default function Footer() {
               </div>
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-emerald-400 flex items-center gap-1.5">
-                  Baciraro
+                  BACIRARO
                   <span className="h-1.5 w-1.5 rounded-full bg-[#f87171] animate-pulse" />
                 </p>
-                <p className="text-[11px] text-zinc-500 font-medium">Sustainability Platform</p>
+                <p className="text-[11px] text-zinc-500 font-medium">Pusat Ekosistem Circular Economy</p>
               </div>
             </div>
             <p className="text-xs leading-relaxed text-zinc-500 max-w-xs font-serif italic text-emerald-100/60">
-              "Akar Tradisi, Wajah Masa Depan." Menghubungkan kearifan budaya lokal dengan rekayasa digital presisi demi kelestarian sirkular.
+              &ldquo;Koleksi produk daur ulang. Kumpulkan poin. Dukung bumi.&rdquo;
             </p>
             <p className="text-[10px] tracking-wide text-zinc-600 mt-2">
               &copy; {new Date().getFullYear()} Baciraro. All rights reserved.
             </p>
+            <button
+              onClick={scrollToTop}
+              className="inline-flex w-fit items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-white shadow hover:bg-white/10 transition-all"
+            >
+              ↑ Kembali ke Atas
+            </button>
           </div>
 
-          {/* Column 2: Ekosistem */}
+          {/* Column 2 — Ekosistem Sirkular */}
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-white mb-6">
               Ekosistem Sirkular
             </p>
-            <ul className="space-y-4 text-xs font-medium">
-              {[
-                { name: "Yayasan Tana Nyiur Lestari", href: "/tananyiurlestari" },
-                { name: "Trash Recycle Center", href: "/trashrecyclecenter" },
-                { name: "ELMAST Greenovasi", href: "/elmast" },
-                { name: "Leadership", href: "/leadership" },
-              ].map((item) => (
+            <ul className="space-y-5 text-xs font-medium">
+              {ecosystemLinks.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
@@ -66,79 +96,156 @@ export default function Footer() {
                     {item.name}
                     <ArrowUpRight className="h-3 w-3 opacity-0 -translate-y-0.5 group-hover:opacity-100 transition-all" />
                   </Link>
+                  <p className="text-[10px] text-zinc-600 italic mt-0.5">{item.role}</p>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 3: Halaman Utama */}
+          {/* Column 3 — Produk & Layanan */}
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-white mb-6">
-              Tautan Utama
+              Produk & Layanan
             </p>
             <ul className="space-y-4 text-xs font-medium">
-              {[
-                { name: "Beranda", href: "/" },
-                { name: "Leadership", href: "/leadership" },
-                { name: "Proyek & Rekam Jejak", href: "/projects" },
-                { name: "Baciraro Creative", href: "/creative" },
-              ].map((item) => (
-                <li key={item.name}>
+              {categoryLinks.map((cat) => (
+                <li key={cat.name}>
                   <Link
-                    href={item.href}
-                    className="transition-colors duration-300 hover:text-white"
+                    href={cat.href}
+                    className="inline-flex items-center gap-2 transition-colors duration-300 hover:text-white"
                   >
-                    {item.name}
+                    {cat.color ? (
+                      <span className={`h-1.5 w-1.5 rounded-full ${cat.color}`} />
+                    ) : (
+                      <span className="h-1.5 w-1.5 rounded-full bg-white/30" />
+                    )}
+                    {cat.name}
                   </Link>
                 </li>
               ))}
             </ul>
+
+            <div className="border-t border-white/5 my-5" />
+
+            <ul className="space-y-4 text-xs font-medium">
+              <li>
+                <Link
+                  href="/account"
+                  className="inline-flex items-center gap-2 transition-colors duration-300 hover:text-white"
+                >
+                  <User className="h-3 w-3 text-zinc-500" />
+                  Akun Saya
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 transition-colors duration-300 hover:text-white"
+                >
+                  <Mail className="h-3 w-3 text-zinc-500" />
+                  Kontak Kami
+                </Link>
+              </li>
+            </ul>
+
+            <div className="mt-5">
+              <a
+                href="https://wa.me/6288212835350?text=Halo%2C%20saya%20ingin%20tahu%20lebih%20lanjut%20tentang%20produk%20Baciraro."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 hover:bg-emerald-500 px-4 py-2 text-[11px] font-bold text-emerald-400 hover:text-black transition-all"
+              >
+                <MessageCircle className="h-3.5 w-3.5" />
+                Pesan via WhatsApp
+              </a>
+            </div>
           </div>
 
-          {/* Column 4: Tech Engine Credit */}
+          {/* Column 4 — Digdaya oleh ORDERS */}
           <div className="flex flex-col gap-6">
-            <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-white mb-4">
-                Platform Engine
-              </p>
-              <p className="text-xs leading-relaxed text-zinc-500 max-w-xs mb-4">
-                Didukung penuh oleh infrastruktur digital yang efisien, transparan, dan terotomatisasi secara terpusat.
-              </p>
-            </div>
-            
-            {/* Tech credit dock */}
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-white">
+              Digdaya Oleh
+            </p>
+
             <Link
               href="/orders"
-              className="inline-flex items-center gap-3.5 rounded-2xl border border-white/5 bg-zinc-950/40 p-4 transition-all duration-300 hover:border-orange-500/30 hover:bg-zinc-950/60 shadow-lg group"
+              className="group block rounded-2xl border border-orange-500/20 bg-gradient-to-br from-zinc-950 to-orange-950/20 p-5 transition-all duration-300 hover:border-orange-400/40 hover:shadow-[0_0_30px_rgba(249,115,22,0.08)]"
             >
-              <div className="relative h-9 w-9 overflow-hidden rounded-xl bg-white p-1 flex items-center justify-center border border-white/10 shadow-inner">
-                <Image
-                  src="/Orders.png"
-                  alt="Orders logo"
-                  fill
-                  sizes="36px"
-                  className="object-contain p-0.5"
-                />
+              <div className="flex items-center gap-4 mb-4">
+                <div className="relative h-12 w-12 overflow-hidden rounded-xl bg-white p-2 flex items-center justify-center border border-white/10 shadow-inner shrink-0">
+                  <Image
+                    src="/Orders.png"
+                    alt="ORDERS logo"
+                    fill
+                    sizes="48px"
+                    className="object-contain p-0.5"
+                  />
+                </div>
+                <div>
+                  <p className="text-sm font-bold tracking-tight text-white group-hover:text-orange-300 transition-colors">
+                    ORDERS
+                  </p>
+                  <p className="text-[10px] text-zinc-500 uppercase tracking-wider">
+                    TECHNOLOGY
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-orange-400 flex items-center gap-1.5 transition-colors group-hover:text-orange-300">
-                  ORDERS
-                  <span className="h-1 w-1 rounded-full bg-[#f87171] animate-pulse" />
-                </p>
-                <p className="text-[10px] text-zinc-500 group-hover:text-zinc-400 transition-colors">
-                  Platform digital penggerak
-                </p>
-              </div>
+              <p className="text-xs text-zinc-500 leading-relaxed mb-4">
+                Platform digital &amp; teknologi yang menggerakkan seluruh ekosistem Baciraro.
+              </p>
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-orange-400 group-hover:text-orange-300 transition-colors">
+                Kunjungi ORDERS
+                <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </span>
             </Link>
 
-            <button
-              onClick={scrollToTop}
-              className="inline-flex w-fit items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-white shadow hover:bg-white/10 transition-all mt-2"
-            >
-              Kembali ke Atas
-            </button>
+            {/* Social Media */}
+            <div className="flex items-center gap-3">
+              <a
+                href="https://instagram.com/baciraro"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-8 w-8 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-zinc-500 hover:text-pink-400 hover:border-pink-400/30 hover:bg-pink-500/10 transition-all"
+                aria-label="Instagram"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+              </a>
+              <a
+                href="https://tiktok.com/@baciraro"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-8 w-8 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-zinc-500 hover:text-white hover:border-white/30 hover:bg-white/10 transition-all"
+                aria-label="TikTok"
+              >
+                <Music className="h-3.5 w-3.5" />
+              </a>
+              <a
+                href="https://wa.me/6288212835350"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-8 w-8 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-zinc-500 hover:text-emerald-400 hover:border-emerald-400/30 hover:bg-emerald-500/10 transition-all"
+                aria-label="WhatsApp"
+              >
+                <MessageCircle className="h-3.5 w-3.5" />
+              </a>
+            </div>
           </div>
 
+        </div>
+
+        {/* Bottom bar */}
+        <div className="mt-16 pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4 text-[10px] text-zinc-600">
+          <p>&copy; {new Date().getFullYear()} Baciraro. All rights reserved.</p>
+          <p>
+            Digdaya oleh{" "}
+            <Link href="/orders" className="text-orange-400 hover:text-orange-300 font-semibold transition-colors">
+              ORDERS
+            </Link>
+          </p>
         </div>
       </div>
     </footer>
