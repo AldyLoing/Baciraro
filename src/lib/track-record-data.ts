@@ -32,9 +32,10 @@ export const trackRecordData: TrackRecordYear[] = [
         era: "awal",
         categories: ["lingkungan", "sosial"],
         narrative:
-          "Program Salvos Go Green, aksi peduli lingkungan oleh Gereja Bala Keselamatan yang melibatkan penanaman pohon dan edukasi lingkungan di Sulawesi Utara.",
+          "Program Salvos Go Green, aksi peduli lingkungan oleh Gereja Bala Keselamatan yang melibatkan penanaman pohon dan edukasi lingkungan di Sulawesi Utara. Aksi tanam pohon oleh Pemuda Gereja Bala Keselamatan se-Indonesia berfokus pada penghijauan dan kepedulian lingkungan.",
         photos: [
           { src: "/2011/salvos go green.png", alt: "Salvos Go Green" },
+          { src: "/2011/kegiatan tanam pohon Salvos Go Green Pemuda Gereja Bala Keselamatan se Indonesia.jpg", alt: "Tanam pohon Salvos Go Green" },
         ],
       },
     ],
@@ -202,19 +203,6 @@ export const trackRecordData: TrackRecordYear[] = [
           { src: "/2014/kegiatan di jakarta Climate Reality Project Indonesia.jpg", alt: "Climate Reality Project Indonesia" },
           { src: "/2014/kegiatan di jakarta Climate Reality Project Indonesia 2.jpg", alt: "Climate Reality Project Indonesia" },
           { src: "/2014/kegiatan di jakarta Climate Reality Project Indonesia 3.jpg", alt: "Climate Reality Project Indonesia" },
-        ],
-      },
-      {
-        id: "salvos-tanam-pohon-2014",
-        title: "Salvos Go Green Tanam Pohon",
-        location: "Sulawesi Utara",
-        role: "Pendukung",
-        era: "tumbuh",
-        categories: ["lingkungan"],
-        narrative:
-          "Aksi tanam pohon oleh Pemuda Gereja Bala Keselamatan se-Indonesia. Program Salvos Go Green berfokus pada penghijauan dan kepedulian lingkungan.",
-        photos: [
-          { src: "/2014/kegiatan tanam pohon Salvos Go Green Pemuda Gereja Bala Keselamatan se Indonesia.jpg", alt: "Tanam pohon Salvos Go Green" },
         ],
       },
       {
