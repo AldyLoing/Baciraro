@@ -51,23 +51,19 @@ export default function ReviewMarquee() {
           {[...reviews, ...reviews].map((r, i) => (
             <div
               key={i}
-              className="w-[340px] shrink-0 rounded-[1.5rem] border border-white/[0.07] bg-white/[0.02] backdrop-blur p-5"
+              className="w-[340px] shrink-0 rounded-[1.5rem] border border-white/[0.07] bg-white/[0.02] backdrop-blur p-5 flex flex-col items-center text-center"
             >
-              <div className="flex items-center gap-3 mb-3">
-                {r.product_image ? (
-                  <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-white/10 shrink-0">
-                    <Image src={r.product_image} alt={r.product_title} fill className="object-cover" />
-                  </div>
-                ) : (
-                  <div className="w-10 h-10 rounded-xl bg-zinc-800 shrink-0" />
-                )}
-                <div className="min-w-0">
-                  <p className="text-xs text-zinc-300 truncate">{r.buyer_name}</p>
-                  {r.product_title && (
-                    <p className="text-[10px] text-zinc-600 truncate">{r.product_title}</p>
-                  )}
+              {r.product_image ? (
+                <div className="relative w-24 h-24 rounded-2xl overflow-hidden border border-white/10 mb-4 shrink-0">
+                  <Image src={r.product_image} alt={r.product_title} fill className="object-cover" />
                 </div>
-              </div>
+              ) : (
+                <div className="w-24 h-24 rounded-2xl bg-zinc-800 mb-4 shrink-0" />
+              )}
+              <p className="text-sm text-zinc-200 font-medium mb-0.5">{r.buyer_name}</p>
+              {r.product_title && (
+                <p className="text-[10px] text-zinc-600 mb-3 truncate max-w-full">{r.product_title}</p>
+              )}
               <div className="flex items-center gap-1 mb-3">
                 {[1,2,3,4,5].map((s) => (
                   <Star key={s} className="h-3.5 w-3.5" fill={s <= r.review_rating ? "#fbbf24" : "none"} stroke={s <= r.review_rating ? "#fbbf24" : "#52525b"} />
