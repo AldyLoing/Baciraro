@@ -87,7 +87,7 @@ export default function ProductDetailPage() {
     });
     if (res.ok) {
       const data = await res.json();
-      setQrUrl(data.claim_url);
+      setQrUrl(data.claimUrl || data.claim_url);
       setShowQR(true);
     }
   };

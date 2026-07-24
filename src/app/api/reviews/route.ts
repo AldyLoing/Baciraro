@@ -6,10 +6,7 @@ export async function GET() {
 
   const { data, error } = await supabase
     .from("qr_codes")
-    .select(`
-      code, buyer_name, review_text, review_rating, reviewed_at, product_slug,
-      products!inner(slug, title, image_url)
-    `)
+    .select(`code, buyer_name, review_text, review_rating, reviewed_at, product_slug`)
     .not("review_text", "eq", "")
     .not("review_rating", "eq", 0)
     .order("reviewed_at", { ascending: false });

@@ -5,12 +5,10 @@ import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 
 interface Review {
-  id: number;
   buyer_name: string;
   review_text: string;
   review_rating: number;
   product_slug: string;
-  products: { title: string } | null;
 }
 
 export default function ReviewMarquee() {
@@ -52,9 +50,6 @@ export default function ReviewMarquee() {
               <p className="text-sm text-zinc-300 mb-3 leading-relaxed">&ldquo;{r.review_text}&rdquo;</p>
               <div className="flex items-center justify-between">
                 <p className="text-xs text-zinc-500">{r.buyer_name}</p>
-                {r.products?.title && (
-                  <p className="text-[10px] text-zinc-600">{r.products.title}</p>
-                )}
               </div>
             </div>
           ))}
