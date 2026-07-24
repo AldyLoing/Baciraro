@@ -16,8 +16,6 @@ type TeamMember = {
   sort_order: number; is_division_head: boolean;
 };
 
-const supabase = createClient();
-
 function LinkedInIcon({ className = "h-[18px] w-[18px]" }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor">
@@ -162,7 +160,7 @@ export default function LeadershipPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase
+    createClient()
       .from("team_members")
       .select("*")
       .order("sort_order", { ascending: true })
