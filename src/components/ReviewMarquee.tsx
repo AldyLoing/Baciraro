@@ -1,18 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
+import Image from "next/image";
 
 interface Review {
   buyer_name: string;
   review_text: string;
   review_rating: number;
   product_slug: string;
+  product_title: string;
+  product_image: string;
 }
 
 export default function ReviewMarquee() {
   const [reviews, setReviews] = useState<Review[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(0);
 
   useEffect(() => {
     fetch("/api/reviews")
@@ -20,6 +25,11 @@ export default function ReviewMarquee() {
       .then((data) => data?.reviews && setReviews(data.reviews))
       .catch(() => {});
   }, []);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    setWidth(containerRef.current.scrollWidth / 2);
+  }, [reviews]);
 
   if (reviews.length === 0) return null;
 
@@ -33,24 +43,37 @@ export default function ReviewMarquee() {
 
       <div className="flex overflow-hidden">
         <motion.div
-          animate={{ x: [0, -1920] }}
-          transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
-          className="flex shrink-0 gap-6 pr-6"
+          ref={containerRef}
+          animate={width ? { x: [0, -width] } : undefined}
+          transition={{ repeat: Infinity, duration: width ? width / 40 : 40, ease: "linear" }}
+          className="flex shrink-0 gap-6"
         >
           {[...reviews, ...reviews].map((r, i) => (
             <div
               key={i}
-              className="w-[320px] shrink-0 rounded-[1.5rem] border border-white/[0.07] bg-white/[0.02] backdrop-blur p-6"
+              className="w-[340px] shrink-0 rounded-[1.5rem] border border-white/[0.07] bg-white/[0.02] backdrop-blur p-5"
             >
+              <div className="flex items-center gap-3 mb-3">
+                {r.product_image ? (
+                  <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-white/10 shrink-0">
+                    <Image src={r.product_image} alt={r.product_title} fill className="object-cover" />
+                  </div>
+                ) : (
+                  <div className="w-10 h-10 rounded-xl bg-zinc-800 shrink-0" />
+                )}
+                <div className="min-w-0">
+                  <p className="text-xs text-zinc-300 truncate">{r.buyer_name}</p>
+                  {r.product_title && (
+                    <p className="text-[10px] text-zinc-600 truncate">{r.product_title}</p>
+                  )}
+                </div>
+              </div>
               <div className="flex items-center gap-1 mb-3">
                 {[1,2,3,4,5].map((s) => (
                   <Star key={s} className="h-3.5 w-3.5" fill={s <= r.review_rating ? "#fbbf24" : "none"} stroke={s <= r.review_rating ? "#fbbf24" : "#52525b"} />
                 ))}
               </div>
-              <p className="text-sm text-zinc-300 mb-3 leading-relaxed">&ldquo;{r.review_text}&rdquo;</p>
-              <div className="flex items-center justify-between">
-                <p className="text-xs text-zinc-500">{r.buyer_name}</p>
-              </div>
+              <p className="text-sm text-zinc-300 leading-relaxed">&ldquo;{r.review_text}&rdquo;</p>
             </div>
           ))}
         </motion.div>
