@@ -114,8 +114,8 @@ export default function ProductDetailPage() {
     );
   }
 
-  const materials: Material[] = JSON.parse(product.materials || "[]");
-  const gallery: string[] = (() => {
+  const materials: Material[] = Array.isArray(product.materials) ? product.materials : JSON.parse(product.materials || "[]");
+  const gallery: string[] = Array.isArray(product.gallery) ? product.gallery : (() => {
     try {
       return JSON.parse(product.gallery || "[]");
     } catch {

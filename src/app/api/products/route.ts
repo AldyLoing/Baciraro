@@ -16,12 +16,15 @@ function getUser(req: NextRequest) {
 
 export async function GET() {
   const supabase = createAdminClient();
-  const { data: products } = await supabase
+  const { data, error } = await supabase
     .from("products")
     .select("*")
     .eq("is_active", true)
     .order("id", { ascending: false });
-  return NextResponse.json({ products });
+  if (error) {
+    return NextResponse.json({ products: [], error: error.message });
+  }
+  return NextResponse.json({ products: data || [] });
 }
 
 export async function POST(req: NextRequest) {

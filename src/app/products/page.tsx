@@ -58,8 +58,8 @@ export default function ProductsPage() {
   }, []);
 
   const filtered = activeCategory === "all"
-    ? products
-    : products.filter((p) => p.category === activeCategory);
+    ? products || []
+    : (products || []).filter((p) => p.category === activeCategory);
 
   return (
     <main className="relative min-h-screen text-[#fafafa] overflow-hidden">
@@ -108,7 +108,7 @@ export default function ProductsPage() {
         ) : (
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((product, i) => {
-              const materials = JSON.parse(product.materials || "[]");
+              const materials = typeof product.materials === "string" ? JSON.parse(product.materials || "[]") : (product.materials || []);
               const totalKg = materials.reduce((sum: number, m: { amount: number }) => sum + m.amount, 0);
 
               return (

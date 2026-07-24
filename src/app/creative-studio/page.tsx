@@ -181,19 +181,19 @@ export default function CreativeStudioPage() {
   };
 
   const handleAddMaterial = () => {
-    const mats = JSON.parse(productForm.materials || "[]");
+    const mats = Array.isArray(productForm.materials) ? productForm.materials : JSON.parse(productForm.materials || "[]");
     mats.push({ name: "", amount: 0, unit: "kg" });
     setProductForm({ ...productForm, materials: JSON.stringify(mats) });
   };
 
   const handleMaterialChange = (i: number, field: string, value: string | number) => {
-    const mats = JSON.parse(productForm.materials || "[]");
+    const mats = Array.isArray(productForm.materials) ? productForm.materials : JSON.parse(productForm.materials || "[]");
     mats[i][field] = value;
     setProductForm({ ...productForm, materials: JSON.stringify(mats) });
   };
 
   const handleRemoveMaterial = (i: number) => {
-    const mats = JSON.parse(productForm.materials || "[]");
+    const mats = Array.isArray(productForm.materials) ? productForm.materials : JSON.parse(productForm.materials || "[]");
     mats.splice(i, 1);
     setProductForm({ ...productForm, materials: JSON.stringify(mats) });
   };
@@ -206,7 +206,7 @@ export default function CreativeStudioPage() {
       description: product.description,
       category: product.category,
       story: product.story,
-      materials: product.materials,
+      materials: typeof product.materials === "string" ? product.materials : JSON.stringify(product.materials || []),
       total_plastic_kg: product.total_plastic_kg,
       image_url: product.image_url,
       gallery: product.gallery,
@@ -555,7 +555,7 @@ export default function CreativeStudioPage() {
                       <button type="button" onClick={handleAddMaterial} className="text-[10px] text-emerald-400 hover:text-emerald-300 font-semibold">+ Tambah Material</button>
                     </div>
                     <div className="space-y-2">
-                      {JSON.parse(productForm.materials || "[]").map((mat: { name: string; amount: number; unit: string }, i: number) => (
+                      {(Array.isArray(productForm.materials) ? productForm.materials : JSON.parse(productForm.materials || "[]")).map((mat: { name: string; amount: number; unit: string }, i: number) => (
                         <div key={i} className="flex items-center gap-2">
                           <input value={mat.name} onChange={e => handleMaterialChange(i, "name", e.target.value)} placeholder="Nama material" className="flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40" />
                           <input value={mat.amount || ""} onChange={e => handleMaterialChange(i, "amount", parseFloat(e.target.value) || 0)} type="number" step="0.1" placeholder="Jumlah" className="w-24 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40" />
