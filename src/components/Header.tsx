@@ -4,8 +4,9 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, User, LogOut, Award } from "lucide-react";
+import { Menu, X, User, LogOut, Award, LayoutDashboard } from "lucide-react";
 import { useCustomerAuth } from "@/lib/customer-auth-context";
+import { useAdminAuth } from "@/lib/admin-auth-context";
 import AuthModal from "./AuthModal";
 
 const navLinks = [
@@ -21,6 +22,7 @@ const navLinks = [
 
 export default function Header({ subtitle }: { subtitle?: string }) {
   const { customer, loading, logout } = useCustomerAuth();
+  const { admin, logoutAdmin } = useAdminAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -128,6 +130,15 @@ export default function Header({ subtitle }: { subtitle?: string }) {
           <div className="flex items-center gap-2">
             {loading ? (
               <div className="hidden sm:block h-9 w-9 rounded-full border border-white/10 bg-white/5 animate-pulse" />
+            ) : admin ? (
+              <button
+                ref={buttonRef}
+                onClick={() => { updateDropdownPos(); setDropdownOpen(!dropdownOpen); }}
+                className="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-400 transition-all hover:bg-emerald-500/20 duration-300"
+              >
+                <LayoutDashboard className="h-4 w-4" />
+                <span className="hidden sm:inline">Admin</span>
+              </button>
             ) : customer ? (
               <button
                 ref={buttonRef}
@@ -183,7 +194,23 @@ export default function Header({ subtitle }: { subtitle?: string }) {
                 </Link>
               ))}
               <div className="border-t border-white/5 pt-4 mt-2">
-                {customer ? (
+                {admin ? (
+                  <div className="flex flex-col gap-2">
+                    <Link
+                      href="/creative-studio"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="py-3 text-center text-sm font-semibold uppercase tracking-wider rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-emerald-400"
+                    >
+                      Creative Studio
+                    </Link>
+                    <button
+                      onClick={() => { logoutAdmin(); setIsMobileMenuOpen(false); }}
+                      className="py-3 text-center text-sm font-semibold uppercase tracking-wider rounded-xl border border-white/5 text-zinc-400"
+                    >
+                      Keluar
+                    </button>
+                  </div>
+                ) : customer ? (
                   <div className="flex flex-col gap-2">
                     <Link
                       href="/account"
@@ -214,7 +241,7 @@ export default function Header({ subtitle }: { subtitle?: string }) {
       </div>
 
       <AnimatePresence>
-        {dropdownOpen && customer && (
+        {dropdownOpen && (admin || customer) && (
           <motion.div
             ref={dropdownRef}
             initial={{ opacity: 0, y: -8 }}
@@ -224,33 +251,59 @@ export default function Header({ subtitle }: { subtitle?: string }) {
             style={{ position: "fixed", right: dropdownPos.right, top: dropdownPos.top }}
             className="w-48 rounded-2xl border border-white/10 bg-[#0c0f0c] backdrop-blur-xl shadow-2xl overflow-hidden z-[100]"
           >
-            <div className="px-4 py-3 border-b border-white/5">
-              <p className="text-xs text-zinc-400">Total Poin</p>
-              <p className="text-lg font-bold text-emerald-400">{customer.total_points}</p>
-            </div>
-            <Link
-              href="/account"
-              onClick={() => setDropdownOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 text-sm text-zinc-300 hover:text-white hover:bg-white/5 transition-all"
-            >
-              <User className="h-4 w-4 text-zinc-500" />
-              Profil
-            </Link>
-            <Link
-              href="/account#points"
-              onClick={() => setDropdownOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 text-sm text-zinc-300 hover:text-white hover:bg-white/5 transition-all"
-            >
-              <Award className="h-4 w-4 text-zinc-500" />
-              Riwayat Poin
-            </Link>
-            <button
-              onClick={() => { logout(); setDropdownOpen(false); }}
-              className="flex items-center gap-3 w-full px-4 py-3 text-sm text-zinc-300 hover:text-red-400 hover:bg-white/5 transition-all border-t border-white/5"
-            >
-              <LogOut className="h-4 w-4 text-zinc-500" />
-              Keluar
-            </button>
+            {admin ? (
+              <>
+                <div className="px-4 py-3 border-b border-white/5">
+                  <p className="text-xs text-emerald-400 font-semibold">Admin</p>
+                  <p className="text-sm text-zinc-400">{admin.name}</p>
+                </div>
+                <Link
+                  href="/creative-studio"
+                  onClick={() => setDropdownOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 text-sm text-zinc-300 hover:text-white hover:bg-white/5 transition-all"
+                >
+                  <LayoutDashboard className="h-4 w-4 text-zinc-500" />
+                  Creative Studio
+                </Link>
+                <button
+                  onClick={() => { logoutAdmin(); setDropdownOpen(false); }}
+                  className="flex items-center gap-3 w-full px-4 py-3 text-sm text-zinc-300 hover:text-red-400 hover:bg-white/5 transition-all border-t border-white/5"
+                >
+                  <LogOut className="h-4 w-4 text-zinc-500" />
+                  Keluar
+                </button>
+              </>
+            ) : customer && (
+              <>
+                <div className="px-4 py-3 border-b border-white/5">
+                  <p className="text-xs text-zinc-400">Total Poin</p>
+                  <p className="text-lg font-bold text-emerald-400">{customer.total_points}</p>
+                </div>
+                <Link
+                  href="/account"
+                  onClick={() => setDropdownOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 text-sm text-zinc-300 hover:text-white hover:bg-white/5 transition-all"
+                >
+                  <User className="h-4 w-4 text-zinc-500" />
+                  Profil
+                </Link>
+                <Link
+                  href="/account#points"
+                  onClick={() => setDropdownOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 text-sm text-zinc-300 hover:text-white hover:bg-white/5 transition-all"
+                >
+                  <Award className="h-4 w-4 text-zinc-500" />
+                  Riwayat Poin
+                </Link>
+                <button
+                  onClick={() => { logout(); setDropdownOpen(false); }}
+                  className="flex items-center gap-3 w-full px-4 py-3 text-sm text-zinc-300 hover:text-red-400 hover:bg-white/5 transition-all border-t border-white/5"
+                >
+                  <LogOut className="h-4 w-4 text-zinc-500" />
+                  Keluar
+                </button>
+              </>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

@@ -9,6 +9,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import QRModal from "@/components/QRModal";
+import { useAdminAuth } from "@/lib/admin-auth-context";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -60,6 +61,7 @@ export default function ProductDetailPage() {
   const [showQR, setShowQR] = useState(false);
   const [qrUrl, setQrUrl] = useState("");
   const [selectedImage, setSelectedImage] = useState(0);
+  const { admin } = useAdminAuth();
   const [notFound, setNotFound] = useState(false);
   const [reviews, setReviews] = useState<any[]>([]);
 
@@ -211,13 +213,15 @@ export default function ProductDetailPage() {
 
             {/* Actions */}
             <div className="mt-6 flex flex-wrap gap-3">
-              <button
-                onClick={openQR}
-                className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 px-6 py-3.5 text-sm font-semibold text-white transition-all hover:gap-4"
-              >
-                <QrCode className="h-5 w-5 text-emerald-400" />
-                Lihat QR
-              </button>
+              {admin && (
+                <button
+                  onClick={openQR}
+                  className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 px-6 py-3.5 text-sm font-semibold text-white transition-all hover:gap-4"
+                >
+                  <QrCode className="h-5 w-5 text-emerald-400" />
+                  Lihat QR
+                </button>
+              )}
               <a
                 href={`https://wa.me/6288212835350?text=${encodeURIComponent(`Halo, saya ingin memesan produk ${product.title}, bisa dibantu?`)}`}
                 target="_blank"

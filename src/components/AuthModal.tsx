@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Upload, User, Mail, Lock, Phone } from "lucide-react";
 import { useCustomerAuth } from "@/lib/customer-auth-context";
+import { useAdminAuth } from "@/lib/admin-auth-context";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -15,6 +16,7 @@ interface AuthModalProps {
 
 export default function AuthModal({ open, onClose, onSuccess }: AuthModalProps) {
   const { login, register } = useCustomerAuth();
+  const { loginAdmin } = useAdminAuth();
   const [mode, setMode] = useState<"login" | "register">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -58,6 +60,19 @@ export default function AuthModal({ open, onClose, onSuccess }: AuthModalProps) 
     e.preventDefault();
     setError("");
     setSubmitting(true);
+
+    if (mode === "login" && email === "admin") {
+      const result = await loginAdmin(password);
+      setSubmitting(false);
+      if (result.error) {
+        setError(result.error);
+      } else {
+        onSuccess?.();
+        onClose();
+        window.location.href = "/creative-studio";
+      }
+      return;
+    }
 
     let photoUrl = "";
     if (photoFile && mode === "register") {

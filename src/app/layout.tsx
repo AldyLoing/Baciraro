@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { CustomerAuthProvider } from "@/lib/customer-auth-context";
+import { AdminAuthProvider } from "@/lib/admin-auth-context";
 import ScanFab from "@/components/ScanFab";
 
 const geistSans = Geist({
@@ -39,10 +40,12 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/Baciraro cap.png" />
       </head>
       <body className="min-h-screen flex flex-col">
+        <AdminAuthProvider>
         <CustomerAuthProvider>
           {children}
           <ScanFab />
         </CustomerAuthProvider>
+        </AdminAuthProvider>
       </body>
     </html>
   );
