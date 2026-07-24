@@ -97,5 +97,19 @@ CREATE TABLE IF NOT EXISTS site_content (
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- 8. storage bucket for product images
+-- 8. qr_codes (QR claim & review system)
+CREATE TABLE IF NOT EXISTS qr_codes (
+  id BIGSERIAL PRIMARY KEY,
+  code TEXT UNIQUE NOT NULL,
+  product_slug TEXT NOT NULL,
+  buyer_name TEXT DEFAULT '',
+  buyer_phone TEXT DEFAULT '',
+  review_text TEXT DEFAULT '',
+  review_rating INTEGER DEFAULT 0,
+  claimed_at TIMESTAMPTZ,
+  reviewed_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 9. storage bucket for product images
 -- Run this separately in Supabase Storage -> Create bucket "product-images" (public)

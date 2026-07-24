@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Recycle, Leaf, Palette, Code2, QrCode, Package, ArrowLeft, Trash2 } from "lucide-react";
+import { Recycle, Leaf, Palette, Code2, QrCode, Package, ArrowLeft, Trash2, Star, Heart } from "lucide-react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -61,6 +61,7 @@ export default function ProductDetailPage() {
   const [qrUrl, setQrUrl] = useState("");
   const [selectedImage, setSelectedImage] = useState(0);
   const [notFound, setNotFound] = useState(false);
+  const [reviews, setReviews] = useState<any[]>([]);
 
   useEffect(() => {
     if (!slug) return;
@@ -72,12 +73,23 @@ export default function ProductDetailPage() {
       .then((data) => setProduct(data.product))
       .catch(() => setNotFound(true))
       .finally(() => setLoading(false));
+    fetch(`/api/reviews/${slug}`)
+      .then((res) => res.ok && res.json())
+      .then((data) => data?.reviews && setReviews(data.reviews))
+      .catch(() => {});
   }, [slug]);
 
-  const openQR = () => {
-    const base = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
-    setQrUrl(`${base}/products/${slug}`);
-    setShowQR(true);
+  const openQR = async () => {
+    const res = await fetch("/api/qr/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ product_slug: slug }),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      setQrUrl(data.claim_url);
+      setShowQR(true);
+    }
   };
 
   if (loading) {
@@ -256,6 +268,35 @@ export default function ProductDetailPage() {
                   </div>
                 )}
               </div>
+            </div>
+          </motion.section>
+        )}
+
+        {/* Reviews */}
+        {reviews.length > 0 && (
+          <motion.section
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: springEase }}
+            className="mt-16"
+          >
+            <div className="flex items-center gap-3 pb-3 border-b border-white/[0.05] mb-8">
+              <Heart className="h-4 w-4 text-emerald-400" />
+              <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-emerald-400">Review Pelanggan</p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {reviews.map((r: any, i: number) => (
+                <div key={i} className="rounded-[1.5rem] border border-white/[0.07] bg-white/[0.02] backdrop-blur p-6">
+                  <div className="flex items-center gap-1 mb-3">
+                    {[1,2,3,4,5].map((s) => (
+                      <Star key={s} className="h-3.5 w-3.5" fill={s <= r.review_rating ? "#fbbf24" : "none"} stroke={s <= r.review_rating ? "#fbbf24" : "#52525b"} />
+                    ))}
+                  </div>
+                  <p className="text-sm text-zinc-300 mb-3 leading-relaxed">&ldquo;{r.review_text}&rdquo;</p>
+                  <p className="text-xs text-zinc-500">{r.buyer_name}</p>
+                </div>
+              ))}
             </div>
           </motion.section>
         )}
