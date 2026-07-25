@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Check, Play, X } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/context";
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { LogoCloud } from "@/components/ui/logo-cloud-2";
 
@@ -43,6 +44,7 @@ const featureCards = [
 ];
 
 export default function CreativePage() {
+  const { t } = useLanguage();
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const heroVideoRef = useRef<HTMLVideoElement | null>(null);
   const tributeVideoRef = useRef<HTMLVideoElement | null>(null);
@@ -174,13 +176,13 @@ export default function CreativePage() {
 
           <nav className="absolute left-1/2 top-0 z-20 w-full max-w-[95vw] -translate-x-1/2 sm:max-w-max">
             <div className="flex flex-wrap items-center justify-center gap-3 rounded-b-2xl bg-background px-4 py-2 sm:gap-6 md:gap-12 md:rounded-b-3xl md:px-8 lg:gap-14">
-              {["Asal-usul", "Makna", "Gerakan", "Busana", "Warisan"].map((item) => (
+              {["navAsal", "navMakna", "navGerakan", "navBusana", "navWarisan"].map((key) => (
                 <a
-                  key={item}
+                  key={key}
                   href="#"
                   className="text-[10px] text-white/60 transition-colors hover:text-white sm:text-xs md:text-sm"
                 >
-                  {item}
+                  {t(`creative.${key}`)}
                 </a>
               ))}
             </div>
@@ -218,7 +220,7 @@ export default function CreativePage() {
                         className="flex items-center gap-2 rounded-full border border-white/10 bg-white/20 px-5 py-3 text-sm font-medium text-white shadow-xl backdrop-blur-md hover:bg-white/30"
                       >
                         <Play className="h-4 w-4" fill="currentColor" />
-                        Tonton Video
+                        {t("creative.tontonVideo")}
                       </motion.button>
                     ) : (
                       <motion.div
@@ -258,8 +260,7 @@ export default function CreativePage() {
                     transition={{ duration: 0.7, delay: 0.5, ease: springEase }}
                     className="text-center text-xs leading-[1.4] text-white sm:text-sm md:text-left md:text-base"
                   >
-                    Tarian ksatria Minahasa yang lahir dari semangat menjaga tanah, lalu bertransformasi menjadi
-                    identitas budaya yang gagah, ritmis, dan penuh wibawa.
+                    {t("creative.descBody")}
                   </motion.p>
 
                   <div className="flex w-full justify-center md:justify-start">
@@ -270,7 +271,7 @@ export default function CreativePage() {
                       transition={{ duration: 0.7, delay: 0.7, ease: springEase }}
                       className="group mt-4 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-medium text-black transition-all hover:gap-3 sm:text-base"
                     >
-                      Jelajahi budaya
+                      {t("creative.jelajahiBudaya")}
                       <span className="flex h-9 w-9 items-center justify-center rounded-full bg-black transition-transform group-hover:scale-110 sm:h-10 sm:w-10">
                         <ArrowRight className="h-4 w-4 text-white" />
                       </span>
@@ -287,7 +288,7 @@ export default function CreativePage() {
         <div className="m-auto max-w-7xl px-6">
           <div className="flex flex-col items-center gap-8 md:flex-row">
             <div className="w-full text-center md:max-w-44 md:border-r md:border-white/10 md:pr-6 md:text-right shrink-0">
-              <p className="text-sm text-zinc-400">Powering the best teams</p>
+              <p className="text-sm text-zinc-400">{t("creative.powering")}</p>
             </div>
             <div className="flex-1 w-full overflow-hidden">
               <LogoCloud />
@@ -298,13 +299,12 @@ export default function CreativePage() {
 
       <section className="px-4 pb-20 pt-12 sm:px-6 md:px-8">
         <div className="mx-auto max-w-6xl rounded-3xl border border-white/5 bg-zinc-950 px-5 py-12 text-center sm:px-8 sm:py-14 md:px-12 md:py-16">
-          <p className="text-[10px] text-primary sm:text-xs">Budaya Minahasa</p>
+          <p className="text-[10px] text-primary sm:text-xs">{t("creative.budayaLabel")}</p>
           <h2 className="mx-auto mt-5 max-w-4xl text-3xl font-normal leading-[0.95] sm:text-4xl md:text-5xl lg:text-6xl">
-            Kawasaran bukan sekadar tari, ia adalah napas keberanian.
+            {t("creative.descTitle")}
           </h2>
           <p className="mx-auto mt-8 max-w-4xl text-sm leading-7 text-zinc-300 sm:text-base md:text-lg">
-            Setiap hentak langkah menyalakan ingatan, martabat, dan akar tradisi Minahasa. Di dalamnya ada
-            disiplin, penghormatan pada leluhur, dan bahasa visual yang kuat untuk presentasi budaya.
+            {t("creative.descBody")}
           </p>
         </div>
       </section>
@@ -314,10 +314,10 @@ export default function CreativePage() {
         <div className="relative z-10 mx-auto max-w-7xl">
           <div className="mb-10 text-center">
             <h3 className="text-xl font-normal text-white sm:text-2xl md:text-3xl lg:text-4xl">
-              Warisan gerak yang lahir dari keberanian.
+              {t("creative.warisanTitle")}
             </h3>
             <p className="mt-3 text-xl font-normal text-zinc-400 sm:text-2xl md:text-3xl lg:text-4xl">
-              Hari ini tetap hidup sebagai wajah budaya Sulawesi Utara.
+              {t("creative.warisanSubtitle")}
             </p>
           </div>
 
@@ -335,7 +335,7 @@ export default function CreativePage() {
                 className="absolute inset-0 h-full w-full cursor-pointer object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/20 to-transparent" />
-              <p className="absolute bottom-4 left-4 text-sm text-primary-text sm:text-base">Gagah, sakral, dan berakar.</p>
+              <p className="absolute bottom-4 left-4 text-sm text-primary-text sm:text-base">{t("creative.featureCaption")}</p>
             </article>
 
             {featureCards.map((card) => (
@@ -365,7 +365,7 @@ export default function CreativePage() {
                 </ul>
 
                 <a href="#" className="mt-auto inline-flex items-center gap-2 pt-6 text-sm text-primary transition-opacity hover:opacity-80">
-                  Baca maknanya
+                  {t("creative.bacaMakna")}
                   <ArrowRight className="h-4 w-4 -rotate-45" />
                 </a>
               </article>

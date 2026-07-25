@@ -2,9 +2,10 @@
 
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Upload, User, Mail, Lock, Phone } from "lucide-react";
+import { X, Upload, User, Mail, Lock, Phone, Globe } from "lucide-react";
 import { useCustomerAuth } from "@/lib/customer-auth-context";
 import { useAdminAuth } from "@/lib/admin-auth-context";
+import { useLanguage } from "@/lib/i18n/context";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -17,6 +18,7 @@ interface AuthModalProps {
 export default function AuthModal({ open, onClose, onSuccess }: AuthModalProps) {
   const { login, register } = useCustomerAuth();
   const { loginAdmin } = useAdminAuth();
+  const { t, lang, toggleLang } = useLanguage();
   const [mode, setMode] = useState<"login" | "register">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -88,7 +90,7 @@ export default function AuthModal({ open, onClose, onSuccess }: AuthModalProps) 
         photoUrl = url;
       } else {
         const errData = await uploadRes.json().catch(() => ({}));
-        setError(errData.error || "Gagal mengunggah foto profil");
+        setError(errData.error || t("auth.gagalUpload"));
         setSubmitting(false);
         return;
       }
@@ -141,10 +143,10 @@ export default function AuthModal({ open, onClose, onSuccess }: AuthModalProps) 
 
             <div className="text-center mb-6">
               <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-emerald-400 mb-1">
-                {mode === "login" ? "Masuk" : "Daftar"}
+                {mode === "login" ? t("auth.masuk") : t("auth.daftar")}
               </p>
               <h3 className="font-serif text-lg text-white">
-                {mode === "login" ? "Selamat datang kembali" : "Buat akun baru"}
+                {mode === "login" ? t("auth.selamatDatang") : t("auth.buatAkun")}
               </h3>
             </div>
 
@@ -171,7 +173,7 @@ export default function AuthModal({ open, onClose, onSuccess }: AuthModalProps) 
                     <input
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      placeholder="Nama lengkap"
+                      placeholder={t("auth.namaLengkap")}
                       required
                       className="w-full rounded-xl border border-white/10 bg-white/5 pl-11 pr-5 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40"
                     />
@@ -181,7 +183,7 @@ export default function AuthModal({ open, onClose, onSuccess }: AuthModalProps) 
                     <input
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      placeholder="No. HP (opsional)"
+                      placeholder={t("auth.noHp")}
                       className="w-full rounded-xl border border-white/10 bg-white/5 pl-11 pr-5 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40"
                     />
                   </div>
@@ -193,7 +195,7 @@ export default function AuthModal({ open, onClose, onSuccess }: AuthModalProps) 
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email"
+                  placeholder={t("auth.email")}
                   required
                   className="w-full rounded-xl border border-white/10 bg-white/5 pl-11 pr-5 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40"
                 />
@@ -204,7 +206,7 @@ export default function AuthModal({ open, onClose, onSuccess }: AuthModalProps) 
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password"
+                  placeholder={t("auth.password")}
                   required
                   className="w-full rounded-xl border border-white/10 bg-white/5 pl-11 pr-5 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40"
                 />
@@ -219,14 +221,14 @@ export default function AuthModal({ open, onClose, onSuccess }: AuthModalProps) 
                 disabled={submitting}
                 className="w-full rounded-full bg-emerald-500 hover:bg-emerald-400 text-black py-3 text-sm font-bold transition-all disabled:opacity-40"
               >
-                {submitting ? "Memproses..." : mode === "login" ? "Masuk" : "Daftar"}
+                {submitting ? t("auth.memproses") : mode === "login" ? t("auth.masuk") : t("auth.daftar")}
               </button>
             </form>
 
             <p className="text-center text-xs text-zinc-500 mt-4">
-              {mode === "login" ? "Belum punya akun? " : "Sudah punya akun? "}
+              {mode === "login" ? t("auth.belumPunyaAkun") : t("auth.sudahPunyaAkun")}
               <button onClick={toggleMode} className="text-emerald-400 hover:text-emerald-300 underline">
-                {mode === "login" ? "Daftar" : "Masuk"}
+                {mode === "login" ? t("auth.daftar") : t("auth.masuk")}
               </button>
             </p>
           </motion.div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect, useMemo } from "react";
+import { useLanguage } from "@/lib/i18n/context";
 import { motion } from "framer-motion";
 import { Package, Users, Sprout, Cpu, Recycle, Building2 } from "lucide-react";
 
@@ -8,12 +9,12 @@ const TERRACOTTA = "#D4785C";
 const EMERALD = "#10B981";
 
 const METRICS = [
-  { value: 1200, suffix: "+", label: "Sampah Terkelola", unit: "ton", icon: Package, color: EMERALD, percent: 85 },
-  { value: 80, suffix: "+", label: "Komunitas Aktif", unit: "komunitas", icon: Users, color: TERRACOTTA, percent: 75 },
-  { value: 40, suffix: "+", label: "Produk Kreatif", unit: "karya", icon: Sprout, color: "#F59E0B", percent: 60 },
-  { value: 25, suffix: "+", label: "Proyek Digital", unit: "proyek", icon: Cpu, color: "#8B5CF6", percent: 70 },
-  { value: 85, suffix: "%", label: "Reduksi ke TPA", unit: "persen", icon: Recycle, color: EMERALD, percent: 85 },
-  { value: 15, suffix: "+", label: "Mitra Kolaborasi", unit: "mitra", icon: Building2, color: TERRACOTTA, percent: 65 },
+  { value: 1200, suffix: "+", labelKey: "sampah", unit: "ton", icon: Package, color: EMERALD, percent: 85 },
+  { value: 80, suffix: "+", labelKey: "komunitas", unit: "komunitas", icon: Users, color: TERRACOTTA, percent: 75 },
+  { value: 40, suffix: "+", labelKey: "produk", unit: "karya", icon: Sprout, color: "#F59E0B", percent: 60 },
+  { value: 25, suffix: "+", labelKey: "proyek", unit: "proyek", icon: Cpu, color: "#8B5CF6", percent: 70 },
+  { value: 85, suffix: "%", labelKey: "reduksi", unit: "persen", icon: Recycle, color: EMERALD, percent: 85 },
+  { value: 15, suffix: "+", labelKey: "mitra", unit: "mitra", icon: Building2, color: TERRACOTTA, percent: 65 },
 ];
 
 function ProgressRing({ percent, color, size = 72 }: { percent: number; color: string; size?: number }) {
@@ -64,6 +65,7 @@ function AnimatedCount({ target, suffix, inView }: { target: number; suffix: str
 }
 
 export default function ImpactSection() {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -102,7 +104,7 @@ export default function ImpactSection() {
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {METRICS.map((m, i) => (
             <motion.div
-              key={m.label}
+              key={m.labelKey}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -117,7 +119,7 @@ export default function ImpactSection() {
                     <AnimatedCount target={m.value} suffix={m.suffix} inView={inView} />
                   </p>
                 </div>
-                <p className="text-sm text-zinc-400">{m.label}</p>
+                <p className="text-sm text-zinc-400">{t("impact.metrics." + m.labelKey)}</p>
                 <p className="text-[9px] text-zinc-600 uppercase tracking-wider">{m.unit}</p>
               </div>
             </motion.div>

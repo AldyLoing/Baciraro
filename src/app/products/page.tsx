@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Recycle, Leaf, Palette, Code2, ArrowRight, MessageCircle } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useLanguage } from "@/lib/i18n/context";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -46,6 +47,7 @@ const categoryLabels: Record<string, string> = {
 };
 
 export default function ProductsPage() {
+  const { t } = useLanguage();
   const [products, setProducts] = useState<Product[]>([]);
   const [activeCategory, setActiveCategory] = useState("all");
   const [loading, setLoading] = useState(true);
@@ -95,7 +97,7 @@ export default function ProductsPage() {
               }`}
             >
               {cat.icon && <cat.icon className="h-3.5 w-3.5" />}
-              {cat.label}
+              {cat.key === "all" ? t("products.semua") : t("products." + cat.key)}
             </button>
           ))}
         </motion.div>
@@ -132,7 +134,7 @@ export default function ProductsPage() {
                       )}
                       <div className="absolute top-3 left-3">
                         <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-wider border ${categoryColors[product.category] || categoryColors.craft}`}>
-                          {categoryLabels[product.category] || product.category}
+                          {t("products." + product.category) || product.category}
                         </span>
                       </div>
                     </div>
@@ -143,7 +145,7 @@ export default function ProductsPage() {
                         {totalKg > 0 && (
                           <div className="flex items-center gap-2 text-[10px] text-emerald-400 font-semibold">
                             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                            {totalKg} kg bahan terselamatkan
+                            {t("products.bahanTerselamatkan", { kg: totalKg })}
                           </div>
                         )}
                         <button

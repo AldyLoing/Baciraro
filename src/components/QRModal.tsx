@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useLanguage } from "@/lib/i18n/context";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Download } from "lucide-react";
 import QRCode from "qrcode";
@@ -15,6 +16,7 @@ interface QRModalProps {
 }
 
 export default function QRModal({ open, onClose, url, title }: QRModalProps) {
+  const { t } = useLanguage();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const logoSize = 64;
 

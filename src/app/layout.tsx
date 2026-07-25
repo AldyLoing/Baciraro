@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { CustomerAuthProvider } from "@/lib/customer-auth-context";
 import { AdminAuthProvider } from "@/lib/admin-auth-context";
+import { LanguageProvider } from "@/lib/i18n/context";
 import ScanFab from "@/components/ScanFab";
 
 const geistSans = Geist({
@@ -42,8 +43,10 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col">
         <AdminAuthProvider>
         <CustomerAuthProvider>
+        <LanguageProvider>
           {children}
           <ScanFab />
+        </LanguageProvider>
         </CustomerAuthProvider>
         </AdminAuthProvider>
       </body>

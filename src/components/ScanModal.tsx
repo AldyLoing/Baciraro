@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Scan, LogIn, Award, RefreshCw } from "lucide-react";
 import jsQR from "jsqr";
 import { useCustomerAuth } from "@/lib/customer-auth-context";
+import { useLanguage } from "@/lib/i18n/context";
 import AuthModal from "./AuthModal";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -16,6 +17,7 @@ interface ScanModalProps {
 
 export default function ScanModal({ open, onClose }: ScanModalProps) {
   const { customer } = useCustomerAuth();
+  const { t } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -199,9 +201,9 @@ export default function ScanModal({ open, onClose }: ScanModalProps) {
 
               <div className="text-center">
                 <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-emerald-400 mb-1">
-                  Scan QR
+                  {t("scan.title")}
                 </p>
-                <h3 className="font-serif text-lg text-white mb-6">Scan Barcode Produk</h3>
+                <h3 className="font-serif text-lg text-white mb-6">{t("scan.heading")}</h3>
 
                 {status === "scanning" && (
                   <div className="relative rounded-2xl border border-white/10 bg-black overflow-hidden">
@@ -212,7 +214,7 @@ export default function ScanModal({ open, onClose }: ScanModalProps) {
                     </div>
                     <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
                       <p className="text-[10px] text-zinc-500 font-medium uppercase tracking-wider">
-                        Arahkan ke QR Code
+                        {t("scan.scanning")}
                       </p>
                     </div>
                   </div>
@@ -228,10 +230,10 @@ export default function ScanModal({ open, onClose }: ScanModalProps) {
                     >
                       <Award className="h-10 w-10 text-emerald-400" />
                     </motion.div>
-                    <h2 className="font-serif text-2xl text-white mb-2">Terima Kasih!</h2>
+                    <h2 className="font-serif text-2xl text-white mb-2">{t("scan.successTitle")}</h2>
                     <p className="text-emerald-400 font-semibold text-lg mb-1">{customer?.name}</p>
-                    <p className="text-2xl font-bold text-amber-400 mb-3">+{pointsEarned} Poin</p>
-                    <p className="text-sm text-zinc-400">Produk: {productTitle}</p>
+                    <p className="text-2xl font-bold text-amber-400 mb-3">+{pointsEarned} {t("points.poin")}</p>
+                    <p className="text-sm text-zinc-400">{t("scan.successProduct", { title: productTitle })}</p>
                   </div>
                 )}
 
@@ -240,17 +242,17 @@ export default function ScanModal({ open, onClose }: ScanModalProps) {
                     <div className="w-20 h-20 rounded-full bg-zinc-500/10 flex items-center justify-center mx-auto mb-6">
                       <Scan className="h-10 w-10 text-zinc-400" />
                     </div>
-                    <h2 className="font-serif text-2xl text-white mb-2">QR Terdeteksi!</h2>
-                    <p className="text-sm text-zinc-400 mb-2">Produk: {productTitle}</p>
+                    <h2 className="font-serif text-2xl text-white mb-2">{t("scan.nologinTitle")}</h2>
+                    <p className="text-sm text-zinc-400 mb-2">{t("scan.nologinProduct", { title: productTitle })}</p>
                     <p className="text-xs text-zinc-500 mb-6">
-                      Daftar atau masuk untuk mengklaim produk dan dapatkan poin!
+                      {t("scan.nologinDesc")}
                     </p>
                     <button
                       onClick={() => setAuthModalOpen(true)}
                       className="inline-flex items-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black px-6 py-3 text-sm font-bold transition-all"
                     >
                       <LogIn className="h-4 w-4" />
-                      Daftar / Masuk
+                      {t("scan.daftarMasuk")}
                     </button>
                   </div>
                 )}
@@ -260,14 +262,14 @@ export default function ScanModal({ open, onClose }: ScanModalProps) {
                     <div className="w-20 h-20 rounded-full bg-red-500/10 flex items-center justify-center mx-auto mb-6">
                       <X className="h-10 w-10 text-red-400" />
                     </div>
-                    <h2 className="font-serif text-2xl text-white mb-2">Gagal</h2>
-                    <p className="text-sm text-zinc-400">QR Code tidak valid atau sudah diklaim</p>
+                    <h2 className="font-serif text-2xl text-white mb-2">{t("scan.errorTitle")}</h2>
+                    <p className="text-sm text-zinc-400">{t("scan.errorDesc")}</p>
                     <button
                       onClick={handleRetry}
                       className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 text-white px-6 py-3 text-sm font-bold transition-all hover:bg-white/10"
                     >
                       <RefreshCw className="h-4 w-4" />
-                      Scan Lagi
+                      {t("scan.scanLagi")}
                     </button>
                   </div>
                 )}

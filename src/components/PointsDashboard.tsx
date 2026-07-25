@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/lib/i18n/context";
 import { motion } from "framer-motion";
 import { Medal, Crown, Award } from "lucide-react";
 
@@ -15,6 +16,7 @@ const RANK_COLORS = ["#FFD700", "#C0C0C0", "#CD7F32"];
 const RANK_ICONS = [Crown, Medal, Award];
 
 export default function PointsDashboard() {
+  const { t } = useLanguage();
   const [leaderboard, setLeaderboard] = useState<Customer[]>([]);
   const [totalPoints, setTotalPoints] = useState(0);
 
@@ -48,7 +50,7 @@ export default function PointsDashboard() {
             <span className="font-serif italic text-amber-300">kontributor.</span>
           </h2>
           <p className="mt-4 text-base leading-relaxed text-zinc-400">
-            {totalPoints.toLocaleString()} poin telah didistribusikan kepada pelanggan setia Baciraro.
+            {t("points.subtitle", { poin: totalPoints.toLocaleString() })}
           </p>
         </motion.div>
 

@@ -4,25 +4,27 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, User, LogOut, Award, LayoutDashboard } from "lucide-react";
+import { Menu, X, User, LogOut, Award, LayoutDashboard, Globe } from "lucide-react";
 import { useCustomerAuth } from "@/lib/customer-auth-context";
 import { useAdminAuth } from "@/lib/admin-auth-context";
+import { useLanguage } from "@/lib/i18n/context";
 import AuthModal from "./AuthModal";
 
 const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Produk", href: "/products" },
-  { name: "Track Record", href: "/track-record" },
-  { name: "Leadership", href: "/leadership" },
-  { name: "Creative Studio", href: "/creative-studio" },
-  { name: "Baciraro Creative", href: "/creative" },
-  { name: "Contact", href: "/contact" },
+  { nameKey: "home", href: "/" },
+  { nameKey: "about", href: "/about" },
+  { nameKey: "produk", href: "/products" },
+  { nameKey: "trackRecord", href: "/track-record" },
+  { nameKey: "leadership", href: "/leadership" },
+  { nameKey: "creativeStudio", href: "/creative-studio" },
+  { nameKey: "creative", href: "/creative" },
+  { nameKey: "contact", href: "/contact" },
 ];
 
 export default function Header({ subtitle }: { subtitle?: string }) {
   const { customer, loading, logout } = useCustomerAuth();
   const { admin, logoutAdmin } = useAdminAuth();
+  const { t, lang, toggleLang } = useLanguage();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -118,11 +120,11 @@ export default function Header({ subtitle }: { subtitle?: string }) {
           <nav className="hidden items-center gap-1.5 md:flex">
             {navLinks.map((link) => (
               <Link
-                key={link.name}
+                key={link.nameKey}
                 href={link.href}
                 className="px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-wider rounded-full transition-all duration-300 border text-zinc-400 hover:text-white hover:bg-white/5 border-transparent hover:border-white/5"
               >
-                {link.name}
+                {t("nav." + link.nameKey)}
               </Link>
             ))}
           </nav>
@@ -137,7 +139,7 @@ export default function Header({ subtitle }: { subtitle?: string }) {
                 className="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-400 transition-all hover:bg-emerald-500/20 duration-300"
               >
                 <LayoutDashboard className="h-4 w-4" />
-                <span className="hidden sm:inline">Admin</span>
+                <span className="hidden sm:inline">{t("nav.admin")}</span>
               </button>
             ) : customer ? (
               <button
@@ -160,9 +162,18 @@ export default function Header({ subtitle }: { subtitle?: string }) {
                 className="hidden sm:inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold tracking-wider uppercase text-white transition-all hover:scale-102 hover:bg-white/10 hover:border-white/20 duration-300"
               >
                 <User className="h-3 w-3 text-emerald-400" />
-                Daftar / Masuk
+                {t("nav.daftarMasuk")}
               </button>
             )}
+
+            <button
+              onClick={toggleLang}
+              className="flex items-center justify-center h-9 w-9 rounded-full border border-white/10 bg-white/5 text-zinc-400 hover:text-emerald-400 hover:border-emerald-500/30 transition-all text-[10px] font-bold uppercase tracking-wider"
+              aria-label="Toggle language"
+            >
+              <Globe className="h-3.5 w-3.5" />
+              <span className="ml-0.5">{lang.toUpperCase()}</span>
+            </button>
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -185,12 +196,12 @@ export default function Header({ subtitle }: { subtitle?: string }) {
             >
               {navLinks.map((link) => (
                 <Link
-                  key={link.name}
+                  key={link.nameKey}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="py-3 text-center text-sm font-semibold uppercase tracking-wider rounded-xl transition-all border text-zinc-400 hover:text-white hover:bg-white/5 border-transparent"
                 >
-                  {link.name}
+                  {t("nav." + link.nameKey)}
                 </Link>
               ))}
               <div className="border-t border-white/5 pt-4 mt-2">
@@ -201,13 +212,13 @@ export default function Header({ subtitle }: { subtitle?: string }) {
                       onClick={() => setIsMobileMenuOpen(false)}
                       className="py-3 text-center text-sm font-semibold uppercase tracking-wider rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-emerald-400"
                     >
-                      Creative Studio
+                      {t("header.mobileCreativeStudio")}
                     </Link>
                     <button
                       onClick={() => { logoutAdmin(); setIsMobileMenuOpen(false); }}
                       className="py-3 text-center text-sm font-semibold uppercase tracking-wider rounded-xl border border-white/5 text-zinc-400"
                     >
-                      Keluar
+                      {t("nav.keluar")}
                     </button>
                   </div>
                 ) : customer ? (
@@ -217,13 +228,13 @@ export default function Header({ subtitle }: { subtitle?: string }) {
                       onClick={() => setIsMobileMenuOpen(false)}
                       className="py-3 text-center text-sm font-semibold uppercase tracking-wider rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-emerald-400"
                     >
-                      Profil & Poin
+                      {t("header.mobileProfilPoin")}
                     </Link>
                     <button
                       onClick={() => { logout(); setIsMobileMenuOpen(false); }}
                       className="py-3 text-center text-sm font-semibold uppercase tracking-wider rounded-xl border border-white/5 text-zinc-400"
                     >
-                      Keluar
+                      {t("nav.keluar")}
                     </button>
                   </div>
                 ) : (
@@ -231,7 +242,7 @@ export default function Header({ subtitle }: { subtitle?: string }) {
                     onClick={() => { setAuthModalOpen(true); setIsMobileMenuOpen(false); }}
                     className="w-full py-3 text-center text-sm font-semibold uppercase tracking-wider rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-emerald-400"
                   >
-                    Daftar / Masuk
+                    {t("nav.daftarMasuk")}
                   </button>
                 )}
               </div>
@@ -254,7 +265,7 @@ export default function Header({ subtitle }: { subtitle?: string }) {
             {admin ? (
               <>
                 <div className="px-4 py-3 border-b border-white/5">
-                  <p className="text-xs text-emerald-400 font-semibold">Admin</p>
+                  <p className="text-xs text-emerald-400 font-semibold">{t("nav.admin")}</p>
                   <p className="text-sm text-zinc-400">{admin.name}</p>
                 </div>
                 <Link
@@ -263,20 +274,20 @@ export default function Header({ subtitle }: { subtitle?: string }) {
                   className="flex items-center gap-3 px-4 py-3 text-sm text-zinc-300 hover:text-white hover:bg-white/5 transition-all"
                 >
                   <LayoutDashboard className="h-4 w-4 text-zinc-500" />
-                  Creative Studio
+                  {t("nav.creativeStudio")}
                 </Link>
                 <button
                   onClick={() => { logoutAdmin(); setDropdownOpen(false); }}
                   className="flex items-center gap-3 w-full px-4 py-3 text-sm text-zinc-300 hover:text-red-400 hover:bg-white/5 transition-all border-t border-white/5"
                 >
                   <LogOut className="h-4 w-4 text-zinc-500" />
-                  Keluar
+                  {t("nav.keluar")}
                 </button>
               </>
             ) : customer && (
               <>
                 <div className="px-4 py-3 border-b border-white/5">
-                  <p className="text-xs text-zinc-400">Total Poin</p>
+                  <p className="text-xs text-zinc-400">{t("nav.totalPoin")}</p>
                   <p className="text-lg font-bold text-emerald-400">{customer.total_points}</p>
                 </div>
                 <Link
@@ -285,7 +296,7 @@ export default function Header({ subtitle }: { subtitle?: string }) {
                   className="flex items-center gap-3 px-4 py-3 text-sm text-zinc-300 hover:text-white hover:bg-white/5 transition-all"
                 >
                   <User className="h-4 w-4 text-zinc-500" />
-                  Profil
+                  {t("nav.profil")}
                 </Link>
                 <Link
                   href="/account#points"
@@ -293,14 +304,14 @@ export default function Header({ subtitle }: { subtitle?: string }) {
                   className="flex items-center gap-3 px-4 py-3 text-sm text-zinc-300 hover:text-white hover:bg-white/5 transition-all"
                 >
                   <Award className="h-4 w-4 text-zinc-500" />
-                  Riwayat Poin
+                  {t("nav.riwayatPoin")}
                 </Link>
                 <button
                   onClick={() => { logout(); setDropdownOpen(false); }}
                   className="flex items-center gap-3 w-full px-4 py-3 text-sm text-zinc-300 hover:text-red-400 hover:bg-white/5 transition-all border-t border-white/5"
                 >
                   <LogOut className="h-4 w-4 text-zinc-500" />
-                  Keluar
+                  {t("nav.keluar")}
                 </button>
               </>
             )}

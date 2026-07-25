@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useLanguage } from "@/lib/i18n/context";
 import { ArrowRight, BookOpen, Heart, Leaf } from "lucide-react";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -43,6 +44,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 }
 
 function HeroSection() {
+  const { t: t2 } = useLanguage();
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-16">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.12),_transparent_60%)]" />
@@ -51,15 +53,15 @@ function HeroSection() {
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: springEase }}>
             <div className="mb-6">
-              <SectionLabel>Yayasan Tana Nyiur Lestari</SectionLabel>
+              <SectionLabel>{t2("tananyiurlestari.label")}</SectionLabel>
             </div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-normal leading-tight tracking-[-0.04em] text-white">
-              Membangun Kesadaran Lingkungan dari Masyarakat
+              {t2("tananyiurlestari.heroTitle")}
             </h1>
 
             <p className="mt-6 text-base md:text-lg leading-relaxed text-zinc-400 max-w-2xl">
-              Lembaga edukasi lingkungan yang berfokus pada pemberdayaan masyarakat melalui program pengelolaan sampah berkelanjutan dan inovasi sosial.
+              {t2("tananyiurlestari.heroDesc")}
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
@@ -67,7 +69,7 @@ function HeroSection() {
                 href="#programs"
                 className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3 shadow-lg"
               >
-                Lihat Program
+                {t2("tananyiurlestari.lihatProgram")}
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black">
                   <ArrowRight className="h-3 w-3 text-white" />
                 </span>
@@ -76,7 +78,7 @@ function HeroSection() {
                 href="#impact"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur hover:bg-white/10 transition-all duration-300"
               >
-                Lihat Dampak
+                {t2("tananyiurlestari.lihatDampak")}
               </a>
             </div>
           </motion.div>
@@ -108,6 +110,7 @@ function HeroSection() {
 }
 
 function AboutSection() {
+  const { t: t2 } = useLanguage();
   return (
     <section className="relative py-20 px-6 lg:px-8 bg-zinc-950/20">
       <div className="mx-auto max-w-7xl">
@@ -122,7 +125,7 @@ function AboutSection() {
           </div>
 
           <div>
-            <h2 className="text-4xl font-normal leading-[1.15] tracking-tight text-white mb-6">Tentang Yayasan</h2>
+            <h2 className="text-4xl font-normal leading-[1.15] tracking-tight text-white mb-6">{t2("tananyiurlestari.tentangLabel")}</h2>
             <div className="space-y-4 text-base leading-relaxed text-zinc-400">
               <p>
                 Yayasan Tana Nyiur Lestari adalah lembaga non-profit yang berkomitmen untuk membangun kesadaran dan aksi lingkungan di tingkat masyarakat.
@@ -142,16 +145,17 @@ function AboutSection() {
 }
 
 function ProgramsSection() {
+  const { t: t2 } = useLanguage();
   return (
     <section id="programs" className="relative py-20 px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-12">
-          <SectionLabel>Program Unggulan</SectionLabel>
+          <SectionLabel>{t2("tananyiurlestari.programLabel")}</SectionLabel>
           <h2 className="text-3xl sm:text-4xl font-normal leading-[1.15] tracking-tight text-white mt-6 mb-4">
-            Aksi Nyata untuk Lingkungan
+            {t2("tananyiurlestari.programTitle")}
           </h2>
           <p className="text-base text-zinc-400 max-w-2xl mx-auto">
-            Tiga program utama yang kami jalankan untuk memberdayakan masyarakat dalam pengelolaan sampah secara terpadu.
+            {t2("tananyiurlestari.programDesc")}
           </p>
         </div>
 
@@ -179,12 +183,13 @@ function ProgramsSection() {
 }
 
 function ImpactSection() {
+  const { t: t2 } = useLanguage();
   return (
     <section id="impact" className="relative py-20 px-6 lg:px-8 overflow-hidden">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.1),_transparent_50%)]" />
 
       <div className="relative z-10 mx-auto max-w-7xl">
-        <h2 className="text-4xl font-normal tracking-tight mb-12 text-center text-white">Dampak Sosial & Lingkungan</h2>
+        <h2 className="text-4xl font-normal tracking-tight mb-12 text-center text-white">{t2("tananyiurlestari.dampakTitle")}</h2>
 
         <div className="grid gap-6 md:grid-cols-3 mb-12">
           {impactData.map((data, index) => (
@@ -221,20 +226,21 @@ function ImpactSection() {
 }
 
 function CTASection() {
+  const { t: t2 } = useLanguage();
   return (
     <section className="relative py-20 px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="rounded-[3rem] border border-white/5 bg-gradient-to-br from-zinc-950 via-zinc-900 to-emerald-950/20 p-8 sm:p-12 text-center shadow-2xl backdrop-blur-sm">
-          <h2 className="text-3xl sm:text-4xl font-normal leading-[1.1] tracking-tight text-white mb-4">Bergabung dan Berkolaborasi</h2>
+          <h2 className="text-3xl sm:text-4xl font-normal leading-[1.1] tracking-tight text-white mb-4">{t2("tananyiurlestari.ctaTitle")}</h2>
           <p className="text-base text-zinc-400 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Kami terbuka untuk kemitraan, kolaborasi, dan aksi bersama dalam memperluas jangkauan program pengelolaan lingkungan hidup terpadu.
+            {t2("tananyiurlestari.ctaDesc")}
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <a
               href="mailto:halo@baciraro.id"
               className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-black shadow-lg"
             >
-              Hubungi Kami
+              {t2("tananyiurlestari.hubungiKami")}
               <span className="flex h-5 w-5 items-center justify-center rounded-full bg-black">
                 <ArrowRight className="h-3 w-3 text-white" />
               </span>
@@ -243,7 +249,7 @@ function CTASection() {
               href="/"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur hover:bg-white/10 transition-all duration-300"
             >
-              Kembali ke Ekosistem
+              {t2("tananyiurlestari.kembaliEkosistem")}
             </Link>
           </div>
         </div>
@@ -253,13 +259,14 @@ function CTASection() {
 }
 
 export default function TanaNyiurPage() {
+  const { t } = useLanguage();
   return (
     <main className="relative overflow-hidden text-foreground min-h-screen">
       <div aria-hidden="true" className="page-bg" />
       <div className="relative z-[1]">
       <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.12] -z-10" />
 
-      <Header subtitle="Yayasan TNL" />
+      <Header subtitle={t("tananyiurlestari.label")} />
 
       <HeroSection />
       <AboutSection />

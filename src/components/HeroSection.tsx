@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState, useCallback } from "react";
+import { useLanguage } from "@/lib/i18n/context";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -16,9 +17,9 @@ const FEATURES = [
 ];
 
 const STATS = [
-  { value: 1200, suffix: "+", label: "Ton Sampah Terkelola", unit: "ton" },
-  { value: 80, suffix: "+", label: "Komunitas Aktif", unit: "komunitas" },
-  { value: 25, suffix: "+", label: "Proyek Digital", unit: "proyek" },
+  { value: 1200, suffix: "+", labelKey: "sampah", unit: "ton" },
+  { value: 80, suffix: "+", labelKey: "komunitas", unit: "komunitas" },
+  { value: 25, suffix: "+", labelKey: "proyek", unit: "proyek" },
 ];
 
 function AnimatedCounter({ target, suffix, duration = 2000 }: { target: number; suffix: string; duration?: number }) {
@@ -135,6 +136,7 @@ function ParticleCanvas() {
 }
 
 export default function HeroSection() {
+  const { t } = useLanguage();
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
@@ -197,11 +199,11 @@ export default function HeroSection() {
 
           <motion.div variants={childVariants} className="mt-8 grid grid-cols-3 gap-6 max-w-lg mx-auto">
             {STATS.map((s) => (
-              <div key={s.label} className="text-center">
+              <div key={s.labelKey} className="text-center">
                 <p className="text-2xl md:text-3xl font-bold text-white tabular-nums">
                   <AnimatedCounter target={s.value} suffix={s.suffix} />
                 </p>
-                <p className="text-[10px] text-zinc-500 mt-1 uppercase tracking-wider">{s.label}</p>
+                <p className="text-[10px] text-zinc-500 mt-1 uppercase tracking-wider">{t("hero.stats." + s.labelKey)}</p>
               </div>
             ))}
           </motion.div>

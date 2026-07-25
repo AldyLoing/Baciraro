@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useLanguage } from "@/lib/i18n/context";
 import { ArrowRight, Code, Smartphone, BarChart3, Zap } from "lucide-react";
 import FlowArt, { FlowSection } from "@/components/ui/story-scroll";
 
@@ -39,13 +40,14 @@ const visionPoints = [
 ];
 
 export default function OrdersPage() {
+  const { t } = useLanguage();
   return (
     <main className="relative overflow-hidden text-white min-h-screen">
       <div aria-hidden="true" className="page-bg" />
       <div className="relative z-[1]">
       <div className="bg-noise pointer-events-none fixed inset-0 opacity-[0.06] z-0" />
 
-      <Header subtitle="ORDERS" />
+      <Header subtitle={t("orders.label")} />
 
       {/* GSAP Story Scroll Presentation */}
       <FlowArt aria-label="ORDERS Interactive Story Flow">
@@ -54,8 +56,8 @@ export default function OrdersPage() {
         <FlowSection aria-label="ORDERS Hero" style={{ backgroundColor: '#050805', color: '#fff' }}>
           <div className="flex flex-col h-full justify-between gap-6 pt-[2vh]">
             <div className="flex items-center justify-between">
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-400">01 — Who We Are</p>
-              <span className="text-xs font-mono opacity-50">ORDERS Ecosystem</span>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-400">{t("orders.slide01Label")}</p>
+              <span className="text-xs font-mono opacity-50">{t("orders.label")} Ecosystem</span>
             </div>
             
             <hr className="border-none border-t border-white/10" />
@@ -63,14 +65,14 @@ export default function OrdersPage() {
             <div className="my-auto flex flex-col lg:flex-row gap-12 lg:items-center justify-between">
               <div className="flex-1 space-y-6">
                 <h1 className="text-[clamp(2.5rem,7vw,7.5rem)] font-bold leading-[0.9] uppercase tracking-tight text-white">
-                  Tech for
+                  {t("orders.slide01Title")}
                   <br />
-                  <span className="text-emerald-400">Circular</span>
+                  <span className="text-emerald-400">{t("orders.slide01Title2")}</span>
                   <br />
-                  Future
+                  {t("orders.slide01Title3")}
                 </h1>
                 <p className="max-w-[55ch] text-[clamp(0.95rem,1.8vw,1.25rem)] font-normal leading-relaxed text-zinc-400">
-                  Komunitas pengembang teknologi yang mendukung digitalisasi pengelolaan sampah dalam ekosistem Baciraro dengan inovasi, kolaborasi, dan keahlian tinggi.
+                  {t("orders.slide01Desc")}
                 </p>
               </div>
               
@@ -100,8 +102,8 @@ export default function OrdersPage() {
         <FlowSection aria-label="Tentang ORDERS" style={{ backgroundColor: '#022c22', color: '#fff' }}>
           <div className="flex flex-col h-full justify-between gap-6 pt-[2vh]">
             <div className="flex items-center justify-between">
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-300">02 — The Mission</p>
-              <span className="text-xs font-mono opacity-50">Tentang ORDERS</span>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-300">{t("orders.slide02Label")}</p>
+              <span className="text-xs font-mono opacity-50">{t("orders.label")}</span>
             </div>
             
             <hr className="border-none border-t border-white/10" />
@@ -109,11 +111,11 @@ export default function OrdersPage() {
             <div className="my-auto grid gap-12 lg:grid-cols-2 items-center">
               <div className="space-y-6">
                 <h2 className="text-[clamp(2.5rem,6vw,6.5rem)] font-bold leading-[0.9] uppercase tracking-tight text-white">
-                  Digital
+                  {t("orders.slide02Title")}
                   <br />
-                  Solidarity &
+                  {t("orders.slide02Title2")}
                   <br />
-                  <span className="text-emerald-300">Trust</span>
+                  <span className="text-emerald-300">{t("orders.slide02Title3")}</span>
                 </h2>
                 <div className="space-y-4 text-[clamp(0.9rem,1.5vw,1.15rem)] font-normal leading-relaxed text-zinc-300">
                   <p>
@@ -126,7 +128,7 @@ export default function OrdersPage() {
               </div>
               
               <div className="rounded-[2rem] border border-white/10 bg-zinc-950/40 p-8 space-y-6 backdrop-blur shadow-2xl">
-                <h3 className="text-lg font-bold uppercase tracking-wider text-emerald-300">Visi Keberlanjutan</h3>
+                <h3 className="text-lg font-bold uppercase tracking-wider text-emerald-300">{t("orders.visiKeberlanjutan")}</h3>
                 <p className="text-sm text-zinc-400 leading-relaxed">
                   Dengan tim pengembang berpengalaman dan visi keberlanjutan yang kuat, kami merancang platform untuk mempertemukan pemangku kepentingan dalam satu ruang digital terintegrasi.
                 </p>
@@ -152,8 +154,8 @@ export default function OrdersPage() {
         <FlowSection aria-label="Produk & Karya" style={{ backgroundColor: '#064e3b', color: '#fff' }}>
           <div className="flex flex-col h-full justify-between gap-6 pt-[2vh]">
             <div className="flex items-center justify-between">
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-300">03 — Products</p>
-              <span className="text-xs font-mono opacity-50">Sistem yang Dibangun</span>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-300">{t("orders.slide03Label")}</p>
+              <span className="text-xs font-mono opacity-50">{t("orders.slide03Title")}</span>
             </div>
             
             <hr className="border-none border-t border-white/10" />
@@ -161,10 +163,10 @@ export default function OrdersPage() {
             <div className="my-auto space-y-6">
               <div>
                 <h2 className="text-[clamp(2rem,5vw,5.5rem)] font-bold uppercase tracking-tight text-white mb-2 leading-none">
-                  Sistem Digital Tangguh
+                  {t("orders.slide03Title")}
                 </h2>
                 <p className="text-zinc-300 text-sm max-w-xl">
-                  Platform digital yang memantau data operasional circular economy ekosistem Baciraro secara berkala.
+                  {t("orders.slide03Desc")}
                 </p>
               </div>
               
@@ -198,8 +200,8 @@ export default function OrdersPage() {
         <FlowSection aria-label="Solusi & Visi" style={{ backgroundColor: '#0f172a', color: '#fff' }}>
           <div className="flex flex-col h-full justify-between gap-6 pt-[2vh]">
             <div className="flex items-center justify-between">
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-400">04 — Solutions & Vision</p>
-              <span className="text-xs font-mono opacity-50">Pilar Keberlanjutan</span>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-400">{t("orders.slide04Label")}</p>
+              <span className="text-xs font-mono opacity-50">{t("orders.visiKeberlanjutan")}</span>
             </div>
             
             <hr className="border-none border-t border-white/10" />
@@ -207,11 +209,11 @@ export default function OrdersPage() {
             <div className="my-auto grid gap-8 lg:grid-cols-2 items-center">
               <div className="space-y-6">
                 <h2 className="text-[clamp(2rem,5vw,5.5rem)] font-bold uppercase tracking-tight text-white leading-[0.95]">
-                  Platform
+                  {t("orders.slide04Title")}
                   <br />
-                  <span className="text-indigo-400">Digital</span>
+                  <span className="text-indigo-400">{t("orders.slide04Title2")}</span>
                   <br />
-                  Waste
+                  {t("orders.slide04Title3")}
                 </h2>
                 
                 <div className="space-y-3">
@@ -228,7 +230,7 @@ export default function OrdersPage() {
               </div>
               
               <div className="rounded-[2.5rem] border border-white/5 bg-zinc-950/60 p-8 space-y-6">
-                <h3 className="text-base font-bold text-white uppercase tracking-wider">Visi Digitalisasi</h3>
+                <h3 className="text-base font-bold text-white uppercase tracking-wider">{t("orders.visiDigitalisasi")}</h3>
                 <p className="text-xs text-zinc-400">
                   Teknologi adalah sarana vital untuk melacak data dampak lingkungan secara transparan, mendorong circular economy yang efisien dan berkelanjutan.
                 </p>
@@ -256,19 +258,19 @@ export default function OrdersPage() {
         <FlowSection aria-label="Hubungi Kami" style={{ backgroundColor: '#0a0d0a', color: '#fff' }}>
           <div className="flex flex-col h-full justify-between gap-6 pt-[2vh]">
             <div className="flex items-center justify-between">
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-400">05 — Join Us</p>
-              <span className="text-xs font-mono opacity-50">Kolaborasi</span>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-400">{t("orders.slide05Label")}</p>
+              <span className="text-xs font-mono opacity-50">{t("orders.hubungiKami")}</span>
             </div>
             
             <hr className="border-none border-t border-white/10" />
             
             <div className="my-auto text-center max-w-3xl mx-auto space-y-8">
               <h2 className="text-[clamp(2.5rem,6vw,6.5rem)] font-bold leading-[0.9] uppercase tracking-tight text-white">
-                Ready to <br />
-                <span className="text-emerald-400">Collaborate?</span>
+                {t("orders.slide05Title")} <br />
+                <span className="text-emerald-400">{t("orders.slide05Title2")}</span>
               </h2>
               <p className="text-sm md:text-base text-zinc-400 max-w-xl mx-auto leading-relaxed">
-                Kami menyambut kolaborasi dengan para pengembang, desainer, dan wirausahawan sosial yang bersemangat untuk memajukan transformasi teknologi hijau.
+                {t("orders.slide05Desc")}
               </p>
               
               <div className="flex flex-wrap gap-4 justify-center pt-4">
@@ -276,7 +278,7 @@ export default function OrdersPage() {
                   href="mailto:halo@baciraro.id"
                   className="group inline-flex items-center gap-3 rounded-full bg-white px-8 py-4 text-xs font-semibold uppercase tracking-wider text-black shadow-lg transition-all hover:scale-105 duration-300"
                 >
-                  Hubungi Kami
+                  {t("orders.hubungiKami")}
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black">
                     <ArrowRight className="h-3.5 w-3.5 text-white transition-transform group-hover:translate-x-0.5" />
                   </span>
@@ -285,7 +287,7 @@ export default function OrdersPage() {
                   href="/"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-8 py-4 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur hover:bg-white/10 transition-all duration-300"
                 >
-                  Kembali ke Ekosistem
+                  {t("orders.kembaliEkosistem")}
                 </Link>
               </div>
             </div>

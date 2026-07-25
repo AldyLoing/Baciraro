@@ -1,0 +1,517 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "produk": "Products",
+    "trackRecord": "Track Record",
+    "leadership": "Leadership",
+    "creativeStudio": "Creative Studio",
+    "creative": "Baciraro Creative",
+    "contact": "Contact",
+    "daftarMasuk": "Sign Up / Log In",
+    "admin": "Admin",
+    "keluar": "Log Out",
+    "profil": "Profile",
+    "riwayatPoin": "Points History",
+    "totalPoin": "Total Points",
+    "toggleMenu": "Toggle menu"
+  },
+  "header": {
+    "sustainability": "Sustainability Platform",
+    "subtitle": "Circular Economy Ecosystem Hub",
+    "mobileCreativeStudio": "Creative Studio",
+    "mobileProfilPoin": "Profile & Points"
+  },
+  "hero": {
+    "ekosistem": "Circular Economy Ecosystem",
+    "tagline": "Sustainability",
+    "deskripsi": "An integrated waste management ecosystem connecting education, recycling, community empowerment, creative programs, and digital tracking to create measurable environmental impact.",
+    "mulaiKolaborasi": "Start CSR Collaboration",
+    "jelajahiEkosistem": "Explore Ecosystem",
+    "stats": {
+      "sampah": "Tons of Waste Managed",
+      "komunitas": "Active Communities",
+      "proyek": "Digital Projects"
+    },
+    "features": {
+      "endToEnd": "Circular Economy End-to-End",
+      "digital": "Digital Monitoring System",
+      "creative": "Creative Product Innovation",
+      "community": "Community Empowerment"
+    }
+  },
+  "ecosystem": {
+    "label": "CIRCULAR ECOSYSTEM",
+    "title": "One vision,",
+    "titleItalic": "six entities.",
+    "subtitle": "Baciraro is more than products — it's a circular ecosystem connecting six entities from upstream to downstream.",
+    "entities": {
+      "tnl": {
+        "name": "Tana Nyiur Lestari",
+        "role": "Education & Empowerment"
+      },
+      "trc": {
+        "name": "Trash Recycle Center",
+        "role": "Collection & Processing"
+      },
+      "elmast": {
+        "name": "ELMAST Greenovasi",
+        "role": "Organic Technology"
+      },
+      "orders": {
+        "name": "ORDERS",
+        "role": "Digital & Data"
+      },
+      "creative": {
+        "name": "Baciraro Creative",
+        "role": "Creative Recycling Products"
+      },
+      "retail": {
+        "name": "Baciraro Retail",
+        "role": "Distribution & Sales"
+      }
+    },
+    "cta": "Learn About the Ecosystem"
+  },
+  "flow": {
+    "title": "From waste",
+    "titleItalic": "to impact.",
+    "subtitle": "An integrated workflow from upstream to downstream — each stage involves community and technology.",
+    "steps": {
+      "pilah": {
+        "label": "01",
+        "title": "Sorting",
+        "desc": "Waste is sorted at source by communities and partner waste banks."
+      },
+      "olah": {
+        "label": "02",
+        "title": "Processing",
+        "desc": "Materials are processed into raw materials ready for production at TRC and ELMAST."
+      },
+      "kreatif": {
+        "label": "03",
+        "title": "Creative Products",
+        "desc": "Raw materials are transformed into valuable products by Baciraro Creative."
+      },
+      "distribusi": {
+        "label": "04",
+        "title": "Distribution",
+        "desc": "Products are distributed through Baciraro Retail and partners."
+      },
+      "track": {
+        "label": "05",
+        "title": "Digital Tracking",
+        "desc": "ORDERS records every step — transparent and measurable."
+      }
+    }
+  },
+  "showcase": {
+    "label": "SELECTED WORKS",
+    "title": "Creativity from",
+    "titleItalic": "waste.",
+    "subtitle": "A collection of recycled products blending aesthetics, functionality, and environmental impact.",
+    "cta": "Explore All Products"
+  },
+  "impact": {
+    "label": "MEASURED IMPACT",
+    "title": "Data that",
+    "titleItalic": "speaks.",
+    "subtitle": "Every number represents real work on the ground — from upstream to downstream.",
+    "metrics": {
+      "sampah": "Waste Managed",
+      "komunitas": "Active Communities",
+      "produk": "Creative Products",
+      "proyek": "Digital Projects",
+      "reduksi": "Landfill Reduction",
+      "mitra": "Collaboration Partners"
+    },
+    "dashboard": {
+      "title": "Central Impact Dashboard",
+      "desc": "Real-time monitoring for stakeholders and CSR partners"
+    }
+  },
+  "points": {
+    "label": "POINTS LEADERBOARD",
+    "title": "Appreciating",
+    "titleItalic": "contributors.",
+    "subtitle": "{poin} points have been distributed to Baciraro loyal customers.",
+    "loading": "Loading data...",
+    "poin": "Points",
+    "earnedPrefix": "+{poin} Points successfully added!",
+    "earned": "+{poin} Points",
+    "youHave": "Points: {poin}"
+  },
+  "reviews": {
+    "label": "What They Say"
+  },
+  "services": {
+    "label": "SERVICES & PARTNERSHIPS",
+    "title": "Designed for",
+    "titleItalic": "collaboration.",
+    "subtitle": "Baciraro can be tailored for operational needs, community empowerment, and digital transformation at the organizational level.",
+    "perusahaan": {
+      "title": "For Companies",
+      "points": [
+        "Measurable waste management CSR programs",
+        "Impact reporting & digital dashboard",
+        "Souvenirs & plaques from recycled materials"
+      ]
+    },
+    "pemerintah": {
+      "title": "For Government",
+      "points": [
+        "Strengthening regional waste services",
+        "Education & digital system mentoring",
+        "Participatory waste mapping"
+      ]
+    },
+    "desa": {
+      "title": "For Villages",
+      "points": [
+        "Integrated waste bank model",
+        "Sorting & recycling training",
+        "Access to offtaker markets & creative products"
+      ]
+    },
+    "lihatDetail": "View Details"
+  },
+  "ceo": {
+    "label": "LEADERSHIP",
+    "title": "A call for",
+    "titleItalic": "change.",
+    "cta": "Read More"
+  },
+  "footer": {
+    "tagline": "\"Recycled product collection. Earn points. Support the earth.\"",
+    "center": "Circular Economy Ecosystem Hub",
+    "ekosistemSirkular": "Circular Ecosystem",
+    "produkLayanan": "Products & Services",
+    "semuaProduk": "All Products",
+    "plastik": "Plastic",
+    "kriya": "Craft",
+    "organik": "Organic",
+    "akunSaya": "My Account",
+    "kontakKami": "Contact Us",
+    "pesanWA": "Order via WhatsApp",
+    "digdayaOleh": "Powered By",
+    "ordersDesc": "The digital platform & technology driving the entire Baciraro ecosystem.",
+    "kunjungiOrders": "Visit ORDERS",
+    "kembaliKeAtas": "↑ Back to Top",
+    "copyright": "All rights reserved.",
+    "bottomDigdaya": "Powered by",
+    "instagram": "Instagram",
+    "tiktok": "TikTok",
+    "whatsapp": "WhatsApp"
+  },
+  "products": {
+    "title": "Baciraro Products",
+    "headline": "From Waste",
+    "headlineHighlight": "to Valuable Products",
+    "subtitle": "Every Baciraro product carries a story — from waste collected, sorted, and transformed into high-value creations. Explore our collection.",
+    "semua": "All",
+    "plastik": "Plastic",
+    "organik": "Organic",
+    "kriya": "Craft",
+    "digital": "Digital",
+    "memuat": "Loading products...",
+    "kosong": "No products in this category yet.",
+    "bahanTerselamatkan": "{kg} kg of material saved",
+    "pesan": "Order",
+    "kembali": "Back to catalog",
+    "tidakDitemukan": "Product not found",
+    "ceritaProduk": "Product Story",
+    "materialBreakdown": "Material Breakdown",
+    "totalBahan": "Total Materials",
+    "plastikDialihkan": "Plastic Diverted",
+    "reviewPelanggan": "Customer Reviews",
+    "scanQR": "Scan QR",
+    "lihatQR": "View QR",
+    "cetak50QR": "Print 50 QR",
+    "pesanWA": "Order via WhatsApp",
+    "waMessage": "Hello, I want to order {title}, can you help me?"
+  },
+  "qrModal": {
+    "title": "Scan QR",
+    "download": "Download QR"
+  },
+  "qrSheets": {
+    "title": "QR Code — Scan to claim & earn points",
+    "loading": "Generating 50 QR codes with logo...",
+    "progress": "{done} / 50 completed",
+    "print": "Print QR Sheet",
+    "ready": "{count} QR codes ready to print",
+    "brand": "baciraro.net",
+    "footer": "baciraro.net — Scan each QR code to claim products and earn points"
+  },
+  "auth": {
+    "masuk": "Log In",
+    "daftar": "Sign Up",
+    "selamatDatang": "Welcome back",
+    "buatAkun": "Create new account",
+    "namaLengkap": "Full name",
+    "noHp": "Phone (optional)",
+    "email": "Email",
+    "password": "Password",
+    "memproses": "Processing...",
+    "sudahPunyaAkun": "Already have an account? ",
+    "belumPunyaAkun": "Don't have an account? ",
+    "loginGagal": "Login failed",
+    "gagalUpload": "Failed to upload profile photo"
+  },
+  "scan": {
+    "title": "Scan QR",
+    "heading": "Scan Product Barcode",
+    "scanning": "Point at QR Code",
+    "successTitle": "Thank You!",
+    "successProduct": "Product: {title}",
+    "nologinTitle": "QR Detected!",
+    "nologinProduct": "Product: {title}",
+    "nologinDesc": "Sign up or log in to claim the product and earn points!",
+    "daftarMasuk": "Sign Up / Log In",
+    "errorTitle": "Failed",
+    "errorDesc": "QR Code is invalid or already claimed",
+    "scanLagi": "Scan Again"
+  },
+  "claim": {
+    "loading": "Loading...",
+    "notFound": "QR Code not found",
+    "registrasi": "Buyer Registration",
+    "registrasiDesc": "Enter your details for this product",
+    "loginPrompt": "Earn points by logging in / signing up!",
+    "masukDaftar": "Log In / Sign Up",
+    "namaPembeli": "Buyer name",
+    "noHp": "Phone (optional)",
+    "menyimpan": "Saving...",
+    "klaimDapatkanPoin": "Claim & Earn Points",
+    "simpan": "Save",
+    "terimaKasihTitle": "Thank You!",
+    "terimaKasihSubtitle": "Your contribution means a lot to the environment.",
+    "terimaKasihClaimed": "Thank You",
+    "reviewPrompt": "Share your thoughts about this product",
+    "reviewPlaceholder": "Write your review...",
+    "mengirim": "Sending...",
+    "kirim": "Send",
+    "sudahReview": "You have submitted a review",
+    "editReview": "Edit review",
+    "poinEarned": "+{poin} Points successfully added!"
+  },
+  "account": {
+    "title": "My Account",
+    "editProfil": "Edit Profile",
+    "simpan": "Save",
+    "nama": "Name",
+    "email": "Email",
+    "noHp": "Phone",
+    "poin": "Total Points",
+    "riwayatPoin": "Points History",
+    "transaksi": "Transaction",
+    "poinLabel": "points",
+    "loginTitle": "Log In to View Profile",
+    "loginDesc": "Sign up or log in to access your profile and points",
+    "daftarMasuk": "Sign Up / Log In",
+    "kembaliBeranda": "Back to home",
+    "perbaruiData": "Update your personal data",
+    "menyimpan": "Saving...",
+    "keluar": "Log Out",
+    "totalPoin": "Total Points",
+    "poinDesc": "Each product claim gives 10 points",
+    "belumAdaTx": "No point transactions yet",
+    "txHint": "Scan QR code on products to earn points"
+  },
+  "dashboard": {
+    "qr": {
+      "title": "QR Codes",
+      "total": "Total",
+      "claimed": "Claimed",
+      "reviewed": "Reviewed",
+      "product": "Product",
+      "code": "Code",
+      "status": "Status",
+      "buyer": "Buyer",
+      "review": "Review",
+      "date": "Date",
+      "pending": "Pending",
+      "claimedLabel": "Claimed",
+      "reviewedLabel": "Reviewed",
+      "loading": "Loading...",
+      "unauthTitle": "Restricted access",
+      "unauthDesc": "Log in to access the QR dashboard",
+      "login": "Log In",
+      "totalQr": "{n} total QR codes"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "back": "Back",
+    "close": "Close",
+    "search": "Search",
+    "all": "All",
+    "noData": "No data"
+  },
+  "about": {
+    "label": "About Baciraro",
+    "heroTitle": "One integrated ecosystem for",
+    "heroTitleItalic": "a circular future.",
+    "heroDesc": "Baciraro connects education, processing, innovation, and digitization in one trusted circular economy value chain — from upstream to downstream.",
+    "ekosistemLabel": "Integrated Ecosystem",
+    "ekosistemTitle": "Connecting education, processing, innovation, and digitization.",
+    "ekosistemDesc": "Baciraro is designed to solve environmental problems with an inclusive circular approach, connecting community programs directly to industrial offtakers.",
+    "ekosistemItems": [
+      "Connecting waste management from communities to industry.",
+      "Promoting circular economy with measurable approaches.",
+      "Providing dashboards and transparent impact tracking.",
+      "Supporting CSR, government, and village collaboration."
+    ],
+    "visi": "Vision",
+    "visiDesc": "To become the leading circular economy ecosystem that transforms waste into economic, social, and environmental value sustainably for Indonesia and the world.",
+    "misi": "Mission",
+    "misiDesc": "Building an integrated waste management system through education, recycling, community empowerment, creative programs, and digital tracking to create measurable and transparent impact.",
+    "nilaiLabel": "Our Values",
+    "nilaiTitle": "Principles that drive every step.",
+    "timelineLabel": "Journey",
+    "timelineTitle": "Every step is a",
+    "timelineTitleItalic": "story.",
+    "kolaborasiLabel": "Collaboration",
+    "kolaborasiTitle": "Interested in collaborating?",
+    "kolaborasiDesc": "We are open to partnership discussions, CSR implementation, and joint environmental programs.",
+    "hubungiKami": "Contact Us",
+    "lihatLeadership": "View Leadership"
+  },
+  "contact": {
+    "label": "Contact Us",
+    "heroTitle": "Let's",
+    "heroTitleItalic": "talk.",
+    "heroDesc": "Have a collaboration idea, CSR program, or want to learn more about Baciraro? We're ready to listen.",
+    "emailCard": "Official Email",
+    "kirimEmail": "Send Email",
+    "waCard": "WhatsApp / Phone",
+    "hubungi": "Contact",
+    "lokasiCard": "Location",
+    "sosmedLabel": "Social Media",
+    "sosmedTitle": "Follow our journey.",
+    "sosmedDesc": "Get the latest updates about Baciraro's programs, education, and impact through social media.",
+    "formTitle": "Or send a direct message",
+    "formDesc": "Fill out the form below and our team will contact you.",
+    "formNama": "Name",
+    "formEmail": "Email",
+    "formPesan": "Your Message",
+    "kirimPesan": "Send Message",
+    "ctaLabel": "Ready to Move",
+    "ctaTitle": "Together we create real impact.",
+    "ctaDesc": "Every collaborative step is an investment in a more circular and sustainable future.",
+    "hubungiWA": "Contact via WhatsApp",
+    "kembaliBeranda": "Back to Home"
+  },
+  "creative": {
+    "tontonVideo": "Watch Video",
+    "jelajahiBudaya": "Explore Culture",
+    "powering": "Powering the best teams",
+    "budayaLabel": "Minahasa Culture",
+    "descTitle": "Kawasaran is not just a dance, it is the breath of courage.",
+    "descBody": "Every footstep ignites memory, dignity, and the roots of Minahasa tradition. Within it lies discipline, respect for ancestors, and a strong visual language for cultural presentation.",
+    "warisanTitle": "A legacy of movement born from courage.",
+    "warisanSubtitle": "Today it lives on as the face of North Sulawesi culture.",
+    "bacaMakna": "Read its meaning",
+    "navAsal": "Origins",
+    "navMakna": "Meaning",
+    "navGerakan": "Movement",
+    "navBusana": "Attire",
+    "navWarisan": "Heritage",
+    "featureCaption": "Majestic, sacred, and rooted."
+  },
+  "orders": {
+    "label": "ORDERS",
+    "slide01Label": "01 — Who We Are",
+    "slide01Title": "Tech for",
+    "slide01Title2": "Circular",
+    "slide01Title3": "Future",
+    "slide01Desc": "A community of technology developers supporting waste management digitization in the Baciraro ecosystem with innovation, collaboration, and high expertise.",
+    "slide02Label": "02 — The Mission",
+    "slide02Title": "Digital",
+    "slide02Title2": "Solidarity &",
+    "slide02Title3": "Trust",
+    "slide03Label": "03 — Products",
+    "slide03Title": "Robust Digital Systems",
+    "slide03Desc": "Digital platforms that regularly monitor circular economy operational data within the Baciraro ecosystem.",
+    "slide04Label": "04 — Solutions & Vision",
+    "slide04Title": "Platform",
+    "slide04Title2": "Digital",
+    "slide04Title3": "Waste",
+    "slide05Label": "05 — Join Us",
+    "slide05Title": "Ready to",
+    "slide05Title2": "Collaborate?",
+    "slide05Desc": "We welcome collaboration with developers, designers, and social entrepreneurs passionate about advancing green technology transformation.",
+    "hubungiKami": "Contact Us",
+    "kembaliEkosistem": "Back to Ecosystem",
+    "visiKeberlanjutan": "Sustainability Vision",
+    "visiDigitalisasi": "Digitization Vision"
+  },
+  "tananyiurlestari": {
+    "label": "TNL Foundation",
+    "heroTitle": "Building Environmental Awareness from the Community",
+    "heroDesc": "An environmental education institution focused on community empowerment through sustainable waste management programs and social innovation.",
+    "lihatProgram": "View Programs",
+    "lihatDampak": "View Impact",
+    "tentangLabel": "About the Foundation",
+    "programLabel": "Featured Programs",
+    "programTitle": "Real Action for the Environment",
+    "programDesc": "Three main programs we run to empower communities in integrated waste management.",
+    "dampakTitle": "Social & Environmental Impact",
+    "ctaTitle": "Join and Collaborate",
+    "ctaDesc": "We are open to partnerships, collaborations, and joint action to expand the reach of integrated environmental management programs.",
+    "hubungiKami": "Contact Us",
+    "kembaliEkosistem": "Back to Ecosystem"
+  },
+  "trashrecyclecenter": {
+    "label": "Recycle Center",
+    "heroTitle": "Turning Waste into Valuable Resources",
+    "heroDesc": "A recycling business unit that serves as an offtaker and processor of waste into quality raw materials for the creative and manufacturing industries.",
+    "lihatProses": "View Process",
+    "lihatOutput": "View Output",
+    "komoditasLabel": "Processing Commodities",
+    "komoditasTitle": "Types of Waste We Process",
+    "komoditasDesc": "We handle various types of waste with standardized sorting technology and processes.",
+    "alurLabel": "Operational Flow",
+    "alurTitle": "Recycling Work Process",
+    "outputTitle": "Output & Sustainability Impact",
+    "ctaTitle": "Waste Management Collaboration",
+    "ctaDesc": "We open collaboration opportunities for industry, government, and communities in professional and value-added waste management.",
+    "hubungiKami": "Contact Us",
+    "kembaliEkosistem": "Back to Ecosystem"
+  },
+  "elmast": {
+    "label": "ELMAST Greenovasi",
+    "heroTitle": "Turning Organic Waste into Energy",
+    "heroDesc": "Innovative technology for processing organic waste into biogas, compost, and high-quality liquid organic fertilizer for soil conservation and energy independence.",
+    "lihatTeknologi": "View Technology",
+    "lihatManfaat": "View Benefits",
+    "teknologiTitle": "About ELMAST Technology",
+    "dokumentasiLabel": "Activity Documentation",
+    "dokumentasiTitle": "Field Action Gallery",
+    "dokumentasiDesc": "Implementation activities of organic waste processing into green energy and sustainable fertilizer with communities.",
+    "produkLabel": "Processing Results",
+    "produkTitle": "Featured Products",
+    "produkDesc": "Three main products born from ELMAST's environmentally friendly technology facility.",
+    "solusiLabel": "Problem Solutions",
+    "solusiTitle": "Solution Scope",
+    "manfaatTitle": "Benefits & Real Impact",
+    "ctaTitle": "ELMAST Technology Implementation",
+    "ctaDesc": "We are ready to facilitate the implementation of integrated biogas installations and sustainable biological fertilizer systems at your location.",
+    "hubungiKami": "Contact Us",
+    "kembaliEkosistem": "Back to Ecosystem",
+    "tutup": "Close"
+  },
+  "leadership": {
+    "label": "Leadership",
+    "heroTitle": "Leadership Team",
+    "heroDesc": "Baciraro's leadership team dedicated to driving innovation, strengthening collaboration, and creating sustainable impact for communities and the environment.",
+    "valueInovasi": "Innovation",
+    "valueKolaborasi": "Collaboration",
+    "valueIntegritas": "Integrity",
+    "valueKeberlanjutan": "Sustainability",
+    "footerCredit": "Baciraro — Leadership Team"
+  }
+}

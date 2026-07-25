@@ -6,6 +6,7 @@ import { QrCode, Check, Clock, Star } from "lucide-react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useLanguage } from "@/lib/i18n/context";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -22,6 +23,7 @@ interface QrCode {
 }
 
 export default function QRDashboardPage() {
+  const { t } = useLanguage();
   const [codes, setCodes] = useState<QrCode[]>([]);
   const [loading, setLoading] = useState(true);
   const [authed, setAuthed] = useState(false);
@@ -44,8 +46,8 @@ export default function QRDashboardPage() {
   if (loading) return (
     <main className="min-h-screen bg-black text-[#fafafa]">
       <div className="page-bg" />
-      <Header subtitle="Dashboard" />
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 text-center text-zinc-500 text-sm">Memuat...</div>
+      <Header subtitle={t("dashboard.qr.title")} />
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 text-center text-zinc-500 text-sm">{t("dashboard.qr.loading")}</div>
       <Footer />
     </main>
   );
@@ -53,10 +55,10 @@ export default function QRDashboardPage() {
   if (!authed) return (
     <main className="min-h-screen bg-black text-[#fafafa] flex items-center justify-center">
       <div className="text-center max-w-md px-6">
-        <p className="text-zinc-400 text-lg mb-4">Akses terbatas</p>
-        <p className="text-sm text-zinc-600 mb-6">Login untuk mengakses dashboard QR</p>
+        <p className="text-zinc-400 text-lg mb-4">{t("dashboard.qr.unauthTitle")}</p>
+        <p className="text-sm text-zinc-600 mb-6">{t("dashboard.qr.unauthDesc")}</p>
         <Link href="/creative-studio" className="inline-flex items-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black px-6 py-3 text-sm font-bold transition-all">
-          Login
+          {t("dashboard.qr.login")}
         </Link>
       </div>
     </main>
@@ -70,7 +72,7 @@ export default function QRDashboardPage() {
       <div aria-hidden="true" className="page-bg" />
       <div className="relative z-[1]">
         <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.08] bg-noise" />
-        <Header subtitle="Dashboard QR" />
+        <Header subtitle={t("dashboard.qr.title")} />
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-20">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -78,9 +80,9 @@ export default function QRDashboardPage() {
             transition={{ duration: 0.7, ease: springEase }}
           >
             <h1 className="font-serif text-[clamp(32px,4vw,48px)] font-normal leading-[1.1] tracking-[-0.03em] text-white mb-2">
-              QR Codes
+              {t("dashboard.qr.title")}
             </h1>
-            <p className="text-sm text-zinc-500 mb-8">{codes.length} total QR codes</p>
+            <p className="text-sm text-zinc-500 mb-8">{t("dashboard.qr.totalQr", { n: codes.length })}</p>
 
             <div className="flex gap-4 mb-8">
               <div className="rounded-[1.5rem] border border-white/[0.07] bg-white/[0.02] backdrop-blur px-6 py-4">

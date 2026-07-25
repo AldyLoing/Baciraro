@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Leaf, Target, Eye, Users, Recycle, Sprout, Cpu } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useLanguage } from "@/lib/i18n/context";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -35,24 +36,25 @@ const values = [
 ];
 
 export default function AboutPage() {
+  const { t } = useLanguage();
   return (
     <main className="relative overflow-hidden text-foreground min-h-screen bg-background">
       <div aria-hidden="true" className="page-bg" />
       <div className="relative z-[1]">
-        <Header subtitle="Tentang Baciraro" />
+        <Header subtitle={t("about.label")} />
 
         {/* Hero */}
         <section className="relative min-h-[60vh] flex items-center justify-center pt-24 pb-16 overflow-hidden">
           <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/60 via-black/30 to-black/60" />
           <div className="mx-auto max-w-4xl px-6 text-center">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: springEase }}>
-              <SectionLabel>Tentang Baciraro</SectionLabel>
+              <SectionLabel>{t("about.label")}</SectionLabel>
               <h1 className="mt-6 text-4xl font-normal leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
-                Satu ekosistem terpadu untuk <br />
-                <span className="font-serif italic text-emerald-300">masa depan yang sirkular.</span>
+                {t("about.heroTitle")} <br />
+                <span className="font-serif italic text-emerald-300">{t("about.heroTitleItalic")}</span>
               </h1>
               <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg">
-                Baciraro menghubungkan edukasi, pengolahan, inovasi, dan digitalisasi dalam satu rantai nilai ekonomi sirkular yang tepercaya — dari hulu ke hilir.
+                {t("about.heroDesc")}
               </p>
             </motion.div>
           </div>
@@ -76,12 +78,12 @@ export default function AboutPage() {
             </div>
 
             <div>
-              <SectionLabel>Ekosistem Terpadu</SectionLabel>
+              <SectionLabel>{t("about.ekosistemLabel")}</SectionLabel>
               <h2 className="mt-5 text-3xl font-normal leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-5xl">
-                Menghubungkan edukasi, pengolahan, inovasi, dan digitalisasi.
+                {t("about.ekosistemTitle")}
               </h2>
               <p className="mt-4 text-base leading-7 text-zinc-400 sm:text-lg">
-                Baciraro dirancang untuk menyelesaikan problem lingkungan dengan pendekatan sirkular yang inklusif, menghubungkan program komunitas secara langsung ke offtaker industri.
+                {t("about.ekosistemDesc")}
               </p>
               <div className="mt-8 grid gap-4 sm:grid-cols-2">
                 {[
@@ -107,18 +109,18 @@ export default function AboutPage() {
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400">
                   <Eye className="h-7 w-7" />
                 </div>
-                <h3 className="mt-6 text-2xl font-normal text-white">Visi</h3>
+                <h3 className="mt-6 text-2xl font-normal text-white">{t("about.visi")}</h3>
                 <p className="mt-4 text-base leading-relaxed text-zinc-400">
-                  Menjadi ekosistem circular economy terdepan yang mengubah sampah menjadi nilai ekonomi, sosial, dan lingkungan secara berkelanjutan untuk Indonesia dan dunia.
+                  {t("about.visiDesc")}
                 </p>
               </div>
               <div className="rounded-[2rem] border border-white/5 bg-black/25 p-8 shadow-xl backdrop-blur-sm">
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400">
                   <Target className="h-7 w-7" />
                 </div>
-                <h3 className="mt-6 text-2xl font-normal text-white">Misi</h3>
+                <h3 className="mt-6 text-2xl font-normal text-white">{t("about.misi")}</h3>
                 <p className="mt-4 text-base leading-relaxed text-zinc-400">
-                  Membangun sistem pengelolaan sampah terintegrasi melalui edukasi, daur ulang, pemberdayaan masyarakat, program kreatif, dan digital tracking untuk menciptakan dampak yang terukur dan transparan.
+                  {t("about.misiDesc")}
                 </p>
               </div>
             </div>
@@ -129,9 +131,9 @@ export default function AboutPage() {
         <section className="border-t border-white/5 py-20 lg:py-28">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="flex flex-col items-center text-center">
-              <SectionLabel>Nilai Kami</SectionLabel>
+              <SectionLabel>{t("about.nilaiLabel")}</SectionLabel>
               <h2 className="mt-5 text-3xl font-normal leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-5xl">
-                Prinsip yang menggerakkan setiap langkah.
+                {t("about.nilaiTitle")}
               </h2>
             </div>
             <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -152,9 +154,9 @@ export default function AboutPage() {
         <section id="sejarah" className="border-t border-white/5 py-20 lg:py-28">
           <div className="mx-auto max-w-4xl px-6 lg:px-8">
             <div className="flex flex-col items-center text-center">
-              <SectionLabel>Perjalanan</SectionLabel>
+              <SectionLabel>{t("about.timelineLabel")}</SectionLabel>
               <h2 className="mt-5 text-3xl font-normal leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-5xl">
-                Setiap langkah adalah <span className="font-serif italic text-emerald-300">cerita.</span>
+                {t("about.timelineTitle")} <span className="font-serif italic text-emerald-300">{t("about.timelineTitleItalic")}</span>
               </h2>
             </div>
             <div className="relative mt-16">
@@ -187,19 +189,19 @@ export default function AboutPage() {
         {/* CTA */}
         <section className="border-t border-white/5 py-20">
           <div className="mx-auto max-w-3xl px-6 text-center">
-            <SectionLabel>Kolaborasi</SectionLabel>
+            <SectionLabel>{t("about.kolaborasiLabel")}</SectionLabel>
             <h2 className="mt-5 text-3xl font-normal leading-[1.15] tracking-tight text-white sm:text-4xl">
-              Tertarik untuk berkolaborasi?
+              {t("about.kolaborasiTitle")}
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-zinc-400">
-              Kami terbuka untuk diskusi kemitraan, implementasi CSR, dan program lingkungan bersama.
+              {t("about.kolaborasiDesc")}
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Link
                 href="/contact"
                 className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3 shadow-lg hover:bg-zinc-100"
               >
-                Hubungi Kami
+                {t("about.hubungiKami")}
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black transition-transform group-hover:scale-110">
                   <ArrowRight className="h-3 w-3 text-white" />
                 </span>
@@ -208,7 +210,7 @@ export default function AboutPage() {
                 href="/leadership"
                 className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/30 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur transition-all hover:bg-black/50 hover:border-white/30"
               >
-                Lihat Leadership
+                {t("about.lihatLeadership")}
               </Link>
             </div>
           </div>

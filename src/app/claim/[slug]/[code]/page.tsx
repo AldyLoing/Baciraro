@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Heart, Star, Send, LogIn } from "lucide-react";
 import { useCustomerAuth } from "@/lib/customer-auth-context";
+import { useLanguage } from "@/lib/i18n/context";
 import AuthModal from "@/components/AuthModal";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -14,6 +15,7 @@ export default function ClaimPage() {
   const code = params.code as string;
 
   const { customer, loading: authLoading } = useCustomerAuth();
+  const { t } = useLanguage();
   const [qr, setQr] = useState<Record<string, any> | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -31,7 +33,7 @@ export default function ClaimPage() {
 
   const fetchQr = async () => {
     const res = await fetch(`/api/qr/${code}`);
-    if (!res.ok) { setError("QR Code tidak ditemukan"); setLoading(false); return; }
+    if (!res.ok) { setError(t("claim.notFound")); setLoading(false); return; }
     const data = await res.json();
     setQr(data.qr);
     if (data.qr.review_text) setReviewText(data.qr.review_text);
@@ -152,14 +154,14 @@ export default function ClaimPage() {
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Nama pembeli"
+                placeholder={t("claim.namaPembeli")}
                 required
                 className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40"
               />
               <input
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                placeholder="No. HP (opsional)"
+                placeholder={t("claim.noHp")}
                 className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40"
               />
               <button
@@ -167,7 +169,7 @@ export default function ClaimPage() {
                 disabled={submitting || !name.trim()}
                 className="w-full rounded-full bg-emerald-500 hover:bg-emerald-400 text-black py-3 text-sm font-bold transition-all disabled:opacity-40"
               >
-                {submitting ? "Menyimpan..." : customer ? "Klaim & Dapatkan Poin" : "Simpan"}
+                {submitting ? t("claim.menyimpan") : customer ? t("claim.klaimDapatkanPoin") : t("claim.simpan")}
               </button>
             </form>
           </div>
@@ -216,7 +218,7 @@ export default function ClaimPage() {
               <textarea
                 value={reviewText}
                 onChange={(e) => setReviewText(e.target.value)}
-                placeholder="Tulis kesan dan pesanmu..."
+                placeholder={t("claim.reviewPlaceholder")}
                 rows={4}
                 className="w-full rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40 resize-none"
               />
@@ -226,7 +228,7 @@ export default function ClaimPage() {
                 className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black py-3 text-sm font-bold transition-all disabled:opacity-40"
               >
                 <Send className="h-4 w-4" />
-                {submittingReview ? "Mengirim..." : "Kirim"}
+                {submittingReview ? t("claim.mengirim") : t("claim.kirim")}
               </button>
             </form>
           </div>

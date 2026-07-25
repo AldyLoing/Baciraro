@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useLanguage } from "@/lib/i18n/context";
 import { ArrowRight, Recycle, TrendingUp, Package, Zap } from "lucide-react";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -44,6 +45,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 }
 
 function HeroSection() {
+  const { t: t2 } = useLanguage();
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-16">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.12),_transparent_60%)]" />
@@ -56,11 +58,11 @@ function HeroSection() {
             </div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-normal leading-tight tracking-[-0.04em] text-white">
-              Mengubah Sampah Menjadi Sumber Daya Bernilai
+              {t2("trashrecyclecenter.heroTitle")}
             </h1>
 
             <p className="mt-6 text-base md:text-lg leading-relaxed text-zinc-400 max-w-2xl">
-              Unit usaha daur ulang yang berperan sebagai offtaker dan pengolah sampah menjadi bahan baku berkualitas untuk industri kreatif dan manufaktur.
+              {t2("trashrecyclecenter.heroDesc")}
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
@@ -68,7 +70,7 @@ function HeroSection() {
                 href="#process"
                 className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3 shadow-lg"
               >
-                Lihat Proses
+                {t2("trashrecyclecenter.lihatProses")}
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black">
                   <ArrowRight className="h-3 w-3 text-white" />
                 </span>
@@ -77,7 +79,7 @@ function HeroSection() {
                 href="#output"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur hover:bg-white/10 transition-all duration-300"
               >
-                Lihat Output
+                {t2("trashrecyclecenter.lihatOutput")}
               </a>
             </div>
           </motion.div>
@@ -109,16 +111,17 @@ function HeroSection() {
 }
 
 function WasteTypesSection() {
+  const { t: t2 } = useLanguage();
   return (
     <section className="relative py-20 px-6 lg:px-8 bg-zinc-950/20">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-12">
-          <SectionLabel>Komoditas Pengolahan</SectionLabel>
+          <SectionLabel>{t2("trashrecyclecenter.komoditasLabel")}</SectionLabel>
           <h2 className="text-3xl sm:text-4xl font-normal leading-[1.15] tracking-tight text-white mt-6 mb-4">
-            Jenis Sampah yang Kami Proses
+            {t2("trashrecyclecenter.komoditasTitle")}
           </h2>
           <p className="text-base text-zinc-400 max-w-2xl mx-auto">
-            Kami menangani berbagai jenis sampah dengan teknologi dan proses pemilahan yang terstandar.
+            {t2("trashrecyclecenter.komoditasDesc")}
           </p>
         </div>
 
@@ -146,13 +149,14 @@ function WasteTypesSection() {
 }
 
 function ProcessSection() {
+  const { t: t2 } = useLanguage();
   return (
     <section id="process" className="relative py-20 px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-12">
-          <SectionLabel>Alur Operasional</SectionLabel>
+          <SectionLabel>{t2("trashrecyclecenter.alurLabel")}</SectionLabel>
           <h2 className="text-3xl sm:text-4xl font-normal leading-[1.15] tracking-tight text-white mt-6 mb-12">
-            Proses Kerja Daur Ulang
+            {t2("trashrecyclecenter.alurTitle")}
           </h2>
         </div>
 
@@ -184,12 +188,13 @@ function ProcessSection() {
 }
 
 function OutputSection() {
+  const { t: t2 } = useLanguage();
   return (
     <section id="output" className="relative py-20 px-6 lg:px-8 bg-zinc-950/20">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
-            <h2 className="text-4xl font-normal leading-[1.15] tracking-tight text-white mb-6">Output & Dampak Keberlanjutan</h2>
+            <h2 className="text-4xl font-normal leading-[1.15] tracking-tight text-white mb-6">{t2("trashrecyclecenter.outputTitle")}</h2>
             <div className="space-y-6">
               <div className="rounded-[2rem] border border-white/5 bg-zinc-900/20 p-6 shadow-xl backdrop-blur-sm">
                 <h3 className="font-semibold text-white mb-2 flex items-center gap-2">
@@ -232,20 +237,21 @@ function OutputSection() {
 }
 
 function CTASection() {
+  const { t: t2 } = useLanguage();
   return (
     <section className="relative py-20 px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="rounded-[3rem] border border-white/5 bg-gradient-to-br from-zinc-950 via-zinc-900 to-emerald-950/20 p-8 sm:p-12 text-center shadow-2xl backdrop-blur-sm">
-          <h2 className="text-3xl sm:text-4xl font-normal leading-[1.1] tracking-tight text-white mb-4">Kerja Sama Pengelolaan Sampah</h2>
+          <h2 className="text-3xl sm:text-4xl font-normal leading-[1.1] tracking-tight text-white mb-4">{t2("trashrecyclecenter.ctaTitle")}</h2>
           <p className="text-base text-zinc-400 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Kami membuka peluang kerjasama untuk industri, pemerintah, dan komunitas dalam pengelolaan sampah secara profesional dan bernilai tambah.
+            {t2("trashrecyclecenter.ctaDesc")}
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <a
               href="mailto:halo@baciraro.id"
               className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-black shadow-lg"
             >
-              Hubungi Kami
+              {t2("trashrecyclecenter.hubungiKami")}
               <span className="flex h-5 w-5 items-center justify-center rounded-full bg-black">
                 <ArrowRight className="h-3 w-3 text-white" />
               </span>
@@ -254,7 +260,7 @@ function CTASection() {
               href="/"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur hover:bg-white/10 transition-all duration-300"
             >
-              Kembali ke Ekosistem
+              {t2("trashrecyclecenter.kembaliEkosistem")}
             </Link>
           </div>
         </div>
@@ -264,13 +270,14 @@ function CTASection() {
 }
 
 export default function TrashRecycleCenterPage() {
+  const { t } = useLanguage();
   return (
     <main className="relative overflow-hidden text-foreground min-h-screen">
       <div aria-hidden="true" className="page-bg" />
       <div className="relative z-[1]">
       <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.12] -z-10" />
 
-      <Header subtitle="Recycle Center" />
+      <Header subtitle={t("trashrecyclecenter.label")} />
 
       <HeroSection />
       <WasteTypesSection />

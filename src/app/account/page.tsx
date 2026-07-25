@@ -6,6 +6,7 @@ import { Award, User, Phone, Mail, ArrowLeft, Star, X, Upload, Pencil } from "lu
 import Link from "next/link";
 import { useCustomerAuth } from "@/lib/customer-auth-context";
 import AuthModal from "@/components/AuthModal";
+import { useLanguage } from "@/lib/i18n/context";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -18,6 +19,7 @@ interface Transaction {
 }
 
 export default function AccountPage() {
+  const { t } = useLanguage();
   const { customer, loading, logout, updateProfile } = useCustomerAuth();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [txLoading, setTxLoading] = useState(true);
@@ -116,7 +118,7 @@ export default function AccountPage() {
   if (loading) {
     return (
       <main className="min-h-screen bg-black flex items-center justify-center">
-        <p className="text-zinc-500 text-sm">Memuat...</p>
+        <p className="text-zinc-500 text-sm">{t("account.loading")}</p>
       </main>
     );
   }
@@ -128,17 +130,17 @@ export default function AccountPage() {
           <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
             <User className="h-7 w-7 text-emerald-400" />
           </div>
-          <h1 className="font-serif text-2xl text-white mb-2">Masuk untuk Melihat Profil</h1>
-          <p className="text-sm text-zinc-400 mb-6">Daftar atau masuk untuk mengakses profil dan poin kamu</p>
+          <h1 className="font-serif text-2xl text-white mb-2">{t("account.loginTitle")}</h1>
+          <p className="text-sm text-zinc-400 mb-6">{t("account.loginDesc")}</p>
           <button
             onClick={() => setAuthModalOpen(true)}
             className="inline-flex items-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black px-6 py-3 text-sm font-bold transition-all"
           >
-            Daftar / Masuk
+            {t("account.daftarMasuk")}
           </button>
           <div className="mt-4">
             <Link href="/" className="text-xs text-zinc-500 hover:text-zinc-300 underline">
-              Kembali ke beranda
+              {t("account.kembaliBeranda")}
             </Link>
           </div>
           <AuthModal open={authModalOpen} onClose={() => setAuthModalOpen(false)} />
@@ -153,7 +155,7 @@ export default function AccountPage() {
       <div className="relative z-10 max-w-2xl mx-auto px-6 py-12">
         <Link href="/" className="inline-flex items-center gap-2 text-xs text-zinc-500 hover:text-zinc-300 transition-colors mb-8">
           <ArrowLeft className="h-3.5 w-3.5" />
-          Kembali ke beranda
+          {t("account.kembaliBeranda")}
         </Link>
 
         <motion.div
@@ -191,13 +193,13 @@ export default function AccountPage() {
                   className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-emerald-400 transition-colors"
                 >
                   <Pencil className="h-3 w-3" />
-                  Edit
+                  {t("account.editProfil")}
                 </button>
                 <button
                   onClick={logout}
                   className="text-xs text-zinc-500 hover:text-red-400 transition-colors"
                 >
-                  Keluar
+                  {t("account.keluar")}
                 </button>
               </div>
             </div>
@@ -208,21 +210,21 @@ export default function AccountPage() {
             <div className="w-14 h-14 rounded-full bg-amber-500/10 flex items-center justify-center mx-auto mb-4">
               <Award className="h-7 w-7 text-amber-400" />
             </div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-zinc-500 mb-1">Total Poin</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-zinc-500 mb-1">{t("account.totalPoin")}</p>
             <p className="font-serif text-5xl text-amber-400 mb-1">{customer.total_points}</p>
-            <p className="text-xs text-zinc-500">Setiap klaim produk memberi 10 poin</p>
+            <p className="text-xs text-zinc-500">{t("account.poinDesc")}</p>
           </div>
 
           {/* Points History */}
           <div id="points" className="rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur p-8">
-            <h2 className="font-serif text-xl text-white mb-6">Riwayat Poin</h2>
+            <h2 className="font-serif text-xl text-white mb-6">{t("account.riwayatPoin")}</h2>
             {txLoading ? (
-              <p className="text-sm text-zinc-500 text-center py-8">Memuat...</p>
+              <p className="text-sm text-zinc-500 text-center py-8">{t("account.loading")}</p>
             ) : transactions.length === 0 ? (
               <div className="text-center py-8">
                 <Star className="h-8 w-8 text-zinc-600 mx-auto mb-3" />
-                <p className="text-sm text-zinc-500">Belum ada transaksi poin</p>
-                <p className="text-xs text-zinc-600 mt-1">Scan QR code pada produk untuk mendapatkan poin</p>
+                <p className="text-sm text-zinc-500">{t("account.belumAdaTx")}</p>
+                <p className="text-xs text-zinc-600 mt-1">{t("account.txHint")}</p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -233,7 +235,7 @@ export default function AccountPage() {
                         <Award className="h-4 w-4 text-emerald-400" />
                       </div>
                       <div>
-                        <p className="text-sm text-white font-medium">+{tx.points} poin</p>
+                        <p className="text-sm text-white font-medium">+{tx.points} {t("account.poinLabel")}</p>
                         <p className="text-xs text-zinc-500">{tx.description}</p>
                       </div>
                     </div>
@@ -274,10 +276,10 @@ export default function AccountPage() {
 
               <div className="text-center mb-6">
                 <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-emerald-400 mb-1">
-                  Edit Profil
+                  {t("account.editProfil")}
                 </p>
                 <h3 className="font-serif text-lg text-white">
-                  Perbarui data diri kamu
+                  {t("account.perbaruiData")}
                 </h3>
               </div>
 
@@ -326,7 +328,7 @@ export default function AccountPage() {
                   disabled={editSubmitting}
                   className="w-full rounded-full bg-emerald-500 hover:bg-emerald-400 text-black py-3 text-sm font-bold transition-all disabled:opacity-40"
                 >
-                  {editSubmitting ? "Menyimpan..." : "Simpan"}
+                  {editSubmitting ? t("account.menyimpan") : "Simpan"}
                 </button>
               </form>
             </motion.div>

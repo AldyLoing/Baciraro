@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Mail, MessageCircle, Globe, MapPin } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useLanguage } from "@/lib/i18n/context";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -18,23 +19,24 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 }
 
 export default function ContactPage() {
+  const { t } = useLanguage();
   return (
     <main className="relative overflow-hidden text-foreground min-h-screen bg-background">
       <div aria-hidden="true" className="page-bg" />
       <div className="relative z-[1]">
-        <Header subtitle="Hubungi Kami" />
+        <Header subtitle={t("contact.label")} />
 
         {/* Hero */}
         <section className="relative min-h-[50vh] flex items-center justify-center pt-24 pb-16 overflow-hidden">
           <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/60 via-black/30 to-black/60" />
           <div className="mx-auto max-w-4xl px-6 text-center">
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: springEase }}>
-              <SectionLabel>Hubungi Kami</SectionLabel>
+              <SectionLabel>{t("contact.label")}</SectionLabel>
               <h1 className="mt-6 text-4xl font-normal leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
-                Mari <span className="font-serif italic text-emerald-300">bicara.</span>
+                {t("contact.heroTitle")} <span className="font-serif italic text-emerald-300">{t("contact.heroTitleItalic")}</span>
               </h1>
               <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg">
-                Punya ide kolaborasi, program CSR, atau ingin tahu lebih lanjut tentang Baciraro? Kami siap mendengar.
+                {t("contact.heroDesc")}
               </p>
             </motion.div>
           </div>
@@ -48,13 +50,13 @@ export default function ContactPage() {
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400">
                 <Mail className="h-6 w-6" />
               </div>
-              <h3 className="mt-5 text-lg font-semibold text-white">Email Resmi</h3>
+              <h3 className="mt-5 text-lg font-semibold text-white">{t("contact.emailCard")}</h3>
               <p className="mt-2 text-sm text-zinc-400">creativebaciraro@gmail.com</p>
               <a
                 href="mailto:creativebaciraro@gmail.com"
                 className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-emerald-400 hover:text-emerald-300 transition-colors pt-6"
               >
-                Kirim Email <ArrowRight className="h-3.5 w-3.5" />
+                {t("contact.kirimEmail")} <ArrowRight className="h-3.5 w-3.5" />
               </a>
             </div>
 
@@ -63,7 +65,7 @@ export default function ContactPage() {
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400">
                 <MessageCircle className="h-6 w-6" />
               </div>
-              <h3 className="mt-5 text-lg font-semibold text-white">WhatsApp / Telepon</h3>
+              <h3 className="mt-5 text-lg font-semibold text-white">{t("contact.waCard")}</h3>
               <p className="mt-2 text-sm text-zinc-400">+62 882-1283-5350</p>
               <a
                 href="https://wa.me/6288212835350?text=Halo%20Tim%20Baciraro%2C%20saya%20tertarik%20untuk%20berkolaborasi%20CSR%20%2F%20kemitraan%20lingkungan."
@@ -71,7 +73,7 @@ export default function ContactPage() {
                 rel="noopener noreferrer"
                 className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-emerald-400 hover:text-emerald-300 transition-colors pt-6"
               >
-                Hubungi <ArrowRight className="h-3.5 w-3.5" />
+                {t("contact.hubungi")} <ArrowRight className="h-3.5 w-3.5" />
               </a>
             </div>
 
@@ -80,7 +82,7 @@ export default function ContactPage() {
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400">
                 <MapPin className="h-6 w-6" />
               </div>
-              <h3 className="mt-5 text-lg font-semibold text-white">Lokasi</h3>
+              <h3 className="mt-5 text-lg font-semibold text-white">{t("contact.lokasiCard")}</h3>
               <p className="mt-2 text-sm text-zinc-400">Tumaluntung, Minahasa Utara, Sulawesi Utara</p>
             </div>
           </div>
@@ -91,12 +93,12 @@ export default function ContactPage() {
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="grid gap-10 lg:grid-cols-2">
               <div>
-                <SectionLabel>Media Sosial</SectionLabel>
+                <SectionLabel>{t("contact.sosmedLabel")}</SectionLabel>
                 <h2 className="mt-5 text-3xl font-normal leading-[1.15] tracking-tight text-white sm:text-4xl">
-                  Ikuti perjalanan kami.
+                  {t("contact.sosmedTitle")}
                 </h2>
                 <p className="mt-4 text-base leading-relaxed text-zinc-400">
-                  Dapatkan update terbaru tentang program, edukasi, dan dampak Baciraro melalui media sosial.
+                  {t("contact.sosmedDesc")}
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <a
@@ -130,31 +132,31 @@ export default function ContactPage() {
 
               {/* Contact Form */}
               <div className="rounded-[2rem] border border-white/5 bg-black/25 p-6 shadow-xl backdrop-blur-sm sm:p-8">
-                <h3 className="text-xl font-semibold text-white">Atau kirim pesan langsung</h3>
-                <p className="mt-2 text-sm text-zinc-400">Isi form di bawah dan tim kami akan menghubungi Anda.</p>
+                <h3 className="text-xl font-semibold text-white">{t("contact.formTitle")}</h3>
+                <p className="mt-2 text-sm text-zinc-400">{t("contact.formDesc")}</p>
                 <form className="mt-6 space-y-4" onSubmit={(e) => e.preventDefault()}>
                   <div className="grid gap-4 sm:grid-cols-2">
                     <input
                       type="text"
-                      placeholder="Nama"
+                      placeholder={t("contact.formNama")}
                       className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-zinc-500 backdrop-blur outline-none focus:border-emerald-500/50 transition-colors"
                     />
                     <input
                       type="email"
-                      placeholder="Email"
+                      placeholder={t("contact.formEmail")}
                       className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-zinc-500 backdrop-blur outline-none focus:border-emerald-500/50 transition-colors"
                     />
                   </div>
                   <textarea
                     rows={4}
-                    placeholder="Pesan Anda"
+                    placeholder={t("contact.formPesan")}
                     className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-zinc-500 backdrop-blur outline-none focus:border-emerald-500/50 transition-colors resize-none"
                   />
                   <button
                     type="submit"
                     className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3 shadow-lg hover:bg-zinc-100"
                   >
-                    Kirim Pesan
+                    {t("contact.kirimPesan")}
                     <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black transition-transform group-hover:scale-110">
                       <ArrowRight className="h-3 w-3 text-white" />
                     </span>
@@ -168,12 +170,12 @@ export default function ContactPage() {
         {/* CTA */}
         <section className="border-t border-white/5 py-20">
           <div className="mx-auto max-w-3xl px-6 text-center">
-            <SectionLabel>Siap Bergerak</SectionLabel>
+            <SectionLabel>{t("contact.ctaLabel")}</SectionLabel>
             <h2 className="mt-5 text-3xl font-normal leading-[1.15] tracking-tight text-white sm:text-4xl">
-              Bersama kita ciptakan dampak nyata.
+              {t("contact.ctaTitle")}
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-zinc-400">
-              Setiap langkah kolaborasi adalah investasi untuk masa depan yang lebih sirkular dan berkelanjutan.
+              {t("contact.ctaDesc")}
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <a
@@ -182,7 +184,7 @@ export default function ContactPage() {
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3.5 text-sm font-semibold uppercase tracking-wider transition-all hover:gap-3 shadow-lg"
               >
-                Hubungi via WhatsApp
+                {t("contact.hubungiWA")}
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white/20 transition-transform group-hover:scale-110">
                   <ArrowRight className="h-3 w-3 text-white" />
                 </span>
@@ -191,7 +193,7 @@ export default function ContactPage() {
                 href="/"
                 className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/30 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur transition-all hover:bg-black/50 hover:border-white/30"
               >
-                Kembali ke Beranda
+                {t("contact.kembaliBeranda")}
               </Link>
             </div>
           </div>

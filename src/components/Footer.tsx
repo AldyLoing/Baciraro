@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, MessageCircle, User, Mail, Palette, Recycle, Leaf, Music } from "lucide-react";
+import { ArrowUpRight, MessageCircle, User, Mail, Palette, Recycle, Leaf, Music, Globe } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/context";
 
 const categoryLinks = [
-  { name: "Semua Produk", href: "/products", icon: null, color: "" },
-  { name: "Plastik", href: "/products", icon: Recycle, color: "bg-blue-500" },
-  { name: "Kriya", href: "/products", icon: Palette, color: "bg-amber-500" },
-  { name: "Organik", href: "/products", icon: Leaf, color: "bg-emerald-500" },
+  { key: "semuaProduk", href: "/products", icon: null, color: "" },
+  { key: "plastik", href: "/products", icon: Recycle, color: "bg-blue-500" },
+  { key: "kriya", href: "/products", icon: Palette, color: "bg-amber-500" },
+  { key: "organik", href: "/products", icon: Leaf, color: "bg-emerald-500" },
 ];
 
 const ecosystemLinks = [
@@ -35,6 +36,7 @@ const ecosystemLinks = [
 ];
 
 export default function Footer() {
+  const { t, lang, toggleLang } = useLanguage();
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -64,11 +66,11 @@ export default function Footer() {
                   BACIRARO
                   <span className="h-1.5 w-1.5 rounded-full bg-[#f87171] animate-pulse" />
                 </p>
-                <p className="text-[11px] text-zinc-500 font-medium">Pusat Ekosistem Circular Economy</p>
+                <p className="text-[11px] text-zinc-500 font-medium">{t("footer.center")}</p>
               </div>
             </div>
             <p className="text-xs leading-relaxed text-zinc-500 max-w-xs font-serif italic text-emerald-100/60">
-              &ldquo;Koleksi produk daur ulang. Kumpulkan poin. Dukung bumi.&rdquo;
+              {t("footer.tagline")}
             </p>
             <p className="text-[10px] tracking-wide text-zinc-600 mt-2">
               &copy; {new Date().getFullYear()} Baciraro. All rights reserved.
@@ -77,14 +79,14 @@ export default function Footer() {
               onClick={scrollToTop}
               className="inline-flex w-fit items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-white shadow hover:bg-white/10 transition-all"
             >
-              ↑ Kembali ke Atas
+              {t("footer.kembaliKeAtas")}
             </button>
           </div>
 
           {/* Column 2 — Ekosistem Sirkular */}
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-white mb-6">
-              Ekosistem Sirkular
+              {t("footer.ekosistemSirkular")}
             </p>
             <ul className="space-y-5 text-xs font-medium">
               {ecosystemLinks.map((item) => (
@@ -105,11 +107,11 @@ export default function Footer() {
           {/* Column 3 — Produk & Layanan */}
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-white mb-6">
-              Produk & Layanan
+              {t("footer.produkLayanan")}
             </p>
             <ul className="space-y-4 text-xs font-medium">
               {categoryLinks.map((cat) => (
-                <li key={cat.name}>
+                <li key={cat.key}>
                   <Link
                     href={cat.href}
                     className="inline-flex items-center gap-2 transition-colors duration-300 hover:text-white"
@@ -119,7 +121,7 @@ export default function Footer() {
                     ) : (
                       <span className="h-1.5 w-1.5 rounded-full bg-white/30" />
                     )}
-                    {cat.name}
+                    {t("footer." + cat.key)}
                   </Link>
                 </li>
               ))}
@@ -134,7 +136,7 @@ export default function Footer() {
                   className="inline-flex items-center gap-2 transition-colors duration-300 hover:text-white"
                 >
                   <User className="h-3 w-3 text-zinc-500" />
-                  Akun Saya
+                  {t("footer.akunSaya")}
                 </Link>
               </li>
               <li>
@@ -143,7 +145,7 @@ export default function Footer() {
                   className="inline-flex items-center gap-2 transition-colors duration-300 hover:text-white"
                 >
                   <Mail className="h-3 w-3 text-zinc-500" />
-                  Kontak Kami
+                  {t("footer.kontakKami")}
                 </Link>
               </li>
             </ul>
@@ -156,7 +158,7 @@ export default function Footer() {
                 className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 hover:bg-emerald-500 px-4 py-2 text-[11px] font-bold text-emerald-400 hover:text-black transition-all"
               >
                 <MessageCircle className="h-3.5 w-3.5" />
-                Pesan via WhatsApp
+                {t("footer.pesanWA")}
               </a>
             </div>
           </div>
@@ -164,7 +166,7 @@ export default function Footer() {
           {/* Column 4 — Digdaya oleh ORDERS */}
           <div className="flex flex-col gap-6">
             <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-white">
-              Digdaya Oleh
+              {t("footer.digdayaOleh")}
             </p>
 
             <Link
@@ -191,10 +193,10 @@ export default function Footer() {
                 </div>
               </div>
               <p className="text-xs text-zinc-500 leading-relaxed mb-4">
-                Platform digital &amp; teknologi yang menggerakkan seluruh ekosistem Baciraro.
+                {t("footer.ordersDesc")}
               </p>
               <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-orange-400 group-hover:text-orange-300 transition-colors">
-                Kunjungi ORDERS
+                {t("footer.kunjungiOrders")}
                 <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </span>
             </Link>
@@ -232,6 +234,14 @@ export default function Footer() {
               >
                 <MessageCircle className="h-3.5 w-3.5" />
               </a>
+              <button
+                onClick={toggleLang}
+                className="h-8 w-8 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-zinc-500 hover:text-emerald-400 hover:border-emerald-400/30 hover:bg-emerald-500/10 transition-all text-[9px] font-bold"
+                aria-label="Toggle language"
+              >
+                <Globe className="h-3.5 w-3.5" />
+                <span className="ml-0.5">{lang.toUpperCase()}</span>
+              </button>
             </div>
           </div>
 
@@ -241,7 +251,7 @@ export default function Footer() {
         <div className="mt-16 pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4 text-[10px] text-zinc-600">
           <p>&copy; {new Date().getFullYear()} Baciraro. All rights reserved.</p>
           <p>
-            Digdaya oleh{" "}
+            {t("footer.bottomDigdaya")}{" "}
             <Link href="/orders" className="text-orange-400 hover:text-orange-300 font-semibold transition-colors">
               ORDERS
             </Link>

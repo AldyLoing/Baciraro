@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useLanguage } from "@/lib/i18n/context";
 import { createClient } from "@/utils/supabase/client";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -156,6 +157,7 @@ function DivisionSection({ head, members }: { head: TeamMember; members: TeamMem
 }
 
 export default function LeadershipPage() {
+  const { t } = useLanguage();
   const [members, setMembers] = useState<TeamMember[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -189,7 +191,7 @@ export default function LeadershipPage() {
       <div aria-hidden="true" className="page-bg" />
       <div className="relative z-[1]">
         <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.08] bg-noise" />
-        <Header subtitle="Leadership" />
+        <Header subtitle={t("leadership.label")} />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
 
@@ -200,7 +202,7 @@ export default function LeadershipPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: springEase }}
             >
-              <SectionLabel>Leadership</SectionLabel>
+              <SectionLabel>{t("leadership.label")}</SectionLabel>
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 24 }}
@@ -208,7 +210,7 @@ export default function LeadershipPage() {
               transition={{ duration: 0.7, delay: 0.1, ease: springEase }}
               className="mt-5 font-serif text-[clamp(48px,7vw,88px)] font-normal leading-[1.08] tracking-[-0.04em] text-white"
             >
-              Leadership Team
+              {t("leadership.heroTitle")}
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 16 }}
@@ -216,7 +218,7 @@ export default function LeadershipPage() {
               transition={{ duration: 0.7, delay: 0.2, ease: springEase }}
               className="mt-4 max-w-[640px] mx-auto text-[15px] text-zinc-300 leading-relaxed"
             >
-              Tim kepemimpinan Baciraro yang berdedikasi untuk mendorong inovasi, memperkuat kolaborasi, dan menciptakan dampak berkelanjutan bagi masyarakat dan lingkungan.
+              {t("leadership.heroDesc")}
             </motion.p>
           </section>
 
@@ -312,16 +314,16 @@ export default function LeadershipPage() {
               <p className="text-[13px] text-emerald-400 mt-1">The Green Observatory</p>
               <div className="w-[60px] h-px bg-emerald-500/15 mx-auto my-6" />
               <div className="flex flex-wrap justify-center gap-2">
-                {["Inovasi", "Kolaborasi", "Integritas", "Keberlanjutan"].map((v) => (
+                {["valueInovasi", "valueKolaborasi", "valueIntegritas", "valueKeberlanjutan"].map((key) => (
                   <span
-                    key={v}
+                    key={key}
                     className="px-4 py-1.5 rounded-full border border-emerald-500/[0.12] bg-emerald-500/[0.04] text-[12px] font-semibold tracking-[0.06em] text-emerald-400"
                   >
-                    {v}
+                    {t(`leadership.${key}`)}
                   </span>
                 ))}
               </div>
-              <p className="text-[12px] text-zinc-600 mt-5">Baciraro &mdash; Leadership Team</p>
+              <p className="text-[12px] text-zinc-600 mt-5">{t("leadership.footerCredit")}</p>
             </motion.div>
           </footer>
 

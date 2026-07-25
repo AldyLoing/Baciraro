@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/lib/i18n/context";
 import { ArrowRight, Factory, Building2, MapPin, Quote } from "lucide-react";
 
 const TERRACOTTA = "#D4785C";
 
 const SERVICES = [
   {
-    title: "Untuk Perusahaan",
+    titleKey: "perusahaan",
     icon: Factory,
     points: ["Program CSR pengelolaan sampah terukur", "Pelaporan dampak & dashboard digital", "Suvenir & plakat dari bahan daur ulang"],
     caseStudy: { partner: "BNI 46 Manado", result: "50+ ton sampah terkelola melalui program CSR bank sampah", badge: "CSR Tersertifikasi" },
@@ -16,7 +17,7 @@ const SERVICES = [
     href: "/track-record",
   },
   {
-    title: "Untuk Pemerintah",
+    titleKey: "pemerintah",
     icon: Building2,
     points: ["Penguatan layanan persampahan daerah", "Edukasi & pendampingan sistem digital", "Pemetaan timbulan sampah partisipatif"],
     caseStudy: { partner: "KKP & Kemenparekraf", result: "Program edukasi lingkungan di 5 desa wisata pesisir", badge: "Kemitraan Strategis" },
@@ -24,7 +25,7 @@ const SERVICES = [
     href: "/track-record",
   },
   {
-    title: "Untuk Desa",
+    titleKey: "desa",
     icon: MapPin,
     points: ["Model bank sampah terpadu", "Pelatihan pemilahan & daur ulang", "Akses pasar offtaker & produk kreatif"],
     caseStudy: { partner: "Desa Wisata Likupang", result: "Bank sampah aktif dengan 200+ nasabah dan produksi ecobrick", badge: "Dampak Lokal" },
@@ -34,6 +35,7 @@ const SERVICES = [
 ];
 
 export default function ServicesSection() {
+  const { t } = useLanguage();
   return (
     <section className="relative z-10 py-20 lg:py-24 overflow-hidden border-t border-white/5">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(16,185,129,0.03),transparent_60%)]" />
@@ -61,7 +63,7 @@ export default function ServicesSection() {
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           {SERVICES.map((service, i) => (
             <motion.div
-              key={service.title}
+              key={service.titleKey}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -74,7 +76,7 @@ export default function ServicesSection() {
                 <div className="inline-flex rounded-2xl bg-[#D4785C]/10 p-3.5 text-[#D4785C] w-fit">
                   <service.icon className="h-5 w-5" />
                 </div>
-                <h3 className="mt-5 text-xl font-normal text-white">{service.title}</h3>
+                <h3 className="mt-5 text-xl font-normal text-white">{t("services." + service.titleKey + ".title")}</h3>
                 <ul className="mt-4 space-y-3 text-sm leading-relaxed text-zinc-400 flex-1">
                   {service.points.map((p) => (
                     <li key={p} className="flex gap-2.5">

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useLanguage } from "@/lib/i18n/context";
 import { ArrowRight, Leaf, Droplets, Zap, Award } from "lucide-react";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -86,6 +87,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 }
 
 function HeroSection() {
+  const { t: t2 } = useLanguage();
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-16">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.12),_transparent_60%)]" />
@@ -94,15 +96,15 @@ function HeroSection() {
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: springEase }}>
             <div className="mb-6">
-              <SectionLabel>ELMAST Greenovasi</SectionLabel>
+              <SectionLabel>{t2("elmast.label")}</SectionLabel>
             </div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-normal leading-tight tracking-[-0.04em] text-white">
-              Mengubah Sampah Organik Menjadi Energi
+              {t2("elmast.heroTitle")}
             </h1>
 
             <p className="mt-6 text-base md:text-lg leading-relaxed text-zinc-400 max-w-2xl">
-              Teknologi inovatif pengolahan sampah organik menjadi biogas, kompos, dan pupuk organik cair berkualitas tinggi untuk kelestarian tanah dan kemandirian energi.
+              {t2("elmast.heroDesc")}
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
@@ -110,7 +112,7 @@ function HeroSection() {
                 href="#technology"
                 className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3 shadow-lg"
               >
-                Lihat Teknologi
+                {t2("elmast.lihatTeknologi")}
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black">
                   <ArrowRight className="h-3 w-3 text-white" />
                 </span>
@@ -119,7 +121,7 @@ function HeroSection() {
                 href="#benefits"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur hover:bg-white/10 transition-all duration-300"
               >
-                Lihat Manfaat
+                {t2("elmast.lihatManfaat")}
               </a>
             </div>
           </motion.div>
@@ -151,6 +153,7 @@ function HeroSection() {
 }
 
 function TechnologySection() {
+  const { t: t2 } = useLanguage();
   return (
     <section id="technology" className="relative py-20 px-6 lg:px-8 bg-zinc-950/20">
       <div className="mx-auto max-w-7xl">
@@ -165,7 +168,7 @@ function TechnologySection() {
           </div>
 
           <div>
-            <h2 className="text-4xl font-normal leading-[1.15] tracking-tight text-white mb-6">Tentang Teknologi ELMAST</h2>
+            <h2 className="text-4xl font-normal leading-[1.15] tracking-tight text-white mb-6">{t2("elmast.teknologiTitle")}</h2>
             <div className="space-y-4 text-base leading-relaxed text-zinc-400">
               <p>
                 ELMAST Greenovasi menghadirkan sistem biogas terpadu yang merombak limbah organik menjadi sumber energi bersih terbarukan sekaligus pupuk hayati premium.
@@ -185,6 +188,7 @@ function TechnologySection() {
 }
 
 function GallerySection() {
+  const { t: t2 } = useLanguage();
   const [activeImage, setActiveImage] = useState<{ src: string; alt: string } | null>(null);
 
   useEffect(() => {
@@ -206,10 +210,10 @@ function GallerySection() {
     <section className="relative py-20 px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 text-center">
-          <SectionLabel>Dokumentasi Kegiatan</SectionLabel>
-          <h2 className="text-3xl sm:text-4xl font-normal leading-[1.15] tracking-tight text-white mt-6 mb-4">Galeri Aksi Lapangan</h2>
+          <SectionLabel>{t2("elmast.dokumentasiLabel")}</SectionLabel>
+          <h2 className="text-3xl sm:text-4xl font-normal leading-[1.15] tracking-tight text-white mt-6 mb-4">{t2("elmast.dokumentasiTitle")}</h2>
           <p className="mx-auto max-w-2xl text-base text-zinc-400">
-            Aktivitas implementasi pengolahan sampah organik menjadi energi hijau dan pupuk berkelanjutan bersama komunitas.
+            {t2("elmast.dokumentasiDesc")}
           </p>
         </div>
 
@@ -262,9 +266,9 @@ function GallerySection() {
                 type="button"
                 onClick={() => setActiveImage(null)}
                 className="absolute right-6 top-6 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur shadow-xl transition-all duration-200"
-                aria-label="Tutup gambar"
+                aria-label={t2("elmast.tutup")}
               >
-                Tutup
+                {t2("elmast.tutup")}
               </button>
             </div>
           </div>
@@ -275,14 +279,15 @@ function GallerySection() {
 }
 
 function ProductsSection() {
+  const { t: t2 } = useLanguage();
   return (
     <section className="relative py-20 px-6 lg:px-8 bg-zinc-950/20">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-12">
-          <SectionLabel>Hasil Pengolahan</SectionLabel>
-          <h2 className="text-3xl sm:text-4xl font-normal leading-[1.15] tracking-tight text-white mt-6 mb-4">Produk Unggulan</h2>
+          <SectionLabel>{t2("elmast.produkLabel")}</SectionLabel>
+          <h2 className="text-3xl sm:text-4xl font-normal leading-[1.15] tracking-tight text-white mt-6 mb-4">{t2("elmast.produkTitle")}</h2>
           <p className="text-base text-zinc-400 max-w-2xl mx-auto">
-            Tiga produk utama yang lahir dari fasilitas teknologi ramah lingkungan ELMAST.
+            {t2("elmast.produkDesc")}
           </p>
         </div>
 
@@ -310,12 +315,13 @@ function ProductsSection() {
 }
 
 function SolutionsSection() {
+  const { t: t2 } = useLanguage();
   return (
     <section className="relative py-20 px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="text-center mb-12">
-          <SectionLabel>Solusi Masalah</SectionLabel>
-          <h2 className="text-3xl sm:text-4xl font-normal leading-[1.15] tracking-tight text-white mt-6 mb-4">Ruang Lingkup Solusi</h2>
+          <SectionLabel>{t2("elmast.solusiLabel")}</SectionLabel>
+          <h2 className="text-3xl sm:text-4xl font-normal leading-[1.15] tracking-tight text-white mt-6 mb-4">{t2("elmast.solusiTitle")}</h2>
         </div>
 
         <div className="grid gap-8 md:grid-cols-2">
@@ -340,12 +346,13 @@ function SolutionsSection() {
 }
 
 function BenefitsSection() {
+  const { t: t2 } = useLanguage();
   return (
     <section id="benefits" className="relative py-20 px-6 lg:px-8 bg-zinc-950/20 overflow-hidden">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.1),_transparent_50%)]" />
 
       <div className="relative z-10 mx-auto max-w-7xl">
-        <h2 className="text-4xl font-normal tracking-tight mb-12 text-center text-white">Manfaat & Dampak Nyata</h2>
+        <h2 className="text-4xl font-normal tracking-tight mb-12 text-center text-white">{t2("elmast.manfaatTitle")}</h2>
 
         <div className="grid gap-6 md:grid-cols-3">
           {benefits.map((benefit, index) => (
@@ -369,20 +376,21 @@ function BenefitsSection() {
 }
 
 function CTASection() {
+  const { t: t2 } = useLanguage();
   return (
     <section className="relative py-20 px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="rounded-[3rem] border border-white/5 bg-gradient-to-br from-zinc-950 via-zinc-900 to-emerald-950/20 p-8 sm:p-12 text-center shadow-2xl backdrop-blur-sm">
-          <h2 className="text-3xl sm:text-4xl font-normal leading-[1.1] tracking-tight text-white mb-4">Implementasi Teknologi ELMAST</h2>
+          <h2 className="text-3xl sm:text-4xl font-normal leading-[1.1] tracking-tight text-white mb-4">{t2("elmast.ctaTitle")}</h2>
           <p className="text-base text-zinc-400 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Kami siap memfasilitasi implementasi instalasi biogas terintegrasi dan sistem pupuk hayati berkelanjutan di lokasi Anda.
+            {t2("elmast.ctaDesc")}
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <a
               href="mailto:halo@baciraro.id"
               className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-black shadow-lg"
             >
-              Hubungi Kami
+              {t2("elmast.hubungiKami")}
               <span className="flex h-5 w-5 items-center justify-center rounded-full bg-black">
                 <ArrowRight className="h-3 w-3 text-white" />
               </span>
@@ -391,7 +399,7 @@ function CTASection() {
               href="/"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur hover:bg-white/10 transition-all duration-300"
             >
-              Kembali ke Ekosistem
+              {t2("elmast.kembaliEkosistem")}
             </Link>
           </div>
         </div>
@@ -401,13 +409,14 @@ function CTASection() {
 }
 
 export default function ElmastPage() {
+  const { t } = useLanguage();
   return (
     <main className="relative overflow-hidden text-foreground min-h-screen">
       <div aria-hidden="true" className="page-bg" />
       <div className="relative z-[1]">
       <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.12] -z-10" />
 
-      <Header subtitle="ELMAST Greenovasi" />
+      <Header subtitle={t("elmast.label")} />
 
       <HeroSection />
       <TechnologySection />

@@ -10,6 +10,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import QRModal from "@/components/QRModal";
 import { useAdminAuth } from "@/lib/admin-auth-context";
+import { useLanguage } from "@/lib/i18n/context";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -62,6 +63,7 @@ export default function ProductDetailPage() {
   const [qrUrl, setQrUrl] = useState("");
   const [selectedImage, setSelectedImage] = useState(0);
   const { admin } = useAdminAuth();
+  const { t } = useLanguage();
   const [notFound, setNotFound] = useState(false);
   const [reviews, setReviews] = useState<any[]>([]);
 
@@ -194,7 +196,7 @@ export default function ProductDetailPage() {
             <div className="flex items-center gap-3 mb-4">
               <span className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${categoryAccent[product.category] || categoryAccent.craft}`}>
                 <Icon className="h-3.5 w-3.5" />
-                {categoryLabels[product.category] || product.category}
+                {t("products." + product.category) || product.category}
               </span>
             </div>
 

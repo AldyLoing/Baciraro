@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useLanguage } from "@/lib/i18n/context";
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 import Image from "next/image";
@@ -15,6 +16,7 @@ interface Review {
 }
 
 export default function ReviewMarquee() {
+  const { t } = useLanguage();
   const [reviews, setReviews] = useState<Review[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
