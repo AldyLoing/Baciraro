@@ -61,7 +61,7 @@ export default function AuthModal({ open, onClose, onSuccess }: AuthModalProps) 
     setError("");
     setSubmitting(true);
 
-    if (mode === "login" && email === "admin") {
+    if (mode === "login" && email === "baciraro@gmail.com") {
       const result = await loginAdmin(password);
       setSubmitting(false);
       if (result.error) {
