@@ -1,0 +1,517 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "produk": "Produk",
+    "trackRecord": "Track Record",
+    "leadership": "Leadership",
+    "creativeStudio": "Creative Studio",
+    "creative": "Baciraro Creative",
+    "contact": "Contact",
+    "daftarMasuk": "Daftar / Masuk",
+    "admin": "Admin",
+    "keluar": "Keluar",
+    "profil": "Profil",
+    "riwayatPoin": "Riwayat Poin",
+    "totalPoin": "Total Poin",
+    "toggleMenu": "Toggle menu"
+  },
+  "header": {
+    "sustainability": "Sustainability Platform",
+    "subtitle": "Pusat Ekosistem Circular Economy",
+    "mobileCreativeStudio": "Creative Studio",
+    "mobileProfilPoin": "Profil & Poin"
+  },
+  "hero": {
+    "ekosistem": "Ekosistem Circular Economy",
+    "tagline": "Sustainability",
+    "deskripsi": "Ekosistem pengelolaan sampah terintegrasi yang menghubungkan edukasi, daur ulang, pemberdayaan masyarakat, program kreatif, dan digital tracking untuk menciptakan dampak lingkungan yang terukur.",
+    "mulaiKolaborasi": "Mulai Kolaborasi CSR",
+    "jelajahiEkosistem": "Jelajahi Ekosistem",
+    "stats": {
+      "sampah": "Ton Sampah Terkelola",
+      "komunitas": "Komunitas Aktif",
+      "proyek": "Proyek Digital"
+    },
+    "features": {
+      "endToEnd": "Circular Economy End-to-End",
+      "digital": "Digital Monitoring System",
+      "creative": "Creative Product Innovation",
+      "community": "Community Empowerment"
+    }
+  },
+  "ecosystem": {
+    "label": "EKOSISTEM SIRKULAR",
+    "title": "Satu visi,",
+    "titleItalic": "enam entitas.",
+    "subtitle": "Baciraro bukan sekadar produk — ini ekosistem sirkular yang menghubungkan enam entitas dari hulu ke hilir.",
+    "entities": {
+      "tnl": {
+        "name": "Tana Nyiur Lestari",
+        "role": "Edukasi & Pemberdayaan"
+      },
+      "trc": {
+        "name": "Trash Recycle Center",
+        "role": "Pengumpulan & Pengolahan"
+      },
+      "elmast": {
+        "name": "ELMAST Greenovasi",
+        "role": "Teknologi Organik"
+      },
+      "orders": {
+        "name": "ORDERS",
+        "role": "Digital & Data"
+      },
+      "creative": {
+        "name": "Baciraro Creative",
+        "role": "Produk Kreatif Daur Ulang"
+      },
+      "retail": {
+        "name": "Baciraro Retail",
+        "role": "Distribusi & Penjualan"
+      }
+    },
+    "cta": "Pelajari Ekosistem"
+  },
+  "flow": {
+    "title": "Dari sampah",
+    "titleItalic": "jadi dampak.",
+    "subtitle": "Alur kerja terpadu dari hulu ke hilir — setiap tahap melibatkan komunitas dan teknologi.",
+    "steps": {
+      "pilah": {
+        "label": "01",
+        "title": "Pemilahan",
+        "desc": "Sampah dipilah dari sumbernya oleh komunitas dan bank sampah mitra."
+      },
+      "olah": {
+        "label": "02",
+        "title": "Pengolahan",
+        "desc": "Material diolah menjadi bahan baku siap produksi di TRC dan ELMAST."
+      },
+      "kreatif": {
+        "label": "03",
+        "title": "Produk Kreatif",
+        "desc": "Bahan baku disulap menjadi produk bernilai oleh Baciraro Creative."
+      },
+      "distribusi": {
+        "label": "04",
+        "title": "Distribusi",
+        "desc": "Produk didistribusikan melalui Baciraro Retail dan mitra."
+      },
+      "track": {
+        "label": "05",
+        "title": "Digital Tracking",
+        "desc": "ORDERS mencatat setiap langkah — transparan dan terukur."
+      }
+    }
+  },
+  "showcase": {
+    "label": "KARYA TERPILIH",
+    "title": "Kreativitas dari",
+    "titleItalic": "limbah.",
+    "subtitle": "Koleksi produk daur ulang yang memadukan nilai estetika, fungsionalitas, dan dampak lingkungan.",
+    "cta": "Jelajahi Semua Produk"
+  },
+  "impact": {
+    "label": "DAMPAK TERUKUR",
+    "title": "Data yang",
+    "titleItalic": "bicara.",
+    "subtitle": "Setiap angka adalah hasil kerja nyata di lapangan — dari hulu ke hilir.",
+    "metrics": {
+      "sampah": "Sampah Terkelola",
+      "komunitas": "Komunitas Aktif",
+      "produk": "Produk Kreatif",
+      "proyek": "Proyek Digital",
+      "reduksi": "Reduksi ke TPA",
+      "mitra": "Mitra Kolaborasi"
+    },
+    "dashboard": {
+      "title": "Dashboard Dampak Terpusat",
+      "desc": "Monitoring real-time untuk stakeholder dan mitra CSR"
+    }
+  },
+  "points": {
+    "label": "POIN LEADERBOARD",
+    "title": "Apresiasi",
+    "titleItalic": "kontributor.",
+    "subtitle": "{poin} poin telah didistribusikan kepada pelanggan setia Baciraro.",
+    "loading": "Memuat data...",
+    "poin": "Poin",
+    "earnedPrefix": "+{poin} Poin berhasil ditambahkan!",
+    "earned": "+{poin} Poin",
+    "youHave": "Poin: {poin}"
+  },
+  "reviews": {
+    "label": "Apa Kata Mereka"
+  },
+  "services": {
+    "label": "LAYANAN & KERJA SAMA",
+    "title": "Dirancang untuk",
+    "titleItalic": "kolaborasi.",
+    "subtitle": "Baciraro dapat disesuaikan untuk kebutuhan operasional, pemberdayaan masyarakat, hingga transformasi digital di level organisasi.",
+    "perusahaan": {
+      "title": "Untuk Perusahaan",
+      "points": [
+        "Program CSR pengelolaan sampah terukur",
+        "Pelaporan dampak & dashboard digital",
+        "Suvenir & plakat dari bahan daur ulang"
+      ]
+    },
+    "pemerintah": {
+      "title": "Untuk Pemerintah",
+      "points": [
+        "Penguatan layanan persampahan daerah",
+        "Edukasi & pendampingan sistem digital",
+        "Pemetaan timbulan sampah partisipatif"
+      ]
+    },
+    "desa": {
+      "title": "Untuk Desa",
+      "points": [
+        "Model bank sampah terpadu",
+        "Pelatihan pemilahan & daur ulang",
+        "Akses pasar offtaker & produk kreatif"
+      ]
+    },
+    "lihatDetail": "Lihat Detail"
+  },
+  "ceo": {
+    "label": "KEPEMIMPINAN",
+    "title": "Panggilan untuk",
+    "titleItalic": "perubahan.",
+    "cta": "Selengkapnya"
+  },
+  "footer": {
+    "tagline": "\"Koleksi produk daur ulang. Kumpulkan poin. Dukung bumi.\"",
+    "center": "Pusat Ekosistem Circular Economy",
+    "ekosistemSirkular": "Ekosistem Sirkular",
+    "produkLayanan": "Produk & Layanan",
+    "semuaProduk": "Semua Produk",
+    "plastik": "Plastik",
+    "kriya": "Kriya",
+    "organik": "Organik",
+    "akunSaya": "Akun Saya",
+    "kontakKami": "Kontak Kami",
+    "pesanWA": "Pesan via WhatsApp",
+    "digdayaOleh": "Digdaya Oleh",
+    "ordersDesc": "Platform digital & teknologi yang menggerakkan seluruh ekosistem Baciraro.",
+    "kunjungiOrders": "Kunjungi ORDERS",
+    "kembaliKeAtas": "↑ Kembali ke Atas",
+    "copyright": "All rights reserved.",
+    "bottomDigdaya": "Digdaya oleh",
+    "instagram": "Instagram",
+    "tiktok": "TikTok",
+    "whatsapp": "WhatsApp"
+  },
+  "products": {
+    "title": "Baciraro Products",
+    "headline": "Dari Sampah",
+    "headlineHighlight": "Menjadi Produk Bernilai",
+    "subtitle": "Setiap produk Baciraro membawa cerita — dari sampah yang dikumpulkan, dipilah, dan disulap menjadi karya bernilai tinggi. Jelajahi koleksi kami.",
+    "semua": "Semua",
+    "plastik": "Plastik",
+    "organik": "Organik",
+    "kriya": "Kriya",
+    "digital": "Digital",
+    "memuat": "Memuat produk...",
+    "kosong": "Belum ada produk di kategori ini.",
+    "bahanTerselamatkan": "{kg} kg bahan terselamatkan",
+    "pesan": "Pesan",
+    "kembali": "Kembali ke katalog",
+    "tidakDitemukan": "Produk tidak ditemukan",
+    "ceritaProduk": "Cerita Produk",
+    "materialBreakdown": "Material Breakdown",
+    "totalBahan": "Total Bahan",
+    "plastikDialihkan": "Plastik Dialihkan",
+    "reviewPelanggan": "Review Pelanggan",
+    "scanQR": "Scan QR",
+    "lihatQR": "Lihat QR",
+    "cetak50QR": "Cetak 50 QR",
+    "pesanWA": "Pesan via WhatsApp",
+    "waMessage": "Halo, saya ingin memesan produk {title}, bisa dibantu?"
+  },
+  "qrModal": {
+    "title": "Scan QR",
+    "download": "Download QR"
+  },
+  "qrSheets": {
+    "title": "QR Code — Scan untuk klaim & dapatkan poin",
+    "loading": "Menghasilkan 50 QR code dengan logo...",
+    "progress": "{done} / 50 selesai",
+    "print": "Cetak Lembar QR",
+    "ready": "{count} QR code siap dicetak",
+    "brand": "baciraro.net",
+    "footer": "baciraro.net — Scan setiap QR code untuk klaim produk dan kumpulkan poin"
+  },
+  "auth": {
+    "masuk": "Masuk",
+    "daftar": "Daftar",
+    "selamatDatang": "Selamat datang kembali",
+    "buatAkun": "Buat akun baru",
+    "namaLengkap": "Nama lengkap",
+    "noHp": "No. HP (opsional)",
+    "email": "Email",
+    "password": "Password",
+    "memproses": "Memproses...",
+    "sudahPunyaAkun": "Sudah punya akun? ",
+    "belumPunyaAkun": "Belum punya akun? ",
+    "loginGagal": "Login gagal",
+    "gagalUpload": "Gagal mengunggah foto profil"
+  },
+  "scan": {
+    "title": "Scan QR",
+    "heading": "Scan Barcode Produk",
+    "scanning": "Arahkan ke QR Code",
+    "successTitle": "Terima Kasih!",
+    "successProduct": "Produk: {title}",
+    "nologinTitle": "QR Terdeteksi!",
+    "nologinProduct": "Produk: {title}",
+    "nologinDesc": "Daftar atau masuk untuk mengklaim produk dan dapatkan poin!",
+    "daftarMasuk": "Daftar / Masuk",
+    "errorTitle": "Gagal",
+    "errorDesc": "QR Code tidak valid atau sudah diklaim",
+    "scanLagi": "Scan Lagi"
+  },
+  "claim": {
+    "loading": "Memuat...",
+    "notFound": "QR Code tidak ditemukan",
+    "registrasi": "Registrasi Pembeli",
+    "registrasiDesc": "Masukkan data kamu untuk produk ini",
+    "loginPrompt": "Dapatkan poin dengan masuk / daftar akun!",
+    "masukDaftar": "Masuk / Daftar",
+    "namaPembeli": "Nama pembeli",
+    "noHp": "No. HP (opsional)",
+    "menyimpan": "Menyimpan...",
+    "klaimDapatkanPoin": "Klaim & Dapatkan Poin",
+    "simpan": "Simpan",
+    "terimaKasihTitle": "Terima Kasih!",
+    "terimaKasihSubtitle": "Kontribusimu sangat berarti bagi lingkungan.",
+    "terimaKasihClaimed": "Terima Kasih",
+    "reviewPrompt": "Berikan kesan dan pesanmu tentang produk ini",
+    "reviewPlaceholder": "Tulis kesan dan pesanmu...",
+    "mengirim": "Mengirim...",
+    "kirim": "Kirim",
+    "sudahReview": "Kamu sudah memberikan review",
+    "editReview": "Edit review",
+    "poinEarned": "+{poin} Poin berhasil ditambahkan!"
+  },
+  "account": {
+    "title": "Akun Saya",
+    "editProfil": "Edit Profil",
+    "simpan": "Simpan",
+    "nama": "Nama",
+    "email": "Email",
+    "noHp": "No. HP",
+    "poin": "Total Poin",
+    "riwayatPoin": "Riwayat Poin",
+    "transaksi": "Transaksi",
+    "poinLabel": "poin",
+    "loginTitle": "Masuk untuk Melihat Profil",
+    "loginDesc": "Daftar atau masuk untuk mengakses profil dan poin kamu",
+    "daftarMasuk": "Daftar / Masuk",
+    "kembaliBeranda": "Kembali ke beranda",
+    "perbaruiData": "Perbarui data diri kamu",
+    "menyimpan": "Menyimpan...",
+    "keluar": "Keluar",
+    "totalPoin": "Total Poin",
+    "poinDesc": "Setiap klaim produk memberi 10 poin",
+    "belumAdaTx": "Belum ada transaksi poin",
+    "txHint": "Scan QR code pada produk untuk mendapatkan poin"
+  },
+  "dashboard": {
+    "qr": {
+      "title": "QR Codes",
+      "total": "Total",
+      "claimed": "Diklaim",
+      "reviewed": "Direview",
+      "product": "Produk",
+      "code": "Kode",
+      "status": "Status",
+      "buyer": "Pembeli",
+      "review": "Review",
+      "date": "Tanggal",
+      "pending": "Pending",
+      "claimedLabel": "Diklaim",
+      "reviewedLabel": "Direview",
+      "loading": "Memuat...",
+      "unauthTitle": "Akses terbatas",
+      "unauthDesc": "Login untuk mengakses dashboard QR",
+      "login": "Login",
+      "totalQr": "{n} total QR codes"
+    }
+  },
+  "common": {
+    "loading": "Memuat...",
+    "error": "Terjadi kesalahan",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "back": "Kembali",
+    "close": "Tutup",
+    "search": "Cari",
+    "all": "Semua",
+    "noData": "Tidak ada data"
+  },
+  "about": {
+    "label": "Tentang Baciraro",
+    "heroTitle": "Satu ekosistem terpadu untuk",
+    "heroTitleItalic": "masa depan yang sirkular.",
+    "heroDesc": "Baciraro menghubungkan edukasi, pengolahan, inovasi, dan digitalisasi dalam satu rantai nilai ekonomi sirkular yang tepercaya — dari hulu ke hilir.",
+    "ekosistemLabel": "Ekosistem Terpadu",
+    "ekosistemTitle": "Menghubungkan edukasi, pengolahan, inovasi, dan digitalisasi.",
+    "ekosistemDesc": "Baciraro dirancang untuk menyelesaikan problem lingkungan dengan pendekatan sirkular yang inklusif, menghubungkan program komunitas secara langsung ke offtaker industri.",
+    "ekosistemItems": [
+      "Menghubungkan pengelolaan sampah dari komunitas ke industri.",
+      "Mendorong circular economy dengan pendekatan yang terukur.",
+      "Menyediakan dashboard dan jejak dampak yang transparan.",
+      "Mendukung kolaborasi CSR, pemerintah, dan desa."
+    ],
+    "visi": "Visi",
+    "visiDesc": "Menjadi ekosistem circular economy terdepan yang mengubah sampah menjadi nilai ekonomi, sosial, dan lingkungan secara berkelanjutan untuk Indonesia dan dunia.",
+    "misi": "Misi",
+    "misiDesc": "Membangun sistem pengelolaan sampah terintegrasi melalui edukasi, daur ulang, pemberdayaan masyarakat, program kreatif, dan digital tracking untuk menciptakan dampak yang terukur dan transparan.",
+    "nilaiLabel": "Nilai Kami",
+    "nilaiTitle": "Prinsip yang menggerakkan setiap langkah.",
+    "timelineLabel": "Perjalanan",
+    "timelineTitle": "Setiap langkah adalah",
+    "timelineTitleItalic": "cerita.",
+    "kolaborasiLabel": "Kolaborasi",
+    "kolaborasiTitle": "Tertarik untuk berkolaborasi?",
+    "kolaborasiDesc": "Kami terbuka untuk diskusi kemitraan, implementasi CSR, dan program lingkungan bersama.",
+    "hubungiKami": "Hubungi Kami",
+    "lihatLeadership": "Lihat Leadership"
+  },
+  "contact": {
+    "label": "Hubungi Kami",
+    "heroTitle": "Mari",
+    "heroTitleItalic": "bicara.",
+    "heroDesc": "Punya ide kolaborasi, program CSR, atau ingin tahu lebih lanjut tentang Baciraro? Kami siap mendengar.",
+    "emailCard": "Email Resmi",
+    "kirimEmail": "Kirim Email",
+    "waCard": "WhatsApp / Telepon",
+    "hubungi": "Hubungi",
+    "lokasiCard": "Lokasi",
+    "sosmedLabel": "Media Sosial",
+    "sosmedTitle": "Ikuti perjalanan kami.",
+    "sosmedDesc": "Dapatkan update terbaru tentang program, edukasi, dan dampak Baciraro melalui media sosial.",
+    "formTitle": "Atau kirim pesan langsung",
+    "formDesc": "Isi form di bawah dan tim kami akan menghubungi Anda.",
+    "formNama": "Nama",
+    "formEmail": "Email",
+    "formPesan": "Pesan Anda",
+    "kirimPesan": "Kirim Pesan",
+    "ctaLabel": "Siap Bergerak",
+    "ctaTitle": "Bersama kita ciptakan dampak nyata.",
+    "ctaDesc": "Setiap langkah kolaborasi adalah investasi untuk masa depan yang lebih sirkular dan berkelanjutan.",
+    "hubungiWA": "Hubungi via WhatsApp",
+    "kembaliBeranda": "Kembali ke Beranda"
+  },
+  "creative": {
+    "tontonVideo": "Tonton Video",
+    "jelajahiBudaya": "Jelajahi budaya",
+    "powering": "Powering the best teams",
+    "budayaLabel": "Budaya Minahasa",
+    "descTitle": "Kawasaran bukan sekadar tari, ia adalah napas keberanian.",
+    "descBody": "Setiap hentak langkah menyalakan ingatan, martabat, dan akar tradisi Minahasa. Di dalamnya ada disiplin, penghormatan pada leluhur, dan bahasa visual yang kuat untuk presentasi budaya.",
+    "warisanTitle": "Warisan gerak yang lahir dari keberanian.",
+    "warisanSubtitle": "Hari ini tetap hidup sebagai wajah budaya Sulawesi Utara.",
+    "bacaMakna": "Baca maknanya",
+    "navAsal": "Asal-usul",
+    "navMakna": "Makna",
+    "navGerakan": "Gerakan",
+    "navBusana": "Busana",
+    "navWarisan": "Warisan",
+    "featureCaption": "Gagah, sakral, dan berakar."
+  },
+  "orders": {
+    "label": "ORDERS",
+    "slide01Label": "01 — Who We Are",
+    "slide01Title": "Tech for",
+    "slide01Title2": "Circular",
+    "slide01Title3": "Future",
+    "slide01Desc": "Komunitas pengembang teknologi yang mendukung digitalisasi pengelolaan sampah dalam ekosistem Baciraro dengan inovasi, kolaborasi, dan keahlian tinggi.",
+    "slide02Label": "02 — The Mission",
+    "slide02Title": "Digital",
+    "slide02Title2": "Solidarity &",
+    "slide02Title3": "Trust",
+    "slide03Label": "03 — Products",
+    "slide03Title": "Sistem Digital Tangguh",
+    "slide03Desc": "Platform digital yang memantau data operasional circular economy ekosistem Baciraro secara berkala.",
+    "slide04Label": "04 — Solutions & Vision",
+    "slide04Title": "Platform",
+    "slide04Title2": "Digital",
+    "slide04Title3": "Waste",
+    "slide05Label": "05 — Join Us",
+    "slide05Title": "Ready to",
+    "slide05Title2": "Collaborate?",
+    "slide05Desc": "Kami menyambut kolaborasi dengan para pengembang, desainer, dan wirausahawan sosial yang bersemangat untuk memajukan transformasi teknologi hijau.",
+    "hubungiKami": "Hubungi Kami",
+    "kembaliEkosistem": "Kembali ke Ekosistem",
+    "visiKeberlanjutan": "Visi Keberlanjutan",
+    "visiDigitalisasi": "Visi Digitalisasi"
+  },
+  "tananyiurlestari": {
+    "label": "Yayasan TNL",
+    "heroTitle": "Membangun Kesadaran Lingkungan dari Masyarakat",
+    "heroDesc": "Lembaga edukasi lingkungan yang berfokus pada pemberdayaan masyarakat melalui program pengelolaan sampah berkelanjutan dan inovasi sosial.",
+    "lihatProgram": "Lihat Program",
+    "lihatDampak": "Lihat Dampak",
+    "tentangLabel": "Tentang Yayasan",
+    "programLabel": "Program Unggulan",
+    "programTitle": "Aksi Nyata untuk Lingkungan",
+    "programDesc": "Tiga program utama yang kami jalankan untuk memberdayakan masyarakat dalam pengelolaan sampah secara terpadu.",
+    "dampakTitle": "Dampak Sosial & Lingkungan",
+    "ctaTitle": "Bergabung dan Berkolaborasi",
+    "ctaDesc": "Kami terbuka untuk kemitraan, kolaborasi, dan aksi bersama dalam memperluas jangkauan program pengelolaan lingkungan hidup terpadu.",
+    "hubungiKami": "Hubungi Kami",
+    "kembaliEkosistem": "Kembali ke Ekosistem"
+  },
+  "trashrecyclecenter": {
+    "label": "Recycle Center",
+    "heroTitle": "Mengubah Sampah Menjadi Sumber Daya Bernilai",
+    "heroDesc": "Unit usaha daur ulang yang berperan sebagai offtaker dan pengolah sampah menjadi bahan baku berkualitas untuk industri kreatif dan manufaktur.",
+    "lihatProses": "Lihat Proses",
+    "lihatOutput": "Lihat Output",
+    "komoditasLabel": "Komoditas Pengolahan",
+    "komoditasTitle": "Jenis Sampah yang Kami Proses",
+    "komoditasDesc": "Kami menangani berbagai jenis sampah dengan teknologi dan proses pemilahan yang terstandar.",
+    "alurLabel": "Alur Operasional",
+    "alurTitle": "Proses Kerja Daur Ulang",
+    "outputTitle": "Output & Dampak Keberlanjutan",
+    "ctaTitle": "Kerja Sama Pengelolaan Sampah",
+    "ctaDesc": "Kami membuka peluang kerjasama untuk industri, pemerintah, dan komunitas dalam pengelolaan sampah secara profesional dan bernilai tambah.",
+    "hubungiKami": "Hubungi Kami",
+    "kembaliEkosistem": "Kembali ke Ekosistem"
+  },
+  "elmast": {
+    "label": "ELMAST Greenovasi",
+    "heroTitle": "Mengubah Sampah Organik Menjadi Energi",
+    "heroDesc": "Teknologi inovatif pengolahan sampah organik menjadi biogas, kompos, dan pupuk organik cair berkualitas tinggi untuk kelestarian tanah dan kemandirian energi.",
+    "lihatTeknologi": "Lihat Teknologi",
+    "lihatManfaat": "Lihat Manfaat",
+    "teknologiTitle": "Tentang Teknologi ELMAST",
+    "dokumentasiLabel": "Dokumentasi Kegiatan",
+    "dokumentasiTitle": "Galeri Aksi Lapangan",
+    "dokumentasiDesc": "Aktivitas implementasi pengolahan sampah organik menjadi energi hijau dan pupuk berkelanjutan bersama komunitas.",
+    "produkLabel": "Hasil Pengolahan",
+    "produkTitle": "Produk Unggulan",
+    "produkDesc": "Tiga produk utama yang lahir dari fasilitas teknologi ramah lingkungan ELMAST.",
+    "solusiLabel": "Solusi Masalah",
+    "solusiTitle": "Ruang Lingkup Solusi",
+    "manfaatTitle": "Manfaat & Dampak Nyata",
+    "ctaTitle": "Implementasi Teknologi ELMAST",
+    "ctaDesc": "Kami siap memfasilitasi implementasi instalasi biogas terintegrasi dan sistem pupuk hayati berkelanjutan di lokasi Anda.",
+    "hubungiKami": "Hubungi Kami",
+    "kembaliEkosistem": "Kembali ke Ekosistem",
+    "tutup": "Tutup"
+  },
+  "leadership": {
+    "label": "Leadership",
+    "heroTitle": "Leadership Team",
+    "heroDesc": "Tim kepemimpinan Baciraro yang berdedikasi untuk mendorong inovasi, memperkuat kolaborasi, dan menciptakan dampak berkelanjutan bagi masyarakat dan lingkungan.",
+    "valueInovasi": "Inovasi",
+    "valueKolaborasi": "Kolaborasi",
+    "valueIntegritas": "Integritas",
+    "valueKeberlanjutan": "Keberlanjutan",
+    "footerCredit": "Baciraro — Leadership Team"
+  }
+}

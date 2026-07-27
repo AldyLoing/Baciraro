@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baciraro — Leadership Team</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --black: #000000;
+      --midnight: #050805;
+      --white: #fafafa;
+      --off-white: #e8e8e8;
+      --gray-300: #a3a3a3;
+      --gray-400: #888;
+      --gray-500: #666;
+      --emerald-400: #34d399;
+      --emerald-500: #10b981;
+      --emerald-600: #059669;
+      --emerald-900: #064e3b;
+      --emerald-950: #022c22;
+      --coral: #f87171;
+      --glass: rgba(255, 255, 255, 0.04);
+      --glass-border: rgba(255, 255, 255, 0.07);
+      --glass-border-hover: rgba(255, 255, 255, 0.12);
+      --glow-emerald: rgba(16, 185, 129, 0.12);
+      --glow-emerald-strong: rgba(16, 185, 129, 0.2);
+      --glow-coral: rgba(248, 113, 113, 0.1);
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 28px;
+      --radius-xl: 36px;
+      --font-serif: 'Instrument Serif', serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .noise-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.08;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 260 260' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='0.75'/%3E%3C/svg%3E");
+      background-size: 260px 260px;
+    }
+
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 70% 50% at 20% 15%, rgba(16, 185, 129, 0.10), transparent 60%),
+        radial-gradient(ellipse 50% 40% at 80% 25%, rgba(248, 113, 113, 0.05), transparent 50%),
+        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(16, 185, 129, 0.06), transparent 60%),
+        radial-gradient(ellipse 80% 50% at 30% 75%, rgba(16, 185, 129, 0.04), transparent 50%),
+        radial-gradient(ellipse 50% 40% at 70% 85%, rgba(248, 113, 113, 0.03), transparent 50%),
+        linear-gradient(180deg, var(--black) 0%, var(--midnight) 100%);
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ===== HERO ===== */
+    .page-hero {
+      padding: 80px 0 40px;
+      text-align: center;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--emerald-400);
+    }
+
+    .section-label::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--emerald-400);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .page-hero h1 {
+      margin-top: 20px;
+      font-family: var(--font-serif);
+      font-size: clamp(48px, 7vw, 88px);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      color: var(--white);
+    }
+
+    .page-hero .subtitle {
+      margin-top: 16px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--gray-300);
+      line-height: 1.7;
+    }
+
+    /* ===== CEO SECTION ===== */
+    .ceo-section {
+      padding: 40px 0 80px;
+    }
+
+    .ceo-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 48px 40px;
+      border-radius: var(--radius-xl);
+      background: radial-gradient(ellipse 80% 60% at 30% 40%, rgba(16, 185, 129, 0.06), transparent 70%),
+                  rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(16, 185, 129, 0.15);
+      backdrop-filter: blur(20px);
+      box-shadow:
+        0 0 80px rgba(16, 185, 129, 0.06),
+        0 0 160px rgba(16, 185, 129, 0.04),
+        inset 0 0 80px rgba(16, 185, 129, 0.02);
+    }
+
+    .ceo-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), transparent 40%, transparent 60%, rgba(248, 113, 113, 0.10));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    @media (min-width: 900px) {
+      .ceo-card {
+        grid-template-columns: 340px 1fr;
+        align-items: start;
+        padding: 60px 56px;
+      }
+    }
+
+    .ceo-photo-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+    }
+
+    .ceo-photo-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .ceo-photo-wrapper:hover img {
+      transform: scale(1.04);
+    }
+
+    .ceo-photo-wrapper::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    .ceo-role-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 8px;
+    }
+
+    .ceo-name {
+      font-family: var(--font-serif);
+      font-size: clamp(40px, 5vw, 64px);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--white);
+    }
+
+    .ceo-subtitle {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-style: italic;
+      color: var(--emerald-400);
+      margin-top: 8px;
+    }
+
+    .ceo-bio {
+      margin-top: 20px;
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--gray-300);
+      max-width: 560px;
+    }
+
+    .ceo-bio p + p {
+      margin-top: 12px;
+    }
+
+    .ceo-contacts {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      color: var(--gray-400);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .icon-btn:hover {
+      color: var(--coral);
+      border-color: rgba(248, 113, 113, 0.25);
+      background: rgba(248, 113, 113, 0.06);
+    }
+
+    .icon-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .icon-btn--email svg {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    /* ===== DIVISION SECTION ===== */
+    .division-section {
+      padding: 64px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .division-section-inner {
+      display: grid;
+      gap: 48px;
+    }
+
+    @media (min-width: 1024px) {
+      .division-section-inner {
+        grid-template-columns: 340px 1fr;
+        gap: 56px;
+      }
+    }
+
+    /* Leader Card (Division) */
+    .leader-card {
+      position: relative;
+      padding: 32px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .leader-card:hover {
+      border-color: var(--glass-border-hover);
+      box-shadow: 0 0 40px rgba(16, 185, 129, 0.04);
+    }
+
+    .leader-photo-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+      margin-bottom: 20px;
+    }
+
+    .leader-photo-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .leader-photo-wrapper:hover img {
+      transform: scale(1.04);
+    }
+
+    .leader-photo-wrapper::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 35%);
+      pointer-events: none;
+    }
+
+    .leader-role-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 4px;
+    }
+
+    .leader-name {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--white);
+    }
+
+    .leader-subtitle {
+      font-size: 13px;
+      color: var(--gray-400);
+      margin-top: 4px;
+    }
+
+    .leader-contacts {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .leader-contacts .icon-btn {
+      width: 34px;
+      height: 34px;
+    }
+
+    .leader-contacts .icon-btn svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    /* ===== MEMBERS SECTION ===== */
+    .members-side {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .division-heading {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--emerald-400);
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .members-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .members-grid--3 {
+      grid-template-columns: 1fr;
+    }
+
+    .members-grid--2 {
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 600px) {
+      .members-grid--3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .members-grid--2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 900px) {
+      .members-grid--3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .member-card {
+      position: relative;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .member-card:hover {
+      border-color: var(--glass-border-hover);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .member-photo-wrapper {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .member-photo-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .member-card:hover .member-photo-wrapper img {
+      transform: scale(1.04);
+    }
+
+    .member-photo-wrapper::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    .member-info {
+      padding: 16px 18px 20px;
+    }
+
+    .member-name {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.2;
+    }
+
+    .member-role {
+      font-size: 12px;
+      color: var(--gray-400);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .member-contacts {
+      display: flex;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .member-contacts .icon-btn {
+      width: 30px;
+      height: 30px;
+    }
+
+    .member-contacts .icon-btn svg {
+      width: 13px;
+      height: 13px;
+    }
+
+    /* Member placeholder (no photo) */
+    .member-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.06), rgba(5, 8, 5, 0.9));
+      font-family: var(--font-serif);
+      font-size: 36px;
+      color: var(--emerald-400);
+      opacity: 0.6;
+    }
+
+    .leader-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 8, 5, 0.9));
+      font-family: var(--font-serif);
+      font-size: 48px;
+      color: var(--emerald-400);
+      opacity: 0.6;
+    }
+
+    /* Divider */
+    .divider-line {
+      display: none;
+    }
+
+    @media (min-width: 1024px) {
+      .divider-line {
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 10%;
+        bottom: 10%;
+        width: 1px;
+        background: linear-gradient(to bottom, transparent, rgba(16, 185, 129, 0.12), transparent);
+      }
+    }
+
+    /* ===== FOOTER ===== */
+    .footer-section {
+      padding: 80px 0 60px;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      text-align: center;
+    }
+
+    .quote-card {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 40px;
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+      position: relative;
+    }
+
+    .quote-card::before {
+      content: '\201C';
+      position: absolute;
+      top: 8px;
+      left: 24px;
+      font-family: var(--font-serif);
+      font-size: 80px;
+      line-height: 1;
+      color: rgba(16, 185, 129, 0.1);
+      pointer-events: none;
+    }
+
+    .quote-text {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--off-white);
+    }
+
+    .baciraro-brand {
+      margin-top: 48px;
+    }
+
+    .baciraro-brand .brand-name {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+
+    .baciraro-brand .brand-tagline {
+      font-size: 13px;
+      color: var(--emerald-400);
+      margin-top: 4px;
+    }
+
+    .brand-values {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .brand-values span {
+      padding: 6px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(16, 185, 129, 0.12);
+      background: rgba(16, 185, 129, 0.04);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--emerald-400);
+      letter-spacing: 0.06em;
+    }
+
+    .footer-divider {
+      width: 60px;
+      height: 1px;
+      background: rgba(16, 185, 129, 0.15);
+      margin: 24px auto;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--gray-500);
+      margin-top: 20px;
+    }
+
+    /* ===== UTILITY ===== */
+    @media (max-width: 600px) {
+      .ceo-card { padding: 28px 20px; }
+      .leader-card { padding: 24px 20px; }
+      .quote-card { padding: 32px 24px; }
+      .members-grid--3, .members-grid--2 { gap: 16px; }
+      .container { padding: 0 16px; }
+      .quote-text { font-size: 18px; }
+    }
+
+    .emerald-glow {
+      color: var(--emerald-400);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="noise-overlay"></div>
+  <div class="bg-glow"></div>
+
+  <!-- ===== HERO ===== -->
+  <div class="container">
+    <section class="page-hero">
+      <div class="section-label">Leadership</div>
+      <h1>Leadership Team</h1>
+      <p class="subtitle">
+        Tim kepemimpinan Baciraro yang berdedikasi untuk mendorong inovasi, memperkuat kolaborasi, dan menciptakan dampak berkelanjutan bagi masyarakat dan lingkungan.
+      </p>
+    </section>
+
+    <!-- ===== CEO ===== -->
+    <section class="ceo-section">
+      <div class="ceo-card">
+        <div class="ceo-photo-wrapper">
+          <img src="public/Marlon.png" alt="Marlon Kamagi" />
+        </div>
+        <div>
+          <div class="ceo-role-badge">Chief Executive Officer (CEO)</div>
+          <h2 class="ceo-name">Marlon Kamagi</h2>
+          <p class="ceo-subtitle">Community Development Worker</p>
+          <div class="ceo-bio">
+            <p>
+              Salah seorang Climate Leader pada The Climate Reality Project Indonesia dengan aktivitas mengkampanyekan realitas iklim akibat pemanasan global. Vibrant Fasilitator untuk membangun komunitas menuju keagungan insani dan kemaslahatan bersama.
+            </p>
+            <p>
+              Dengan teknik fasilitasi yang inovatif dan vibrant communication skill, Marlon memudahkan dalam membangun antusias dan mentransfer pengetahuan kepada komunitas.
+            </p>
+          </div>
+          <div class="ceo-contacts">
+            <a class="icon-btn" href="http://id.linkedin.com/pub/marlon-kamagi/1b/389/437/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <a class="icon-btn icon-btn--email" href="mailto:marlonkamagi@outlook.com" aria-label="Email">
+              <svg viewBox="0 0 24 24"><path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.42l-9 5.4-9-5.4V6l9 5.4L21 6v2.42z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BUSINESS & DEVELOPMENT ===== -->
+    <section class="division-section">
+      <div class="division-section-inner" >
+        <div class="leader-card">
+          <div class="leader-photo-wrapper">
+            <img src="public/Nobel Andrew Andries.png" alt="Nobel Andrew Andries" />
+          </div>
+          <div class="leader-role-badge">Chief Business &amp; Development Officer</div>
+          <div class="leader-name">Nobel Andrew Andries</div>
+          <div class="leader-subtitle">Independent Financial &amp; Business Analyst</div>
+          <div class="leader-contacts">
+            <a class="icon-btn" href="https://www.linkedin.com/in/nobel-andrew-andries-34abb386/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <a class="icon-btn icon-btn--email" href="mailto:nobel@baciraro.com" aria-label="Email">
+              <svg viewBox="0 0 24 24"><path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.42l-9 5.4-9-5.4V6l9 5.4L21 6v2.42z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="members-side">
+          <div class="division-heading">Business &amp; Development Division</div>
+          <div class="members-grid members-grid--3">
+            <!-- Natasya -->
+            <div class="member-card">
+              <div class="member-photo-wrapper" >
+                <div class="member-placeholder">NL</div>
+              </div>
+              <div class="member-info">
+                <div class="member-name">Natasya Lumingkewas</div>
+                <div class="member-role">Finance &amp; Administration Officer</div>
+                <div class="member-contacts">
+                  <a class="icon-btn" href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                  <a class="icon-btn icon-btn--email" href="mailto:natasya@baciraro.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.42l-9 5.4-9-5.4V6l9 5.4L21 6v2.42z"/></svg></a>
+                </div>
+              </div>
+            </div>
+            <!-- Faith -->
+            <div class="member-card">
+              <div class="member-photo-wrapper" >
+                <div class="member-placeholder">FA</div>
+              </div>
+              <div class="member-info">
+                <div class="member-name">Faith Alexander</div>
+                <div class="member-role">Public Relations &amp; Community Engagement Officer</div>
+                <div class="member-contacts">
+                  <a class="icon-btn" href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                  <a class="icon-btn icon-btn--email" href="mailto:faith@baciraro.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.42l-9 5.4-9-5.4V6l9 5.4L21 6v2.42z"/></svg></a>
+                </div>
+              </div>
+            </div>
+            <!-- Dante -->
+            <div class="member-card">
+              <div class="member-photo-wrapper" >
+                <div class="member-placeholder">DK</div>
+              </div>
+              <div class="member-info">
+                <div class="member-name">Dante</div>
+                <div class="member-role">Business Development Officer</div>
+                <div class="member-contacts">
+                  <a class="icon-btn" href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                  <a class="icon-btn icon-btn--email" href="mailto:dante@baciraro.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.42l-9 5.4-9-5.4V6l9 5.4L21 6v2.42z"/></svg></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TECHNOLOGY ===== -->
+    <section class="division-section">
+      <div class="division-section-inner" >
+        <div class="leader-card">
+          <div class="leader-photo-wrapper" >
+            <img src="public/Aldy Loing.png" alt="Aldy Loing" />
+          </div>
+          <div class="leader-role-badge">Chief Technology Officer (CTO)</div>
+          <div class="leader-name">Aldy Loing</div>
+          <div class="leader-subtitle">Software Engineer &amp; Digital Architect</div>
+          <div class="leader-contacts">
+            <a class="icon-btn" href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <a class="icon-btn icon-btn--email" href="mailto:aldy@baciraro.com" aria-label="Email">
+              <svg viewBox="0 0 24 24"><path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.42l-9 5.4-9-5.4V6l9 5.4L21 6v2.42z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="members-side">
+          <div class="division-heading">Technology Division</div>
+          <div class="members-grid members-grid--3">
+            <!-- Kevin -->
+            <div class="member-card">
+              <div class="member-photo-wrapper" >
+                <div class="member-placeholder">KP</div>
+              </div>
+              <div class="member-info">
+                <div class="member-name">Kevin Pesik</div>
+                <div class="member-role">Lead Software Engineer &amp; AI Architect</div>
+                <div class="member-contacts">
+                  <a class="icon-btn" href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                  <a class="icon-btn icon-btn--email" href="mailto:kevin@baciraro.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.42l-9 5.4-9-5.4V6l9 5.4L21 6v2.42z"/></svg></a>
+                </div>
+              </div>
+            </div>
+            <!-- Jazel -->
+            <div class="member-card">
+              <div class="member-photo-wrapper" >
+                <div class="member-placeholder">JK</div>
+              </div>
+              <div class="member-info">
+                <div class="member-name">Jazel Kandou</div>
+                <div class="member-role">Software Developer</div>
+                <div class="member-contacts">
+                  <a class="icon-btn" href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                  <a class="icon-btn icon-btn--email" href="mailto:jazel@baciraro.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.42l-9 5.4-9-5.4V6l9 5.4L21 6v2.42z"/></svg></a>
+                </div>
+              </div>
+            </div>
+            <!-- Given -->
+            <div class="member-card">
+              <div class="member-photo-wrapper" >
+                <div class="member-placeholder">GT</div>
+              </div>
+              <div class="member-info">
+                <div class="member-name">Given Tambalean</div>
+                <div class="member-role">Product Innovation &amp; Digital Creative Officer</div>
+                <div class="member-contacts">
+                  <a class="icon-btn" href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                  <a class="icon-btn icon-btn--email" href="mailto:given@baciraro.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.42l-9 5.4-9-5.4V6l9 5.4L21 6v2.42z"/></svg></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== OPERATIONS & COMMUNICATIONS ===== -->
+    <section class="division-section">
+      <div class="division-section-inner" >
+        <div class="leader-card">
+          <div class="leader-photo-wrapper" >
+            <img src="public/Clay.png" alt="Clay Lalamentik" />
+          </div>
+          <div class="leader-role-badge">Chief Operating Officer (COO)</div>
+          <div class="leader-name">Clay Lalamentik</div>
+          <div class="leader-subtitle">Operational &amp; Supply Chain Strategist</div>
+          <div class="leader-contacts">
+            <a class="icon-btn" href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <a class="icon-btn icon-btn--email" href="mailto:clay@baciraro.com" aria-label="Email">
+              <svg viewBox="0 0 24 24"><path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.42l-9 5.4-9-5.4V6l9 5.4L21 6v2.42z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="members-side">
+          <div class="division-heading">Operations &amp; Communications Division</div>
+          <div class="members-grid members-grid--3">
+            <!-- Rizky -->
+            <div class="member-card">
+              <div class="member-photo-wrapper" >
+                <div class="member-placeholder">RM</div>
+              </div>
+              <div class="member-info">
+                <div class="member-name">Rizky Mema</div>
+                <div class="member-role">Digital Content &amp; Media Officer</div>
+                <div class="member-contacts">
+                  <a class="icon-btn" href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                  <a class="icon-btn icon-btn--email" href="mailto:rizky@baciraro.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.42l-9 5.4-9-5.4V6l9 5.4L21 6v2.42z"/></svg></a>
+                </div>
+              </div>
+            </div>
+            <!-- Friestha -->
+            <div class="member-card">
+              <div class="member-photo-wrapper" >
+                <div class="member-placeholder">FA</div>
+              </div>
+              <div class="member-info">
+                <div class="member-name">Friestha Arikalang</div>
+                <div class="member-role">Administration &amp; Documentation Officer</div>
+                <div class="member-contacts">
+                  <a class="icon-btn" href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                  <a class="icon-btn icon-btn--email" href="mailto:friestha@baciraro.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.42l-9 5.4-9-5.4V6l9 5.4L21 6v2.42z"/></svg></a>
+                </div>
+              </div>
+            </div>
+            <!-- Giordyano -->
+            <div class="member-card">
+              <div class="member-photo-wrapper" >
+                <div class="member-placeholder">GA</div>
+              </div>
+              <div class="member-info">
+                <div class="member-name">Giordyano Anhar</div>
+                <div class="member-role">Creative Design &amp; Media Officer</div>
+                <div class="member-contacts">
+                  <a class="icon-btn" href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                  <a class="icon-btn icon-btn--email" href="mailto:giordyano@baciraro.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.42l-9 5.4-9-5.4V6l9 5.4L21 6v2.42z"/></svg></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TECHNICAL ===== -->
+    <section class="division-section">
+      <div class="division-section-inner" >
+        <div class="leader-card">
+          <div class="leader-photo-wrapper" >
+            <div class="leader-placeholder">OK</div>
+          </div>
+          <div class="leader-role-badge">Technical Director</div>
+          <div class="leader-name">Owen Kalumata</div>
+          <div class="leader-subtitle">Technical Operations &amp; Systems Lead</div>
+          <div class="leader-contacts">
+            <a class="icon-btn" href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <a class="icon-btn icon-btn--email" href="mailto:owen@baciraro.com" aria-label="Email">
+              <svg viewBox="0 0 24 24"><path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.42l-9 5.4-9-5.4V6l9 5.4L21 6v2.42z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="members-side">
+          <div class="division-heading">Technical Division</div>
+          <div class="members-grid members-grid--2">
+            <!-- Jemsi -->
+            <div class="member-card">
+              <div class="member-photo-wrapper" >
+                <div class="member-placeholder">JI</div>
+              </div>
+              <div class="member-info">
+                <div class="member-name">Jemsi Indrakusuma</div>
+                <div class="member-role">Technical Operations Engineer</div>
+                <div class="member-contacts">
+                  <a class="icon-btn" href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                  <a class="icon-btn icon-btn--email" href="mailto:jemsi@baciraro.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.42l-9 5.4-9-5.4V6l9 5.4L21 6v2.42z"/></svg></a>
+                </div>
+              </div>
+            </div>
+            <!-- Calvin -->
+            <div class="member-card">
+              <div class="member-photo-wrapper" >
+                <div class="member-placeholder">CK</div>
+              </div>
+              <div class="member-info">
+                <div class="member-name">Calvin Kakase</div>
+                <div class="member-role">Technical &amp; Systems Engineer</div>
+                <div class="member-contacts">
+                  <a class="icon-btn" href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                  <a class="icon-btn icon-btn--email" href="mailto:calvin@baciraro.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.42l-9 5.4-9-5.4V6l9 5.4L21 6v2.42z"/></svg></a>
+                </div>
+              </div>
+            </div>
+            <!-- Hizkia -->
+            <div class="member-card">
+              <div class="member-photo-wrapper" >
+                <div class="member-placeholder">HK</div>
+              </div>
+              <div class="member-info">
+                <div class="member-name">Hizkia Kamagi</div>
+                <div class="member-role">Technical Support Engineer</div>
+                <div class="member-contacts">
+                  <a class="icon-btn" href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                  <a class="icon-btn icon-btn--email" href="mailto:hizkia@baciraro.com" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M21 4H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4.42l-9 5.4-9-5.4V6l9 5.4L21 6v2.42z"/></svg></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer-section">
+      <div class="quote-card">
+        <p class="quote-text">Kami percaya bahwa kolaborasi, inovasi, dan integritas adalah kunci untuk menciptakan perubahan nyata.</p>
+      </div>
+
+      <div class="baciraro-brand">
+        <div class="brand-name">Baciraro</div>
+        <div class="brand-tagline">The Green Observatory</div>
+        <div class="footer-divider"></div>
+        <div class="brand-values">
+          <span>Inovasi</span>
+          <span>Kolaborasi</span>
+          <span>Integritas</span>
+          <span>Keberlanjutan</span>
+        </div>
+      </div>
+
+      <p class="footer-copy">Baciraro &mdash; Leadership Team</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
