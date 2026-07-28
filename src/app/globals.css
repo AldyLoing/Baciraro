@@ -8,6 +8,10 @@
   --foreground: #fafafa;
   --muted: #1f1f1f;
   --primary: #f87171;
+  --brand-terracotta: #C44A3A;
+  --brand-orange: #D97A2B;
+  --brand-gold: #F2D479;
+  --brand-green: #6FAF4F;
   --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -17,6 +21,10 @@
   --color-muted: var(--muted);
   --color-primary: var(--primary);
   --color-primary-text: var(--foreground);
+  --color-brand-terracotta: var(--brand-terracotta);
+  --color-brand-orange: var(--brand-orange);
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-green: var(--brand-green);
 }
 
 * {

@@ -1,350 +1,454 @@
 "use client";
 
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Check, Play, X } from "lucide-react";
+import Link from "next/link";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { ArrowRight, Calendar, MapPin, ChevronDown, Sparkles, Target, Recycle } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/context";
-import { useEffect, useRef, useState, type RefObject } from "react";
-import { LogoCloud } from "@/components/ui/logo-cloud-2";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
-const featureCards = [
-  { number: "01", icon: "/lg.png", itemCount: 4 },
-  { number: "02", icon: "/pic.png", itemCount: 3 },
-  { number: "03", icon: "/pic.png", itemCount: 3 },
+type Product = {
+  id: number;
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  image_url: string;
+};
+
+const EVENT_DATE = new Date("2026-08-01T00:00:00+08:00");
+
+function calcRemaining() {
+  const diff = EVENT_DATE.getTime() - Date.now();
+  if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  return {
+    days: Math.floor(diff / 86400000),
+    hours: Math.floor((diff % 86400000) / 3600000),
+    minutes: Math.floor((diff % 3600000) / 60000),
+    seconds: Math.floor((diff % 60000) / 1000),
+  };
+}
+
+const categoryAccent: Record<string, string> = {
+  plastic: "border-blue-500/20 bg-blue-500/10 text-blue-400",
+  organic: "border-emerald-500/20 bg-emerald-500/10 text-emerald-400",
+  craft: "border-amber-500/20 bg-amber-500/10 text-amber-400",
+  digital: "border-purple-500/20 bg-purple-500/10 text-purple-400",
+};
+
+const rundownTimes = [
+  "08.30\u201309.00", "09.00\u201309.15", "09.15\u201309.25", "09.25\u201309.55",
+  "09.55\u201312.00", "12.00\u201313.00", "13.00\u201314.00", "14.00\u201314.15",
+  "14.15\u201314.30", "14.30\u201314.45", "14.45\u201315.00", "15.00\u2013",
 ];
 
 export default function CreativePage() {
   const { t } = useLanguage();
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
-  const heroVideoRef = useRef<HTMLVideoElement | null>(null);
-  const tributeVideoRef = useRef<HTMLVideoElement | null>(null);
-  const featureVideoRef = useRef<HTMLVideoElement | null>(null);
-  const heroRef = useRef<HTMLDivElement | null>(null);
+  const [cd, setCd] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showDetail, setShowDetail] = useState(false);
+  const heroRef = useRef<HTMLDivElement>(null);
 
-  const { scrollYProgress: heroProgress } = useScroll({
+  const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
-  const imageParallaxY = useTransform(heroProgress, [0, 1], ["0%", "80%"]);
-  const imageParallaxRotate = useTransform(heroProgress, [0, 1], [0, -15]);
-  const videoParallaxY = useTransform(heroProgress, [0, 1], ["0%", "-65%"]);
-  const videoParallaxRotate = useTransform(heroProgress, [0, 1], [0, 14]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   useEffect(() => {
-    const playVideos = () => {
-      const videos = [heroVideoRef.current, tributeVideoRef.current, featureVideoRef.current].filter(
-        Boolean,
-      ) as HTMLVideoElement[];
-
-      videos.forEach((video) => {
-        video.defaultMuted = true;
-        video.muted = true;
-        video.volume = 0;
-        void video.play().catch(() => {
-          // Ignore autoplay rejections; they can be retried after a gesture.
-        });
-      });
-    };
-
-    playVideos();
-
-    const retryPlay = () => playVideos();
-    window.addEventListener("pointerdown", retryPlay, { once: true });
-    window.addEventListener("keydown", retryPlay, { once: true });
-
-    return () => {
-      window.removeEventListener("pointerdown", retryPlay);
-      window.removeEventListener("keydown", retryPlay);
-    };
+    setCd(calcRemaining());
+    const id = setInterval(() => setCd(calcRemaining()), 1000);
+    return () => clearInterval(id);
   }, []);
 
   useEffect(() => {
-    const video = featureVideoRef.current;
-    if (!video) {
-      return;
-    }
-
-    video.muted = true;
-    video.defaultMuted = true;
-    void video.play().catch(() => {
-      // Silently tolerate autoplay restrictions.
-    });
-
-    const handleLoadedData = () => {
-      video.muted = true;
-      video.volume = 0;
-    };
-
-    video.addEventListener("loadeddata", handleLoadedData);
-    return () => video.removeEventListener("loadeddata", handleLoadedData);
+    fetch("/api/products")
+      .then((r) => r.json())
+      .then((data) => {
+        const items: Product[] = data?.products || data || [];
+        setProducts(items.slice(0, 6));
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, []);
 
-  const handleVideoClick = (videoRef: RefObject<HTMLVideoElement | null>) => {
-    if (!videoRef.current) {
-      return;
-    }
+  const cdItems = [
+    { value: cd.days, label: t("creative.countdownDays") },
+    { value: cd.hours, label: t("creative.countdownHours") },
+    { value: cd.minutes, label: t("creative.countdownMinutes") },
+    { value: cd.seconds, label: t("creative.countdownSeconds") },
+  ];
 
-    [heroVideoRef, tributeVideoRef, featureVideoRef].forEach((ref) => {
-      if (ref.current) {
-        ref.current.muted = true;
-        ref.current.volume = 0;
-      }
-    });
-
-    videoRef.current.muted = false;
-    videoRef.current.volume = 1;
-    void videoRef.current.play();
-  };
+  const prinsip = Array.from({ length: 5 }, (_, i) => t(`creative.eventPrinsip.${i}`));
+  const rundownItems = Array.from({ length: 12 }, (_, i) => t(`creative.rundown.${i}`));
 
   return (
     <main className="relative overflow-hidden text-primary-text min-h-screen">
       <div aria-hidden="true" className="page-bg" />
       <div className="relative z-[1]">
-      <section ref={heroRef} className="h-screen p-4 md:p-6">
-        <div className="relative h-full overflow-hidden rounded-[3rem] md:rounded-[5rem]">
+
+        {/* ───── SECTION 1: HERO + COUNTDOWN ───── */}
+        <section ref={heroRef} className="relative h-screen overflow-hidden">
           <video
-            ref={heroVideoRef}
             src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            onClick={() => handleVideoClick(heroVideoRef)}
-            className="absolute inset-0 h-full w-full cursor-pointer rounded-[3rem] object-cover md:rounded-[5rem]"
+            autoPlay loop muted playsInline preload="auto"
+            className="absolute inset-0 h-full w-full object-cover"
           />
           <div className="noise-overlay pointer-events-none absolute inset-0 opacity-[0.7] mix-blend-overlay" />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/60" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/30 to-background" />
 
-          <motion.div
-            style={{ y: imageParallaxY, rotate: imageParallaxRotate }}
-            className="pointer-events-none absolute -left-10 top-1/2 z-0 w-64 -translate-y-1/2 opacity-90 md:-left-16 md:w-96 lg:left-0 lg:w-[38rem]"
-          >
+          <motion.div style={{ opacity: heroOpacity }} className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center">
             <motion.div
-              initial={{ y: -100, opacity: 0 }}
-              animate={{ y: [0, 30, 0], opacity: 1 }}
-              transition={{
-                y: {
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                },
-                opacity: {
-                  duration: 1,
-                },
-              }}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: springEase }}
             >
               <Image
-                src="/pic.png"
-                alt={t("creative.decorativeAlt")}
-                width={960}
-                height={960}
-                className="h-full w-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+                src="/Logo Baciraro Creative.png"
+                alt={t("creative.heroLogoAlt")}
+                width={140}
+                height={48}
+                className="mb-8 h-auto w-28 object-contain md:w-36"
               />
             </motion.div>
-          </motion.div>
 
-          <nav className="absolute left-1/2 top-0 z-20 w-full max-w-[95vw] -translate-x-1/2 sm:max-w-max">
-            <div className="flex flex-wrap items-center justify-center gap-3 rounded-b-2xl bg-background px-4 py-2 sm:gap-6 md:gap-12 md:rounded-b-3xl md:px-8 lg:gap-14">
-              {["navAsal", "navMakna", "navGerakan", "navBusana", "navWarisan"].map((key) => (
-                <a
-                  key={key}
-                  href="#"
-                  className="text-[10px] text-white/60 transition-colors hover:text-white sm:text-xs md:text-sm"
-                >
-                  {t(`creative.${key}`)}
-                </a>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.15, ease: springEase }}
+              className="mb-8 flex gap-4 sm:gap-6 md:gap-8"
+            >
+              {cdItems.map((item) => (
+                <div key={item.label} className="flex flex-col items-center">
+                  <span className="font-serif text-[clamp(40px,10vw,100px)] font-normal leading-none tracking-[-0.03em] text-brand-gold">
+                    {String(item.value).padStart(2, "0")}
+                  </span>
+                  <span className="mt-2 text-[10px] font-medium uppercase tracking-[0.2em] text-white/60 sm:text-xs">
+                    {item.label}
+                  </span>
+                </div>
               ))}
-            </div>
-          </nav>
+            </motion.div>
 
-          <div className="absolute bottom-0 left-0 right-0 z-10 flex min-h-[50%] flex-col justify-end p-4 sm:p-5 md:p-8">
-            <div className="relative z-20 grid grid-cols-1 items-end gap-8 md:grid-cols-12">
-              <div className="md:col-span-7 lg:col-span-8">
-                <motion.h1
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7 }}
-                  className="text-[24vw] font-medium leading-[0.85] tracking-[-0.07em] text-primary-text sm:text-[22vw] md:text-[20vw] lg:text-[18vw] xl:text-[17vw]"
-                >
-                  {t("creative.kawasaranTitle")}
-                </motion.h1>
-              </div>
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: springEase }}
+              className="max-w-4xl font-serif text-[clamp(24px,5vw,56px)] font-normal leading-[1.1] tracking-[-0.02em] text-white"
+            >
+              {t("creative.heroTitle")}
+            </motion.h1>
 
-              <div className="relative z-30 mb-16 flex flex-col items-center text-center sm:mb-24 md:col-span-5 md:items-end md:text-right md:pb-6 lg:col-span-4 lg:mb-48 xl:mb-56">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4, ease: springEase }}
+              className="mt-4 max-w-2xl text-sm text-white/70 sm:text-base md:text-lg"
+            >
+              {t("creative.heroTagline")}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5, ease: springEase }}
+              className="mt-6 flex flex-wrap items-center justify-center gap-4 text-sm text-white/60"
+            >
+              <span className="flex items-center gap-1.5">
+                <Calendar className="h-4 w-4 text-brand-orange" />
+                {t("creative.heroDate")}
+              </span>
+              <span className="hidden text-white/20 sm:inline">&middot;</span>
+              <span className="flex items-center gap-1.5">
+                <MapPin className="h-4 w-4 text-brand-terracotta" />
+                {t("creative.heroVenue")}
+              </span>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.65, ease: springEase }}
+              className="mt-10"
+            >
+              <a
+                href="#event-detail"
+                className="group inline-flex items-center gap-3 rounded-full bg-brand-terracotta px-6 py-3 text-sm font-medium text-white transition-all hover:bg-brand-orange hover:gap-4"
+              >
+                {t("creative.heroCta")}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </a>
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* ───── SECTION 2: TENTANG BACIRARO CREATIVE ───── */}
+        <section className="relative border-t border-white/5 px-4 py-24 sm:px-6 md:px-8 md:py-32">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(196,74,58,0.08),transparent_60%)]" />
+          <div className="relative mx-auto max-w-6xl text-center">
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: springEase }}
+              className="text-xs font-bold uppercase tracking-[0.25em] text-brand-gold"
+            >
+              {t("creative.tentangLabel")}
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.1, ease: springEase }}
+              className="mt-4 font-serif text-[clamp(28px,4vw,48px)] font-normal leading-[1.1] tracking-[-0.02em] text-white"
+            >
+              {t("creative.tentangTitle")}
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.2, ease: springEase }}
+              className="mx-auto mt-6 max-w-3xl text-sm leading-7 text-zinc-300 sm:text-base md:text-lg"
+            >
+              {t("creative.tentangBody")}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.35, ease: springEase }}
+              className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-3"
+            >
+              {[
+                { icon: Sparkles, color: "text-brand-terracotta", key: "Tradisi & Inovasi", desc: "Memadukan kearifan lokal dengan teknologi daur ulang modern." },
+                { icon: Recycle, color: "text-brand-green", key: "Ekonomi Sirkular", desc: "Mengubah limbah plastik menjadi produk bernilai budaya tinggi." },
+                { icon: Target, color: "text-brand-orange", key: "Kolaborasi Komunitas", desc: "Memberdayakan seniman, desainer, dan komunitas untuk masa depan berkelanjutan." },
+              ].map((item, i) => (
+                <div key={i} className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 text-center backdrop-blur">
+                  <item.icon className={`mx-auto h-8 w-8 ${item.color}`} />
+                  <h3 className="mt-4 text-sm font-semibold text-white">{item.key}</h3>
+                  <p className="mt-2 text-xs text-zinc-400">{item.desc}</p>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ───── SECTION 3: DIALOG BUDAYA 2026 DETAIL ───── */}
+        <section id="event-detail" className="relative border-t border-white/5 px-4 py-20 sm:px-6 md:px-8 md:py-28">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_100%,rgba(217,122,43,0.06),transparent_60%)]" />
+          <div className="relative mx-auto max-w-5xl">
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: springEase }}
+              className="text-center text-xs font-bold uppercase tracking-[0.25em] text-brand-orange"
+            >
+              {t("creative.heroDate")}
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.1, ease: springEase }}
+              className="mt-4 text-center font-serif text-[clamp(24px,3.5vw,44px)] font-normal leading-[1.1] tracking-[-0.02em] text-white"
+            >
+              {t("creative.heroTitle")}
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2, ease: springEase }}
+              className="mt-3 text-center text-sm text-zinc-400"
+            >
+              {t("creative.eventKonsepBody")}
+            </motion.p>
+
+            {/* Toggle button */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3, ease: springEase }}
+              className="mt-10 text-center"
+            >
+              <button
+                type="button"
+                onClick={() => setShowDetail(!showDetail)}
+                className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-sm text-white/70 backdrop-blur transition-all hover:border-brand-terracotta/30 hover:text-white"
+              >
+                {showDetail ? t("creative.sembunyikan") : t("creative.pelajariEvent")}
+                <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${showDetail ? "rotate-180" : ""}`} />
+              </button>
+            </motion.div>
+
+            <AnimatePresence>
+              {showDetail && (
                 <motion.div
-                  style={{ y: videoParallaxY, rotate: videoParallaxRotate }}
-                  className="relative z-30 mb-6 mt-4 flex w-full max-w-sm items-center justify-center md:-ml-[35%] md:-mt-56 md:w-[135%] md:justify-end lg:-ml-[50%] lg:-mt-72 lg:w-[150%]"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.5, ease: springEase }}
+                  className="overflow-hidden"
                 >
-                  <AnimatePresence mode="wait">
-                    {!isVideoOpen ? (
-                      <motion.button
-                        key="play-button"
-                        layoutId="tribute-video"
-                        type="button"
-                        onClick={() => setIsVideoOpen(true)}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.8 }}
-                        transition={{ duration: 0.5, ease: springEase }}
-                        className="flex items-center gap-2 rounded-full border border-white/10 bg-white/20 px-5 py-3 text-sm font-medium text-white shadow-xl backdrop-blur-md hover:bg-white/30"
-                      >
-                        <Play className="h-4 w-4" fill="currentColor" />
-                        {t("creative.tontonVideo")}
-                      </motion.button>
-                    ) : (
-                      <motion.div
-                        key="video-player"
-                        layoutId="tribute-video"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="relative aspect-[21/9] w-full overflow-hidden rounded-md shadow-2xl"
-                      >
-                        <button
-                          type="button"
-                          onClick={() => setIsVideoOpen(false)}
-                          className="absolute right-4 top-4 z-40 rounded-full bg-black/50 p-2 text-white backdrop-blur-md transition-colors hover:bg-black/70"
-                        >
-                          <X className="h-5 w-5" />
-                        </button>
-                        <video
-                          ref={tributeVideoRef}
-                          src="/tribute.mp4"
-                          autoPlay
-                          loop
-                          muted
-                          playsInline
-                          preload="auto"
-                          onClick={() => handleVideoClick(tributeVideoRef)}
-                          className="h-full w-full cursor-pointer rounded-md object-cover"
-                        />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
+                  {/* Prinsip */}
+                  <div className="mt-14">
+                    <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-brand-gold">{t("creative.eventPrinsipTitle")}</h3>
+                    <ul className="mt-6 space-y-4">
+                      {prinsip.map((p, i) => (
+                        <li key={i} className="flex items-start gap-3 text-sm text-zinc-300">
+                          <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-terracotta/20 text-[11px] font-bold text-brand-terracotta">
+                            {i + 1}
+                          </span>
+                          <span>{p}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-                <motion.div className="w-full max-w-sm rounded-xl border border-white/10 bg-background/40 p-4 shadow-xl backdrop-blur-md">
-                  <motion.p
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.7, delay: 0.5, ease: springEase }}
-                    className="text-center text-xs leading-[1.4] text-white sm:text-sm md:text-left md:text-base"
-                  >
-                    {t("creative.descBody")}
-                  </motion.p>
+                  {/* Rundown */}
+                  <div className="mt-14">
+                    <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-brand-gold">{t("creative.rundownTitle")}</h3>
+                    <div className="mt-6 space-y-0">
+                      {rundownItems.map((item, i) => (
+                        <div key={i} className="group flex items-start gap-4 border-l-2 border-white/5 py-3 pl-4 transition-colors hover:border-brand-terracotta/40 md:gap-6 md:pl-6">
+                          <span className="min-w-[70px] shrink-0 text-xs font-mono text-brand-orange md:min-w-[90px] md:text-sm">
+                            {rundownTimes[i]}
+                          </span>
+                          <span className="text-xs text-zinc-300 md:text-sm">
+                            {item}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
 
-                  <div className="flex w-full justify-center md:justify-start">
-                    <motion.button
-                      type="button"
-                      initial={{ y: 20, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ duration: 0.7, delay: 0.7, ease: springEase }}
-                      className="group mt-4 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm font-medium text-black transition-all hover:gap-3 sm:text-base"
-                    >
-                      {t("creative.jelajahiBudaya")}
-                      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-black transition-transform group-hover:scale-110 sm:h-10 sm:w-10">
-                        <ArrowRight className="h-4 w-4 text-white" />
-                      </span>
-                    </motion.button>
+                  {/* Catatan */}
+                  <div className="mt-14 rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 backdrop-blur">
+                    <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-brand-gold">{t("creative.catatanTitle")}</h3>
+                    <ul className="mt-4 space-y-2 text-sm text-zinc-300">
+                      <li className="flex items-start gap-2">
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-terracotta" />
+                        {t("creative.catatanHadir")}
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange" />
+                        {t("creative.catatanIkut")}
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-gold" />
+                        {t("creative.catatanSesuai")}
+                      </li>
+                    </ul>
                   </div>
                 </motion.div>
-              </div>
-            </div>
+              )}
+            </AnimatePresence>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="overflow-hidden border-t border-white/5 py-16">
-        <div className="m-auto max-w-7xl px-6">
-          <div className="flex flex-col items-center gap-8 md:flex-row">
-            <div className="w-full text-center md:max-w-44 md:border-r md:border-white/10 md:pr-6 md:text-right shrink-0">
-              <p className="text-sm text-zinc-400">{t("creative.powering")}</p>
+        {/* ───── SECTION 4: PORTFOLIO PRODUK ───── */}
+        <section className="relative border-t border-white/5 px-4 py-20 sm:px-6 md:px-8 md:py-28">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(111,175,79,0.05),transparent_60%)]" />
+          <div className="relative mx-auto max-w-7xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: springEase }}
+              className="text-center"
+            >
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-brand-green">
+                {t("creative.portfolioTitle")}
+              </p>
+              <h2 className="mt-4 font-serif text-[clamp(24px,3.5vw,44px)] font-normal leading-[1.1] tracking-[-0.02em] text-white">
+                {t("creative.portfolioTitle")}
+              </h2>
+              <p className="mx-auto mt-3 max-w-2xl text-sm text-zinc-400">
+                {t("creative.portfolioSubtitle")}
+              </p>
+            </motion.div>
+
+            <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {loading ? (
+                <p className="col-span-full text-center text-sm text-zinc-500">{t("creative.portfolioLoading")}</p>
+              ) : (
+                products.map((product, i) => (
+                  <motion.div
+                    key={product.id}
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: i * 0.08, ease: springEase }}
+                  >
+                    <Link href={`/products/${product.slug}`} className="group block overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.02] transition-all hover:border-white/20 hover:bg-white/[0.05]">
+                      <div className="relative aspect-[4/3] overflow-hidden">
+                        <Image
+                          src={product.image_url}
+                          alt={product.title}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        />
+                      </div>
+                      <div className="p-4">
+                        <span className={`inline-block rounded-full border px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider ${categoryAccent[product.category] || categoryAccent.craft}`}>
+                          {product.category}
+                        </span>
+                        <h3 className="mt-2 text-sm font-semibold text-white transition-colors group-hover:text-brand-gold">
+                          {product.title}
+                        </h3>
+                        <p className="mt-1 line-clamp-2 text-xs text-zinc-400">
+                          {product.description}
+                        </p>
+                      </div>
+                    </Link>
+                  </motion.div>
+                ))
+              )}
             </div>
-            <div className="flex-1 w-full overflow-hidden">
-              <LogoCloud />
-            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3, ease: springEase }}
+              className="mt-10 text-center"
+            >
+              <Link
+                href="/products"
+                className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-sm text-white/70 backdrop-blur transition-all hover:border-brand-green/30 hover:text-white"
+              >
+                {t("creative.portfolioCta")}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </motion.div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="px-4 pb-20 pt-12 sm:px-6 md:px-8">
-        <div className="mx-auto max-w-6xl rounded-3xl border border-white/5 bg-zinc-950 px-5 py-12 text-center sm:px-8 sm:py-14 md:px-12 md:py-16">
-          <p className="text-[10px] text-primary sm:text-xs">{t("creative.budayaLabel")}</p>
-          <h2 className="mx-auto mt-5 max-w-4xl text-3xl font-normal leading-[0.95] sm:text-4xl md:text-5xl lg:text-6xl">
-            {t("creative.descTitle")}
-          </h2>
-          <p className="mx-auto mt-8 max-w-4xl text-sm leading-7 text-zinc-300 sm:text-base md:text-lg">
-            {t("creative.descBody")}
-          </p>
-        </div>
-      </section>
-
-      <section className="relative min-h-screen overflow-hidden px-4 pb-14 pt-8 sm:px-6 md:px-8">
-        <div className="bg-noise pointer-events-none absolute inset-0 opacity-[0.15]" />
-        <div className="relative z-10 mx-auto max-w-7xl">
-          <div className="mb-10 text-center">
-            <h3 className="text-xl font-normal text-white sm:text-2xl md:text-3xl lg:text-4xl">
-              {t("creative.warisanTitle")}
-            </h3>
-            <p className="mt-3 text-xl font-normal text-zinc-400 sm:text-2xl md:text-3xl lg:text-4xl">
-              {t("creative.warisanSubtitle")}
+        {/* ───── SECTION 5: FOOTER SIGNATURE ───── */}
+        <footer className="relative border-t border-white/5 px-4 py-16 text-center">
+          <div className="mx-auto max-w-md">
+            <Image
+              src="/Logo Baciraro Creative.png"
+              alt={t("creative.heroLogoAlt")}
+              width={100}
+              height={34}
+              className="mx-auto mb-4 h-auto w-24 object-contain opacity-60"
+            />
+            <p className="text-xs text-zinc-500">
+              {t("creative.footerTagline")}
             </p>
           </div>
+        </footer>
 
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-2 lg:grid-cols-4 lg:h-[480px]">
-            <article className="relative min-h-[320px] overflow-hidden rounded-2xl">
-              <video
-                ref={featureVideoRef}
-                src="/IMG_5184.MP4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="auto"
-                onClick={() => handleVideoClick(featureVideoRef)}
-                className="absolute inset-0 h-full w-full cursor-pointer object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/20 to-transparent" />
-              <p className="absolute bottom-4 left-4 text-sm text-primary-text sm:text-base">{t("creative.featureCaption")}</p>
-            </article>
-
-            {featureCards.map((card, cardIdx) => (
-              <article
-                key={card.number}
-                className="flex min-h-[320px] flex-col rounded-2xl border border-white/5 bg-zinc-950 p-4 sm:p-5"
-              >
-                <Image
-                  src={card.icon}
-                  alt={t(`creative.featureCards.${cardIdx}.title`)}
-                  width={48}
-                  height={48}
-                  className="h-10 w-10 rounded-xl object-cover sm:h-12 sm:w-12"
-                />
-                <div className="mt-5 flex items-start justify-between gap-3">
-                  <h3 className="text-lg text-primary-text sm:text-xl">{t(`creative.featureCards.${cardIdx}.title`)}</h3>
-                  <span className="text-xs text-zinc-500">{card.number}</span>
-                </div>
-
-                <ul className="mt-5 space-y-3">
-                  {Array.from({ length: card.itemCount }, (_, itemIdx) => (
-                    <li key={itemIdx} className="flex items-start gap-2 text-sm text-zinc-400">
-                      <Check className="mt-[2px] h-4 w-4 shrink-0 text-primary" />
-                      <span>{t(`creative.featureCards.${cardIdx}.items.${itemIdx}`)}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <a href="#" className="mt-auto inline-flex items-center gap-2 pt-6 text-sm text-primary transition-opacity hover:opacity-80">
-                  {t("creative.bacaMakna")}
-                  <ArrowRight className="h-4 w-4 -rotate-45" />
-                </a>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
       </div>
     </main>
   );

@@ -8,6 +8,8 @@ import {
   useCallback,
   type ReactNode,
 } from "react";
+import idData from "./id.json";
+import enData from "./en.json";
 
 type Lang = "id" | "en";
 
@@ -20,8 +22,8 @@ interface I18nContextType {
 
 const I18nContext = createContext<I18nContextType | null>(null);
 
-let idCache: Record<string, any> | null = null;
-let enCache: Record<string, any> | null = null;
+const idCache = idData;
+const enCache = enData;
 
 function resolve(obj: any, path: string): any {
   const keys = path.split(".");
@@ -44,33 +46,11 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const load = useCallback(async (l: Lang) => {
-    if (l === "id") {
-      if (!idCache) {
-        const m = await import("./id.json");
-        idCache = m.default || m;
-      }
-    } else {
-      if (!enCache) {
-        const m = await import("./en.json");
-        enCache = m.default || m;
-      }
-    }
+  const setLang = useCallback((l: Lang) => {
+    setLangState(l);
+    localStorage.setItem("lang", l);
+    document.documentElement.lang = l;
   }, []);
-
-  useEffect(() => {
-    load(lang);
-  }, [lang, load]);
-
-  const setLang = useCallback(
-    (l: Lang) => {
-      setLangState(l);
-      localStorage.setItem("lang", l);
-      document.documentElement.lang = l;
-      load(l);
-    },
-    [load]
-  );
 
   const toggleLang = useCallback(() => {
     setLang(lang === "id" ? "en" : "id");

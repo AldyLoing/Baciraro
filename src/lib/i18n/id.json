@@ -501,53 +501,95 @@
     "waMessage": "Halo Tim Baciraro, saya tertarik untuk berkolaborasi CSR / kemitraan lingkungan."
   },
   "creative": {
-    "tontonVideo": "Tonton Video",
-    "jelajahiBudaya": "Jelajahi budaya",
-    "powering": "Powering the best teams",
-    "budayaLabel": "Budaya Minahasa",
-    "descTitle": "Kawasaran bukan sekadar tari, ia adalah napas keberanian.",
-    "descBody": "Setiap hentak langkah menyalakan ingatan, martabat, dan akar tradisi Minahasa. Di dalamnya ada disiplin, penghormatan pada leluhur, dan bahasa visual yang kuat untuk presentasi budaya.",
-    "warisanTitle": "Warisan gerak yang lahir dari keberanian.",
-    "warisanSubtitle": "Hari ini tetap hidup sebagai wajah budaya Sulawesi Utara.",
-    "bacaMakna": "Baca maknanya",
-    "navAsal": "Asal-usul",
-    "navMakna": "Makna",
-    "navGerakan": "Gerakan",
-    "navBusana": "Busana",
-    "navWarisan": "Warisan",
-    "featureCaption": "Gagah, sakral, dan berakar.",
-    "featureCards": [
-      {
-        "title": "Jejak Waraney.",
-        "number": "01",
-        "items": [
-          "Berasal dari tradisi keprajuritan Minahasa.",
-          "Dulu ditarikan para penjaga kampung.",
-          "Kini menjadi simbol kehormatan budaya.",
-          "Energi gerak menegaskan semangat juang."
-        ]
-      },
-      {
-        "title": "Ritme dan Senjata.",
-        "number": "02",
-        "items": [
-          "Diiringi tambur, gong, atau kolintang.",
-          "Gerak pedang santi dan tombak wengko.",
-          "Langkah 4/4 terasa kokoh dan presisi."
-        ]
-      },
-      {
-        "title": "Tiga Babak Inti.",
-        "number": "03",
-        "items": [
-          "Cakalele: daya tempur dan kewaspadaan.",
-          "Kumoyak: ayunan senjata yang terarah.",
-          "Lalaya'an: penutup yang lebih cair dan lega."
-        ]
-      }
+    "heroLogoAlt": "Logo Baciraro Creative",
+    "heroTitle": "Dialog Budaya Minahasa 2026",
+    "heroTagline": "Evolusi Atribut Kawasaran: Mengurai Benang Merah antara Otentisitas Budaya dan Inovasi Plastik Daur Ulang",
+    "heroDate": "Sabtu, 1 Agustus 2026",
+    "heroVenue": "Kedai Kana, Desa Sukur, Minahasa Utara",
+    "heroCta": "Lihat Detail Event",
+    "countdownDays": "Hari",
+    "countdownHours": "Jam",
+    "countdownMinutes": "Menit",
+    "countdownSeconds": "Detik",
+    "tentangLabel": "Tentang",
+    "tentangTitle": "Baciraro Creative",
+    "tentangBody": "Baciraro Creative adalah platform inovasi kreatif yang menjembatani warisan budaya Minahasa dengan teknologi daur ulang plastik. Kami percaya tradisi dan keberlanjutan bisa berjalan beriringan — menghormati kearifan leluhur sambil membangun masa depan sirkular melalui desain, kolaborasi, dan pemberdayaan komunitas.",
+    "eventKonsepTitle": "Konsep Forum",
+    "eventKonsepBody": "Forum dialog terbatas namun representatif yang menelusuri evolusi atribut Kawasaran — mengurai benang merah antara otentisitas budaya dan inovasi plastik daur ulang. Mempertemukan tokoh adat, akademisi, seniman, pegiat lingkungan, pemerintah, dan generasi muda.",
+    "eventPrinsipTitle": "Prinsip Forum",
+    "eventPrinsip": [
+      "Terbatas tetapi representatif — undangan berdasarkan kapasitas kontribusi.",
+      "Dialogis, bukan seremonial — waktu utama untuk narasumber dan peserta.",
+      "Menghormati kewenangan adat — hasil disebut rekomendasi awal, bukan keputusan adat resmi.",
+      "Tidak menghakimi inovasi sebelum mendengar perspektif adat, sejarah, akademik, seni, lingkungan, pemerintah, dan generasi muda.",
+      "Dokumentasi, rekomendasi, publikasi, dan tindak lanjut yang jelas."
     ],
-    "kawasaranTitle": "Kawasaran",
-    "decorativeAlt": "Elemen dekoratif melayang"
+    "rundownTitle": "Rundown Acara",
+    "rundown": [
+      "Registrasi, welcome coffee, dan networking",
+      "Pembukaan, doa, dan pengantar kegiatan",
+      "Perkenalan Baciraro Creative",
+      "Panel bersama narasumber",
+      "Dialog utama bersama narasumber",
+      "Istirahat",
+      "Makan siang dan networking",
+      "Dialog tematik: Budaya",
+      "Dialog tematik: Lingkungan",
+      "Dialog tematik: Konservasi",
+      "Dialog tematik: Pariwisata Berkelanjutan",
+      "Penandatanganan deklarasi dan foto bersama"
+    ],
+    "catatanTitle": "Catatan untuk Tamu",
+    "catatanHadir": "Mohon hadir paling lambat pukul 08.45 WITA untuk proses registrasi.",
+    "catatanIkut": "Peserta diharapkan mengikuti kegiatan hingga sesi penandatanganan deklarasi dan foto bersama.",
+    "catatanSesuai": "Rangkaian waktu dapat menyesuaikan dengan dinamika dialog.",
+    "pelajariEvent": "Pelajari Forum",
+    "sembunyikan": "Sembunyikan Detail",
+    "portfolioTitle": "Karya Kreatif",
+    "portfolioSubtitle": "Plastik daur ulang menjadi artefak budaya dan benda sehari-hari.",
+    "portfolioCta": "Lihat Semua Produk",
+    "portfolioLoading": "Memuat produk...",
+    "footerTagline": "Inovasi Kreatif · Warisan Budaya · Masa Depan Sirkular"
+  },
+  "undangan": {
+    "label": "Undangan",
+    "heroTitle": "Dialog Budaya Minahasa 2026",
+    "heroTagline": "Evolusi Atribut Kawasaran: Mengurai Benang Merah antara Otentisitas Budaya dan Inovasi Plastik Daur Ulang",
+    "heroDate": "Sabtu, 1 Agustus 2026",
+    "heroTime": "08.30 \u2013 15.00 WITA",
+    "heroVenue": "Kedai Kana, Desa Sukur, Minahasa Utara",
+    "greeting": "Kepada Yth. Bapak/Ibu/Saudara/i Tamu Undangan",
+    "greetingBody": "Dengan hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dalam forum Dialog Budaya Minahasa 2026 \u2014 sebuah dialog yang menelusuri evolusi atribut Kawasaran, menjembatani otentisitas budaya dengan inovasi plastik daur ulang.",
+    "tentang": "Tentang Acara",
+    "detail1": "Forum dialog terbatas namun representatif yang mempertemukan tokoh adat, akademisi, seniman, pegiat lingkungan, pemerintah, dan generasi muda.",
+    "detail2": "Forum akan menelusuri makna filosofis material asli atribut Kawasaran, batasan kesakralan dalam berbagai konteks, serta peran inovasi plastik daur ulang dalam pelestarian budaya.",
+    "detail3": "Keluaran forum berupa rekomendasi awal \u2014 bukan keputusan adat resmi \u2014 dengan dokumentasi, publikasi, dan tindak lanjut yang jelas.",
+    "rsvpTitle": "Konfirmasi Kehadiran",
+    "formNama": "Nama Lengkap",
+    "formNamaPlaceholder": "Masukkan nama lengkap Anda",
+    "formMewakili": "Mewakili",
+    "formMewakiliPlaceholder": "Instansi / Organisasi / Komunitas",
+    "formMinuman": "Pilihan Minuman",
+    "formMinumanPlaceholder": "Pilih minuman",
+    "beverages": [
+      "Americano",
+      "Cappuccino",
+      "Es Kopi Susu",
+      "Teh Tarik",
+      "Jus Jeruk",
+      "Air Mineral"
+    ],
+    "hadir": "Hadir",
+    "tidakHadir": "Tidak Hadir",
+    "konfirmasiHadir": "Terima Kasih!",
+    "konfirmasiHadirBody": "Konfirmasi kehadiran Anda sudah tercatat. Silakan bergabung ke grup WhatsApp untuk informasi dan diskusi lebih lanjut.",
+    "konfirmasiTidak": "Baik, Kami Mengerti",
+    "konfirmasiTidakBody": "Terima kasih sudah memberitahu. Kami berharap dapat bertemu di acara kami selanjutnya.",
+    "kirimWA": "Kirim Konfirmasi via WhatsApp",
+    "waTerkirim": "Konfirmasi terkirim. Selamat bergabung!",
+    "joinGroup": "Join Grup WhatsApp",
+    "ubahData": "Ubah data saya",
+    "kembali": "Kembali"
   },
   "orders": {
     "label": "ORDERS",

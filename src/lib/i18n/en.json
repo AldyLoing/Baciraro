@@ -501,53 +501,95 @@
     "waMessage": "Hello Baciraro Team, I am interested in collaborating on CSR / environmental partnerships."
   },
   "creative": {
-    "tontonVideo": "Watch Video",
-    "jelajahiBudaya": "Explore Culture",
-    "powering": "Powering the best teams",
-    "budayaLabel": "Minahasa Culture",
-    "descTitle": "Kawasaran is not just a dance, it is the breath of courage.",
-    "descBody": "Every footstep ignites memory, dignity, and the roots of Minahasa tradition. Within it lies discipline, respect for ancestors, and a strong visual language for cultural presentation.",
-    "warisanTitle": "A legacy of movement born from courage.",
-    "warisanSubtitle": "Today it lives on as the face of North Sulawesi culture.",
-    "bacaMakna": "Read its meaning",
-    "navAsal": "Origins",
-    "navMakna": "Meaning",
-    "navGerakan": "Movement",
-    "navBusana": "Attire",
-    "navWarisan": "Heritage",
-    "featureCaption": "Majestic, sacred, and rooted.",
-    "featureCards": [
-      {
-        "title": "Waraney Footprints.",
-        "number": "01",
-        "items": [
-          "Originating from Minahasa warrior tradition.",
-          "Once danced by village guardians.",
-          "Now a symbol of cultural honor.",
-          "Motion energy asserts fighting spirit."
-        ]
-      },
-      {
-        "title": "Rhythm & Weapons.",
-        "number": "02",
-        "items": [
-          "Accompanied by tambour, gong, or kolintang.",
-          "Santi sword and wengko spear movements.",
-          "4/4 steps feel solid and precise."
-        ]
-      },
-      {
-        "title": "Three Core Acts.",
-        "number": "03",
-        "items": [
-          "Cakalele: combat readiness and vigilance.",
-          "Kumoyak: directed weapon swings.",
-          "Lalaya'an: a more fluid and relaxed closing."
-        ]
-      }
+    "heroLogoAlt": "Baciraro Creative Logo",
+    "heroTitle": "Dialog Budaya Minahasa 2026",
+    "heroTagline": "Evolusi Atribut Kawasaran: Mengurai Benang Merah antara Otentisitas Budaya dan Inovasi Plastik Daur Ulang",
+    "heroDate": "Saturday, 1 August 2026",
+    "heroVenue": "Kedai Kana, Desa Sukur, North Minahasa",
+    "heroCta": "View Event Details",
+    "countdownDays": "Days",
+    "countdownHours": "Hours",
+    "countdownMinutes": "Minutes",
+    "countdownSeconds": "Seconds",
+    "tentangLabel": "About",
+    "tentangTitle": "Baciraro Creative",
+    "tentangBody": "Baciraro Creative is a platform for creative innovation that bridges Minahasa cultural heritage with plastic upcycling technology. We believe that tradition and sustainability can walk hand in hand — honoring ancestral wisdom while building a circular future through design, collaboration, and community empowerment.",
+    "eventKonsepTitle": "Forum Concept",
+    "eventKonsepBody": "A limited but representative dialogue forum exploring the evolution of Kawasaran attributes — tracing the red thread between cultural authenticity and recycled plastic innovation. Bringing together adat authorities, academics, artists, environmentalists, government, and youth.",
+    "eventPrinsipTitle": "Forum Principles",
+    "eventPrinsip": [
+      "Limited but representative — invitations based on capacity to contribute.",
+      "Dialogic, not ceremonial — prime time for speakers and invited participants.",
+      "Respecting adat authority — outcomes are called initial recommendations, not official adat decisions.",
+      "Non-judgmental toward innovation before hearing adat, historical, academic, artistic, environmental, government, and youth perspectives.",
+      "Clear documentation, recommendations, publication, and follow-up."
     ],
-    "kawasaranTitle": "Kawasaran",
-    "decorativeAlt": "Floating decorative element"
+    "rundownTitle": "Event Rundown",
+    "rundown": [
+      "Registration, welcome coffee, and networking",
+      "Opening, prayer, and introduction",
+      "Baciraro Creative introduction",
+      "Panel session with speakers",
+      "Main dialogue with speakers",
+      "Break",
+      "Lunch and networking",
+      "Thematic dialogue: Culture",
+      "Thematic dialogue: Environment",
+      "Thematic dialogue: Conservation",
+      "Thematic dialogue: Sustainable Tourism",
+      "Declaration signing and group photo"
+    ],
+    "catatanTitle": "Notes for Guests",
+    "catatanHadir": "Please arrive no later than 08:45 WITA for registration.",
+    "catatanIkut": "Participants are expected to attend until the declaration signing and group photo session.",
+    "catatanSesuai": "Schedule may adjust according to dialogue dynamics.",
+    "pelajariEvent": "Learn About the Forum",
+    "sembunyikan": "Hide Details",
+    "portfolioTitle": "Creative Works",
+    "portfolioSubtitle": "Plastic upcycled into cultural artifacts and everyday objects.",
+    "portfolioCta": "View All Products",
+    "portfolioLoading": "Loading products...",
+    "footerTagline": "Creative Innovation · Cultural Heritage · Circular Future"
+  },
+  "undangan": {
+    "label": "Invitation",
+    "heroTitle": "Dialog Budaya Minahasa 2026",
+    "heroTagline": "Evolusi Atribut Kawasaran: Mengurai Benang Merah antara Otentisitas Budaya dan Inovasi Plastik Daur Ulang",
+    "heroDate": "Saturday, 1 August 2026",
+    "heroTime": "08.30 \u2013 15.00 WITA",
+    "heroVenue": "Kedai Kana, Desa Sukur, North Minahasa",
+    "greeting": "To Our Esteemed Guests",
+    "greetingBody": "We are honored to invite you to the Dialog Budaya Minahasa 2026 \u2014 a dialogue forum exploring the evolution of Kawasaran attributes, bridging cultural authenticity and recycled plastic innovation.",
+    "tentang": "About the Event",
+    "detail1": "A limited but representative dialogue forum featuring adat authorities, academics, artists, environmentalists, government representatives, and youth.",
+    "detail2": "The forum will explore the philosophical meaning of traditional Kawasaran materials, the boundaries of sacred attributes, and the role of recycled plastic innovation in cultural preservation.",
+    "detail3": "Outcomes will serve as initial recommendations \u2014 not official adat decisions \u2014 with clear documentation, publication, and follow-up.",
+    "rsvpTitle": "RSVP Confirmation",
+    "formNama": "Full Name",
+    "formNamaPlaceholder": "Enter your full name",
+    "formMewakili": "Representing",
+    "formMewakiliPlaceholder": "Institution / Organization / Community",
+    "formMinuman": "Beverage Choice",
+    "formMinumanPlaceholder": "Select a beverage",
+    "beverages": [
+      "Americano",
+      "Cappuccino",
+      "Iced Coffee Milk",
+      "Teh Tarik",
+      "Orange Juice",
+      "Mineral Water"
+    ],
+    "hadir": "Attending",
+    "tidakHadir": "Not Attending",
+    "konfirmasiHadir": "Thank You for Confirming!",
+    "konfirmasiHadirBody": "Your attendance confirmation has been saved. Please join our WhatsApp group for further event information and discussion.",
+    "konfirmasiTidak": "We Understand",
+    "konfirmasiTidakBody": "Thank you for letting us know. We hope to see you at our next event.",
+    "kirimWA": "Send Confirmation via WhatsApp",
+    "waTerkirim": "Confirmation sent. Welcome to the group!",
+    "joinGroup": "Join WhatsApp Group",
+    "ubahData": "Change my data",
+    "kembali": "Go back"
   },
   "orders": {
     "label": "ORDERS",
