@@ -3,19 +3,21 @@
 import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { MapPin, Users, Package, Recycle, Sprout, Cpu, ChevronLeft, ChevronRight } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/context";
 
 const TERRACOTTA = "#D4785C";
 
 const STEPS = [
-  { number: "01", title: "Sampah", tagline: "Mengenali Setiap Sumber Dampak", desc: "Pemetaan jenis dan titik timbulan sampah secara presisi di wilayah urban dan rural.", metric: "18+ Titik", icon: MapPin },
-  { number: "02", title: "Edukasi", tagline: "Membangun Kesadaran Kolektif", desc: "Pendampingan langsung di sekolah, komunitas, dan desa untuk integrasikan kebiasaan memilah.", metric: "1.200+ Warga", icon: Users },
-  { number: "03", title: "Pengumpulan", tagline: "Menjemput Keberlanjutan", desc: "Sistem penjemputan sampah terpilah terjadwal dengan integrasi data logistik digital.", metric: "500+ Ton", icon: Package },
-  { number: "04", title: "Daur Ulang", tagline: "Mentransformasi Material Sisa", desc: "Pengolahan organik → kompos, plastik → bahan baku premium untuk industri manufaktur.", metric: "85% Reduksi", icon: Recycle },
-  { number: "05", title: "Produk", tagline: "Estetika yang Berkelanjutan", desc: "Kriya, furnitur ekologis, dan suvenir bernilai ekonomi tinggi dari bahan daur ulang.", metric: "40+ Karya", icon: Sprout },
-  { number: "06", title: "Digital Tracking", tagline: "Menjaga Kepercayaan Publik", desc: "Pencatatan jejak sampah end-to-end oleh ORDERS untuk laporan sirkularitas transparan.", metric: "100% Data", icon: Cpu },
+  { number: "01", icon: MapPin },
+  { number: "02", icon: Users },
+  { number: "03", icon: Package },
+  { number: "04", icon: Recycle },
+  { number: "05", icon: Sprout },
+  { number: "06", icon: Cpu },
 ];
 
 export default function FlowHorizontal() {
+  const { t } = useLanguage();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -56,7 +58,7 @@ export default function FlowHorizontal() {
           className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-zinc-400 backdrop-blur shadow-lg"
         >
           <span className="h-2 w-2 rounded-full bg-[#D4785C] animate-pulse" />
-          ALUR PENGELOLAAN SAMPAH
+          {t("flowHorizontal.label")}
         </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -65,8 +67,8 @@ export default function FlowHorizontal() {
           transition={{ delay: 0.1 }}
           className="mt-4 text-3xl font-normal leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-5xl max-w-2xl"
         >
-          Dari sampah menjadi data,{" "}
-          <span className="font-serif italic text-[#D4785C]">lalu kembali menjadi nilai.</span>
+          {t("flowHorizontal.title")}{" "}
+          <span className="font-serif italic text-[#D4785C]">{t("flowHorizontal.titleItalic")}</span>
         </motion.h2>
       </div>
 
@@ -115,13 +117,13 @@ export default function FlowHorizontal() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#D4785C]">
-                      {step.number} — {step.tagline}
+                      {step.number} — {t("flowHorizontal.steps." + i + ".tagline")}
                     </span>
-                    <h3 className="mt-2 text-2xl md:text-3xl font-normal text-white">{step.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-zinc-400 max-w-lg">{step.desc}</p>
+                    <h3 className="mt-2 text-2xl md:text-3xl font-normal text-white">{t("flowHorizontal.steps." + i + ".title")}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-zinc-400 max-w-lg">{t("flowHorizontal.steps." + i + ".desc")}</p>
                     <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/5 bg-black/40 px-4 py-2">
-                      <span className="text-xs font-semibold text-white">{step.metric}</span>
-                      <span className="text-[9px] text-zinc-600 uppercase tracking-wider">Dampak Terukur</span>
+                      <span className="text-xs font-semibold text-white">{t("flowHorizontal.steps." + i + ".metric")}</span>
+                      <span className="text-[9px] text-zinc-600 uppercase tracking-wider">{t("flowHorizontal.metricLabel")}</span>
                     </div>
                   </div>
                 </div>

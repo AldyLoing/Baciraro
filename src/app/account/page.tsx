@@ -304,7 +304,7 @@ export default function AccountPage() {
                   <input
                     value={editName}
                     onChange={(e) => setEditName(e.target.value)}
-                    placeholder="Nama lengkap"
+                    placeholder={t("account.placeholderNama")}
                     required
                     className="w-full rounded-xl border border-white/10 bg-white/5 pl-11 pr-5 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40"
                   />
@@ -314,7 +314,7 @@ export default function AccountPage() {
                   <input
                     value={editPhone}
                     onChange={(e) => setEditPhone(e.target.value)}
-                    placeholder="No. HP"
+                    placeholder={t("account.placeholderHP")}
                     className="w-full rounded-xl border border-white/10 bg-white/5 pl-11 pr-5 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40"
                   />
                 </div>
@@ -328,7 +328,7 @@ export default function AccountPage() {
                   disabled={editSubmitting}
                   className="w-full rounded-full bg-emerald-500 hover:bg-emerald-400 text-black py-3 text-sm font-bold transition-all disabled:opacity-40"
                 >
-                  {editSubmitting ? t("account.menyimpan") : "Simpan"}
+                  {editSubmitting ? t("account.menyimpan") : t("account.simpan")}
                 </button>
               </form>
             </motion.div>

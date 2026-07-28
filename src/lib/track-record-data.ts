@@ -7,6 +7,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "reboisasi-gunung-klabat",
         title: "Reboisasi Gunung Klabat",
+        titleKey: "trackRecordData.activity.0.title",
+        narrativeKey: "trackRecordData.activity.0.narrative",
         location: "Gunung Klabat",
         role: "Mitra Pelaksana",
         era: "awal",
@@ -27,6 +29,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "salvos-go-green",
         title: "Salvos Go Green",
+        titleKey: "trackRecordData.activity.1.title",
+        narrativeKey: "trackRecordData.activity.1.narrative",
         location: "Sulawesi Utara",
         role: "Pendukung",
         era: "awal",
@@ -46,6 +50,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "bank-sampah-brits-bunaken",
         title: "Pengelolaan Sampah Berbasis Komunitas Pulau Bunaken",
+        titleKey: "trackRecordData.activity.2.title",
+        narrativeKey: "trackRecordData.activity.2.narrative",
         location: "Pulau Bunaken",
         role: "Pendamping Komunitas",
         era: "awal",
@@ -88,6 +94,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "klabat-lestari-aqua",
         title: "Program Klabat Lestari bersama Aqua",
+        titleKey: "trackRecordData.activity.3.title",
+        narrativeKey: "trackRecordData.activity.3.narrative",
         location: "Gunung Klabat",
         role: "Mitra Pelaksana",
         era: "tumbuh",
@@ -114,6 +122,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "biogas-kencana-online",
         title: "Studi Biogas & Teknologi Kencana Online",
+        titleKey: "trackRecordData.activity.4.title",
+        narrativeKey: "trackRecordData.activity.4.narrative",
         location: "Bandung",
         role: "Peserta Studi",
         era: "tumbuh",
@@ -142,6 +152,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "tpa-tondano",
         title: "Observasi TPA Tondano",
+        titleKey: "trackRecordData.activity.5.title",
+        narrativeKey: "trackRecordData.activity.5.narrative",
         location: "Tondano",
         role: "Observer",
         era: "tumbuh",
@@ -156,6 +168,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "sungai-manado",
         title: "Dokumentasi Pencemaran Sungai Manado",
+        titleKey: "trackRecordData.activity.6.title",
+        narrativeKey: "trackRecordData.activity.6.narrative",
         location: "Manado",
         role: "Advokasi",
         era: "tumbuh",
@@ -193,6 +207,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "climate-reality",
         title: "Climate Reality Project Indonesia",
+        titleKey: "trackRecordData.activity.7.title",
+        narrativeKey: "trackRecordData.activity.7.narrative",
         location: "Jakarta",
         role: "Peserta",
         era: "tumbuh",
@@ -208,6 +224,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "klabat-lestari-hutan-kenangan",
         title: "Program Klabat Lestari - Hutan Kenangan",
+        titleKey: "trackRecordData.activity.8.title",
+        narrativeKey: "trackRecordData.activity.8.narrative",
         location: "Gunung Klabat",
         role: "Mitra Pelaksana",
         era: "tumbuh",
@@ -231,6 +249,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "penelitian-eceng-gondok",
         title: "Penelitian Eceng Gondok Danau Tondano",
+        titleKey: "trackRecordData.activity.9.title",
+        narrativeKey: "trackRecordData.activity.9.narrative",
         location: "Danau Tondano",
         role: "Mitra Riset",
         era: "tumbuh",
@@ -256,6 +276,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "indonesia-carbon-update",
         title: "Indonesia Carbon Update",
+        titleKey: "trackRecordData.activity.10.title",
+        narrativeKey: "trackRecordData.activity.10.narrative",
         location: "Manado",
         role: "Peserta",
         era: "tumbuh",
@@ -270,6 +292,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "klabat-lestari-2015",
         title: "Sosialisasi Klabat Lestari",
+        titleKey: "trackRecordData.activity.11.title",
+        narrativeKey: "trackRecordData.activity.11.narrative",
         location: "Gunung Klabat",
         role: "Fasilitator",
         era: "tumbuh",
@@ -283,6 +307,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "hpi-outbound",
         title: "Outbound Himpunan Pramuwisata Indonesia",
+        titleKey: "trackRecordData.activity.12.title",
+        narrativeKey: "trackRecordData.activity.12.narrative",
         location: "Sulawesi Utara",
         role: "Fasilitator",
         era: "tumbuh",
@@ -299,6 +325,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "danau-limboto",
         title: "Dokumentasi Danau Limboto",
+        titleKey: "trackRecordData.activity.13.title",
+        narrativeKey: "trackRecordData.activity.13.narrative",
         location: "Danau Limboto, Gorontalo",
         role: "Observer",
         era: "tumbuh",
@@ -318,6 +346,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "tv-polri-sulut",
         title: "Pembentukan TV Polri Sulawesi Utara",
+        titleKey: "trackRecordData.activity.14.title",
+        narrativeKey: "trackRecordData.activity.14.narrative",
         location: "Sulawesi Utara",
         role: "Peserta",
         era: "meluas",
@@ -340,6 +370,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "taponesia",
         title: "Aplikasi Tanam Pohon Taponesia",
+        titleKey: "trackRecordData.activity.15.title",
+        narrativeKey: "trackRecordData.activity.15.narrative",
         location: "Manado",
         role: "Developer Teknologi",
         era: "meluas",
@@ -358,6 +390,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "green-community-forum",
         title: "Green Community Forum Tanam Pohon",
+        titleKey: "trackRecordData.activity.16.title",
+        narrativeKey: "trackRecordData.activity.16.narrative",
         location: "Minahasa Utara",
         role: "Mitra Pelaksana",
         era: "meluas",
@@ -376,6 +410,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "smash",
         title: "Aplikasi Bank Sampah SMASH",
+        titleKey: "trackRecordData.activity.17.title",
+        narrativeKey: "trackRecordData.activity.17.narrative",
         location: "Manado",
         role: "Fasilitator Teknologi",
         era: "meluas",
@@ -392,6 +428,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "agape",
         title: "Launching Bank Sampah Agape",
+        titleKey: "trackRecordData.activity.18.title",
+        narrativeKey: "trackRecordData.activity.18.narrative",
         location: "Desa Tumaluntung, Kauditan",
         role: "Fasilitator",
         era: "meluas",
@@ -412,6 +450,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "danone-2017",
         title: "Meeting Danone Jakarta",
+        titleKey: "trackRecordData.activity.19.title",
+        narrativeKey: "trackRecordData.activity.19.narrative",
         location: "Jakarta",
         role: "Mitra",
         era: "meluas",
@@ -428,6 +468,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "pinili",
         title: "Program Pertanian Desa Pinili",
+        titleKey: "trackRecordData.activity.20.title",
+        narrativeKey: "trackRecordData.activity.20.narrative",
         location: "Desa Pinili, Dimembe",
         role: "Pendamping",
         era: "meluas",
@@ -454,6 +496,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "bank-sampah-simfoni",
         title: "Bank Sampah Simfoni",
+        titleKey: "trackRecordData.activity.21.title",
+        narrativeKey: "trackRecordData.activity.21.narrative",
         location: "Manado",
         role: "Fasilitator",
         era: "meluas",
@@ -472,6 +516,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "sma-7-adiwiyata",
         title: "Program Adiwiyata SMA Negeri 7 Manado",
+        titleKey: "trackRecordData.activity.22.title",
+        narrativeKey: "trackRecordData.activity.22.narrative",
         location: "Manado",
         role: "Pendamping",
         era: "meluas",
@@ -490,6 +536,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "tpa-sumompo",
         title: "Kunjungan TPA Sumompo",
+        titleKey: "trackRecordData.activity.23.title",
+        narrativeKey: "trackRecordData.activity.23.narrative",
         location: "Manado",
         role: "Observer",
         era: "meluas",
@@ -505,6 +553,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "siladen-resort",
         title: "Pengelolaan Sampah di Siladen Resort",
+        titleKey: "trackRecordData.activity.24.title",
+        narrativeKey: "trackRecordData.activity.24.narrative",
         location: "Pulau Siladen",
         role: "Fasilitator",
         era: "meluas",
@@ -522,6 +572,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "koperasi-cels",
         title: "Koperasi Celebes Energi Lestari (CELS)",
+        titleKey: "trackRecordData.activity.25.title",
+        narrativeKey: "trackRecordData.activity.25.narrative",
         location: "Manado",
         role: "Inisiator",
         era: "meluas",
@@ -541,6 +593,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "bank-sampah-adipura-bitung",
         title: "Bank Sampah Adipura Bitung",
+        titleKey: "trackRecordData.activity.26.title",
+        narrativeKey: "trackRecordData.activity.26.narrative",
         location: "Bitung",
         role: "Fasilitator",
         era: "meluas",
@@ -558,6 +612,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "pilah-sampah-pulau-bangka",
         title: "Pemilahan Sampah Pulau Bangka",
+        titleKey: "trackRecordData.activity.27.title",
+        narrativeKey: "trackRecordData.activity.27.narrative",
         location: "Pulau Bangka",
         role: "Mitra",
         era: "meluas",
@@ -576,6 +632,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "teknologi-daur-ulang",
         title: "Pengembangan Teknologi Daur Ulang",
+        titleKey: "trackRecordData.activity.28.title",
+        narrativeKey: "trackRecordData.activity.28.narrative",
         location: "Manado",
         role: "Inisiator",
         era: "meluas",
@@ -598,6 +656,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "sofa-ecobrick",
         title: "Produksi Sofa Ecobrick",
+        titleKey: "trackRecordData.activity.29.title",
+        narrativeKey: "trackRecordData.activity.29.narrative",
         location: "Manado",
         role: "Produsen",
         era: "meluas",
@@ -618,6 +678,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "griffith-university",
         title: "Kunjungan Griffith University Australia",
+        titleKey: "trackRecordData.activity.30.title",
+        narrativeKey: "trackRecordData.activity.30.narrative",
         location: "Manado",
         role: "Tuan Rumah",
         era: "meluas",
@@ -635,6 +697,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "lukisan-plastik",
         title: "Kreasi Lukisan dan Karya dari Sampah Plastik",
+        titleKey: "trackRecordData.activity.31.title",
+        narrativeKey: "trackRecordData.activity.31.narrative",
         location: "Manado",
         role: "Produsen",
         era: "meluas",
@@ -653,6 +717,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "apsi",
         title: "Musyawarah Nasional APSI",
+        titleKey: "trackRecordData.activity.32.title",
+        narrativeKey: "trackRecordData.activity.32.narrative",
         location: "Jakarta",
         role: "Anggota",
         era: "meluas",
@@ -669,6 +735,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "bank-sampah-simfoni-2019",
         title: "Operasional Bank Sampah Simfoni",
+        titleKey: "trackRecordData.activity.33.title",
+        narrativeKey: "trackRecordData.activity.33.narrative",
         location: "Manado",
         role: "Pengelola",
         era: "meluas",
@@ -686,6 +754,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "handuk-bekas-craft",
         title: "Kerajinan dari Handuk Bekas",
+        titleKey: "trackRecordData.activity.34.title",
+        narrativeKey: "trackRecordData.activity.34.narrative",
         location: "Manado",
         role: "Produsen",
         era: "meluas",
@@ -704,6 +774,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "media-2019",
         title: "Liputan Media dan Diskusi Publik",
+        titleKey: "trackRecordData.activity.35.title",
+        narrativeKey: "trackRecordData.activity.35.narrative",
         location: "Manado",
         role: "Narasumber",
         era: "meluas",
@@ -721,6 +793,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "pameran-ais",
         title: "Pameran AIS dan Event Kelautan",
+        titleKey: "trackRecordData.activity.36.title",
+        narrativeKey: "trackRecordData.activity.36.narrative",
         location: "Manado",
         role: "Peserta",
         era: "meluas",
@@ -736,6 +810,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "sosialisasi-pge-2019",
         title: "Sosialisasi Bank Sampah bersama PGE",
+        titleKey: "trackRecordData.activity.37.title",
+        narrativeKey: "trackRecordData.activity.37.narrative",
         location: "PADIOR, Minahasa",
         role: "Fasilitator",
         era: "meluas",
@@ -757,6 +833,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "kompetisi-1000-startup-digital",
         title: "Kompetisi 1000 Startup Digital",
+        titleKey: "trackRecordData.activity.38.title",
+        narrativeKey: "trackRecordData.activity.38.narrative",
         location: "Manado",
         role: "Peserta",
         era: "transformasi",
@@ -893,6 +971,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "plastic-brick",
         title: "Project Batako dari Sampah Plastik",
+        titleKey: "trackRecordData.activity.39.title",
+        narrativeKey: "trackRecordData.activity.39.narrative",
         location: "Pulau Siladen",
         role: "Eksekutor",
         era: "transformasi",
@@ -996,6 +1076,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "bank-sampah-setor-jo",
         title: "Program Bank Sampah Setor Jo & Eco-Enzyme",
+        titleKey: "trackRecordData.activity.40.title",
+        narrativeKey: "trackRecordData.activity.40.narrative",
         location: "Minahasa",
         role: "Eksekutor",
         era: "transformasi",
@@ -1133,6 +1215,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "bijak-berplastik-danone",
         title: "Program Bijak Berplastik Danone Aqua",
+        titleKey: "trackRecordData.activity.41.title",
+        narrativeKey: "trackRecordData.activity.41.narrative",
         location: "Likupang",
         role: "Mitra Pelaksana",
         era: "transformasi",
@@ -1173,6 +1257,8 @@ export const trackRecordData: TrackRecordYear[] = [
       {
         id: "desa-pesisir-bumn",
         title: "Program Desa Pesisir & Kolaborasi BUMN",
+        titleKey: "trackRecordData.activity.42.title",
+        narrativeKey: "trackRecordData.activity.42.narrative",
         location: "Likupang",
         role: "Eksekutor",
         era: "transformasi",

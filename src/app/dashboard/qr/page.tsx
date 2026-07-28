@@ -86,15 +86,15 @@ export default function QRDashboardPage() {
 
             <div className="flex gap-4 mb-8">
               <div className="rounded-[1.5rem] border border-white/[0.07] bg-white/[0.02] backdrop-blur px-6 py-4">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-1">Total</p>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-1">{t("dashboard.qr.total")}</p>
                 <p className="font-serif text-[28px] text-white">{codes.length}</p>
               </div>
               <div className="rounded-[1.5rem] border border-white/[0.07] bg-white/[0.02] backdrop-blur px-6 py-4">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-1">Claimed</p>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-1">{t("dashboard.qr.claimed")}</p>
                 <p className="font-serif text-[28px] text-emerald-400">{claimed.length}</p>
               </div>
               <div className="rounded-[1.5rem] border border-white/[0.07] bg-white/[0.02] backdrop-blur px-6 py-4">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-1">Reviewed</p>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-1">{t("dashboard.qr.reviewed")}</p>
                 <p className="font-serif text-[28px] text-amber-400">{reviewed.length}</p>
               </div>
             </div>
@@ -103,12 +103,12 @@ export default function QRDashboardPage() {
               <table className="w-full text-left">
                 <thead>
                   <tr className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 border-b border-white/[0.05]">
-                    <th className="pb-3 pr-4">Product</th>
-                    <th className="pb-3 pr-4">Code</th>
-                    <th className="pb-3 pr-4">Status</th>
-                    <th className="pb-3 pr-4">Buyer</th>
-                    <th className="pb-3 pr-4">Review</th>
-                    <th className="pb-3 pr-4">Created</th>
+                    <th className="pb-3 pr-4">{t("dashboard.qr.product")}</th>
+                    <th className="pb-3 pr-4">{t("dashboard.qr.code")}</th>
+                    <th className="pb-3 pr-4">{t("dashboard.qr.status")}</th>
+                    <th className="pb-3 pr-4">{t("dashboard.qr.buyer")}</th>
+                    <th className="pb-3 pr-4">{t("dashboard.qr.review")}</th>
+                    <th className="pb-3 pr-4">{t("dashboard.qr.date")}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -125,15 +125,15 @@ export default function QRDashboardPage() {
                       <td className="py-4 pr-4">
                         {c.review_text ? (
                           <span className="inline-flex items-center gap-1 text-amber-400 text-[10px] font-bold uppercase tracking-wider">
-                            <Star className="h-3 w-3" /> Reviewed
+                            <Star className="h-3 w-3" /> {t("dashboard.qr.reviewedLabel")}
                           </span>
                         ) : c.buyer_name ? (
                           <span className="inline-flex items-center gap-1 text-emerald-400 text-[10px] font-bold uppercase tracking-wider">
-                            <Check className="h-3 w-3" /> Claimed
+                            <Check className="h-3 w-3" /> {t("dashboard.qr.claimedLabel")}
                           </span>
                         ) : (
                           <span className="inline-flex items-center gap-1 text-zinc-600 text-[10px] font-bold uppercase tracking-wider">
-                            <Clock className="h-3 w-3" /> Pending
+                            <Clock className="h-3 w-3" /> {t("dashboard.qr.pending")}
                           </span>
                         )}
                       </td>

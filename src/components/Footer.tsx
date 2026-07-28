@@ -13,26 +13,10 @@ const categoryLinks = [
 ];
 
 const ecosystemLinks = [
-  {
-    name: "Tana Nyiur Lestari",
-    href: "/tananyiurlestari",
-    role: "Edukasi & Pemberdayaan",
-  },
-  {
-    name: "Trash Recycle Center",
-    href: "/trashrecyclecenter",
-    role: "Pengumpulan & Pengolahan",
-  },
-  {
-    name: "ELMAST Greenovasi",
-    href: "/elmast",
-    role: "Teknologi Organik",
-  },
-  {
-    name: "ORDERS",
-    href: "/orders",
-    role: "Digital & Data",
-  },
+  { entityKey: "tnl", href: "/tananyiurlestari" },
+  { entityKey: "trc", href: "/trashrecyclecenter" },
+  { entityKey: "elmast", href: "/elmast" },
+  { entityKey: "orders", href: "/orders" },
 ];
 
 export default function Footer() {
@@ -55,7 +39,7 @@ export default function Footer() {
               <div className="relative h-10 w-10 overflow-hidden rounded-full border border-white/10 bg-white/5 shadow-inner">
                 <Image
                   src="/Baciraro cap.png"
-                  alt="Baciraro logo"
+                  alt={t("footer.baciraroLogoAlt")}
                   fill
                   sizes="40px"
                   className="object-contain p-1.5"
@@ -63,7 +47,7 @@ export default function Footer() {
               </div>
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.35em] text-emerald-400 flex items-center gap-1.5">
-                  BACIRARO
+{t("footer.baciraroBrand")}
                   <span className="h-1.5 w-1.5 rounded-full bg-[#f87171] animate-pulse" />
                 </p>
                 <p className="text-[11px] text-zinc-500 font-medium">{t("footer.center")}</p>
@@ -73,7 +57,7 @@ export default function Footer() {
               {t("footer.tagline")}
             </p>
             <p className="text-[10px] tracking-wide text-zinc-600 mt-2">
-              &copy; {new Date().getFullYear()} Baciraro. All rights reserved.
+              {t("footer.copyright", { year: new Date().getFullYear() })}
             </p>
             <button
               onClick={scrollToTop}
@@ -90,15 +74,15 @@ export default function Footer() {
             </p>
             <ul className="space-y-5 text-xs font-medium">
               {ecosystemLinks.map((item) => (
-                <li key={item.name}>
+                <li key={item.entityKey}>
                   <Link
                     href={item.href}
                     className="inline-flex items-center gap-1 transition-all duration-300 hover:text-emerald-400 hover:translate-x-1 group"
                   >
-                    {item.name}
+                    {t("ecosystem.entities." + item.entityKey + ".name")}
                     <ArrowUpRight className="h-3 w-3 opacity-0 -translate-y-0.5 group-hover:opacity-100 transition-all" />
                   </Link>
-                  <p className="text-[10px] text-zinc-600 italic mt-0.5">{item.role}</p>
+                  <p className="text-[10px] text-zinc-600 italic mt-0.5">{t("ecosystem.entities." + item.entityKey + ".role")}</p>
                 </li>
               ))}
             </ul>
@@ -177,7 +161,7 @@ export default function Footer() {
                 <div className="relative h-12 w-12 overflow-hidden rounded-xl bg-white p-2 flex items-center justify-center border border-white/10 shadow-inner shrink-0">
                   <Image
                     src="/Orders.png"
-                    alt="ORDERS logo"
+                    alt={t("footer.ordersLogoAlt")}
                     fill
                     sizes="48px"
                     className="object-contain p-0.5"
@@ -185,10 +169,10 @@ export default function Footer() {
                 </div>
                 <div>
                   <p className="text-sm font-bold tracking-tight text-white group-hover:text-orange-300 transition-colors">
-                    ORDERS
+                    {t("footer.ordersBrand")}
                   </p>
                   <p className="text-[10px] text-zinc-500 uppercase tracking-wider">
-                    TECHNOLOGY
+                    {t("footer.technology")}
                   </p>
                 </div>
               </div>
@@ -208,7 +192,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="h-8 w-8 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-zinc-500 hover:text-pink-400 hover:border-pink-400/30 hover:bg-pink-500/10 transition-all"
-                aria-label="Instagram"
+                aria-label={t("footer.instagram")}
               >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5">
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
@@ -221,7 +205,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="h-8 w-8 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-zinc-500 hover:text-white hover:border-white/30 hover:bg-white/10 transition-all"
-                aria-label="TikTok"
+                aria-label={t("footer.tiktok")}
               >
                 <Music className="h-3.5 w-3.5" />
               </a>
@@ -230,14 +214,14 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="h-8 w-8 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-zinc-500 hover:text-emerald-400 hover:border-emerald-400/30 hover:bg-emerald-500/10 transition-all"
-                aria-label="WhatsApp"
+                aria-label={t("footer.whatsapp")}
               >
                 <MessageCircle className="h-3.5 w-3.5" />
               </a>
               <button
                 onClick={toggleLang}
                 className="h-8 w-8 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-zinc-500 hover:text-emerald-400 hover:border-emerald-400/30 hover:bg-emerald-500/10 transition-all text-[9px] font-bold"
-                aria-label="Toggle language"
+                aria-label={t("footer.toggleLang")}
               >
                 <Globe className="h-3.5 w-3.5" />
                 <span className="ml-0.5">{lang.toUpperCase()}</span>
@@ -249,11 +233,11 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-16 pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4 text-[10px] text-zinc-600">
-          <p>&copy; {new Date().getFullYear()} Baciraro. All rights reserved.</p>
+          <p>{t("footer.copyright", { year: new Date().getFullYear() })}</p>
           <p>
             {t("footer.bottomDigdaya")}{" "}
             <Link href="/orders" className="text-orange-400 hover:text-orange-300 font-semibold transition-colors">
-              ORDERS
+              {t("footer.ordersBrand")}
             </Link>
           </p>
         </div>

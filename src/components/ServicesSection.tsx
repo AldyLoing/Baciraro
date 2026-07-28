@@ -49,14 +49,14 @@ export default function ServicesSection() {
         >
           <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-zinc-400 backdrop-blur shadow-lg">
             <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-            LAYANAN & KERJA SAMA
+            {t("services.label")}
           </p>
           <h2 className="mt-5 text-4xl font-normal leading-[1.15] tracking-tight text-white sm:text-5xl">
-            Dirancang untuk{" "}
-            <span className="font-serif italic text-emerald-300">kolaborasi.</span>
+            {t("services.title")}{" "}
+            <span className="font-serif italic text-emerald-300">{t("services.titleItalic")}</span>
           </h2>
           <p className="mt-4 text-base leading-relaxed text-zinc-400 max-w-xl mx-auto">
-            Baciraro dapat disesuaikan untuk kebutuhan operasional, pemberdayaan masyarakat, hingga transformasi digital di level organisasi.
+            {t("services.subtitle")}
           </p>
         </motion.div>
 
@@ -78,10 +78,10 @@ export default function ServicesSection() {
                 </div>
                 <h3 className="mt-5 text-xl font-normal text-white">{t("services." + service.titleKey + ".title")}</h3>
                 <ul className="mt-4 space-y-3 text-sm leading-relaxed text-zinc-400 flex-1">
-                  {service.points.map((p) => (
-                    <li key={p} className="flex gap-2.5">
+                  {service.points.map((_, i) => (
+                    <li key={i} className="flex gap-2.5">
                       <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
-                      <span>{p}</span>
+                      <span>{t("services." + service.titleKey + ".points." + i)}</span>
                     </li>
                   ))}
                 </ul>
@@ -89,24 +89,24 @@ export default function ServicesSection() {
                 <div className="mt-6 rounded-xl border border-white/5 bg-black/30 p-4">
                   <div className="flex items-start gap-2">
                     <Quote className="h-3 w-3 text-[#D4785C] shrink-0 mt-0.5" />
-                    <p className="text-xs italic leading-relaxed text-zinc-400">{service.quote}</p>
+                    <p className="text-xs italic leading-relaxed text-zinc-400">{t("services." + service.titleKey + ".quote")}</p>
                   </div>
                 </div>
 
                 <div className="mt-4 flex items-center justify-between">
                   <div>
-                    <p className="text-[9px] font-semibold uppercase tracking-wider text-[#D4785C]">{service.caseStudy.partner}</p>
-                    <p className="text-[10px] text-zinc-500 mt-0.5 max-w-[180px]">{service.caseStudy.result}</p>
+                    <p className="text-[9px] font-semibold uppercase tracking-wider text-[#D4785C]">{t("services." + service.titleKey + ".caseStudy.partner")}</p>
+                    <p className="text-[10px] text-zinc-500 mt-0.5 max-w-[180px]">{t("services." + service.titleKey + ".caseStudy.result")}</p>
                   </div>
                   <div className="shrink-0">
                     <span className="rounded-full bg-[#D4785C]/10 px-2.5 py-1 text-[8px] font-bold uppercase tracking-wider text-[#D4785C]">
-                      {service.caseStudy.badge}
+                      {t("services." + service.titleKey + ".caseStudy.badge")}
                     </span>
                   </div>
                 </div>
 
                 <div className="mt-5 pt-4 border-t border-white/5 flex items-center gap-1 text-xs font-semibold text-zinc-500 group-hover:text-[#D4785C] transition-colors">
-                  Lihat Detail
+                  {t("services.lihatDetail")}
                   <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
                 </div>
               </Link>

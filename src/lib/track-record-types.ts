@@ -29,7 +29,9 @@ export interface BeforeAfter {
 export interface TrackRecordActivity {
   id: string;
   title: string;
+  titleKey?: string;
   narrative: string;
+  narrativeKey?: string;
   highlights?: string[];
   photos: TrackRecordPhoto[];
   location?: string;

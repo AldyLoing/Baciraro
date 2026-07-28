@@ -3,10 +3,12 @@
 import { motion } from "framer-motion";
 import { projectDetailData } from "@/lib/site-sections-data";
 import { MapPin } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/context";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export function CaseStudyEditorial() {
+  const { t } = useLanguage();
   return (
     <section id="case-studies" className="relative py-20 px-6 lg:px-8 bg-zinc-950/20">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.04),_transparent_50%)]" />
@@ -14,13 +16,13 @@ export function CaseStudyEditorial() {
       <div className="mx-auto max-w-7xl">
         <div className="mb-12">
           <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-400 backdrop-blur shadow-lg">
-            Studi Kasus
+            {t("trackRecord.studiKasus")}
           </p>
           <h2 className="mt-5 text-3xl font-normal leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-5xl">
-            Proyek Unggulan
+            {t("trackRecord.proyekUnggulan")}
           </h2>
           <p className="mt-4 text-base leading-7 text-zinc-400 sm:text-lg">
-            Program dan inisiatif strategis Baciraro bersama mitra.
+            {t("trackRecord.studiKasusDesc")}
           </p>
         </div>
 

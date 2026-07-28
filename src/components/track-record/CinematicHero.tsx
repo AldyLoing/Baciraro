@@ -5,9 +5,11 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { trackRecordData } from "@/lib/track-record-data";
 import { ArrowRight, ScrollText } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/context";
 import { YearScrubber } from "./YearScrubber";
 
 export function CinematicHero({ onExploreStory, onBrowseArchive }: { onExploreStory?: () => void; onBrowseArchive?: () => void }) {
+  const { t } = useLanguage();
   const featuredPhotos = trackRecordData.flatMap((y) =>
     y.activities.filter((a) => a.featured).flatMap((a) => a.photos)
   );
@@ -73,7 +75,7 @@ export function CinematicHero({ onExploreStory, onBrowseArchive }: { onExploreSt
             className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-400 backdrop-blur shadow-lg"
           >
             <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-            Living Archive
+            {t("trackRecord.heroTitle")}
           </motion.p>
 
           <motion.h1
@@ -84,7 +86,7 @@ export function CinematicHero({ onExploreStory, onBrowseArchive }: { onExploreSt
           >
             Baciraro
             <br />
-            <span className="text-emerald-400">Living Archive</span>
+            <span className="text-emerald-400">{t("trackRecord.heroTitle")}</span>
           </motion.h1>
 
           <motion.p
@@ -93,8 +95,8 @@ export function CinematicHero({ onExploreStory, onBrowseArchive }: { onExploreSt
             transition={{ duration: 0.7, delay: 0.4 }}
             className="mt-6 text-lg sm:text-xl leading-relaxed text-zinc-300 max-w-2xl"
           >
-            {years[0]}–{years[years.length - 1]} &middot; {totalActivities} Kegiatan &middot;{" "}
-            {totalLocations} Wilayah &middot; {totalPhotos} Foto
+            {years[0]}–{years[years.length - 1]} &middot; {totalActivities} {t("trackRecord.kegiatan")} &middot;{" "}
+            {totalLocations} {t("trackRecord.wilayah")} &middot; {totalPhotos} {t("trackRecord.foto")}
           </motion.p>
 
           <motion.p
@@ -103,7 +105,7 @@ export function CinematicHero({ onExploreStory, onBrowseArchive }: { onExploreSt
             transition={{ duration: 0.7, delay: 0.5 }}
             className="mt-2 text-base text-zinc-500 max-w-xl"
           >
-            Sebuah arsip hidup perjalanan pengelolaan sampah berkelanjutan di Sulawesi Utara.
+            {t("trackRecord.heroDesc")}
           </motion.p>
 
           <motion.div
@@ -117,7 +119,7 @@ export function CinematicHero({ onExploreStory, onBrowseArchive }: { onExploreSt
               className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3 shadow-lg hover:shadow-xl"
             >
               <ScrollText className="h-4 w-4" />
-              Jelajahi Cerita
+              {t("trackRecord.jelajahiCerita")}
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black">
                 <ArrowRight className="h-3 w-3 text-white" />
               </span>
@@ -126,7 +128,7 @@ export function CinematicHero({ onExploreStory, onBrowseArchive }: { onExploreSt
               onClick={onBrowseArchive}
               className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur hover:bg-white/10 transition-all duration-300"
             >
-              Jelajahi Arsip
+              {t("trackRecord.jelajahiArsip")}
             </button>
           </motion.div>
         </div>

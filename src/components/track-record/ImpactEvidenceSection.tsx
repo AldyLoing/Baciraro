@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { trackRecordData } from "@/lib/track-record-data";
+import { useLanguage } from "@/lib/i18n/context";
 import { Calendar, Camera, MapPin, Activity } from "lucide-react";
 
 function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
@@ -18,6 +19,7 @@ function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: strin
 }
 
 export function ImpactEvidenceSection() {
+  const { t } = useLanguage();
   const totalYears = trackRecordData.length;
   const totalActivities = trackRecordData.reduce((s, y) => s + y.activities.length, 0);
   const totalPhotos = trackRecordData.reduce((s, y) => s + y.activities.reduce((a, b) => a + b.photos.length, 0), 0);
@@ -26,10 +28,10 @@ export function ImpactEvidenceSection() {
   ).size;
 
   const stats = [
-    { icon: Calendar, value: totalYears, label: "Tahun Perjalanan", suffix: "" },
-    { icon: Activity, value: totalActivities, label: "Kegiatan & Program", suffix: "+" },
-    { icon: Camera, value: totalPhotos, label: "Foto Terdokumentasi", suffix: "+" },
-    { icon: MapPin, value: totalLocations, label: "Lokasi Terjangkau", suffix: "+" },
+    { icon: Calendar, value: totalYears, label: t("trackRecord.statTahun"), suffix: "" },
+    { icon: Activity, value: totalActivities, label: t("trackRecord.statKegiatan"), suffix: "+" },
+    { icon: Camera, value: totalPhotos, label: t("trackRecord.statFoto"), suffix: "+" },
+    { icon: MapPin, value: totalLocations, label: t("trackRecord.statLokasi"), suffix: "+" },
   ];
 
   return (

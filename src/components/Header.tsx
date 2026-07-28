@@ -96,10 +96,10 @@ export default function Header(_props?: { subtitle?: string }) {
         <div className="bg-noise absolute inset-0 opacity-[0.03] pointer-events-none" />
 
         <div className="flex items-center justify-between px-6 py-3.5 relative z-10">
-          <Link href="/" className="transition-colors hover:text-white" aria-label="Baciraro">
+          <Link href="/" className="transition-colors hover:text-white" aria-label={t("header.brandName")}>
             <Image
               src="/Baciraro cap.png"
-              alt="Baciraro logo"
+              alt={t("footer.baciraroLogoAlt")}
               width={52}
               height={52}
               className="object-contain transition-transform hover:scale-105 duration-300"
@@ -158,7 +158,7 @@ export default function Header(_props?: { subtitle?: string }) {
             <button
               onClick={toggleLang}
               className="flex items-center justify-center h-9 w-9 rounded-full border border-white/10 bg-white/5 text-zinc-400 hover:text-emerald-400 hover:border-emerald-500/30 transition-all text-[10px] font-bold uppercase tracking-wider"
-              aria-label="Toggle language"
+              aria-label={t("footer.toggleLang")}
             >
               <Globe className="h-3.5 w-3.5" />
               <span className="ml-0.5">{lang.toUpperCase()}</span>
@@ -167,7 +167,7 @@ export default function Header(_props?: { subtitle?: string }) {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="flex md:hidden items-center justify-center h-10 w-10 rounded-full border border-white/10 bg-white/5 text-zinc-400 hover:text-white transition-all focus:outline-none"
-              aria-label="Toggle menu"
+              aria-label={t("nav.toggleMenu")}
             >
               {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { trackRecordData } from "@/lib/track-record-data";
+import { useLanguage } from "@/lib/i18n/context";
 import {
   ChevronDown, MapPin, Users, CheckCircle2, Maximize2, X, ChevronLeft, ChevronRight,
 } from "lucide-react";
@@ -61,6 +62,7 @@ function Lightbox({ photos, index, onClose }: { photos: { src: string; alt: stri
 }
 
 function PhotoGrid({ photos }: { photos: { src: string; alt: string }[] }) {
+  const { t } = useLanguage();
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [showAll, setShowAll] = useState(false);
   const displayPhotos = showAll ? photos : photos.slice(0, 6);
@@ -91,7 +93,7 @@ function PhotoGrid({ photos }: { photos: { src: string; alt: string }[] }) {
           onClick={() => setShowAll(!showAll)}
           className="mt-3 inline-flex items-center gap-2 text-xs text-zinc-500 hover:text-emerald-400 transition-colors"
         >
-          {showAll ? "Tampilkan lebih sedikit" : `Tampilkan semua (${photos.length} foto)`}
+          {showAll ? t("trackRecord.tampilkanSedikit") : t("trackRecord.tampilkanSemua", { n: photos.length })}
           <ChevronDown className={`h-3 w-3 transition-transform ${showAll ? "rotate-180" : ""}`} />
         </button>
       )}
@@ -105,6 +107,7 @@ function PhotoGrid({ photos }: { photos: { src: string; alt: string }[] }) {
 }
 
 export function ArchiveIndex() {
+  const { t } = useLanguage();
   const [expandedYears, setExpandedYears] = useState<Set<number>>(new Set([2019]));
 
   const toggleYear = (year: number) => {
@@ -121,13 +124,13 @@ export function ArchiveIndex() {
       <div className="mx-auto max-w-7xl">
         <div className="mb-12">
           <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-400 backdrop-blur shadow-lg">
-            Arsip Lengkap
+            {t("trackRecord.arsipTitle")}
           </p>
           <h2 className="mt-5 text-3xl font-normal leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-5xl">
-            Indeks Arsip Perjalanan
+            {t("trackRecord.arsipLabel")}
           </h2>
           <p className="mt-4 text-base leading-7 text-zinc-400 sm:text-lg">
-            Jelajahi seluruh rekam jejak Baciraro dari tahun ke tahun.
+            {t("trackRecord.arsipDesc")}
           </p>
         </div>
 
@@ -155,12 +158,12 @@ export function ArchiveIndex() {
                     <div>
                       <h3 className="text-xl font-normal text-white">
                         {yearData.year <= 2019
-                          ? `Tahun ${yearData.year}`
-                          : yearData.activities[0]?.title || `Tahun ${yearData.year}`}
+                          ? t("trackRecord.tahun", { year: yearData.year })
+                          : t(yearData.activities[0]?.titleKey || yearData.activities[0]?.title) || t("trackRecord.tahun", { year: yearData.year })}
                       </h3>
                       <p className="text-xs text-zinc-500 mt-0.5">
-                        {yearData.activities.length} kegiatan &middot;{' '}
-                        {yearData.activities.reduce((sum, a) => sum + a.photos.length, 0)} foto
+                        {yearData.activities.length} {t("trackRecord.kegiatan")} &middot;{' '}
+                        {yearData.activities.reduce((sum, a) => sum + a.photos.length, 0)} {t("trackRecord.foto")}
                       </p>
                     </div>
                   </div>
@@ -181,7 +184,7 @@ export function ArchiveIndex() {
                           <div key={activity.id} className="mt-6">
                             <div className="flex items-start justify-between gap-3 flex-wrap">
                               <h4 className="text-base font-semibold text-emerald-400">
-                                {activity.title}
+                                {t(activity.titleKey || activity.title)}
                               </h4>
                               <div className="flex flex-wrap gap-2 shrink-0">
                                 {activity.location && (
@@ -199,7 +202,7 @@ export function ArchiveIndex() {
                               </div>
                             </div>
                             <p className="mt-2 text-sm text-zinc-400 leading-relaxed">
-                              {activity.narrative}
+                              {t(activity.narrativeKey || activity.narrative)}
                             </p>
                             {activity.highlights && (
                               <div className="mt-3 flex flex-wrap gap-2">

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Leaf, Recycle, Sprout, Cpu } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/context";
 
 const TERRACOTTA = "#D4785C";
 const GOLD = "#C9B48A";
@@ -83,6 +84,7 @@ function pathD(entity: (typeof ENTITIES)[number]) {
 }
 
 function DesktopCard({ entity }: { entity: (typeof ENTITIES)[number] }) {
+  const { t } = useLanguage();
   const [hovered, setHovered] = useState(false);
   const isTop = entity.cssVertical === "top";
   const isLeft = entity.cssSide === "left";
@@ -129,26 +131,26 @@ function DesktopCard({ entity }: { entity: (typeof ENTITIES)[number] }) {
               {entity.name}
             </h3>
             <p className="mt-1 text-[10px] leading-relaxed text-zinc-500 line-clamp-2">
-              {entity.tagline}
+              {t("ecosystemRadial.entities." + entity.id + ".tagline")}
             </p>
           </div>
         </div>
 
         <p className="mt-3 text-xs leading-relaxed text-zinc-400 line-clamp-2">
-          {entity.description}
+          {t("ecosystemRadial.entities." + entity.id + ".description")}
         </p>
 
         <div className="mt-3 flex flex-wrap gap-1.5">
-          {entity.labels.map((label) => (
+          {entity.labels.map((_, i) => (
             <span
-              key={label}
+              key={i}
               className={`rounded-full px-2 py-0.5 text-[8px] font-semibold uppercase tracking-wider transition-all duration-300 ${
                 hovered
                   ? "bg-[#D4785C]/10 text-[#D4785C]"
                   : "bg-white/5 text-zinc-500"
               }`}
             >
-              {label}
+              {t("ecosystemRadial.entities." + entity.id + ".labels." + i)}
             </span>
           ))}
         </div>
@@ -158,7 +160,7 @@ function DesktopCard({ entity }: { entity: (typeof ENTITIES)[number] }) {
             hovered ? "text-[#D4785C] opacity-100" : "text-zinc-600 opacity-0"
           }`}
         >
-          Pelajari Lebih Lanjut
+          {t("ecosystemRadial.learnMore")}
           <ArrowRight className="h-3 w-3" />
         </div>
       </motion.div>
@@ -167,6 +169,7 @@ function DesktopCard({ entity }: { entity: (typeof ENTITIES)[number] }) {
 }
 
 function MobileCard({ entity, index }: { entity: (typeof ENTITIES)[number]; index: number }) {
+  const { t } = useLanguage();
   const needsWhiteBg = entity.needsWhiteBg;
   return (
     <motion.div
@@ -195,22 +198,22 @@ function MobileCard({ entity, index }: { entity: (typeof ENTITIES)[number]; inde
           <h3 className="text-sm font-semibold text-white group-hover:text-[#D4785C] transition-colors">
             {entity.name}
           </h3>
-          <p className="text-[10px] text-zinc-500 mt-0.5">{entity.tagline}</p>
+          <p className="text-[10px] text-zinc-500 mt-0.5">{t("ecosystemRadial.entities." + entity.id + ".tagline")}</p>
           <p className="mt-2 text-xs text-zinc-400 leading-relaxed line-clamp-2">
-            {entity.description}
+            {t("ecosystemRadial.entities." + entity.id + ".description")}
           </p>
           <div className="mt-2 flex flex-wrap gap-1.5">
-            {entity.labels.map((label) => (
+            {entity.labels.map((_, i) => (
               <span
-                key={label}
+                key={i}
                 className="rounded-full bg-white/5 px-2 py-0.5 text-[8px] font-semibold uppercase tracking-wider text-zinc-500"
               >
-                {label}
+                {t("ecosystemRadial.entities." + entity.id + ".labels." + i)}
               </span>
             ))}
           </div>
           <div className="mt-2 flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider text-zinc-600 group-hover:text-[#D4785C] transition-colors">
-            Pelajari Lebih Lanjut
+            {t("ecosystemRadial.learnMore")}
             <ArrowRight className="h-3 w-3" />
           </div>
         </div>
@@ -225,6 +228,7 @@ function EntityIcon({ entity }: { entity: (typeof ENTITIES)[number] }) {
 }
 
 export default function EcosystemRadial() {
+  const { t } = useLanguage();
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const uid = useId();
 
@@ -242,7 +246,7 @@ export default function EcosystemRadial() {
             className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-zinc-400 backdrop-blur shadow-lg"
           >
             <span className="h-2 w-2 rounded-full bg-[#D4785C] animate-pulse" />
-            LIMA ENTITAS YANG TERINTEGRASI
+            {t("ecosystemRadial.label")}
           </motion.p>
 
           <motion.h2
@@ -252,8 +256,8 @@ export default function EcosystemRadial() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="mt-5 text-4xl font-normal leading-[1.15] tracking-tight text-white sm:text-5xl lg:text-6xl"
           >
-            Ekosistem{" "}
-            <span className="font-serif italic text-[#D4785C]">Baciraro</span>
+            {t("ecosystemRadial.title")}
+            <span className="font-serif italic text-[#D4785C]">{t("ecosystemRadial.titleItalic")}</span>
           </motion.h2>
 
           <motion.p
@@ -263,11 +267,7 @@ export default function EcosystemRadial() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg"
           >
-            Baciraro membangun ekosistem{" "}
-            <em className="text-zinc-200">circular economy</em> yang
-            menghubungkan edukasi masyarakat, pengumpulan dan pengolahan sampah,
-            teknologi lingkungan, produk kreatif, serta sistem digital dalam
-            satu rangkaian yang terintegrasi.
+            {t("ecosystemRadial.subtitle")}
           </motion.p>
 
           <motion.p
@@ -277,9 +277,7 @@ export default function EcosystemRadial() {
             transition={{ delay: 0.4 }}
             className="mt-3 text-sm leading-relaxed text-zinc-500"
           >
-            Setiap entitas memiliki fungsi khusus, tetapi bergerak menuju tujuan
-            yang sama: mengubah sampah menjadi sumber daya, peluang ekonomi,
-            energi, pengetahuan, dan dampak berkelanjutan.
+            {t("ecosystemRadial.desc")}
           </motion.p>
         </div>
 
@@ -411,10 +409,10 @@ export default function EcosystemRadial() {
                     />
                   </div>
                   <h4 className="mt-2 text-sm font-bold uppercase tracking-[0.2em] text-white">
-                    BACIRARO
+                    {t("footer.baciraroBrand")}
                   </h4>
                   <p className="mt-1 text-[9px] leading-tight text-zinc-500 uppercase tracking-wider max-w-[140px]">
-                    Pusat Ekosistem Circular Economy
+                    {t("footer.center")}
                   </p>
                 </div>
               </div>
@@ -471,26 +469,26 @@ export default function EcosystemRadial() {
                           {entity.name}
                         </h3>
                         <p className="mt-1 text-[10px] leading-relaxed text-zinc-500 line-clamp-2">
-                          {entity.tagline}
+                          {t("ecosystemRadial.entities." + entity.id + ".tagline")}
                         </p>
                       </div>
                     </div>
 
                     <p className="mt-3 text-xs leading-relaxed text-zinc-400 line-clamp-2">
-                      {entity.description}
+                      {t("ecosystemRadial.entities." + entity.id + ".description")}
                     </p>
 
                     <div className="mt-3 flex flex-wrap gap-1.5">
-                      {entity.labels.map((label) => (
+                      {entity.labels.map((_, i) => (
                         <span
-                          key={label}
+                          key={i}
                           className={`rounded-full px-2 py-0.5 text-[8px] font-semibold uppercase tracking-wider transition-all duration-300 ${
                             hoveredId === entity.id
                               ? "bg-[#D4785C]/10 text-[#D4785C]"
                               : "bg-white/5 text-zinc-500"
                           }`}
                         >
-                          {label}
+                          {t("ecosystemRadial.entities." + entity.id + ".labels." + i)}
                         </span>
                       ))}
                     </div>
@@ -503,7 +501,7 @@ export default function EcosystemRadial() {
                       transition={{ duration: 0.2 }}
                       className="mt-3 flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider text-[#D4785C]"
                     >
-                      Pelajari Lebih Lanjut
+                      {t("ecosystemRadial.learnMore")}
                       <ArrowRight className="h-3 w-3" />
                     </motion.div>
                   </motion.div>
@@ -514,7 +512,7 @@ export default function EcosystemRadial() {
             {/* Closing statement in center area */}
             <div className="absolute left-1/2 -translate-x-1/2 bottom-[2%] text-center">
               <p className="text-[10px] uppercase tracking-[0.3em] text-zinc-600 font-semibold">
-                Terintegrasi dari Hulu ke Hilir. Berdampak untuk Semua.
+                {t("ecosystemRadial.integratedTagline")}
               </p>
             </div>
           </div>
@@ -534,15 +532,13 @@ export default function EcosystemRadial() {
               />
             </div>
             <h4 className="mt-2 text-sm font-bold uppercase tracking-[0.15em] text-white">
-              BACIRARO
+              {t("footer.baciraroBrand")}
             </h4>
             <p className="mt-1 text-[10px] text-zinc-500 uppercase tracking-wider">
-              Pusat Ekosistem Circular Economy
+              {t("footer.center")}
             </p>
             <p className="mt-2 text-xs text-zinc-400 leading-relaxed max-w-xs mx-auto">
-              Baciraro membangun sistem pengelolaan sampah terintegrasi yang
-              menghubungkan edukasi, pengumpulan, pengolahan, produk kreatif,
-              pemberdayaan masyarakat, dan pelacakan digital.
+              {t("ecosystemRadial.mobileDesc")}
             </p>
           </div>
 
@@ -574,7 +570,7 @@ export default function EcosystemRadial() {
             href="#alur-ekosistem"
             className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-semibold text-zinc-300 backdrop-blur transition-all duration-300 hover:bg-white/10 hover:border-[#D4785C]/30 hover:text-white"
           >
-            Jelajahi Alur Ekosistem
+            {t("ecosystemRadial.flowCta")}
             <ArrowRight className="h-4 w-4 text-[#D4785C] transition-transform group-hover:translate-x-0.5" />
           </Link>
         </motion.div>
@@ -604,7 +600,7 @@ export default function EcosystemRadial() {
                 viewport={{ once: true }}
                 className="text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-300"
               >
-                Alur ekosistem
+                {t("ecosystemRadial.flowLabel")}
               </motion.p>
               <motion.h2
                 initial={{ opacity: 0, y: 16 }}
@@ -613,8 +609,8 @@ export default function EcosystemRadial() {
                 transition={{ duration: 0.55, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
                 className="mt-4 text-balance text-3xl font-normal leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-[2.75rem]"
               >
-                Lima tahap,{" "}
-                <span className="font-serif italic text-[#E8927A]">satu sirkuit.</span>
+                {t("ecosystemRadial.flowTitle")}
+                <span className="font-serif italic text-[#E8927A]">{t("ecosystemRadial.flowTitleItalic")}</span>
               </motion.h2>
             </div>
             <motion.p
@@ -624,9 +620,7 @@ export default function EcosystemRadial() {
               transition={{ duration: 0.55, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
               className="max-w-prose text-pretty text-base leading-relaxed text-zinc-300 lg:col-span-7 lg:pb-1 lg:text-[1.05rem]"
             >
-              Setiap tahap saling terhubung untuk memastikan sampah dikelola secara
-              bertanggung jawab dan menghasilkan manfaat yang dapat dirasakan oleh
-              masyarakat, lingkungan, serta mitra kolaborasi.
+              {t("ecosystemRadial.flowDesc")}
             </motion.p>
           </div>
 

@@ -6,6 +6,7 @@ import { motion, useScroll, AnimatePresence } from "framer-motion";
 import { trackRecordData } from "@/lib/track-record-data";
 import type { TrackRecordActivity } from "@/lib/track-record-types";
 import { MapPin, X, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/context";
 
 interface Cell {
   cols: number;
@@ -37,19 +38,11 @@ const eraAccents: Record<string, string> = {
   transformasi: "from-amber-600/40",
 };
 
-const eraStyles: Record<string, { label: string; ring: string; text: string }> = {
-  awal: { label: "Awal", ring: "ring-emerald-500/30", text: "text-emerald-300" },
-  tumbuh: { label: "Tumbuh", ring: "ring-teal-500/30", text: "text-teal-300" },
-  meluas: { label: "Meluas", ring: "ring-blue-500/30", text: "text-blue-300" },
-  transformasi: { label: "Transformasi", ring: "ring-amber-500/30", text: "text-amber-300" },
-};
-
-const categoryLabels: Record<string, string> = {
-  lingkungan: "Lingkungan",
-  sosial: "Sosial",
-  ekonomi: "Ekonomi",
-  teknologi: "Teknologi",
-  pendidikan: "Pendidikan",
+const eraStyles: Record<string, { ring: string; text: string }> = {
+  awal: { ring: "ring-emerald-500/30", text: "text-emerald-300" },
+  tumbuh: { ring: "ring-teal-500/30", text: "text-teal-300" },
+  meluas: { ring: "ring-blue-500/30", text: "text-blue-300" },
+  transformasi: { ring: "ring-amber-500/30", text: "text-amber-300" },
 };
 
 const capabilityLabels: Record<string, string> = {
@@ -68,8 +61,24 @@ const capabilityLabels: Record<string, string> = {
 };
 
 function ActivityDetail({ activity, onClose }: { activity: TrackRecordActivity; onClose: () => void }) {
+  const { t } = useLanguage();
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
   const photos = activity.photos;
+
+  const eraLabelMap: Record<string, string> = {
+    awal: t("trackRecord.eraAwal"),
+    tumbuh: t("trackRecord.eraTumbuh"),
+    meluas: t("trackRecord.eraMeluas"),
+    transformasi: t("trackRecord.eraTransformasi"),
+  };
+
+  const catLabelMap: Record<string, string> = {
+    lingkungan: t("trackRecord.catLingkungan"),
+    sosial: t("trackRecord.catSosial"),
+    ekonomi: t("trackRecord.catEkonomi"),
+    teknologi: t("trackRecord.catTeknologi"),
+    pendidikan: t("trackRecord.catPendidikan"),
+  };
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -137,7 +146,7 @@ function ActivityDetail({ activity, onClose }: { activity: TrackRecordActivity; 
                 <div className="flex flex-wrap items-center gap-2">
                   {era && (
                     <span className={`inline-flex items-center rounded-full ring-1 ${era.ring} ${era.text} bg-black/40 px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wider backdrop-blur-sm`}>
-                      {era.label}
+                      {activity.era ? eraLabelMap[activity.era] || activity.era : ""}
                     </span>
                   )}
                   {activity.location && (
@@ -155,12 +164,12 @@ function ActivityDetail({ activity, onClose }: { activity: TrackRecordActivity; 
 
                 {/* Title */}
                 <h2 className="text-2xl sm:text-3xl font-medium text-white leading-tight">
-                  {activity.title}
+                  {t(activity.titleKey || activity.title)}
                 </h2>
 
                 {/* Full narrative */}
                 <p className="text-sm text-zinc-300 leading-relaxed">
-                  {activity.narrative}
+                  {t(activity.narrativeKey || activity.narrative)}
                 </p>
 
                 {/* Highlights */}
@@ -168,7 +177,7 @@ function ActivityDetail({ activity, onClose }: { activity: TrackRecordActivity; 
                   <div>
                     <div className="flex items-center gap-2 mb-3">
                       <Sparkles className="h-4 w-4 text-emerald-400" />
-                      <span className="text-xs uppercase tracking-[0.2em] text-zinc-500 font-medium">Pencapaian</span>
+                      <span className="text-xs uppercase tracking-[0.2em] text-zinc-500 font-medium">{t("trackRecord.pencapaian")}</span>
                     </div>
                     <ul className="space-y-2">
                       {activity.highlights.map((h, i) => (
@@ -184,11 +193,11 @@ function ActivityDetail({ activity, onClose }: { activity: TrackRecordActivity; 
                 {/* Categories */}
                 {activity.categories && activity.categories.length > 0 && (
                   <div>
-                    <span className="block text-xs uppercase tracking-[0.2em] text-zinc-500 font-medium mb-2">Kategori</span>
+                    <span className="block text-xs uppercase tracking-[0.2em] text-zinc-500 font-medium mb-2">{t("trackRecord.kategori")}</span>
                     <div className="flex flex-wrap gap-1.5">
                       {activity.categories.map((cat) => (
                         <span key={cat} className="inline-flex rounded-full bg-zinc-800/60 px-2.5 py-1 text-[10px] font-medium text-zinc-300 ring-1 ring-white/5">
-                          {categoryLabels[cat] || cat}
+                          {catLabelMap[cat] || cat}
                         </span>
                       ))}
                     </div>
@@ -198,11 +207,11 @@ function ActivityDetail({ activity, onClose }: { activity: TrackRecordActivity; 
                 {/* Capabilities */}
                 {activity.capabilities && activity.capabilities.length > 0 && (
                   <div>
-                    <span className="block text-xs uppercase tracking-[0.2em] text-zinc-500 font-medium mb-2">Kapabilitas</span>
+                    <span className="block text-xs uppercase tracking-[0.2em] text-zinc-500 font-medium mb-2">{t("trackRecord.kapabilitas")}</span>
                     <div className="flex flex-wrap gap-1.5">
                       {activity.capabilities.map((cap) => (
                         <span key={cap} className="inline-flex rounded-full bg-emerald-950/30 px-2.5 py-1 text-[10px] font-medium text-emerald-300/80 ring-1 ring-emerald-800/20">
-                          {capabilityLabels[cap] || cap}
+                          {t("trackRecord.capability." + cap.replace(/-/g, '_'))}
                         </span>
                       ))}
                     </div>
@@ -279,6 +288,7 @@ function ActivityDetail({ activity, onClose }: { activity: TrackRecordActivity; 
 }
 
 export function PhotoWall() {
+  const { t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useState<TrackRecordActivity | null>(null);
   const { scrollYProgress } = useScroll({
@@ -336,7 +346,7 @@ export function PhotoWall() {
                     transition={{ duration: 0.6, delay: 0.2 }}
                     className="mt-4 text-sm uppercase tracking-[0.3em] text-zinc-400 font-medium"
                   >
-                    {yearData.activities.length} Kegiatan &middot; {allPhotos.length} Foto
+                    {yearData.activities.length} {t("trackRecord.kegiatan")} &middot; {allPhotos.length} {t("trackRecord.foto")}
                   </motion.p>
                   <motion.p
                     initial={{ opacity: 0, y: 20 }}
@@ -345,7 +355,7 @@ export function PhotoWall() {
                     transition={{ duration: 0.6, delay: 0.3 }}
                     className="mt-3 max-w-xl mx-auto text-xs text-zinc-500 leading-relaxed px-4 line-clamp-2"
                   >
-                    {yearData.activities[0]?.narrative || ""}
+                    {t(yearData.activities[0]?.narrativeKey || yearData.activities[0]?.narrative) || ""}
                   </motion.p>
                 </div>
               </div>
@@ -413,13 +423,13 @@ export function PhotoWall() {
                                         )}
                                       </div>
                                       <h3 className="text-sm sm:text-base font-medium text-white leading-tight">
-                                        {activity.title}
+                                        {t(activity.titleKey || activity.title)}
                                       </h3>
                                       {activity.narrative && (
                                         <p className={`mt-1.5 text-xs text-zinc-300/80 leading-relaxed ${
                                           photos.length <= 2 ? "line-clamp-4" : "line-clamp-2"
                                         }`}>
-                                          {activity.narrative}
+                                          {t(activity.narrativeKey || activity.narrative)}
                                         </p>
                                       )}
                                     </div>

@@ -10,10 +10,10 @@ import { ArrowRight, ChevronDown, Recycle, BarChart3, Sparkles, Users } from "lu
 const TERRACOTTA = "#D4785C";
 
 const FEATURES = [
-  { icon: Recycle, title: "Circular Economy End-to-End", stat: "6 entitas" },
-  { icon: BarChart3, title: "Digital Monitoring System", stat: "100% transparan" },
-  { icon: Sparkles, title: "Creative Product Innovation", stat: "40+ karya" },
-  { icon: Users, title: "Community Empowerment", stat: "80+ komunitas" },
+  { icon: Recycle, titleKey: "endToEnd", statKey: "endToEnd" },
+  { icon: BarChart3, titleKey: "digital", statKey: "digital" },
+  { icon: Sparkles, titleKey: "creative", statKey: "creative" },
+  { icon: Users, titleKey: "community", statKey: "community" },
 ];
 
 const STATS = [
@@ -176,7 +176,7 @@ export default function HeroSection() {
           </motion.div>
 
           <motion.p variants={childVariants} className="font-serif text-xl md:text-2xl italic tracking-tight text-[#D4785C]">
-            Ekosistem Circular Economy
+            {t("hero.ekosistem")}
           </motion.p>
 
           <motion.div variants={childVariants} className="mt-2">
@@ -189,12 +189,12 @@ export default function HeroSection() {
               transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif italic text-[#D4785C]/80 mt-1 tracking-tight"
             >
-              Sustainability
+              {t("hero.tagline")}
             </motion.span>
           </motion.div>
 
           <motion.p variants={childVariants} className="mx-auto mt-6 max-w-3xl text-base md:text-lg leading-relaxed text-zinc-300 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
-            Ekosistem pengelolaan sampah terintegrasi yang menghubungkan edukasi, daur ulang, pemberdayaan masyarakat, program kreatif, dan digital tracking untuk menciptakan dampak lingkungan yang terukur.
+            {t("hero.deskripsi")}
           </motion.p>
 
           <motion.div variants={childVariants} className="mt-8 grid grid-cols-3 gap-6 max-w-lg mx-auto">
@@ -210,10 +210,10 @@ export default function HeroSection() {
 
           <motion.div variants={childVariants} className="mt-8 flex flex-wrap justify-center gap-3">
             {FEATURES.map((f) => (
-              <div key={f.title} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-4 py-2 backdrop-blur-sm">
+              <div key={f.titleKey} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-4 py-2 backdrop-blur-sm">
                 <f.icon className="h-3.5 w-3.5 text-[#D4785C]" />
-                <span className="text-[10px] font-semibold text-zinc-300 whitespace-nowrap">{f.title}</span>
-                <span className="text-[8px] text-zinc-600 font-mono">{f.stat}</span>
+                <span className="text-[10px] font-semibold text-zinc-300 whitespace-nowrap">{t("hero.features." + f.titleKey)}</span>
+                <span className="text-[8px] text-zinc-600 font-mono">{t("hero.featureStats." + f.statKey)}</span>
               </div>
             ))}
           </motion.div>
@@ -223,7 +223,7 @@ export default function HeroSection() {
               href="/contact"
               className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3 shadow-[0_4px_24px_rgba(0,0,0,0.4)] hover:bg-zinc-100"
             >
-              Mulai Kolaborasi CSR
+              {t("hero.mulaiKolaborasi")}
               <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black transition-transform group-hover:scale-110">
                 <ArrowRight className="h-3 w-3 text-white" />
               </span>
@@ -232,7 +232,7 @@ export default function HeroSection() {
               href="#ecosystem"
               className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/30 px-6 py-3.5 text-sm font-semibold text-white backdrop-blur transition-all hover:bg-black/50 hover:border-[#D4785C]/30"
             >
-              Jelajahi Ekosistem
+              {t("hero.jelajahiEkosistem")}
               <ArrowRight className="h-3.5 w-3.5 text-[#D4785C]" />
             </Link>
           </motion.div>

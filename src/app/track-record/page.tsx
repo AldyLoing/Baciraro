@@ -11,6 +11,7 @@ import {
 } from "@/lib/site-sections-data";
 import { trackRecordData } from "@/lib/track-record-data";
 import { ArrowRight, Landmark, ShieldCheck, MapPin, LayoutList } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/context";
 import { CinematicHero } from "@/components/track-record/CinematicHero";
 import { PhotoWall } from "@/components/track-record/PhotoWall";
 import { ArchiveIndex } from "@/components/track-record/ArchiveIndex";
@@ -41,11 +42,12 @@ function SectionHeading({ eyebrow, title, description }: { eyebrow: string; titl
 }
 
 function InnovationSection() {
+  const { t } = useLanguage();
   return (
     <section id="inovasi" className="relative py-20 px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12">
-          <SectionHeading eyebrow="Inovasi" title="Inovasi dan Startup Pengelolaan Sampah" description="Pengembangan solusi berbasis teknologi dan inovasi produk daur ulang." />
+          <SectionHeading eyebrow={t("siteSections.inovasi")} title={t("siteSections.inovasiTitle")} description={t("siteSections.inovasiDesc")} />
         </div>
         <div className="grid gap-6 md:grid-cols-3">
           {innovationData.map((item, index) => (
@@ -61,14 +63,14 @@ function InnovationSection() {
                 <item.icon className="h-6 w-6" />
               </div>
               <div className="flex items-center gap-3 mb-3">
-                <h3 className="text-xl font-normal text-white">{item.title}</h3>
+                <h3 className="text-xl font-normal text-white">{item.titleKey ? t(item.titleKey) : item.title}</h3>
                 <span className="inline-flex items-center rounded-full border border-emerald-500/20 bg-emerald-950/40 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-400 shrink-0">{item.year}</span>
               </div>
               <ul className="space-y-2">
-                {item.description.map((point) => (
+                {item.description.map((point, i) => (
                   <li key={point} className="flex items-start gap-2">
                     <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
-                    <span className="text-sm text-zinc-400 leading-relaxed">{point}</span>
+                    <span className="text-sm text-zinc-400 leading-relaxed">{item.descriptionKey?.[i] ? t(item.descriptionKey[i]) : point}</span>
                   </li>
                 ))}
               </ul>
@@ -81,11 +83,12 @@ function InnovationSection() {
 }
 
 function EcosystemRegionSection() {
+  const { t } = useLanguage();
   return (
     <section id="ekosistem" className="relative py-20 px-6 lg:px-8 bg-zinc-950/20">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12">
-          <SectionHeading eyebrow="Ekosistem" title="Ekosistem Baciraro di Seluruh Wilayah" description="Baciraro Recycle sudah membangun ekosistem yang terhubung dari Hulu ke Hilir, fokus mengelola sampah plastik jenis HDPE, LDPE, dan PP untuk dijadikan produk kriya mendukung sirkular ekonomi lokal dan pariwisata berkelanjutan di DSP Likupang." />
+          <SectionHeading eyebrow={t("siteSections.ekosistem")} title={t("siteSections.ekosistemTitle")} description={t("siteSections.ekosistemDesc")} />
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {ecosystemRegionData.map((region, index) => (
@@ -101,13 +104,13 @@ function EcosystemRegionSection() {
                 <div className="inline-flex rounded-xl bg-emerald-500/10 p-2.5 text-emerald-400 shrink-0">
                   <region.icon className="h-5 w-5" />
                 </div>
-                <h3 className="text-lg font-semibold text-white">{region.region}</h3>
+                <h3 className="text-lg font-semibold text-white">{region.titleKey ? t(region.titleKey) : region.region}</h3>
               </div>
               <ul className="space-y-3">
-                {region.points.map((point) => (
+                {region.points.map((point, i) => (
                   <li key={point} className="flex items-start gap-2">
                     <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-emerald-400/60" />
-                    <span className="text-sm text-zinc-400 leading-relaxed">{point}</span>
+                    <span className="text-sm text-zinc-400 leading-relaxed">{region.pointsKey?.[i] ? t(region.pointsKey[i]) : point}</span>
                   </li>
                 ))}
               </ul>
@@ -120,11 +123,12 @@ function EcosystemRegionSection() {
 }
 
 function CSRProgramsSection() {
+  const { t } = useLanguage();
   return (
     <section id="csr" className="relative py-20 px-6 lg:px-8 bg-zinc-950/20">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12">
-          <SectionHeading eyebrow="CSR & Kemitraan" title="Program CSR dan Kemitraan Strategis" description="Kolaborasi dengan berbagai lembaga dan perusahaan dalam pengelolaan sampah berkelanjutan." />
+          <SectionHeading eyebrow={t("siteSections.csr")} title={t("siteSections.csrTitle")} description={t("siteSections.csrDesc")} />
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {csrPrograms.map((program, index) => (
@@ -141,16 +145,16 @@ function CSRProgramsSection() {
                   <ShieldCheck className="h-5 w-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-semibold text-white">{program.title}</h3>
+                  <h3 className="text-base font-semibold text-white">{program.titleKey ? t(program.titleKey) : program.title}</h3>
                   <span className="text-[10px] uppercase tracking-wider text-emerald-400 font-semibold">{program.period}</span>
-                  {program.program && <p className="text-xs text-zinc-500 mt-1 font-medium italic">{program.program}</p>}
+                  {program.program && <p className="text-xs text-zinc-500 mt-1 font-medium italic">{program.programKey ? t(program.programKey) : program.program}</p>}
                 </div>
               </div>
               <ul className="space-y-1.5">
-                {program.points.map((point) => (
+                {program.points.map((point, i) => (
                   <li key={point} className="flex items-start gap-2">
                     <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-emerald-400" />
-                    <span className="text-xs text-zinc-400 leading-relaxed">{point}</span>
+                    <span className="text-xs text-zinc-400 leading-relaxed">{program.pointsKey?.[i] ? t(program.pointsKey[i]) : point}</span>
                   </li>
                 ))}
               </ul>
@@ -163,11 +167,12 @@ function CSRProgramsSection() {
 }
 
 function PartnerSection() {
+  const { t } = useLanguage();
   return (
     <section id="mitra" className="relative py-20 px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12">
-          <SectionHeading eyebrow="Mitra" title="Mitra dan Lembaga yang Pernah Bekerja Sama" description="Jaringan kemitraan Baciraro dengan berbagai sektor pemerintah, korporasi, pendidikan, dan komunitas." />
+          <SectionHeading eyebrow={t("siteSections.mitra")} title={t("siteSections.mitraTitle")} description={t("siteSections.mitraDesc")} />
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {partnerCategories.map((category, index) => (
@@ -182,12 +187,12 @@ function PartnerSection() {
               <div className="inline-flex rounded-2xl bg-emerald-500/10 p-3 mb-4 text-emerald-400">
                 <Landmark className="h-5 w-5" />
               </div>
-              <h3 className="text-sm font-semibold text-white mb-4 uppercase tracking-wider">{category.category}</h3>
+              <h3 className="text-sm font-semibold text-white mb-4 uppercase tracking-wider">{category.titleKey ? t(category.titleKey) : category.category}</h3>
               <ul className="space-y-2">
-                {category.items.map((item) => (
+                {category.items.map((item, i) => (
                   <li key={item} className="flex items-start gap-2">
                     <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-emerald-400/60" />
-                    <span className="text-xs text-zinc-400 leading-relaxed">{item}</span>
+                    <span className="text-xs text-zinc-400 leading-relaxed">{category.itemKeys?.[i] ? t(category.itemKeys[i]) : item}</span>
                   </li>
                 ))}
               </ul>
@@ -200,11 +205,12 @@ function PartnerSection() {
 }
 
 function ProductSection() {
+  const { t } = useLanguage();
   return (
     <section id="produk" className="relative py-20 px-6 lg:px-8 bg-zinc-950/20">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12">
-          <SectionHeading eyebrow="Produk & Layanan" title="Produk dan Layanan Baciraro" description="Dari produk kriya daur ulang hingga konsultansi dampak sosial." />
+          <SectionHeading eyebrow={t("siteSections.produkLayanan")} title={t("siteSections.produkLayananTitle")} description={t("siteSections.produkLayananDesc")} />
         </div>
         <div className="grid gap-6 md:grid-cols-2">
           {productServiceData.map((item, index) => (
@@ -221,8 +227,8 @@ function ProductSection() {
                   <item.icon className="h-6 w-6" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h3 className="text-xl font-normal text-white mb-3">{item.title}</h3>
-                  <p className="text-sm text-zinc-400 leading-relaxed">{item.description}</p>
+                  <h3 className="text-xl font-normal text-white mb-3">{item.titleKey ? t(item.titleKey) : item.title}</h3>
+                  <p className="text-sm text-zinc-400 leading-relaxed">{item.descriptionKey ? t(item.descriptionKey) : item.description}</p>
                 </div>
               </div>
             </motion.div>
@@ -234,16 +240,17 @@ function ProductSection() {
 }
 
 function CompetencySection() {
+  const { t } = useLanguage();
   return (
     <section id="kompetensi" className="relative py-20 px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12">
-          <SectionHeading eyebrow="Kompetensi" title="Kompetensi Utama Baciraro Recycle" description="Keahlian inti yang menjadi fondasi setiap program dan layanan Baciraro." />
+          <SectionHeading eyebrow={t("siteSections.kompetensi")} title={t("siteSections.kompetensiTitle")} description={t("siteSections.kompetensiDesc")} />
         </div>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {coreCompetencies.map((competency, index) => (
+          {coreCompetencies.map((item, index) => (
             <motion.div
-              key={competency}
+              key={item.title}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -251,7 +258,7 @@ function CompetencySection() {
               className="flex items-start gap-3 rounded-2xl border border-white/5 bg-zinc-950/40 p-4 shadow-md hover:border-emerald-500/20 hover:bg-zinc-900/30 transition-all duration-300"
             >
               <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
-              <span className="text-sm text-zinc-300 font-medium leading-relaxed">{competency}</span>
+              <span className="text-sm text-zinc-300 font-medium leading-relaxed">{item.titleKey ? t(item.titleKey) : item.title}</span>
             </motion.div>
           ))}
         </div>
@@ -261,22 +268,23 @@ function CompetencySection() {
 }
 
 function CTASection() {
+  const { t } = useLanguage();
   return (
     <section className="relative py-20 px-6 lg:px-8 bg-zinc-950/20">
       <div className="mx-auto max-w-7xl">
         <div className="rounded-[3rem] border border-white/5 bg-gradient-to-br from-zinc-950 via-zinc-900 to-emerald-950/20 p-8 sm:p-12 text-center shadow-2xl backdrop-blur-sm">
           <h2 className="text-3xl sm:text-4xl font-normal leading-[1.1] tracking-tight text-white mb-4">
-            Mari Berkolaborasi
+            {t("siteSections.kolaborasi")}
           </h2>
           <p className="text-base text-zinc-400 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Baciraro terbuka untuk kemitraan, kolaborasi program CSR, dan pengembangan sistem pengelolaan sampah berkelanjutan di wilayah Anda.
+            {t("siteSections.kolaborasiDesc")}
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <a
               href="mailto:halo@baciraro.id"
               className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-black shadow-lg"
             >
-              Hubungi Kami
+              {t("siteSections.hubungiKami")}
               <span className="flex h-5 w-5 items-center justify-center rounded-full bg-black">
                 <ArrowRight className="h-3 w-3 text-white" />
               </span>
@@ -285,7 +293,7 @@ function CTASection() {
               href="/"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur hover:bg-white/10 transition-all duration-300"
             >
-              Kembali ke Beranda
+              {t("siteSections.kembaliBeranda")}
             </Link>
           </div>
         </div>
@@ -295,6 +303,7 @@ function CTASection() {
 }
 
 export default function TrackRecordPage() {
+  const { t } = useLanguage();
   const [showArchive, setShowArchive] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -310,7 +319,7 @@ export default function TrackRecordPage() {
       <div aria-hidden="true" className="page-bg" />
       <div className="relative z-[1]">
 
-      <Header subtitle="Rekam Jejak" />
+      <Header subtitle={t("trackRecord.label")} />
 
       <CinematicHero
         onExploreStory={() => setShowArchive(false)}
@@ -326,7 +335,7 @@ export default function TrackRecordPage() {
           }`}
         >
           <span className="h-2 w-2 rounded-full" />
-          Dinding Foto
+          {t("siteSections.dindingFoto")}
         </button>
         <span className="w-2" />
         <button
@@ -336,7 +345,7 @@ export default function TrackRecordPage() {
           }`}
         >
           <LayoutList className="h-3.5 w-3.5" />
-          Indeks Arsip
+          {t("siteSections.indeksArsip")}
         </button>
       </div>
 

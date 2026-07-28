@@ -4,21 +4,23 @@ import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { trackRecordData } from "@/lib/track-record-data";
+import { useLanguage } from "@/lib/i18n/context";
 import { MapPin, Users } from "lucide-react";
 
-const eraLabels: Record<string, string> = {
-  awal: "Era Awal",
-  tumbuh: "Era Tumbuh",
-  meluas: "Era Meluas",
-  transformasi: "Era Transformasi",
-};
-
 export function ScrollytellingJourney() {
+  const { t } = useLanguage();
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
+
+  const eraLabels: Record<string, string> = {
+    awal: t("trackRecord.scrollEraAwal"),
+    tumbuh: t("trackRecord.scrollEraTumbuh"),
+    meluas: t("trackRecord.scrollEraMeluas"),
+    transformasi: t("trackRecord.scrollEraTransformasi"),
+  };
 
   const chapters = trackRecordData.map((yearData) => ({
     year: yearData.year,
@@ -116,7 +118,7 @@ export function ScrollytellingJourney() {
                   {chapter.year}
                 </span>
                 <span className="text-sm text-zinc-500">
-                  {chapter.activities.length} kegiatan
+                  {chapter.activities.length} {t("trackRecord.kegiatan")}
                 </span>
               </div>
 
@@ -127,7 +129,7 @@ export function ScrollytellingJourney() {
                     <div key={activity.id}>
                       <div className="flex items-start justify-between gap-3 flex-wrap">
                         <h3 className="text-xl font-normal text-white">
-                          {activity.title}
+                          {t(activity.titleKey || activity.title)}
                         </h3>
                         <div className="flex flex-wrap gap-2 shrink-0">
                           {activity.location && (
@@ -145,7 +147,7 @@ export function ScrollytellingJourney() {
                         </div>
                       </div>
                       <p className="mt-2 text-sm text-zinc-400 leading-relaxed line-clamp-2">
-                        {activity.narrative}
+                        {t(activity.narrativeKey || activity.narrative)}
                       </p>
 
                       {photoCount > 0 && (

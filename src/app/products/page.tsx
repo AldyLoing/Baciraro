@@ -25,11 +25,11 @@ type Product = {
 };
 
 const categories = [
-  { key: "all", label: "Semua", icon: null },
-  { key: "plastic", label: "Plastik", icon: Recycle },
-  { key: "organic", label: "Organik", icon: Leaf },
-  { key: "craft", label: "Kriya", icon: Palette },
-  { key: "digital", label: "Digital", icon: Code2 },
+  { key: "all", label: "", icon: null },
+  { key: "plastic", label: "", icon: Recycle },
+  { key: "organic", label: "", icon: Leaf },
+  { key: "craft", label: "", icon: Palette },
+  { key: "digital", label: "", icon: Code2 },
 ];
 
 const categoryColors: Record<string, string> = {
@@ -37,13 +37,6 @@ const categoryColors: Record<string, string> = {
   organic: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
   craft: "bg-amber-500/10 text-amber-400 border-amber-500/20",
   digital: "bg-purple-500/10 text-purple-400 border-purple-500/20",
-};
-
-const categoryLabels: Record<string, string> = {
-  plastic: "Plastik",
-  organic: "Organik",
-  craft: "Kriya",
-  digital: "Digital",
 };
 
 export default function ProductsPage() {
@@ -68,19 +61,19 @@ export default function ProductsPage() {
       <div aria-hidden="true" className="page-bg" />
       <div className="relative z-[1]">
       <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.08] bg-noise" />
-      <Header subtitle="Products" />
+      <Header subtitle={t("products.title")} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-20">
         <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: springEase }}>
           <p className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 px-5 py-2 text-[11px] font-bold uppercase tracking-[0.28em] text-emerald-400 backdrop-blur">
             <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-            Baciraro Products
+            {t("products.title")}
           </p>
           <h1 className="mt-6 font-serif text-[clamp(40px,6vw,72px)] font-normal leading-[1.08] tracking-[-0.04em] text-white">
-            Dari Sampah<br /><span className="text-emerald-400">Menjadi Produk Bernilai</span>
+            {t("products.headline")}<br /><span className="text-emerald-400">{t("products.headlineHighlight")}</span>
           </h1>
           <p className="mt-4 max-w-[600px] text-[15px] text-zinc-300 leading-relaxed">
-            Setiap produk Baciraro membawa cerita — dari sampah yang dikumpulkan, dipilah, dan disulap menjadi karya bernilai tinggi. Jelajahi koleksi kami.
+            {t("products.subtitle")}
           </p>
         </motion.div>
 
@@ -104,9 +97,9 @@ export default function ProductsPage() {
 
         {/* Product Grid */}
         {loading ? (
-          <div className="mt-16 text-center text-zinc-500 text-sm">Memuat produk...</div>
+          <div className="mt-16 text-center text-zinc-500 text-sm">{t("products.memuat")}</div>
         ) : filtered.length === 0 ? (
-          <div className="mt-16 text-center text-zinc-500 text-sm">Belum ada produk di kategori ini.</div>
+          <div className="mt-16 text-center text-zinc-500 text-sm">{t("products.kosong")}</div>
         ) : (
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((product, i) => {
@@ -152,12 +145,12 @@ export default function ProductsPage() {
                           onClick={(e) => {
                             e.stopPropagation();
                             e.preventDefault();
-                            window.open(`https://wa.me/6288212835350?text=${encodeURIComponent(`Halo, saya ingin memesan produk ${product.title}, bisa dibantu?`)}`, '_blank', 'noopener');
+                            window.open(`https://wa.me/6288212835350?text=${encodeURIComponent(t("products.waMessage", { title: product.title }))}`, '_blank', 'noopener');
                           }}
                           className="ml-auto inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1.5 text-[10px] font-bold text-emerald-400 hover:bg-emerald-500 hover:text-black transition-all"
                         >
                           <MessageCircle className="h-3 w-3" />
-                          Pesan
+                          {t("products.pesan")}
                         </button>
                       </div>
                     </div>

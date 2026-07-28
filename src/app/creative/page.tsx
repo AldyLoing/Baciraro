@@ -10,37 +10,9 @@ import { LogoCloud } from "@/components/ui/logo-cloud-2";
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const featureCards = [
-  {
-    title: "Jejak Waraney.",
-    number: "01",
-    icon: "/lg.png",
-    items: [
-      "Berasal dari tradisi keprajuritan Minahasa.",
-      "Dulu ditarikan para penjaga kampung.",
-      "Kini menjadi simbol kehormatan budaya.",
-      "Energi gerak menegaskan semangat juang.",
-    ],
-  },
-  {
-    title: "Ritme dan Senjata.",
-    number: "02",
-    icon: "/pic.png",
-    items: [
-      "Diiringi tambur, gong, atau kolintang.",
-      "Gerak pedang santi dan tombak wengko.",
-      "Langkah 4/4 terasa kokoh dan presisi.",
-    ],
-  },
-  {
-    title: "Tiga Babak Inti.",
-    number: "03",
-    icon: "/pic.png",
-    items: [
-      "Cakalele: daya tempur dan kewaspadaan.",
-      "Kumoyak: ayunan senjata yang terarah.",
-      "Lalaya'an: penutup yang lebih cair dan lega.",
-    ],
-  },
+  { number: "01", icon: "/lg.png", itemCount: 4 },
+  { number: "02", icon: "/pic.png", itemCount: 3 },
+  { number: "03", icon: "/pic.png", itemCount: 3 },
 ];
 
 export default function CreativePage() {
@@ -166,7 +138,7 @@ export default function CreativePage() {
             >
               <Image
                 src="/pic.png"
-                alt="Floating decorative element"
+                alt={t("creative.decorativeAlt")}
                 width={960}
                 height={960}
                 className="h-full w-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
@@ -197,7 +169,7 @@ export default function CreativePage() {
                   transition={{ duration: 0.7 }}
                   className="text-[24vw] font-medium leading-[0.85] tracking-[-0.07em] text-primary-text sm:text-[22vw] md:text-[20vw] lg:text-[18vw] xl:text-[17vw]"
                 >
-                  Kawasaran
+                  {t("creative.kawasaranTitle")}
                 </motion.h1>
               </div>
 
@@ -338,28 +310,28 @@ export default function CreativePage() {
               <p className="absolute bottom-4 left-4 text-sm text-primary-text sm:text-base">{t("creative.featureCaption")}</p>
             </article>
 
-            {featureCards.map((card) => (
+            {featureCards.map((card, cardIdx) => (
               <article
                 key={card.number}
                 className="flex min-h-[320px] flex-col rounded-2xl border border-white/5 bg-zinc-950 p-4 sm:p-5"
               >
                 <Image
                   src={card.icon}
-                  alt={card.title}
+                  alt={t(`creative.featureCards.${cardIdx}.title`)}
                   width={48}
                   height={48}
                   className="h-10 w-10 rounded-xl object-cover sm:h-12 sm:w-12"
                 />
                 <div className="mt-5 flex items-start justify-between gap-3">
-                  <h3 className="text-lg text-primary-text sm:text-xl">{card.title}</h3>
+                  <h3 className="text-lg text-primary-text sm:text-xl">{t(`creative.featureCards.${cardIdx}.title`)}</h3>
                   <span className="text-xs text-zinc-500">{card.number}</span>
                 </div>
 
                 <ul className="mt-5 space-y-3">
-                  {card.items.map((item) => (
-                    <li key={item} className="flex items-start gap-2 text-sm text-zinc-400">
+                  {Array.from({ length: card.itemCount }, (_, itemIdx) => (
+                    <li key={itemIdx} className="flex items-start gap-2 text-sm text-zinc-400">
                       <Check className="mt-[2px] h-4 w-4 shrink-0 text-primary" />
-                      <span>{item}</span>
+                      <span>{t(`creative.featureCards.${cardIdx}.items.${itemIdx}`)}</span>
                     </li>
                   ))}
                 </ul>

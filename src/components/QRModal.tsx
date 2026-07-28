@@ -90,7 +90,7 @@ export default function QRModal({ open, onClose, url, title }: QRModalProps) {
 
             <div className="text-center">
               <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-emerald-400 mb-1">
-                Scan QR
+                {t("qrModal.title")}
               </p>
               <h3 className="font-serif text-lg text-white mb-6">{title}</h3>
 
@@ -103,7 +103,7 @@ export default function QRModal({ open, onClose, url, title }: QRModalProps) {
                 className="mt-6 inline-flex items-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black px-6 py-3 text-xs font-bold uppercase tracking-wider transition-all hover:gap-3"
               >
                 <Download className="h-4 w-4" />
-                Download QR
+                {t("qrModal.download")}
               </button>
             </div>
           </motion.div>

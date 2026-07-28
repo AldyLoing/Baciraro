@@ -258,7 +258,7 @@ export default function LeadershipPage() {
                   </div>
                   <div>
                     <p className="text-[12px] font-bold uppercase tracking-[0.25em] text-[#f87171] mb-2">
-                      {ceo.title || "Chief Executive Officer (CEO)"}
+                      {ceo.title || t("leadership.ceoFallback")}
                     </p>
                     <h2 className="font-serif text-[clamp(40px,5vw,64px)] font-normal leading-[1.08] tracking-[-0.03em] text-white">
                       {ceo.name}
@@ -272,8 +272,8 @@ export default function LeadershipPage() {
                       ))}
                     </div>
                     <div className="flex gap-3 mt-6">
-                      {ceo.linkedin && <IconBtn href={ceo.linkedin} label="LinkedIn"><LinkedInIcon className="h-[18px] w-[18px]" /></IconBtn>}
-                      {ceo.email && <IconBtn href={`mailto:${ceo.email}`} label="Email"><EmailIcon className="h-[18px] w-[18px]" /></IconBtn>}
+                      {ceo.linkedin && <IconBtn href={ceo.linkedin} label={t("leadership.linkedin")}><LinkedInIcon className="h-[18px] w-[18px]" /></IconBtn>}
+                      {ceo.email && <IconBtn href={`mailto:${ceo.email}`} label={t("leadership.email")}><EmailIcon className="h-[18px] w-[18px]" /></IconBtn>}
                     </div>
                   </div>
                 </div>
@@ -299,7 +299,7 @@ export default function LeadershipPage() {
                 &ldquo;
               </span>
               <p className="font-serif text-[22px] italic leading-relaxed text-[#e8e8e8]">
-                Kami percaya bahwa kolaborasi, inovasi, dan integritas adalah kunci untuk menciptakan perubahan nyata.
+                {t("leadership.quote")}
               </p>
             </motion.div>
 
@@ -311,7 +311,7 @@ export default function LeadershipPage() {
               className="mt-14"
             >
               <p className="font-serif text-[28px] tracking-[-0.02em] text-white">Baciraro</p>
-              <p className="text-[13px] text-emerald-400 mt-1">The Green Observatory</p>
+              <p className="text-[13px] text-emerald-400 mt-1">{t("leadership.tagline")}</p>
               <div className="w-[60px] h-px bg-emerald-500/15 mx-auto my-6" />
               <div className="flex flex-wrap justify-center gap-2">
                 {["valueInovasi", "valueKolaborasi", "valueIntegritas", "valueKeberlanjutan"].map((key) => (

@@ -90,14 +90,14 @@ export default function ImpactSection() {
         >
           <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-zinc-400 backdrop-blur shadow-lg">
             <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-            DAMPAK TERUKUR
+            {t("impact.label")}
           </p>
           <h2 className="mt-5 text-4xl font-normal leading-[1.15] tracking-tight text-white sm:text-5xl">
-            Data yang{" "}
-            <span className="font-serif italic text-emerald-300">bicara.</span>
+            {t("impact.title")}{" "}
+            <span className="font-serif italic text-emerald-300">{t("impact.titleItalic")}</span>
           </h2>
           <p className="mt-4 text-base leading-relaxed text-zinc-400">
-            Setiap angka adalah hasil kerja nyata di lapangan — dari hulu ke hilir.
+            {t("impact.subtitle")}
           </p>
         </motion.div>
 
@@ -120,7 +120,7 @@ export default function ImpactSection() {
                   </p>
                 </div>
                 <p className="text-sm text-zinc-400">{t("impact.metrics." + m.labelKey)}</p>
-                <p className="text-[9px] text-zinc-600 uppercase tracking-wider">{m.unit}</p>
+                <p className="text-[9px] text-zinc-600 uppercase tracking-wider">{t("impact.metricsUnits." + m.unit)}</p>
               </div>
             </motion.div>
           ))}
@@ -138,8 +138,8 @@ export default function ImpactSection() {
               <Cpu className="h-5 w-5" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-white">Dashboard Dampak Terpusat</p>
-              <p className="text-xs text-zinc-500">Monitoring real-time untuk stakeholder dan mitra CSR</p>
+              <p className="text-sm font-semibold text-white">{t("impact.dashboard.title")}</p>
+              <p className="text-xs text-zinc-500">{t("impact.dashboard.desc")}</p>
             </div>
           </div>
         </motion.div>

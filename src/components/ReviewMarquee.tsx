@@ -39,7 +39,7 @@ export default function ReviewMarquee() {
     <section className="relative overflow-hidden py-12">
       <div className="mb-8 px-6 lg:px-8">
         <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-emerald-400">
-          Apa Kata Mereka
+          {t("reviews.label")}
         </p>
       </div>
 

@@ -43,7 +43,7 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
       body: JSON.stringify({ username: "baciraro@gmail.com", password }),
     });
     const data = await res.json();
-    if (!res.ok) return { error: data.error || "Login gagal" };
+    if (!res.ok) return { error: data.error || "Login failed" };
     setAdmin(data.user);
     return {};
   }, []);

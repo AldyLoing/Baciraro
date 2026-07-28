@@ -48,7 +48,7 @@ export function CustomerAuthProvider({ children }: { children: ReactNode }) {
       body: JSON.stringify({ email, password }),
     });
     const data = await res.json();
-    if (!res.ok) return { error: data.error || "Login gagal" };
+    if (!res.ok) return { error: data.error || "Login failed" };
     setCustomer(data.customer);
     return {};
   }, []);
@@ -60,7 +60,7 @@ export function CustomerAuthProvider({ children }: { children: ReactNode }) {
       body: JSON.stringify({ email, password, name, phone, photo_url }),
     });
     const data = await res.json();
-    if (!res.ok) return { error: data.error || "Registrasi gagal" };
+    if (!res.ok) return { error: data.error || "Registration failed" };
     setCustomer(data.customer);
     return {};
   }, []);
@@ -77,7 +77,7 @@ export function CustomerAuthProvider({ children }: { children: ReactNode }) {
       body: JSON.stringify({ name, phone, photo_url }),
     });
     const data = await res.json();
-    if (!res.ok) return { error: data.error || "Gagal memperbarui profil" };
+    if (!res.ok) return { error: data.error || "Failed to update profile" };
     setCustomer(data.customer);
     return {};
   }, []);

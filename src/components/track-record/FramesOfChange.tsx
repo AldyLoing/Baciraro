@@ -4,18 +4,11 @@ import { useState, useMemo } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { trackRecordData } from "@/lib/track-record-data";
+import { useLanguage } from "@/lib/i18n/context";
 import { X, ChevronLeft, ChevronRight, Maximize2, Filter } from "lucide-react";
 
 const PHOTOS_PER_BATCH = 40;
 const INITIAL_PHOTOS = 60;
-
-const categoryLabels: Record<string, string> = {
-  lingkungan: "Lingkungan",
-  sosial: "Sosial",
-  ekonomi: "Ekonomi",
-  teknologi: "Teknologi",
-  pendidikan: "Pendidikan",
-};
 
 function Lightbox({ photos, index, onClose }: { photos: { src: string; alt: string }[]; index: number; onClose: () => void }) {
   const [current, setCurrent] = useState(index);
@@ -78,6 +71,16 @@ function Lightbox({ photos, index, onClose }: { photos: { src: string; alt: stri
 }
 
 export function FramesOfChange() {
+  const { t } = useLanguage();
+
+  const categoryLabels: Record<string, string> = {
+    lingkungan: t("trackRecord.catLingkungan"),
+    sosial: t("trackRecord.catSosial"),
+    ekonomi: t("trackRecord.catEkonomi"),
+    teknologi: t("trackRecord.catTeknologi"),
+    pendidikan: t("trackRecord.catPendidikan"),
+  };
+
   const [filterCategory, setFilterCategory] = useState<string | null>(null);
   const [filterYear, setFilterYear] = useState<number | null>(null);
   const [visibleCount, setVisibleCount] = useState(INITIAL_PHOTOS);
@@ -126,13 +129,13 @@ export function FramesOfChange() {
         <div className="mb-10">
           <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-400 backdrop-blur shadow-lg">
             <Filter className="h-3 w-3" />
-            Frame of Change
+            {t("trackRecord.framesLabel")}
           </p>
           <h2 className="mt-5 text-3xl font-normal leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-5xl">
-            Dokumentasi Visual
+            {t("trackRecord.framesTitle")}
           </h2>
           <p className="mt-4 text-base leading-7 text-zinc-400 sm:text-lg">
-            {filtered.length} foto terdokumentasi dalam perjalanan Baciraro.
+            {filtered.length} {t("trackRecord.foto")} {t("trackRecord.framesCount")}
           </p>
         </div>
 
@@ -145,7 +148,7 @@ export function FramesOfChange() {
                 : "border border-white/10 text-zinc-400 hover:text-zinc-200 hover:border-white/20"
             }`}
           >
-            Semua
+            {t("trackRecord.semua")}
           </button>
           {years.map((y) => (
             <button
@@ -210,7 +213,7 @@ export function FramesOfChange() {
               onClick={() => setVisibleCount((p) => p + PHOTOS_PER_BATCH)}
               className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3 text-xs font-semibold uppercase tracking-wider text-zinc-300 hover:bg-white/10 hover:text-white transition-all duration-300"
             >
-              Tampilkan Lebih Banyak ({filtered.length - visibleCount} tersisa)
+              {t("trackRecord.tampilkanLagi")} ({filtered.length - visibleCount} {t("trackRecord.tersisa")})
             </button>
           </div>
         )}

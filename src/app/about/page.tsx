@@ -20,20 +20,15 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 }
 
 const milestones = [
-  { year: "2018", title: "Pendirian Yayasan", desc: "Baciraro didirikan sebagai platform circular economy yang menghubungkan edukasi lingkungan dengan aksi nyata." },
-  { year: "2019", title: "Bank Sampah Pertama", desc: "Mendirikan bank sampah Cells dan Wale Sejati sebagai model pengelolaan sampah berbasis komunitas." },
-  { year: "2020", title: "Dampak Pandemi", desc: "Program tanggap COVID-19: alat cuci tangan, paket bantuan, dan edukasi protokol kesehatan untuk pengurus bank sampah." },
-  { year: "2021", title: "TRC & ELMAST", desc: "Meluncurkan Trash Recycle Center (daur ulang) dan ELMAST Greenovasi (pengolahan organik)." },
-  { year: "2022", title: "ORDERS & Digital", desc: "Komunitas ORDERS hadir membangun platform digital tracking sampah end-to-end." },
-  { year: "2023-25", title: "Ekspansi & Kreatif", desc: "Baciraro Creative dan Creative Studio lahir, menjembatani daur ulang dengan industri kreatif dan budaya." },
+  { year: "2018" },
+  { year: "2019" },
+  { year: "2020" },
+  { year: "2021" },
+  { year: "2022" },
+  { year: "2023-25" },
 ];
 
-const values = [
-  { icon: Recycle, title: "Circular Economy", desc: "Setiap bahan memiliki siklus hidup kedua yang bernilai." },
-  { icon: Users, title: "Pemberdayaan", desc: "Komunitas adalah inti dari setiap solusi yang kami bangun." },
-  { icon: Sprout, title: "Keberlanjutan", desc: "Dampak jangka panjang lebih penting daripada hasil instan." },
-  { icon: Cpu, title: "Transparansi", desc: "Data dan jejak sampah tercatat secara digital dan terbuka." },
-];
+const valueIcons = [Recycle, Users, Sprout, Cpu];
 
 export default function AboutPage() {
   const { t } = useLanguage();
@@ -68,7 +63,7 @@ export default function AboutPage() {
                 <div className="relative h-full w-full overflow-hidden rounded-2xl bg-zinc-950 border border-white/5">
                   <Image
                     src="/baciraro ecosystem.jpeg"
-                    alt="Baciraro Ecosystem"
+                    alt={t("about.ekosistemAlt")}
                     fill
                     sizes="(max-width: 1024px) 100vw, 450px"
                     className="object-cover transition-transform duration-500 hover:scale-102"
@@ -86,14 +81,9 @@ export default function AboutPage() {
                 {t("about.ekosistemDesc")}
               </p>
               <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                {[
-                  "Menghubungkan pengelolaan sampah dari komunitas ke industri.",
-                  "Mendorong circular economy dengan pendekatan yang terukur.",
-                  "Menyediakan dashboard dan jejak dampak yang transparan.",
-                  "Mendukung kolaborasi CSR, pemerintah, dan desa.",
-                ].map((item) => (
-                  <div key={item} className="rounded-2xl border border-white/5 bg-black/25 p-5 text-sm leading-relaxed text-zinc-400 shadow-lg backdrop-blur-sm">
-                    {item}
+                {[0, 1, 2, 3].map((i) => (
+                  <div key={i} className="rounded-2xl border border-white/5 bg-black/25 p-5 text-sm leading-relaxed text-zinc-400 shadow-lg backdrop-blur-sm">
+                    {t(`about.ekosistemItems.${i}`)}
                   </div>
                 ))}
               </div>
@@ -137,13 +127,13 @@ export default function AboutPage() {
               </h2>
             </div>
             <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {values.map((v) => (
-                <div key={v.title} className="rounded-[2rem] border border-white/5 bg-black/25 p-6 shadow-xl backdrop-blur-sm">
+              {valueIcons.map((Icon, i) => (
+                <div key={i} className="rounded-[2rem] border border-white/5 bg-black/25 p-6 shadow-xl backdrop-blur-sm">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400">
-                    <v.icon className="h-6 w-6" />
+                    <Icon className="h-6 w-6" />
                   </div>
-                  <h3 className="mt-5 text-lg font-semibold text-white">{v.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-zinc-400">{v.desc}</p>
+                  <h3 className="mt-5 text-lg font-semibold text-white">{t(`about.values.${i}.title`)}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-zinc-400">{t(`about.values.${i}.desc`)}</p>
                 </div>
               ))}
             </div>
@@ -176,8 +166,8 @@ export default function AboutPage() {
                     </div>
                     <div className={`md:w-[45%] ${i % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
                       <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">{m.year}</span>
-                      <h3 className="mt-1 text-lg font-semibold text-white">{m.title}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-zinc-400">{m.desc}</p>
+                      <h3 className="mt-1 text-lg font-semibold text-white">{t(`about.milestones.${i}.title`)}</h3>
+                      <p className="mt-2 text-sm leading-relaxed text-zinc-400">{t(`about.milestones.${i}.desc`)}</p>
                     </div>
                   </motion.div>
                 ))}

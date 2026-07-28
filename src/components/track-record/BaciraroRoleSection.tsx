@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { trackRecordData } from "@/lib/track-record-data";
+import { useLanguage } from "@/lib/i18n/context";
 import { Users, ShieldCheck, Lightbulb, Handshake, Cog, GraduationCap } from "lucide-react";
 
 const roleIcons: Record<string, typeof Users> = {
@@ -32,6 +33,7 @@ interface RoleCount {
 }
 
 export function BaciraroRoleSection() {
+  const { t } = useLanguage();
   const roleMap = new Map<string, number>();
   trackRecordData.forEach((year) => {
     year.activities.forEach((a) => {
@@ -53,13 +55,13 @@ export function BaciraroRoleSection() {
         <div className="mb-12">
           <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-emerald-400 backdrop-blur shadow-lg">
             <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-            Peran Baciraro
+            {t("trackRecord.peran")}
           </p>
           <h2 className="mt-5 text-3xl font-normal leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-5xl">
-            Peran yang Telah Dijalani
+            {t("trackRecord.peranTitle")}
           </h2>
           <p className="mt-4 text-base leading-7 text-zinc-400 sm:text-lg max-w-3xl">
-            Dari fasilitator hingga eksekutor, Baciraro telah mengambil berbagai peran dalam setiap program dan kegiatan.
+            {t("trackRecord.peranDesc")}
           </p>
         </div>
 
@@ -79,8 +81,8 @@ export function BaciraroRoleSection() {
                   <Icon className="h-4 w-4" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-white truncate">{role}</p>
-                  <p className="text-xs text-zinc-500">{count} kegiatan</p>
+                  <p className="text-sm font-medium text-white truncate">{t("trackRecord.role." + role.toLowerCase().replace(/ /g, '_'))}</p>
+                  <p className="text-xs text-zinc-500">{count} {t("trackRecord.kegiatan")}</p>
                 </div>
               </motion.div>
             );

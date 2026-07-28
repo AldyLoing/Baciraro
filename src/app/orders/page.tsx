@@ -9,35 +9,18 @@ import { ArrowRight, Code, Smartphone, BarChart3, Zap } from "lucide-react";
 import FlowArt, { FlowSection } from "@/components/ui/story-scroll";
 
 const products = [
-  {
-    name: "Website Yayasan",
-    description: "Platform digital untuk pengelolaan data yayasan dan komunikasi dengan mitra ekosistem Baciraro.",
-    icon: Code,
-  },
-  {
-    name: "Aplikasi Bank Sampah Desa Kolongan",
-    description: "Sistem tracking sampah terintegrasi untuk masyarakat Desa Kolongan dengan interface user-friendly.",
-    icon: Smartphone,
-  },
-  {
-    name: "Aplikasi Bank Sampah StorJo Desa Pinabetengan",
-    description: "Platform mobile untuk pengelolaan bank sampah dengan fitur monitoring dan pelaporan real-time.",
-    icon: BarChart3,
-  },
+  { icon: Code },
+  { icon: Smartphone },
+  { icon: BarChart3 },
 ];
 
 const solutions = [
-  { name: "Platform Digital Waste Management", description: "Sistem terpadu untuk monitoring dan tracking sampah" },
-  { name: "Dashboard Monitoring", description: "Visualisasi data real-time untuk pengambilan keputusan cepat" },
-  { name: "Sistem Tracking Sampah", description: "Pelacakan end-to-end dari pengumpulan hingga pemrosesan" },
+  {},
+  {},
+  {},
 ];
 
-const visionPoints = [
-  "Efisiensi operasional melalui digitalisasi",
-  "Transparansi data pengelolaan sampah",
-  "Keterlibatan masyarakat yang lebih aktif",
-  "Pengambilan keputusan berbasis data",
-];
+const visionPoints = ["", "", "", ""];
 
 export default function OrdersPage() {
   const { t } = useLanguage();
@@ -50,14 +33,14 @@ export default function OrdersPage() {
       <Header subtitle={t("orders.label")} />
 
       {/* GSAP Story Scroll Presentation */}
-      <FlowArt aria-label="ORDERS Interactive Story Flow">
+      <FlowArt aria-label={t("orders.storyFlowLabel")}>
         
         {/* Slide 01: Hero / Who We Are */}
-        <FlowSection aria-label="ORDERS Hero" style={{ backgroundColor: '#050805', color: '#fff' }}>
+        <FlowSection aria-label={t("orders.heroLabel")} style={{ backgroundColor: '#050805', color: '#fff' }}>
           <div className="flex flex-col h-full justify-between gap-6 pt-[2vh]">
             <div className="flex items-center justify-between">
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-400">{t("orders.slide01Label")}</p>
-              <span className="text-xs font-mono opacity-50">{t("orders.label")} Ecosystem</span>
+              <span className="text-xs font-mono opacity-50">{t("orders.label")} {t("orders.ecosystemSuffix")}</span>
             </div>
             
             <hr className="border-none border-t border-white/10" />
@@ -81,7 +64,7 @@ export default function OrdersPage() {
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.08),_transparent_70%)] pointer-events-none" />
                   <Image
                     src="/Orders.png"
-                    alt="ORDERS Logo Illustration"
+                    alt={t("orders.logoAlt")}
                     fill
                     className="object-contain p-8 drop-shadow-[0_10px_25px_rgba(0,0,0,0.08)]"
                     priority
@@ -93,13 +76,13 @@ export default function OrdersPage() {
             <hr className="border-none border-t border-white/10" />
             
             <div className="flex justify-between items-center text-xs opacity-60">
-              <span>Baciraro Sustainability Platform</span>
+              <span>{t("orders.slide01Footer")}</span>
             </div>
           </div>
         </FlowSection>
 
         {/* Slide 02: Tentang / Our Mission */}
-        <FlowSection aria-label="Tentang ORDERS" style={{ backgroundColor: '#022c22', color: '#fff' }}>
+        <FlowSection aria-label={t("orders.tentangLabel")} style={{ backgroundColor: '#022c22', color: '#fff' }}>
           <div className="flex flex-col h-full justify-between gap-6 pt-[2vh]">
             <div className="flex items-center justify-between">
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-300">{t("orders.slide02Label")}</p>
@@ -118,40 +101,36 @@ export default function OrdersPage() {
                   <span className="text-emerald-300">{t("orders.slide02Title3")}</span>
                 </h2>
                 <div className="space-y-4 text-[clamp(0.9rem,1.5vw,1.15rem)] font-normal leading-relaxed text-zinc-300">
-                  <p>
-                    ORDERS adalah komunitas pengembang teknologi yang didedikasikan untuk menciptakan solusi digital inovatif dalam pengelolaan sampah secara transparan.
-                  </p>
-                  <p>
-                    Kami berkomitmen untuk mentransformasi cara ekosistem Baciraro beroperasi melalui sistem berbasis data yang scalable, aman, dan berfokus pada kemudahan pengguna.
-                  </p>
+                  <p>{t("orders.slide02Paragraph1")}</p>
+                  <p>{t("orders.slide02Paragraph2")}</p>
                 </div>
               </div>
               
               <div className="rounded-[2rem] border border-white/10 bg-zinc-950/40 p-8 space-y-6 backdrop-blur shadow-2xl">
                 <h3 className="text-lg font-bold uppercase tracking-wider text-emerald-300">{t("orders.visiKeberlanjutan")}</h3>
                 <p className="text-sm text-zinc-400 leading-relaxed">
-                  Dengan tim pengembang berpengalaman dan visi keberlanjutan yang kuat, kami merancang platform untuk mempertemukan pemangku kepentingan dalam satu ruang digital terintegrasi.
+                  {t("orders.slide02DescVisi")}
                 </p>
                 <div className="pt-6 border-t border-white/5 flex gap-8">
                   <div>
                     <p className="text-emerald-300 text-2xl font-bold font-mono">100%</p>
-                    <p className="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">Open-Source Dev</p>
+                    <p className="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">{t("orders.slide02OpenSource")}</p>
                   </div>
                   <div>
                     <p className="text-emerald-300 text-2xl font-bold font-mono">Secure</p>
-                    <p className="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">Real-time Audits</p>
+                    <p className="text-[10px] text-zinc-500 uppercase tracking-wider mt-1">{t("orders.slide02SecureAudits")}</p>
                   </div>
                 </div>
               </div>
             </div>
             
             <hr className="border-none border-t border-white/10" />
-            <p className="text-xs opacity-60">Empowering Green Technology Systems</p>
+            <p className="text-xs opacity-60">{t("orders.slide02Footer")}</p>
           </div>
         </FlowSection>
 
         {/* Slide 03: Produk & Karya */}
-        <FlowSection aria-label="Produk & Karya" style={{ backgroundColor: '#064e3b', color: '#fff' }}>
+        <FlowSection aria-label={t("orders.produkLabel")} style={{ backgroundColor: '#064e3b', color: '#fff' }}>
           <div className="flex flex-col h-full justify-between gap-6 pt-[2vh]">
             <div className="flex items-center justify-between">
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-300">{t("orders.slide03Label")}</p>
@@ -171,20 +150,20 @@ export default function OrdersPage() {
               </div>
               
               <div className="grid gap-6 md:grid-cols-3">
-                {products.map((product) => {
+                {products.map((product, index) => {
                   const IconComponent = product.icon;
                   return (
                     <div
-                      key={product.name}
+                      key={index}
                       className="group rounded-[2rem] border border-white/10 bg-zinc-950/60 p-6 shadow-xl backdrop-blur-sm hover:border-emerald-400/30 hover:bg-zinc-950/80 transition-all duration-300 flex flex-col justify-between min-h-[200px]"
                     >
                       <div>
                         <div className="inline-flex rounded-xl bg-emerald-500/10 p-3 mb-4 text-emerald-400 group-hover:scale-110 transition-transform duration-300">
                           <IconComponent className="h-6 w-6" />
                         </div>
-                        <h3 className="text-base font-bold text-white mb-2 group-hover:text-emerald-300 transition-colors">{product.name}</h3>
+                        <h3 className="text-base font-bold text-white mb-2 group-hover:text-emerald-300 transition-colors">{t(`orders.products.${index}.name`)}</h3>
                       </div>
-                      <p className="text-zinc-400 leading-relaxed text-xs">{product.description}</p>
+                      <p className="text-zinc-400 leading-relaxed text-xs">{t(`orders.products.${index}.description`)}</p>
                     </div>
                   );
                 })}
@@ -192,12 +171,12 @@ export default function OrdersPage() {
             </div>
             
             <hr className="border-none border-t border-white/10" />
-            <p className="text-xs opacity-60">Scalable Waste Management Architectures</p>
+            <p className="text-xs opacity-60">{t("orders.slide03Footer")}</p>
           </div>
         </FlowSection>
 
         {/* Slide 04: Solusi & Visi */}
-        <FlowSection aria-label="Solusi & Visi" style={{ backgroundColor: '#0f172a', color: '#fff' }}>
+        <FlowSection aria-label={t("orders.solusiLabel")} style={{ backgroundColor: '#0f172a', color: '#fff' }}>
           <div className="flex flex-col h-full justify-between gap-6 pt-[2vh]">
             <div className="flex items-center justify-between">
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-400">{t("orders.slide04Label")}</p>
@@ -217,12 +196,12 @@ export default function OrdersPage() {
                 </h2>
                 
                 <div className="space-y-3">
-                  {solutions.map((sol) => (
-                    <div key={sol.name} className="flex gap-4 items-start p-3.5 rounded-2xl bg-zinc-900/40 border border-white/5 hover:border-indigo-500/20 transition-all duration-300">
+                  {solutions.map((sol, index) => (
+                    <div key={index} className="flex gap-4 items-start p-3.5 rounded-2xl bg-zinc-900/40 border border-white/5 hover:border-indigo-500/20 transition-all duration-300">
                       <div className="h-2 w-2 rounded-full bg-indigo-400 mt-2 shrink-0 animate-pulse" />
                       <div>
-                        <h4 className="text-xs font-bold text-white uppercase tracking-wider">{sol.name}</h4>
-                        <p className="text-[11px] text-zinc-400 mt-1">{sol.description}</p>
+                        <h4 className="text-xs font-bold text-white uppercase tracking-wider">{t(`orders.solutions.${index}.name`)}</h4>
+                        <p className="text-[11px] text-zinc-400 mt-1">{t(`orders.solutions.${index}.description`)}</p>
                       </div>
                     </div>
                   ))}
@@ -232,17 +211,17 @@ export default function OrdersPage() {
               <div className="rounded-[2.5rem] border border-white/5 bg-zinc-950/60 p-8 space-y-6">
                 <h3 className="text-base font-bold text-white uppercase tracking-wider">{t("orders.visiDigitalisasi")}</h3>
                 <p className="text-xs text-zinc-400">
-                  Teknologi adalah sarana vital untuk melacak data dampak lingkungan secara transparan, mendorong circular economy yang efisien dan berkelanjutan.
+                  {t("orders.slide04Desc")}
                 </p>
                 
                 <div className="grid gap-3">
-                  {visionPoints.map((point) => (
+                  {visionPoints.map((_, index) => (
                     <div
-                      key={point}
+                      key={index}
                       className="flex items-center gap-3 rounded-full border border-white/5 bg-zinc-900/20 p-3 shadow-md hover:bg-zinc-900/40 transition-colors"
                     >
                       <Zap className="h-4 w-4 shrink-0 text-indigo-400" />
-                      <span className="text-xs text-zinc-300 font-medium">{point}</span>
+                      <span className="text-xs text-zinc-300 font-medium">{t(`orders.visionPoints.${index}`)}</span>
                     </div>
                   ))}
                 </div>
@@ -250,12 +229,12 @@ export default function OrdersPage() {
             </div>
             
             <hr className="border-none border-t border-white/10" />
-            <p className="text-xs opacity-60">Decentralized Data and Civic Collaboration</p>
+            <p className="text-xs opacity-60">{t("orders.slide04Footer")}</p>
           </div>
         </FlowSection>
 
         {/* Slide 05: Kolaborasi & CTA */}
-        <FlowSection aria-label="Hubungi Kami" style={{ backgroundColor: '#0a0d0a', color: '#fff' }}>
+        <FlowSection aria-label={t("orders.hubungiLabel")} style={{ backgroundColor: '#0a0d0a', color: '#fff' }}>
           <div className="flex flex-col h-full justify-between gap-6 pt-[2vh]">
             <div className="flex items-center justify-between">
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-400">{t("orders.slide05Label")}</p>
@@ -295,8 +274,8 @@ export default function OrdersPage() {
             <hr className="border-none border-t border-white/10" />
             
             <div className="flex justify-between items-center text-[10px] md:text-xs opacity-60">
-              <span>&copy; {new Date().getFullYear()} ORDERS. All rights reserved.</span>
-              <span>Akar Tradisi, Wajah Masa Depan.</span>
+              <span>{t("orders.slideCopyright", { year: new Date().getFullYear() })}</span>
+              <span>{t("orders.slide05Footer")}</span>
             </div>
           </div>
         </FlowSection>

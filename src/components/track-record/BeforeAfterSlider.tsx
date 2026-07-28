@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback } from "react";
 import Image from "next/image";
+import { useLanguage } from "@/lib/i18n/context";
 
 interface BeforeAfterSliderProps {
   before: string;
@@ -13,9 +14,12 @@ interface BeforeAfterSliderProps {
 export function BeforeAfterSlider({
   before,
   after,
-  beforeLabel = "Sebelum",
-  afterLabel = "Sesudah",
+  beforeLabel: beforeLabelProp,
+  afterLabel: afterLabelProp,
 }: BeforeAfterSliderProps) {
+  const { t } = useLanguage();
+  const beforeLabel = beforeLabelProp ?? t("trackRecord.beforeLabel");
+  const afterLabel = afterLabelProp ?? t("trackRecord.afterLabel");
   const [sliderPos, setSliderPos] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
   const dragging = useRef(false);

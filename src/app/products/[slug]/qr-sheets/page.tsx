@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import QRCode from "qrcode";
 import { Loader2, Printer } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/context";
 
 type QRItem = { code: string; claimUrl: string };
 
@@ -49,6 +50,7 @@ async function generateQRDataUrl(
 }
 
 export default function QRSheetsPage() {
+  const { t } = useLanguage();
   const params = useParams();
   const slug = params.slug as string;
   const [productTitle, setProductTitle] = useState("");
@@ -112,10 +114,10 @@ export default function QRSheetsPage() {
         <div className="text-center">
           <Loader2 className="h-8 w-8 animate-spin text-zinc-400 mx-auto" />
           <p className="mt-4 text-sm text-zinc-500">
-            Menghasilkan 50 QR code dengan logo...
+            {t("qrSheets.loading")}
           </p>
           <p className="mt-1 text-xs text-zinc-400">
-            {qrImages.length} / 50 selesai
+            {t("qrSheets.progress", { done: qrImages.length })}
           </p>
         </div>
       </div>
@@ -130,10 +132,10 @@ export default function QRSheetsPage() {
           className="inline-flex items-center gap-2 rounded-full bg-black text-white px-8 py-3.5 text-sm font-bold shadow-lg hover:bg-zinc-800 transition-all"
         >
           <Printer className="h-4 w-4" />
-          Cetak Lembar QR
+          {t("qrSheets.print")}
         </button>
         <p className="text-[10px] text-zinc-400 bg-white/80 px-3 py-1 rounded-full">
-          {qrImages.length} QR code siap dicetak
+          {t("qrSheets.ready", { count: qrImages.length })}
         </p>
       </div>
 
@@ -142,10 +144,10 @@ export default function QRSheetsPage() {
           <div>
             <h1 className="sheet-title">{productTitle}</h1>
             <p className="sheet-subtitle">
-              QR Code — Scan untuk klaim & dapatkan poin
+              {t("qrSheets.title")}
             </p>
           </div>
-          <div className="sheet-brand">baciraro.net</div>
+          <div className="sheet-brand">{t("qrSheets.brand")}</div>
         </div>
 
         <div className="qr-grid">
@@ -167,8 +169,7 @@ export default function QRSheetsPage() {
         </div>
 
         <div className="sheet-footer">
-          baciraro.net — Scan setiap QR code untuk klaim produk dan kumpulkan
-          poin
+          {t("qrSheets.footer")}
         </div>
       </div>
 

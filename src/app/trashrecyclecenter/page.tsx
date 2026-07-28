@@ -11,28 +11,16 @@ import { ArrowRight, Recycle, TrendingUp, Package, Zap } from "lucide-react";
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const wasteTypes = [
-  {
-    name: "Plastik",
-    description: "Pengumpulan dan pemrosesan plastik dari berbagai sumber menjadi bahan baku berkualitas.",
-    icon: Package,
-  },
-  {
-    name: "Kertas",
-    description: "Daur ulang kertas bekas menjadi bahan baku untuk industri kreatif dan manufaktur.",
-    icon: Recycle,
-  },
-  {
-    name: "Logam",
-    description: "Pemilahan dan pengolahan limbah logam untuk dijual kembali ke industri.",
-    icon: TrendingUp,
-  },
+  { icon: Package },
+  { icon: Recycle },
+  { icon: TrendingUp },
 ];
 
 const processSteps = [
-  { step: "Pengumpulan", description: "Kumpul dari berbagai sumber: rumah, industri, perdagangan" },
-  { step: "Sorting", description: "Pemilahan manual dan mekanis berdasarkan jenis material" },
-  { step: "Pengolahan", description: "Proses pencucian, pengeringan, dan pemadatan" },
-  { step: "Bahan Baku", description: "Transformasi menjadi bahan baku siap industri" },
+  {},
+  {},
+  {},
+  {},
 ];
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -54,7 +42,7 @@ function HeroSection() {
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: springEase }}>
             <div className="mb-6">
-              <SectionLabel>Trash Recycle Center</SectionLabel>
+              <SectionLabel>{t2("trashrecyclecenter.label")}</SectionLabel>
             </div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-normal leading-tight tracking-[-0.04em] text-white">
@@ -97,7 +85,7 @@ function HeroSection() {
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.15),_transparent_70%)]" />
               <Image
                 src="/trc.png"
-                alt="Trash Recycle Center"
+                alt={t2("trashrecyclecenter.heroAlt")}
                 fill
                 className="object-contain p-8 drop-shadow-[0_15px_30px_rgba(16,185,129,0.2)]"
                 priority
@@ -128,7 +116,7 @@ function WasteTypesSection() {
         <div className="grid gap-6 md:grid-cols-3">
           {wasteTypes.map((waste, index) => (
             <motion.div
-              key={waste.name}
+              key={index}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -138,8 +126,8 @@ function WasteTypesSection() {
               <div className="inline-flex rounded-2xl bg-emerald-500/10 p-3 mb-4 text-emerald-400">
                 <waste.icon className="h-6 w-6" />
               </div>
-              <h3 className="text-xl font-normal text-white mb-3">{waste.name}</h3>
-              <p className="text-zinc-400 leading-relaxed text-sm">{waste.description}</p>
+              <h3 className="text-xl font-normal text-white mb-3">{t2(`trashrecyclecenter.wasteTypes.${index}.name`)}</h3>
+              <p className="text-zinc-400 leading-relaxed text-sm">{t2(`trashrecyclecenter.wasteTypes.${index}.desc`)}</p>
             </motion.div>
           ))}
         </div>
@@ -161,8 +149,8 @@ function ProcessSection() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-4">
-          {processSteps.map((item, index) => (
-            <div key={item.step} className="relative">
+          {processSteps.map((_, index) => (
+            <div key={index} className="relative">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -173,8 +161,8 @@ function ProcessSection() {
                 <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500/20 border border-emerald-500/30 font-bold text-emerald-400 mb-4">
                   {index + 1}
                 </div>
-                <h3 className="font-semibold text-white mb-2">{item.step}</h3>
-                <p className="text-xs text-zinc-400 leading-relaxed">{item.description}</p>
+                <h3 className="font-semibold text-white mb-2">{t2(`trashrecyclecenter.processSteps.${index}.step`)}</h3>
+                <p className="text-xs text-zinc-400 leading-relaxed">{t2(`trashrecyclecenter.processSteps.${index}.desc`)}</p>
               </motion.div>
               {index < processSteps.length - 1 && (
                 <ArrowRight className="absolute -right-2 top-1/2 hidden md:block -translate-y-1/2 text-emerald-500/30 h-5 w-5" />
@@ -196,36 +184,26 @@ function OutputSection() {
           <div>
             <h2 className="text-4xl font-normal leading-[1.15] tracking-tight text-white mb-6">{t2("trashrecyclecenter.outputTitle")}</h2>
             <div className="space-y-6">
-              <div className="rounded-[2rem] border border-white/5 bg-zinc-900/20 p-6 shadow-xl backdrop-blur-sm">
-                <h3 className="font-semibold text-white mb-2 flex items-center gap-2">
-                  <Package className="h-5 w-5 text-emerald-400" />
-                  Bahan Baku Industri Kreatif
-                </h3>
-                <p className="text-sm text-zinc-400 leading-relaxed">Plastic compound, kertas kraft, baja galvanis untuk kerajinan dan manufaktur hijau.</p>
-              </div>
-
-              <div className="rounded-[2rem] border border-white/5 bg-zinc-900/20 p-6 shadow-xl backdrop-blur-sm">
-                <h3 className="font-semibold text-white mb-2 flex items-center gap-2">
-                  <Zap className="h-5 w-5 text-emerald-400" />
-                  Distribusi Marketplace & Wisata
-                </h3>
-                <p className="text-sm text-zinc-400 leading-relaxed">Produk daur ulang dipasarkan melalui marketplace online dan desa wisata terpadu.</p>
-              </div>
-
-              <div className="rounded-[2rem] border border-white/5 bg-zinc-900/20 p-6 shadow-xl backdrop-blur-sm">
-                <h3 className="font-semibold text-white mb-2 flex items-center gap-2">
-                  <TrendingUp className="h-5 w-5 text-emerald-400" />
-                  Nilai Ekonomi & Sosial
-                </h3>
-                <p className="text-sm text-zinc-400 leading-relaxed">Pembukaan lapangan kerja lokal dan peningkatan pendapatan masyarakat di wilayah sekitar unit.</p>
-              </div>
+              {[
+                { icon: Package, titleKey: "trashrecyclecenter.outputCards.0.title", descKey: "trashrecyclecenter.outputCards.0.desc" },
+                { icon: Zap, titleKey: "trashrecyclecenter.outputCards.1.title", descKey: "trashrecyclecenter.outputCards.1.desc" },
+                { icon: TrendingUp, titleKey: "trashrecyclecenter.outputCards.2.title", descKey: "trashrecyclecenter.outputCards.2.desc" },
+              ].map((card) => (
+                <div key={card.titleKey} className="rounded-[2rem] border border-white/5 bg-zinc-900/20 p-6 shadow-xl backdrop-blur-sm">
+                  <h3 className="font-semibold text-white mb-2 flex items-center gap-2">
+                    <card.icon className="h-5 w-5 text-emerald-400" />
+                    {t2(card.titleKey)}
+                  </h3>
+                  <p className="text-sm text-zinc-400 leading-relaxed">{t2(card.descKey)}</p>
+                </div>
+              ))}
             </div>
           </div>
 
           <div className="aspect-square relative overflow-hidden rounded-[3rem] border border-white/5 bg-zinc-900/20 p-6 shadow-2xl backdrop-blur-sm">
             <Image
               src="/trc.png"
-              alt="Output TRC"
+              alt={t2("trashrecyclecenter.outputAlt")}
               fill
               className="object-contain p-8 drop-shadow-[0_15px_30px_rgba(16,185,129,0.15)]"
             />

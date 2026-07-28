@@ -43,11 +43,11 @@ export default function PointsDashboard() {
         >
           <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-zinc-400 backdrop-blur shadow-lg">
             <span className="h-2 w-2 rounded-full bg-amber-400 animate-pulse" />
-            POIN LEADERBOARD
+            {t("points.label")}
           </p>
           <h2 className="mt-5 text-4xl font-normal leading-[1.15] tracking-tight text-white sm:text-5xl">
-            Apresiasi{" "}
-            <span className="font-serif italic text-amber-300">kontributor.</span>
+            {t("points.title")}{" "}
+            <span className="font-serif italic text-amber-300">{t("points.titleItalic")}</span>
           </h2>
           <p className="mt-4 text-base leading-relaxed text-zinc-400">
             {t("points.subtitle", { poin: totalPoints.toLocaleString() })}
@@ -57,7 +57,7 @@ export default function PointsDashboard() {
         <div className="mt-12 mx-auto max-w-2xl">
           {leaderboard.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-zinc-500 text-sm">Memuat data...</p>
+              <p className="text-zinc-500 text-sm">{t("points.loading")}</p>
             </div>
           ) : (
             <div className="space-y-3">
@@ -118,7 +118,7 @@ export default function PointsDashboard() {
                       <p className="text-lg font-bold text-amber-400 tabular-nums">
                         {customer.total_points}
                       </p>
-                      <p className="text-[9px] text-zinc-600 uppercase tracking-wider">Poin</p>
+                      <p className="text-[9px] text-zinc-600 uppercase tracking-wider">{t("points.poin")}</p>
                     </div>
                   </motion.div>
                 );

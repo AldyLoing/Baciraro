@@ -2,8 +2,10 @@
 
 import { useEffect, useRef } from "react";
 import QRCode from "qrcode";
+import { useLanguage } from "@/lib/i18n/context";
 
 export default function QRPage() {
+  const { t } = useLanguage();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -67,7 +69,7 @@ export default function QRPage() {
         onClick={handleDownload}
         className="px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold rounded-full transition-colors shadow-lg"
       >
-        Download QR Code
+        {t("qr.download")}
       </button>
     </div>
   );

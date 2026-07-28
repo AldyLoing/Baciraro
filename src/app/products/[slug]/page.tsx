@@ -40,13 +40,6 @@ const categoryIcons: Record<string, typeof Recycle> = {
   digital: Code2,
 };
 
-const categoryLabels: Record<string, string> = {
-  plastic: "Plastik",
-  organic: "Organik",
-  craft: "Kriya",
-  digital: "Digital",
-};
-
 const categoryAccent: Record<string, string> = {
   plastic: "bg-blue-500/10 text-blue-400 border-blue-500/20",
   organic: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
@@ -102,8 +95,8 @@ export default function ProductDetailPage() {
         <div aria-hidden="true" className="page-bg" />
         <div className="relative z-[1]">
         <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.08] bg-noise" />
-        <Header subtitle="Products" />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-20 text-center text-zinc-500 text-sm">Memuat produk...</div>
+        <Header subtitle={t("products.title")} />
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-20 text-center text-zinc-500 text-sm">{t("products.memuat")}</div>
         <Footer />
         </div>
       </main>
@@ -116,12 +109,12 @@ export default function ProductDetailPage() {
         <div aria-hidden="true" className="page-bg" />
         <div className="relative z-[1]">
         <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.08] bg-noise" />
-        <Header subtitle="Products" />
+        <Header subtitle={t("products.title")} />
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-20 text-center">
           <Package className="h-12 w-12 text-zinc-700 mx-auto mb-4" />
-          <p className="text-zinc-400 text-lg">Produk tidak ditemukan</p>
+          <p className="text-zinc-400 text-lg">{t("products.tidakDitemukan")}</p>
           <Link href="/products" className="mt-4 inline-flex items-center gap-2 text-sm text-emerald-400 hover:text-emerald-300 transition-colors">
-            <ArrowLeft className="h-4 w-4" /> Kembali ke katalog
+            <ArrowLeft className="h-4 w-4" /> {t("products.kembali")}
           </Link>
         </div>
         <Footer />
@@ -147,13 +140,13 @@ export default function ProductDetailPage() {
       <div aria-hidden="true" className="page-bg" />
       <div className="relative z-[1]">
       <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.08] bg-noise" />
-      <Header subtitle="Products" />
+      <Header subtitle={t("products.title")} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-20">
         {/* Back */}
         <motion.div initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, ease: springEase }}>
           <Link href="/products" className="inline-flex items-center gap-2 text-xs text-zinc-500 hover:text-zinc-300 transition-colors">
-            <ArrowLeft className="h-4 w-4" /> Kembali ke katalog
+            <ArrowLeft className="h-4 w-4" /> {t("products.kembali")}
           </Link>
         </motion.div>
 
@@ -208,7 +201,7 @@ export default function ProductDetailPage() {
             {/* Story */}
             {product.story && (
               <div className="mt-8 rounded-[1.5rem] border border-white/[0.07] bg-white/[0.02] backdrop-blur p-6">
-                <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-emerald-400 mb-3">Cerita Produk</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-emerald-400 mb-3">{t("products.ceritaProduk")}</p>
                 <p className="text-sm text-zinc-300 leading-relaxed whitespace-pre-line">{product.story}</p>
               </div>
             )}
@@ -222,25 +215,25 @@ export default function ProductDetailPage() {
                     className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 px-6 py-3.5 text-sm font-semibold text-white transition-all hover:gap-4"
                   >
                     <QrCode className="h-5 w-5 text-emerald-400" />
-                    Lihat QR
+                    {t("products.lihatQR")}
                   </button>
                   <Link
                     href={`/products/${slug}/qr-sheets`}
                     className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 px-6 py-3.5 text-sm font-semibold text-white transition-all hover:gap-4"
                   >
                     <Printer className="h-5 w-5 text-emerald-400" />
-                    Cetak 50 QR
+                    {t("products.cetak50QR")}
                   </Link>
                 </>
               )}
               <a
-                href={`https://wa.me/6288212835350?text=${encodeURIComponent(`Halo, saya ingin memesan produk ${product.title}, bisa dibantu?`)}`}
+                href={`https://wa.me/6288212835350?text=${encodeURIComponent(t("products.waMessage", { title: product.title }))}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 rounded-full bg-emerald-500 hover:bg-emerald-400 px-6 py-3.5 text-sm font-bold text-black transition-all hover:gap-4"
               >
                 <MessageCircle className="h-5 w-5" />
-                Pesan via WhatsApp
+                {t("products.pesanWA")}
               </a>
             </div>
           </motion.div>
@@ -257,7 +250,7 @@ export default function ProductDetailPage() {
           >
             <div className="flex items-center gap-3 pb-3 border-b border-white/[0.05] mb-8">
               <Trash2 className="h-4 w-4 text-emerald-400" />
-              <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-emerald-400">Material Breakdown</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-emerald-400">{t("products.materialBreakdown")}</p>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -284,13 +277,13 @@ export default function ProductDetailPage() {
             <div className="mt-6 rounded-[1.5rem] border border-emerald-500/10 bg-emerald-500/[0.03] backdrop-blur p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-emerald-400">Total Bahan</p>
-                  <p className="font-serif text-[28px] text-white mt-1">{totalKg} <span className="text-sm text-zinc-500 font-sans">kg</span></p>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-emerald-400">{t("products.totalBahan")}</p>
+                  <p className="font-serif text-[28px] text-white mt-1">{totalKg} <span className="text-sm text-zinc-500 font-sans">{t("products.unitKg")}</span></p>
                 </div>
                 {product.total_plastic_kg > 0 && (
                   <div className="text-right">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#f87171]">Plastik Dialihkan</p>
-                    <p className="font-serif text-[28px] text-[#f87171] mt-1">{product.total_plastic_kg} <span className="text-sm text-zinc-500 font-sans">kg</span></p>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#f87171]">{t("products.plastikDialihkan")}</p>
+                    <p className="font-serif text-[28px] text-[#f87171] mt-1">{product.total_plastic_kg} <span className="text-sm text-zinc-500 font-sans">{t("products.unitKg")}</span></p>
                   </div>
                 )}
               </div>
@@ -309,7 +302,7 @@ export default function ProductDetailPage() {
           >
             <div className="flex items-center gap-3 pb-3 border-b border-white/[0.05] mb-8">
               <Heart className="h-4 w-4 text-emerald-400" />
-              <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-emerald-400">Review Pelanggan</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-emerald-400">{t("products.reviewPelanggan")}</p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {reviews.map((r: any, i: number) => (

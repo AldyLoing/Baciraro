@@ -68,7 +68,7 @@ export default function ContactPage() {
               <h3 className="mt-5 text-lg font-semibold text-white">{t("contact.waCard")}</h3>
               <p className="mt-2 text-sm text-zinc-400">+62 882-1283-5350</p>
               <a
-                href="https://wa.me/6288212835350?text=Halo%20Tim%20Baciraro%2C%20saya%20tertarik%20untuk%20berkolaborasi%20CSR%20%2F%20kemitraan%20lingkungan."
+                href={"https://wa.me/6288212835350?text=" + encodeURIComponent(t("contact.waMessage"))}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-emerald-400 hover:text-emerald-300 transition-colors pt-6"
@@ -179,7 +179,7 @@ export default function ContactPage() {
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <a
-                href="https://wa.me/6288212835350?text=Halo%20Tim%20Baciraro%2C%20saya%20tertarik%20untuk%20berkolaborasi%20CSR%20%2F%20kemitraan%20lingkungan."
+                href={"https://wa.me/6288212835350?text=" + encodeURIComponent(t("contact.waMessage"))}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center gap-2 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3.5 text-sm font-semibold uppercase tracking-wider transition-all hover:gap-3 shadow-lg"

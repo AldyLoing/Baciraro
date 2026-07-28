@@ -4,16 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/context";
 
 const TERRACOTTA = "#D4785C";
 
 const PRODUCTS = [
-  { title: "Suvenir & Plakat CSR", desc: "Suvenir ramah lingkungan pesanan resmi BUMN & korporasi sebagai alternatif durable dan bermakna.", label: "HDPE & PP Daur Ulang", image: "/produk/Flat Lay Katalog Medali.png", slug: "/products/souvenir-csr" },
-  { title: "Sofa Puff Ecobrick", desc: "Sofa kriya hasil pemberdayaan kelompok perempuan desa dengan teknik ecobrick dari PET bekas.", label: "PET & Residu", image: "/produk/Lifestyle Sofa.png", slug: "/products/sofa-puff-ecobrick" },
-  { title: "Karya Kreatif & Budaya", desc: "Produk kreatif bernilai tinggi yang berakar pada budaya lokal dan semangat 10% Movement Baciraro.", label: "10% Movement", image: "/produk/Lifestyle Beruang 2.png", slug: "/products/karya-kreatif" },
+  { image: "/produk/Flat Lay Katalog Medali.png", slug: "/products/souvenir-csr" },
+  { image: "/produk/Lifestyle Sofa.png", slug: "/products/sofa-puff-ecobrick" },
+  { image: "/produk/Lifestyle Beruang 2.png", slug: "/products/karya-kreatif" },
 ];
 
 export default function CreativeShowcase() {
+  const { t } = useLanguage();
   return (
     <section id="creative-showcase" className="relative z-10 py-20 lg:py-24 overflow-hidden border-t border-white/5">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(212,120,92,0.04),transparent_60%)]" />
@@ -27,21 +29,21 @@ export default function CreativeShowcase() {
         >
           <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-zinc-400 backdrop-blur shadow-lg">
             <span className="h-2 w-2 rounded-full bg-[#D4785C] animate-pulse" />
-            PROGRAM AKTIF
+            {t("creativeShowcase.label")}
           </p>
           <h2 className="mt-5 text-4xl font-normal leading-[1.15] tracking-tight text-white sm:text-5xl">
-            Baciraro{" "}
-            <span className="font-serif italic text-[#D4785C]">Creative</span>
+            {t("creativeShowcase.title")}
+            <span className="font-serif italic text-[#D4785C]">{t("creativeShowcase.titleItalic")}</span>
           </h2>
           <p className="mt-4 text-base leading-relaxed text-zinc-400 max-w-xl mx-auto">
-            Produk kriya bernilai tinggi dari bahan daur ulang — hasil kolaborasi dengan masyarakat, korporasi, dan kreator lokal.
+            {t("creativeShowcase.subtitle")}
           </p>
         </motion.div>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {PRODUCTS.map((product, i) => (
             <motion.div
-              key={product.title}
+              key={product.slug}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -50,13 +52,13 @@ export default function CreativeShowcase() {
             >
               <Link href={product.slug} className="block h-full">
                 <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image src={product.image} alt={product.title} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-all duration-500 group-hover:scale-105" />
+                  <Image src={product.image} alt={t("creativeShowcase.products." + i + ".title")} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-all duration-500 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/10 group-hover:from-black/70 transition-all duration-300" />
                   <div className="absolute inset-0 flex items-end p-6">
                     <div className="relative z-10">
-                      <p className="text-[9px] font-semibold uppercase tracking-wider text-[#D4785C]">{product.label}</p>
-                      <h3 className="mt-1.5 text-lg font-semibold text-white drop-shadow-lg">{product.title}</h3>
-                      <p className="mt-1 text-xs text-zinc-300 max-w-sm drop-shadow-md">{product.desc}</p>
+                      <p className="text-[9px] font-semibold uppercase tracking-wider text-[#D4785C]">{t("creativeShowcase.products." + i + ".label")}</p>
+                      <h3 className="mt-1.5 text-lg font-semibold text-white drop-shadow-lg">{t("creativeShowcase.products." + i + ".title")}</h3>
+                      <p className="mt-1 text-xs text-zinc-300 max-w-sm drop-shadow-md">{t("creativeShowcase.products." + i + ".desc")}</p>
                     </div>
                   </div>
                   <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
@@ -80,7 +82,7 @@ export default function CreativeShowcase() {
             href="/creative-studio"
             className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-semibold text-zinc-300 backdrop-blur transition-all hover:bg-white/10 hover:border-[#D4785C]/30 hover:text-white"
           >
-            Lihat Semua Produk
+            {t("creativeShowcase.cta")}
             <ArrowRight className="h-4 w-4 text-[#D4785C] transition-transform group-hover:translate-x-0.5" />
           </Link>
         </motion.div>

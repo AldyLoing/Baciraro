@@ -12,69 +12,30 @@ import { ArrowRight, Leaf, Droplets, Zap, Award } from "lucide-react";
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const galleryImages = [
-  {
-    src: "/elmast/WhatsApp Image 2026-05-22 at 22.50.07.jpeg",
-    alt: "Aktivitas ELMAST 1",
-  },
-  {
-    src: "/elmast/WhatsApp Image 2026-05-22 at 22.50.08 (1).jpeg",
-    alt: "Aktivitas ELMAST 2",
-  },
-  {
-    src: "/elmast/WhatsApp Image 2026-05-22 at 22.50.08.jpeg",
-    alt: "Aktivitas ELMAST 3",
-  },
-  {
-    src: "/elmast/WhatsApp Image 2026-05-22 at 22.50.09 (1).jpeg",
-    alt: "Aktivitas ELMAST 4",
-  },
-  {
-    src: "/elmast/WhatsApp Image 2026-05-22 at 22.50.09.jpeg",
-    alt: "Aktivitas ELMAST 5",
-  },
-  {
-    src: "/elmast/WhatsApp Image 2026-05-22 at 22.50.10 (1).jpeg",
-    alt: "Aktivitas ELMAST 6",
-  },
-  {
-    src: "/elmast/WhatsApp Image 2026-05-22 at 22.50.10.jpeg",
-    alt: "Aktivitas ELMAST 7",
-  },
+  { src: "/elmast/WhatsApp Image 2026-05-22 at 22.50.07.jpeg", altIndex: 0 },
+  { src: "/elmast/WhatsApp Image 2026-05-22 at 22.50.08 (1).jpeg", altIndex: 1 },
+  { src: "/elmast/WhatsApp Image 2026-05-22 at 22.50.08.jpeg", altIndex: 2 },
+  { src: "/elmast/WhatsApp Image 2026-05-22 at 22.50.09 (1).jpeg", altIndex: 3 },
+  { src: "/elmast/WhatsApp Image 2026-05-22 at 22.50.09.jpeg", altIndex: 4 },
+  { src: "/elmast/WhatsApp Image 2026-05-22 at 22.50.10 (1).jpeg", altIndex: 5 },
+  { src: "/elmast/WhatsApp Image 2026-05-22 at 22.50.10.jpeg", altIndex: 6 },
 ];
 
 const products = [
-  {
-    name: "Biogas",
-    description: "Energi gas terbarukan dari pengolahan sampah organik untuk kebutuhan memasak dan listrik.",
-    icon: Zap,
-  },
-  {
-    name: "Kompos",
-    description: "Pupuk organik berkualitas tinggi hasil fermentasi sampah untuk pertanian berkelanjutan.",
-    icon: Leaf,
-  },
-  {
-    name: "Pupuk Organik Cair",
-    description: "Nutrisi cair premium untuk tanaman dengan hasil pengolahan limbah organik optimal.",
-    icon: Droplets,
-  },
+  { icon: Zap },
+  { icon: Leaf },
+  { icon: Droplets },
 ];
 
 const solutions = [
-  {
-    title: "Sampah Rumah Tangga",
-    description: "Mengolah limbah organik dari rumah tangga menjadi energi dan pupuk berguna secara mandiri.",
-  },
-  {
-    title: "Eceng Gondok Danau Tondano",
-    description: "Solusi inovatif penanganan gulma air menjadi produk yang bernilai ekonomi tinggi untuk komunitas.",
-  },
+  {},
+  {},
 ];
 
 const benefits = [
-  { label: "Pengurangan TPA", value: "40%", description: "Volume sampah organik ke tempat pembuangan" },
-  { label: "Energi Terbarukan", value: "100%", description: "Sumber energi bersih dan berkelanjutan" },
-  { label: "Produktivitas Lahan", value: "+60%", description: "Peningkatan hasil pertanian dengan pupuk alami" },
+  { value: "40%" },
+  { value: "100%" },
+  { value: "+60%" },
 ];
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -139,7 +100,7 @@ function HeroSection() {
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.15),_transparent_70%)]" />
               <Image
                 src="/elmast.png"
-                alt="ELMAST Logo"
+                alt={t2("elmast.logoAlt")}
                 fill
                 className="object-contain p-8 drop-shadow-[0_15px_30px_rgba(16,185,129,0.2)]"
                 priority
@@ -161,7 +122,7 @@ function TechnologySection() {
           <div className="aspect-square relative overflow-hidden rounded-[3rem] border border-white/5 bg-zinc-900/20 p-6 shadow-2xl backdrop-blur-sm">
             <Image
               src="/elmast.png"
-              alt="Teknologi ELMAST"
+              alt={t2("elmast.techAlt")}
               fill
               className="object-contain p-8 drop-shadow-[0_15px_30px_rgba(16,185,129,0.15)]"
             />
@@ -170,15 +131,9 @@ function TechnologySection() {
           <div>
             <h2 className="text-4xl font-normal leading-[1.15] tracking-tight text-white mb-6">{t2("elmast.teknologiTitle")}</h2>
             <div className="space-y-4 text-base leading-relaxed text-zinc-400">
-              <p>
-                ELMAST Greenovasi menghadirkan sistem biogas terpadu yang merombak limbah organik menjadi sumber energi bersih terbarukan sekaligus pupuk hayati premium.
-              </p>
-              <p>
-                Teknologi kami telah terbukti efektif mengurangi beban volume sampah organik ke TPA secara signifikan dengan proses fermentasi anaerobic yang terkontrol ketat.
-              </p>
-              <p>
-                Dengan model circular economy yang terukur, inisiatif ini memperkuat kemandirian energi rumah tangga, mengurangi emisi gas rumah kaca, dan memulihkan produktivitas lahan tani.
-              </p>
+              <p>{t2("elmast.paragraph1")}</p>
+              <p>{t2("elmast.paragraph2")}</p>
+              <p>{t2("elmast.paragraph3")}</p>
             </div>
           </div>
         </div>
@@ -189,7 +144,7 @@ function TechnologySection() {
 
 function GallerySection() {
   const { t: t2 } = useLanguage();
-  const [activeImage, setActiveImage] = useState<{ src: string; alt: string } | null>(null);
+  const [activeImage, setActiveImage] = useState<{ src: string; altIndex: number } | null>(null);
 
   useEffect(() => {
     if (!activeImage) {
@@ -231,11 +186,11 @@ function GallerySection() {
                 type="button"
                 onClick={() => setActiveImage(image)}
                 className="relative block aspect-[4/3] w-full overflow-hidden text-left"
-                aria-label={`Buka ${image.alt} dalam ukuran penuh`}
+                aria-label={t2("elmast.openFull")}
               >
                 <Image
                   src={image.src}
-                  alt={image.alt}
+                  alt={t2(`elmast.galleryAlt.${image.altIndex}`)}
                   fill
                   className="object-cover transition duration-500 group-hover:scale-105"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -251,12 +206,12 @@ function GallerySection() {
             onClick={() => setActiveImage(null)}
             role="dialog"
             aria-modal="true"
-            aria-label="Pratinjau gambar ELMAST"
+            aria-label={t2("elmast.previewAlt")}
           >
             <div className="relative h-[80vh] w-full max-w-5xl rounded-[2rem] border border-white/10 bg-zinc-950 p-4 shadow-2xl" onClick={(event) => event.stopPropagation()}>
               <Image
                 src={activeImage.src}
-                alt={activeImage.alt}
+                alt={t2(`elmast.galleryAlt.${activeImage.altIndex}`)}
                 fill
                 className="object-contain p-4"
                 sizes="100vw"
@@ -294,7 +249,7 @@ function ProductsSection() {
         <div className="grid gap-6 md:grid-cols-3">
           {products.map((product, index) => (
             <motion.div
-              key={product.name}
+              key={index}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -304,8 +259,8 @@ function ProductsSection() {
               <div className="inline-flex rounded-2xl bg-emerald-500/10 p-3 mb-4 text-emerald-400">
                 <product.icon className="h-6 w-6" />
               </div>
-              <h3 className="text-xl font-normal text-white mb-3">{product.name}</h3>
-              <p className="text-zinc-400 leading-relaxed text-sm">{product.description}</p>
+              <h3 className="text-xl font-normal text-white mb-3">{t2(`elmast.products.${index}.name`)}</h3>
+              <p className="text-zinc-400 leading-relaxed text-sm">{t2(`elmast.products.${index}.desc`)}</p>
             </motion.div>
           ))}
         </div>
@@ -325,9 +280,9 @@ function SolutionsSection() {
         </div>
 
         <div className="grid gap-8 md:grid-cols-2">
-          {solutions.map((solution, index) => (
+          {solutions.map((_, index) => (
             <motion.div
-              key={solution.title}
+              key={index}
               initial={{ opacity: 0, x: index === 0 ? -24 : 24 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -335,8 +290,8 @@ function SolutionsSection() {
               className="rounded-[2.25rem] border border-white/5 bg-zinc-900/20 p-8 shadow-xl backdrop-blur-sm"
             >
               <Award className="h-8 w-8 text-emerald-400 mb-4" />
-              <h3 className="text-2xl font-normal text-white mb-3">{solution.title}</h3>
-              <p className="text-sm text-zinc-400 leading-relaxed">{solution.description}</p>
+              <h3 className="text-2xl font-normal text-white mb-3">{t2(`elmast.solutions.${index}.title`)}</h3>
+              <p className="text-sm text-zinc-400 leading-relaxed">{t2(`elmast.solutions.${index}.desc`)}</p>
             </motion.div>
           ))}
         </div>
@@ -357,7 +312,7 @@ function BenefitsSection() {
         <div className="grid gap-6 md:grid-cols-3">
           {benefits.map((benefit, index) => (
             <motion.div
-              key={benefit.label}
+              key={index}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -365,8 +320,8 @@ function BenefitsSection() {
               className="rounded-[2.25rem] border border-white/5 bg-zinc-900/20 p-6 backdrop-blur-sm shadow-xl"
             >
               <p className="text-5xl font-semibold text-emerald-400 mb-2">{benefit.value}</p>
-              <h3 className="font-semibold text-white mb-2">{benefit.label}</h3>
-              <p className="text-xs text-zinc-400 leading-relaxed">{benefit.description}</p>
+              <h3 className="font-semibold text-white mb-2">{t2(`elmast.benefits.${index}.label`)}</h3>
+              <p className="text-xs text-zinc-400 leading-relaxed">{t2(`elmast.benefits.${index}.desc`)}</p>
             </motion.div>
           ))}
         </div>

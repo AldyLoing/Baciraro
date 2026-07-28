@@ -85,7 +85,7 @@ export default function ClaimPage() {
 
   if (loading || authLoading) return (
     <main className="min-h-screen bg-black flex items-center justify-center">
-      <p className="text-zinc-500 text-sm">Memuat...</p>
+      <p className="text-zinc-500 text-sm">{t("claim.loading")}</p>
     </main>
   );
 
@@ -114,18 +114,18 @@ export default function ClaimPage() {
             <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
               <Heart className="h-7 w-7 text-emerald-400" />
             </div>
-            <h1 className="font-serif text-2xl text-white mb-2">Registrasi Pembeli</h1>
-            <p className="text-sm text-zinc-400 mb-6">Masukkan data kamu untuk produk ini</p>
+            <h1 className="font-serif text-2xl text-white mb-2">{t("claim.registrasi")}</h1>
+            <p className="text-sm text-zinc-400 mb-6">{t("claim.registrasiDesc")}</p>
 
             {!customer && (
               <div className="mb-6 p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5">
-                <p className="text-xs text-zinc-400 mb-3">Dapatkan poin dengan masuk / daftar akun!</p>
+                <p className="text-xs text-zinc-400 mb-3">{t("claim.loginPrompt")}</p>
                 <button
                   onClick={() => setAuthModalOpen(true)}
                   className="inline-flex items-center gap-2 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition-all"
                 >
                   <LogIn className="h-3.5 w-3.5" />
-                  Masuk / Daftar
+                  {t("claim.masukDaftar")}
                 </button>
               </div>
             )}
@@ -143,7 +143,7 @@ export default function ClaimPage() {
                   <div className="text-left">
                     <p className="text-sm text-white font-semibold">{customer.name}</p>
                     <p className="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">
-                      Poin: {customer.total_points}
+                      {t("points.youHave", { poin: customer.total_points })}
                     </p>
                   </div>
                 </div>
@@ -183,12 +183,12 @@ export default function ClaimPage() {
             >
               <Heart className="h-10 w-10 text-emerald-400" fill="#34d399" />
             </motion.div>
-            <h1 className="font-serif text-3xl text-white mb-2">Terima Kasih!</h1>
+            <h1 className="font-serif text-3xl text-white mb-2">{t("claim.terimaKasihTitle")}</h1>
             <p className="text-emerald-400 font-semibold text-lg mb-1">{qr.buyer_name}</p>
             {pointsEarned > 0 && (
-              <p className="text-sm text-amber-400 font-semibold mb-1">+{pointsEarned} Poin</p>
+              <p className="text-sm text-amber-400 font-semibold mb-1">{t("claim.poinEarned", { poin: pointsEarned })}</p>
             )}
-            <p className="text-sm text-zinc-400 mb-6">Kontribusimu sangat berarti bagi lingkungan.</p>
+            <p className="text-sm text-zinc-400 mb-6">{t("claim.terimaKasihSubtitle")}</p>
             <div className="flex justify-center gap-1 mb-4">
               {[1,2,3,4,5].map((s) => (
                 <Star key={s} className="h-5 w-5" fill="#fbbf24" stroke="#fbbf24" />
@@ -201,12 +201,12 @@ export default function ClaimPage() {
             <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
               <Heart className="h-7 w-7 text-emerald-400" fill="#34d399" />
             </div>
-            <h1 className="font-serif text-2xl text-white mb-1">Terima Kasih</h1>
+            <h1 className="font-serif text-2xl text-white mb-1">{t("claim.terimaKasihClaimed")}</h1>
             <p className="text-emerald-400 font-semibold text-lg mb-4">{qr.buyer_name}</p>
             {pointsEarned > 0 && (
-              <p className="text-sm text-amber-400 font-semibold mb-4">+{pointsEarned} Poin berhasil ditambahkan!</p>
+              <p className="text-sm text-amber-400 font-semibold mb-4">{t("claim.poinEarned", { poin: pointsEarned })}</p>
             )}
-            <p className="text-sm text-zinc-400 mb-6">Berikan kesan dan pesanmu tentang produk ini</p>
+            <p className="text-sm text-zinc-400 mb-6">{t("claim.reviewPrompt")}</p>
             <form onSubmit={handleReview} className="space-y-4">
               <div className="flex justify-center gap-2">
                 {[1,2,3,4,5].map((s) => (
@@ -237,9 +237,9 @@ export default function ClaimPage() {
             <div className="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
               <Heart className="h-7 w-7 text-emerald-400" fill="#34d399" />
             </div>
-            <h1 className="font-serif text-2xl text-white mb-1">Terima Kasih</h1>
+            <h1 className="font-serif text-2xl text-white mb-1">{t("claim.terimaKasihClaimed")}</h1>
             <p className="text-emerald-400 font-semibold text-lg mb-1">{qr.buyer_name}</p>
-            <p className="text-xs text-zinc-500 mb-6">Kamu sudah memberikan review</p>
+            <p className="text-xs text-zinc-500 mb-6">{t("claim.sudahReview")}</p>
             <div className="flex justify-center gap-1 mb-4">
               {[1,2,3,4,5].map((s) => (
                 <Star key={s} className="h-5 w-5" fill={s <= qr.review_rating ? "#fbbf24" : "none"} stroke={s <= qr.review_rating ? "#fbbf24" : "#52525b"} />
@@ -250,7 +250,7 @@ export default function ClaimPage() {
               onClick={() => setDone(false)}
               className="mt-6 text-xs text-zinc-500 hover:text-zinc-300 underline"
             >
-              Edit review
+              {t("claim.editReview")}
             </button>
           </div>
         )}

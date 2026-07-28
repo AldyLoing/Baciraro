@@ -11,27 +11,15 @@ import { ArrowRight, BookOpen, Heart, Leaf } from "lucide-react";
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const programs = [
-  {
-    name: "Bank Sampah",
-    description: "Program pemberdayaan masyarakat dengan sistem pengumpulan dan tukar sampah dengan insentif ekonomi.",
-    icon: Leaf,
-  },
-  {
-    name: "BLANTE Sampah",
-    description: "Kegiatan edukasi sampah di tingkat komunitas dengan workshop dan training berkelanjutan.",
-    icon: BookOpen,
-  },
-  {
-    name: "DropBox",
-    description: "Sistem drop-off terpusat untuk mempermudah masyarakat dalam menyerahkan sampah secara teratur.",
-    icon: Leaf,
-  },
+  { icon: Leaf },
+  { icon: BookOpen },
+  { icon: Leaf },
 ];
 
 const impactData = [
-  { number: "20+", label: "Desa Terlibat" },
-  { number: "2.500+", label: "Masyarakat Aktif" },
-  { number: "12", label: "Program Berkelanjutan" },
+  { number: "20+" },
+  { number: "2.500+" },
+  { number: "12" },
 ];
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -96,7 +84,7 @@ function HeroSection() {
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.15),_transparent_70%)]" />
               <Image
                 src="/tnl-transparent.png"
-                alt="Yayasan Tana Nyiur Lestari"
+                alt={t2("tananyiurlestari.heroAlt")}
                 fill
                 className="object-contain p-8 drop-shadow-[0_15px_30px_rgba(16,185,129,0.2)]"
                 priority
@@ -118,7 +106,7 @@ function AboutSection() {
           <div className="aspect-square relative overflow-hidden rounded-[3rem] border border-white/5 bg-zinc-900/20 p-6 shadow-2xl backdrop-blur-sm">
             <Image
               src="/tnl-transparent.png"
-              alt="Tentang Yayasan"
+              alt={t2("tananyiurlestari.aboutAlt")}
               fill
               className="object-contain p-8 drop-shadow-[0_15px_30px_rgba(16,185,129,0.15)]"
             />
@@ -127,15 +115,9 @@ function AboutSection() {
           <div>
             <h2 className="text-4xl font-normal leading-[1.15] tracking-tight text-white mb-6">{t2("tananyiurlestari.tentangLabel")}</h2>
             <div className="space-y-4 text-base leading-relaxed text-zinc-400">
-              <p>
-                Yayasan Tana Nyiur Lestari adalah lembaga non-profit yang berkomitmen untuk membangun kesadaran dan aksi lingkungan di tingkat masyarakat.
-              </p>
-              <p>
-                Melalui program-program inovatif, kami memberdayakan komunitas lokal untuk mengelola sampah secara mandiri sambil menciptakan nilai ekonomi dan sosial.
-              </p>
-              <p>
-                Visi kami adalah menciptakan ekosistem pengelolaan sampah yang berkelanjutan, inklusif, dan memberikan dampak positif jangka panjang bagi masyarakat dan lingkungan.
-              </p>
+              <p>{t2("tananyiurlestari.paragraph1")}</p>
+              <p>{t2("tananyiurlestari.paragraph2")}</p>
+              <p>{t2("tananyiurlestari.paragraph3")}</p>
             </div>
           </div>
         </div>
@@ -162,7 +144,7 @@ function ProgramsSection() {
         <div className="grid gap-6 md:grid-cols-3">
           {programs.map((program, index) => (
             <motion.div
-              key={program.name}
+              key={index}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -172,8 +154,8 @@ function ProgramsSection() {
               <div className="inline-flex rounded-2xl bg-emerald-500/10 p-3 mb-4 text-emerald-400">
                 <program.icon className="h-6 w-6" />
               </div>
-              <h3 className="text-xl font-normal text-white mb-3">{program.name}</h3>
-              <p className="text-zinc-400 leading-relaxed text-sm">{program.description}</p>
+              <h3 className="text-xl font-normal text-white mb-3">{t2(`tananyiurlestari.programs.${index}.name`)}</h3>
+              <p className="text-zinc-400 leading-relaxed text-sm">{t2(`tananyiurlestari.programs.${index}.desc`)}</p>
             </motion.div>
           ))}
         </div>
@@ -194,7 +176,7 @@ function ImpactSection() {
         <div className="grid gap-6 md:grid-cols-3 mb-12">
           {impactData.map((data, index) => (
             <motion.div
-              key={data.label}
+              key={index}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -202,21 +184,16 @@ function ImpactSection() {
               className="rounded-[2.25rem] border border-white/5 bg-zinc-900/20 p-6 backdrop-blur-sm text-center shadow-xl"
             >
               <p className="text-5xl font-semibold text-emerald-400 mb-2">{data.number}</p>
-              <p className="text-sm tracking-wider uppercase text-zinc-400 font-semibold">{data.label}</p>
+              <p className="text-sm tracking-wider uppercase text-zinc-400 font-semibold">{t2(`tananyiurlestari.impactData.${index}.label`)}</p>
             </motion.div>
           ))}
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-12">
-          {[
-            "Meningkatkan kesadaran lingkungan",
-            "Pemberdayaan ekonomi masyarakat",
-            "Pengurangan volume sampah ke TPA",
-            "Penciptaan lapangan kerja lokal",
-          ].map((benefit) => (
-            <div key={benefit} className="flex items-center gap-3 rounded-2xl border border-white/5 bg-zinc-950/40 p-4 shadow-md">
+          {[0, 1, 2, 3].map((i) => (
+            <div key={i} className="flex items-center gap-3 rounded-2xl border border-white/5 bg-zinc-950/40 p-4 shadow-md">
               <Heart className="h-5 w-5 shrink-0 text-emerald-400" />
-              <span className="text-sm text-zinc-300 font-medium">{benefit}</span>
+              <span className="text-sm text-zinc-300 font-medium">{t2(`tananyiurlestari.benefits.${i}`)}</span>
             </div>
           ))}
         </div>
