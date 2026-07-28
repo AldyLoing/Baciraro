@@ -51,9 +51,18 @@ export default function UndanganPage() {
       <div className="relative z-[1]">
 
         {/* ───── HERO INVITATION ───── */}
-        <section className="relative overflow-hidden px-4 pb-8 pt-12 sm:px-6 md:pt-20">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(196,74,58,0.1),transparent_60%)]" />
-          <div className="relative mx-auto max-w-2xl text-center">
+        <section className="relative h-screen overflow-hidden px-4 sm:px-6">
+          <video
+            src="/teaser dialog budaya.mp4"
+            autoPlay
+            loop
+            playsInline
+            preload="auto"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div className="noise-overlay pointer-events-none absolute inset-0 opacity-[0.5] mix-blend-overlay" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/30 to-background" />
+          <div className="relative z-10 mx-auto flex h-full max-w-2xl flex-col items-center justify-center text-center">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -158,6 +167,80 @@ export default function UndanganPage() {
                 <p>{t("undangan.detail1")}</p>
                 <p>{t("undangan.detail2")}</p>
                 <p>{t("undangan.detail3")}</p>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ───── LOKASI ───── */}
+        <section className="px-4 py-8 sm:px-6">
+          <div className="mx-auto max-w-2xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: springEase }}
+            >
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-brand-gold">
+                {t("undangan.lokasiTitle")}
+              </p>
+              <div className="mt-4 overflow-hidden rounded-2xl border border-white/[0.07]">
+                <iframe
+                  src="https://www.google.com/maps?q=Kedai+Kana+Desa+Sukur+Minahasa+Utara&output=embed"
+                  width="100%"
+                  height="280"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="filter brightness-[0.85] contrast-[1.1]"
+                />
+              </div>
+              <div className="mt-3 text-center">
+                <a
+                  href="https://maps.google.com/?q=Kedai+Kana,+Desa+Sukur,+Minahasa+Utara"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-zinc-400 backdrop-blur transition-all hover:border-brand-gold/30 hover:text-white"
+                >
+                  <MapPin className="h-3.5 w-3.5 text-brand-gold" />
+                  {t("undangan.bukaMaps")}
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ───── RUNDOWN ───── */}
+        <section className="px-4 py-8 sm:px-6">
+          <div className="mx-auto max-w-2xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: springEase }}
+            >
+              <p className="text-xs font-bold uppercase tracking-[0.25em] text-brand-orange">
+                {t("creative.rundownTitle")}
+              </p>
+              <div className="mt-4 space-y-0 rounded-2xl border border-white/[0.07] bg-white/[0.02] p-4 backdrop-blur sm:p-6">
+                {[
+                  "08.30\u201309.00", "09.00\u201309.15", "09.15\u201309.25", "09.25\u201309.55",
+                  "09.55\u201312.00", "12.00\u201314.00", "14.00\u201314.15", "14.15\u201314.30",
+                  "14.30\u201314.45", "14.45\u201315.00", "15.00\u2013selesai",
+                ].map((time, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start gap-4 border-l-2 border-white/5 py-3 pl-4 transition-colors hover:border-brand-orange/40"
+                  >
+                    <span className="min-w-[75px] shrink-0 text-xs font-mono text-brand-orange sm:min-w-[90px] sm:text-sm">
+                      {time}
+                    </span>
+                    <span className="text-xs text-zinc-300 sm:text-sm">
+                      {t(`creative.rundown.${i}`)}
+                    </span>
+                  </div>
+                ))}
               </div>
             </motion.div>
           </div>

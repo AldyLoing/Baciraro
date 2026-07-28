@@ -531,8 +531,7 @@
       "Baciraro Creative introduction",
       "Panel session with speakers",
       "Main dialogue with speakers",
-      "Break",
-      "Lunch and networking",
+      "Break, lunch, and networking",
       "Thematic dialogue: Culture",
       "Thematic dialogue: Environment",
       "Thematic dialogue: Conservation",
@@ -550,6 +549,25 @@
     "portfolioCta": "View All Products",
     "portfolioLoading": "Loading products...",
     "footerTagline": "Creative Innovation · Cultural Heritage · Circular Future"
+  },
+  "lokawaya": {
+    "label": "Activity Recap",
+    "title": "Lokawaya × Baciraro Creative",
+    "date": "July 25, 2026",
+    "description": "We participated in the Lokawaya event with a workshop turning bottle caps into keychains and a booth featuring Baciraro Creative products redeemable with Dobu or Doi Bulu.",
+    "cta": "View Full Documentation",
+    "detail": {
+      "heroSubtitle": "Baciraro Creative Participation",
+      "heroTitle": "Lokawaya 2026",
+      "heroDate": "July 25, 2026",
+      "heroDesc": "Baciraro Creative took part in the Lokawaya event — presenting a bottle cap upcycling workshop and a product booth redeemable with Dobu or Doi Bulu (1 Dobu = Rp 1).",
+      "boothTitle": "Baciraro Creative Booth",
+      "boothDesc": "Our booth was filled with enthusiastic visitors exploring Baciraro Creative's recycled products. The unique payment system using Dobu or Doi Bulu made the experience even more engaging and interactive.",
+      "workshopTitle": "Workshop: Bottle Caps to Keychains",
+      "workshopDesc": "Visitors learned to transform plastic bottle caps into unique keychains. A child from the USA made their own keychain — proof that creativity and recycling can be enjoyed by all ages and backgrounds.",
+      "visitorsTitle": "Visitor Highlights",
+      "visitorsDesc": "Lokawaya attracted visitors from all walks of life — international tourists and locals alike, all enthusiastically engaging with Baciraro Creative's products and workshop."
+    }
   },
   "undangan": {
     "label": "Invitation",
@@ -589,7 +607,9 @@
     "waTerkirim": "Confirmation sent. Welcome to the group!",
     "joinGroup": "Join WhatsApp Group",
     "ubahData": "Change my data",
-    "kembali": "Go back"
+    "kembali": "Go back",
+    "lokasiTitle": "Event Location",
+    "bukaMaps": "Open in Google Maps"
   },
   "orders": {
     "label": "ORDERS",

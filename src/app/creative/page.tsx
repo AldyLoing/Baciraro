@@ -40,8 +40,8 @@ const categoryAccent: Record<string, string> = {
 
 const rundownTimes = [
   "08.30\u201309.00", "09.00\u201309.15", "09.15\u201309.25", "09.25\u201309.55",
-  "09.55\u201312.00", "12.00\u201313.00", "13.00\u201314.00", "14.00\u201314.15",
-  "14.15\u201314.30", "14.30\u201314.45", "14.45\u201315.00", "15.00\u2013",
+  "09.55\u201312.00", "12.00\u201314.00", "14.00\u201314.15", "14.15\u201314.30",
+  "14.30\u201314.45", "14.45\u201315.00", "15.00\u2013selesai",
 ];
 
 export default function CreativePage() {
@@ -83,7 +83,7 @@ export default function CreativePage() {
   ];
 
   const prinsip = Array.from({ length: 5 }, (_, i) => t(`creative.eventPrinsip.${i}`));
-  const rundownItems = Array.from({ length: 12 }, (_, i) => t(`creative.rundown.${i}`));
+  const rundownItems = Array.from({ length: 11 }, (_, i) => t(`creative.rundown.${i}`));
 
   return (
     <main className="relative overflow-hidden text-primary-text min-h-screen">
@@ -93,8 +93,8 @@ export default function CreativePage() {
         {/* ───── SECTION 1: HERO + COUNTDOWN ───── */}
         <section ref={heroRef} className="relative h-screen overflow-hidden">
           <video
-            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_083109_283f3553-e28f-428b-a723-d639c617eb2b.mp4"
-            autoPlay loop muted playsInline preload="auto"
+            src="/teaser dialog budaya.mp4"
+            autoPlay loop playsInline preload="auto"
             className="absolute inset-0 h-full w-full object-cover"
           />
           <div className="noise-overlay pointer-events-none absolute inset-0 opacity-[0.7] mix-blend-overlay" />
@@ -433,7 +433,109 @@ export default function CreativePage() {
           </div>
         </section>
 
-        {/* ───── SECTION 5: FOOTER SIGNATURE ───── */}
+        {/* ───── SECTION 5: LOKAWAYA RECAP ───── */}
+        <section className="relative border-t border-white/5 overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(242,212,121,0.06),transparent_60%)]" />
+
+          <div className="relative grid grid-cols-1 lg:grid-cols-2">
+            {/* Left: photo full-height */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: springEase }}
+              className="relative h-[50vh] lg:h-auto overflow-hidden"
+            >
+              <Image
+                src="/Lokawaya/customer anak dari USA setelah selesai membuat sendiri keychainnya dari tutup botol plastik.jpeg"
+                alt=""
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/10 to-transparent lg:bg-gradient-to-r lg:from-background/80 lg:via-background/20 lg:to-transparent" />
+            </motion.div>
+
+            {/* Right: content */}
+            <div className="flex flex-col justify-center px-6 py-16 sm:px-10 md:px-14 lg:py-20">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: springEase }}
+              >
+                <p className="text-xs font-bold uppercase tracking-[0.25em] text-brand-gold">
+                  {t("lokawaya.label")}
+                </p>
+                <h2 className="mt-3 font-serif text-[clamp(24px,4vw,44px)] font-normal leading-[1.1] tracking-[-0.02em] text-white">
+                  {t("lokawaya.title")}
+                </h2>
+                <p className="mt-1.5 text-sm text-brand-gold/80">
+                  {t("lokawaya.date")}
+                </p>
+                <p className="mt-4 max-w-lg text-sm leading-relaxed text-zinc-400">
+                  {t("lokawaya.description")}
+                </p>
+              </motion.div>
+
+              {/* Video thumbnails row */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.15, ease: springEase }}
+                className="mt-8 grid grid-cols-2 gap-3"
+              >
+                <div className="group relative aspect-video overflow-hidden rounded-xl border border-white/[0.07] bg-black/40">
+                  <video
+                    src="/Lokawaya/kondisi booth baciraro creative.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="none"
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-transparent to-transparent p-3">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-white/80">Booth</span>
+                  </div>
+                </div>
+                <div className="group relative aspect-video overflow-hidden rounded-xl border border-white/[0.07] bg-black/40">
+                  <video
+                    src="/Lokawaya/kunjungan dari turis asing.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="none"
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-transparent to-transparent p-3">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-white/80">Kunjungan</span>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.25, ease: springEase }}
+                className="mt-6"
+              >
+                <Link
+                  href="/creative/lokawaya"
+                  className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-sm text-white/70 backdrop-blur transition-all hover:border-brand-gold/30 hover:text-white"
+                >
+                  {t("lokawaya.cta")}
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* ───── SECTION 6: FOOTER SIGNATURE ───── */}
         <footer className="relative border-t border-white/5 px-4 py-16 text-center">
           <div className="mx-auto max-w-md">
             <Image

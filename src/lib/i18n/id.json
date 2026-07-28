@@ -531,8 +531,7 @@
       "Perkenalan Baciraro Creative",
       "Panel bersama narasumber",
       "Dialog utama bersama narasumber",
-      "Istirahat",
-      "Makan siang dan networking",
+      "Istirahat, makan siang, dan networking",
       "Dialog tematik: Budaya",
       "Dialog tematik: Lingkungan",
       "Dialog tematik: Konservasi",
@@ -550,6 +549,25 @@
     "portfolioCta": "Lihat Semua Produk",
     "portfolioLoading": "Memuat produk...",
     "footerTagline": "Inovasi Kreatif · Warisan Budaya · Masa Depan Sirkular"
+  },
+  "lokawaya": {
+    "label": "Recap Kegiatan",
+    "title": "Lokawaya × Baciraro Creative",
+    "date": "25 Juli 2026",
+    "description": "Kami berpartisipasi di event Lokawaya dengan workshop mengubah tutup botol menjadi keychain dan booth produk Baciraro Creative yang dapat ditukar dengan Dobu atau Doi Bulu.",
+    "cta": "Lihat Dokumentasi Lengkap",
+    "detail": {
+      "heroSubtitle": "Partisipasi Baciraro Creative",
+      "heroTitle": "Lokawaya 2026",
+      "heroDate": "25 Juli 2026",
+      "heroDesc": "Baciraro Creative berpartisipasi dalam event Lokawaya — menghadirkan workshop daur ulang tutup botol menjadi keychain dan booth produk yang dapat ditukar dengan Dobu atau Doi Bulu (1 Dobu = Rp 1).",
+      "boothTitle": "Booth Baciraro Creative",
+      "boothDesc": "Booth kami dipenuhi pengunjung yang antusias melihat produk daur ulang Baciraro Creative. Sistem pembayaran unik menggunakan Dobu atau Doi Bulu membuat pengalaman semakin seru dan interaktif.",
+      "workshopTitle": "Workshop: Tutup Botol Jadi Keychain",
+      "workshopDesc": "Pengunjung diajak belajar mengubah tutup botol plastik bekas menjadi gantungan kunci unik. Seorang anak dari USA berhasil membuat keychain-nya sendiri — bukti bahwa kreativitas dan daur ulang bisa dinikmati semua kalangan.",
+      "visitorsTitle": "Kunjungan Pengunjung",
+      "visitorsDesc": "Lokawaya menarik pengunjung dari berbagai kalangan — turis asing hingga lokal, semuanya antusias berinteraksi dengan produk dan workshop Baciraro Creative."
+    }
   },
   "undangan": {
     "label": "Undangan",
@@ -589,7 +607,9 @@
     "waTerkirim": "Konfirmasi terkirim. Selamat bergabung!",
     "joinGroup": "Join Grup WhatsApp",
     "ubahData": "Ubah data saya",
-    "kembali": "Kembali"
+    "kembali": "Kembali",
+    "lokasiTitle": "Lokasi Acara",
+    "bukaMaps": "Buka di Google Maps"
   },
   "orders": {
     "label": "ORDERS",
