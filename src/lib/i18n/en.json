@@ -590,12 +590,8 @@
     "formMinuman": "Beverage Choice",
     "formMinumanPlaceholder": "Select a beverage",
     "beverages": [
-      "Americano",
-      "Cappuccino",
-      "Iced Coffee Milk",
-      "Teh Tarik",
-      "Orange Juice",
-      "Mineral Water"
+      "Coffee",
+      "Tea"
     ],
     "hadir": "Attending",
     "tidakHadir": "Not Attending",

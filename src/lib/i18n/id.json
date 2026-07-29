@@ -590,12 +590,8 @@
     "formMinuman": "Pilihan Minuman",
     "formMinumanPlaceholder": "Pilih minuman",
     "beverages": [
-      "Americano",
-      "Cappuccino",
-      "Es Kopi Susu",
-      "Teh Tarik",
-      "Jus Jeruk",
-      "Air Mineral"
+      "Kopi",
+      "Teh"
     ],
     "hadir": "Hadir",
     "tidakHadir": "Tidak Hadir",
