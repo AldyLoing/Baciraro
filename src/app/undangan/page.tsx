@@ -5,19 +5,21 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar, MapPin, Clock, Check, X, ExternalLink, CheckCheck } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/context";
+import idData from "@/lib/i18n/id.json";
+import enData from "@/lib/i18n/en.json";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const WA_NUMBER = "6282293494989";
 const GROUP_LINK = "https://chat.whatsapp.com/KlZJa0QTgMX5RyxUnM2heI";
 
 export default function UndanganPage() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const [nama, setNama] = useState("");
   const [mewakili, setMewakili] = useState("");
   const [minuman, setMinuman] = useState("");
   const [submitted, setSubmitted] = useState<"idle" | "hadir" | "tidakHadir">("idle");
 
-  const beverageKeys = Array.from({ length: 6 }, (_, i) => t(`undangan.beverages.${i}`));
+  const beverageKeys = (lang === "id" ? idData : enData).undangan.beverages as string[];
 
   const buildWaMessage = (type: "hadir" | "tidakHadir") => {
     if (type === "hadir") {

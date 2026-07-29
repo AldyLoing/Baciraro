@@ -36,9 +36,19 @@ export async function POST(req: NextRequest) {
   const { slug, title, description, category, story, materials, total_plastic_kg, image_url, gallery } = await req.json();
   const supabase = createAdminClient();
 
+  // Compute next ID to work around sequence issue
+  const { data: maxData } = await supabase
+    .from("products")
+    .select("id")
+    .order("id", { ascending: false })
+    .limit(1);
+
+  const nextId = (maxData?.[0]?.id ?? 0) + 1;
+
   const { data, error } = await supabase
     .from("products")
     .insert({
+      id: nextId,
       slug, title, description, category,
       story: story || "",
       materials: materials || [],
