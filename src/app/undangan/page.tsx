@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Calendar, MapPin, Clock, Check, X, ExternalLink, CheckCheck } from "lucide-react";
+import { Calendar, MapPin, Clock, Check, X, ExternalLink, CheckCheck, MessageCircle } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/context";
 import idData from "@/lib/i18n/id.json";
 import enData from "@/lib/i18n/en.json";
@@ -32,7 +32,6 @@ export default function UndanganPage() {
     if (!nama.trim() || !mewakili.trim() || !minuman) return;
     setSubmitted("hadir");
     const msg = buildWaMessage("hadir");
-    window.open(GROUP_LINK, "_blank");
     window.location.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
   };
 
@@ -265,6 +264,16 @@ export default function UndanganPage() {
                     {t("undangan.rsvpTitle")}
                   </p>
 
+                  <a
+                    href={GROUP_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border border-brand-green/30 bg-brand-green/10 px-6 py-3 text-sm font-medium text-brand-green transition-all hover:bg-brand-green/20"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    {t("undangan.joinGroup")}
+                  </a>
+
                   <div className="mt-6 space-y-5">
                     <div>
                       <label className="block text-xs font-medium text-zinc-400">
@@ -372,6 +381,15 @@ export default function UndanganPage() {
                       {t("undangan.joinGroup")}
                     </a>
                   )}
+                  <a
+                    href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(submitted === "hadir" ? buildWaMessage("hadir") : buildWaMessage("tidakHadir"))}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full border border-brand-terracotta/30 bg-brand-terracotta/10 px-6 py-3 text-sm font-medium text-brand-terracotta transition-all hover:bg-brand-terracotta/20"
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    {t("undangan.kirimWA")}
+                  </a>
                 </motion.div>
               )}
             </AnimatePresence>
