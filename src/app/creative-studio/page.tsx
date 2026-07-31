@@ -41,6 +41,7 @@ type Product = {
   total_plastic_kg: number;
   image_url: string;
   gallery: string;
+  artists: string;
   is_active: number;
 };
 
@@ -48,7 +49,7 @@ const emptyBucket: Bucket = { id: 0, code: "", start_date: "", estimated_harvest
 
 const emptyProduct = {
   slug: "", title: "", description: "", category: "craft", story: "",
-  materials: "[]", total_plastic_kg: 0, image_url: "", gallery: "[]",
+  materials: "[]", total_plastic_kg: 0, image_url: "", gallery: "[]", artists: "[]",
 };
 
 const showcaseProducts = [
@@ -200,6 +201,34 @@ export default function CreativeStudioPage() {
     setProductForm({ ...productForm, materials: JSON.stringify(mats) });
   };
 
+  const parseArtists = () => {
+    const raw = productForm.artists;
+    if (Array.isArray(raw)) return raw;
+    try {
+      return JSON.parse(raw || "[]");
+    } catch {
+      return [];
+    }
+  };
+
+  const handleAddArtist = () => {
+    const artists = parseArtists();
+    artists.push({ name: "", role: "", bio: "", photo_url: "" });
+    setProductForm({ ...productForm, artists: JSON.stringify(artists) });
+  };
+
+  const handleArtistChange = (i: number, field: string, value: string) => {
+    const artists = parseArtists();
+    artists[i][field] = value;
+    setProductForm({ ...productForm, artists: JSON.stringify(artists) });
+  };
+
+  const handleRemoveArtist = (i: number) => {
+    const artists = parseArtists();
+    artists.splice(i, 1);
+    setProductForm({ ...productForm, artists: JSON.stringify(artists) });
+  };
+
   const handleEditProduct = (product: Product) => {
     setEditingProduct(product);
     setProductForm({
@@ -212,6 +241,7 @@ export default function CreativeStudioPage() {
       total_plastic_kg: product.total_plastic_kg,
       image_url: product.image_url,
       gallery: product.gallery,
+      artists: typeof product.artists === "string" ? product.artists : JSON.stringify(product.artists || []),
     });
     setShowProductForm(true);
   };
@@ -528,6 +558,7 @@ export default function CreativeStudioPage() {
                       <option value="organic">{t("products.organic")}</option>
                       <option value="craft">{t("products.craft")}</option>
                       <option value="digital">{t("products.digital")}</option>
+                      <option value="art">{t("products.art")}</option>
                     </select>
                     <input value={productForm.total_plastic_kg || ""} onChange={e => setProductForm({ ...productForm, total_plastic_kg: parseFloat(e.target.value) || 0 })} type="number" step="0.1" placeholder={t("creativeStudio.totalPlastik")} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40" />
                   </div>
@@ -573,6 +604,43 @@ export default function CreativeStudioPage() {
                     </div>
                   </div>
 
+                  {/* Artists */}
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">{t("creativeStudio.seniman")}</p>
+                      <button type="button" onClick={handleAddArtist} className="text-[10px] text-emerald-400 hover:text-emerald-300 font-semibold">{t("creativeStudio.tambahSeniman")}</button>
+                    </div>
+                    <div className="space-y-4">
+                      {parseArtists().map((artist: { name: string; role: string; bio: string; photo_url: string }, i: number) => (
+                        <div key={i} className="rounded-xl border border-white/10 bg-white/[0.02] p-4 space-y-2">
+                          <div className="flex items-center justify-between">
+                            <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">{t("creativeStudio.seniman")} #{i + 1}</p>
+                            <button type="button" onClick={() => handleRemoveArtist(i)} className="text-zinc-500 hover:text-[#f87171] transition-colors"><X className="h-4 w-4" /></button>
+                          </div>
+                          <div className="grid gap-2 sm:grid-cols-2">
+                            <input value={artist.name} onChange={e => handleArtistChange(i, "name", e.target.value)} placeholder={t("creativeStudio.namaSeniman")} className="rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40" />
+                            <input value={artist.role} onChange={e => handleArtistChange(i, "role", e.target.value)} placeholder={t("creativeStudio.peranSeniman")} className="rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40" />
+                          </div>
+                          <textarea value={artist.bio} onChange={e => handleArtistChange(i, "bio", e.target.value)} placeholder={t("creativeStudio.bioSeniman")} rows={2} className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40" />
+                          <div>
+                            <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-2">{t("creativeStudio.fotoSeniman")}</p>
+                            <div className="flex items-center gap-3">
+                              <input type="file" accept="image/*" onChange={async (e) => {
+                                const file = e.target.files?.[0];
+                                if (!file) return;
+                                const url = await handleImageUpload(file);
+                                if (url) handleArtistChange(i, "photo_url", url);
+                              }} className="text-xs text-zinc-400 file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-wider file:bg-emerald-500 file:text-black hover:file:bg-emerald-400" />
+                              {uploadingImage && <span className="text-xs text-zinc-500">{t("creativeStudio.uploading")}</span>}
+                              {artist.photo_url && <span className="text-xs text-emerald-400">✓ {t("creativeStudio.fotoSenimanTerupload")}</span>}
+                            </div>
+                            <input value={artist.photo_url} onChange={e => handleArtistChange(i, "photo_url", e.target.value)} placeholder="/Appy Pongtuluran.png" className="mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
                   <button type="submit" className="w-full rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black py-3 text-sm font-bold tracking-wider uppercase transition-all">
                     {editingProduct ? t("creativeStudio.simpanProduk") : t("creativeStudio.tambahProdukBtn")}
                   </button>
@@ -607,6 +675,18 @@ export default function CreativeStudioPage() {
                             <span className="text-[10px] text-emerald-400">{product.total_plastic_kg} {t("creativeStudio.kgPlastik")}</span>
                           )}
                         </div>
+                        {(() => {
+                          const artists = typeof product.artists === "string" ? product.artists : JSON.stringify(product.artists || []);
+                          let names: string[] = [];
+                          try {
+                            names = (JSON.parse(artists || "[]") as { name?: string }[]).map((a) => a.name).filter((n): n is string => Boolean(n));
+                          } catch {}
+                          return names.length > 0 ? (
+                            <p className="mt-1 text-[10px] text-[#f2d479] truncate">
+                              {names.join(", ")}
+                            </p>
+                          ) : null;
+                        })()}
                       </div>
                     </div>
                     <div className="flex items-center gap-2 ml-auto">

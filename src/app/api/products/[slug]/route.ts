@@ -37,7 +37,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ slug
   }
 
   const { slug } = await params;
-  const { title, description, category, story, materials, total_plastic_kg, image_url, gallery, is_active } = await req.json();
+  const { title, description, category, story, materials, total_plastic_kg, image_url, gallery, artists, is_active } = await req.json();
   const supabase = createAdminClient();
 
   const { error } = await supabase
@@ -49,6 +49,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ slug
       total_plastic_kg: total_plastic_kg || 0,
       image_url: image_url || "",
       gallery: gallery || [],
+      artists: artists || [],
       is_active: is_active ?? true,
       updated_at: new Date().toISOString(),
     })

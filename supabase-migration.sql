@@ -139,6 +139,9 @@ ALTER TABLE qr_codes ADD COLUMN IF NOT EXISTS customer_id BIGINT REFERENCES cust
 -- 12. Add points_per_scan to products (configurable by admin)
 ALTER TABLE products ADD COLUMN IF NOT EXISTS points_per_scan INTEGER DEFAULT 10;
 
+-- 12b. Add artists to products (creator/artisan credit, JSON array of { name, role, bio, photo_url })
+ALTER TABLE products ADD COLUMN IF NOT EXISTS artists JSONB DEFAULT '[]';
+
 -- 13. storage bucket for product images
 -- Run this separately in Supabase Storage -> Create bucket "product-images" (public)
 

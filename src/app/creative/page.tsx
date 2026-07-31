@@ -36,6 +36,7 @@ const categoryAccent: Record<string, string> = {
   organic: "border-emerald-500/20 bg-emerald-500/10 text-emerald-400",
   craft: "border-amber-500/20 bg-amber-500/10 text-amber-400",
   digital: "border-purple-500/20 bg-purple-500/10 text-purple-400",
+  art: "border-[#f2d479]/20 bg-[#f2d479]/10 text-[#f2d479]",
 };
 
 const rundownTimes = [

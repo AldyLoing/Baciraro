@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Recycle, Leaf, Palette, Code2, QrCode, Package, ArrowLeft, Trash2, Star, Heart, MessageCircle, Printer } from "lucide-react";
+import { Recycle, Leaf, Palette, Code2, Paintbrush, QrCode, Package, ArrowLeft, Trash2, Star, Heart, MessageCircle, Printer } from "lucide-react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -25,6 +25,7 @@ type Product = {
   total_plastic_kg: number;
   image_url: string;
   gallery: string;
+  artists: string;
 };
 
 type Material = {
@@ -33,11 +34,19 @@ type Material = {
   unit: string;
 };
 
+type Artist = {
+  name: string;
+  role: string;
+  bio: string;
+  photo_url: string;
+};
+
 const categoryIcons: Record<string, typeof Recycle> = {
   plastic: Recycle,
   organic: Leaf,
   craft: Palette,
   digital: Code2,
+  art: Paintbrush,
 };
 
 const categoryAccent: Record<string, string> = {
@@ -45,6 +54,7 @@ const categoryAccent: Record<string, string> = {
   organic: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
   craft: "bg-amber-500/10 text-amber-400 border-amber-500/20",
   digital: "bg-purple-500/10 text-purple-400 border-purple-500/20",
+  art: "bg-[#f2d479]/10 text-[#f2d479] border-[#f2d479]/20",
 };
 
 export default function ProductDetailPage() {
@@ -124,6 +134,13 @@ export default function ProductDetailPage() {
   }
 
   const materials: Material[] = Array.isArray(product.materials) ? product.materials : JSON.parse(product.materials || "[]");
+  const artists: Artist[] = Array.isArray(product.artists) ? product.artists : (() => {
+    try {
+      return JSON.parse(product.artists || "[]");
+    } catch {
+      return [];
+    }
+  })();
   const gallery: string[] = Array.isArray(product.gallery) ? product.gallery : (() => {
     try {
       return JSON.parse(product.gallery || "[]");
@@ -238,6 +255,53 @@ export default function ProductDetailPage() {
             </div>
           </motion.div>
         </div>
+
+        {/* About the Artists */}
+        {artists.length > 0 && (
+          <motion.section
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: springEase }}
+            className="mt-16"
+          >
+            <div className="flex items-center gap-3 pb-3 border-b border-white/[0.05] mb-8">
+              <Palette className="h-4 w-4 text-emerald-400" />
+              <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-emerald-400">{t("products.tentangSeniman")}</p>
+            </div>
+
+            <div className={`grid gap-4 ${artists.length > 1 ? "sm:grid-cols-2" : ""}`}>
+              {artists.map((artist, i) => (
+                <div key={i} className="flex flex-col sm:flex-row gap-6 rounded-[1.5rem] border border-white/[0.07] bg-white/[0.02] backdrop-blur p-6 transition-all hover:border-white/[0.12]">
+                  {artist.photo_url ? (
+                    <Image
+                      src={artist.photo_url}
+                      alt={artist.name}
+                      width={807}
+                      height={1448}
+                      className="h-auto w-44 shrink-0 self-center sm:self-start sm:w-56"
+                    />
+                  ) : (
+                    <div className="h-20 w-20 shrink-0 self-center sm:self-start rounded-full bg-emerald-500/10 flex items-center justify-center">
+                      <Palette className="h-8 w-8 text-emerald-400" />
+                    </div>
+                  )}
+                  <div className="min-w-0">
+                    <h3 className="font-serif text-[20px] text-white">{artist.name}</h3>
+                    {artist.role && (
+                      <span className="mt-1 inline-block rounded-full border border-[#f2d479]/20 bg-[#f2d479]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#f2d479]">
+                        {artist.role}
+                      </span>
+                    )}
+                    {artist.bio && (
+                      <p className="mt-3 text-sm text-zinc-300 leading-relaxed whitespace-pre-line">{artist.bio}</p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.section>
+        )}
 
         {/* Material Breakdown */}
         {materials.length > 0 && (

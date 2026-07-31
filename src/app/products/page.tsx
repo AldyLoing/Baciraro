@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Recycle, Leaf, Palette, Code2, ArrowRight, MessageCircle } from "lucide-react";
+import { Recycle, Leaf, Palette, Code2, Paintbrush, ArrowRight, MessageCircle } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/lib/i18n/context";
@@ -30,6 +30,7 @@ const categories = [
   { key: "organic", label: "", icon: Leaf },
   { key: "craft", label: "", icon: Palette },
   { key: "digital", label: "", icon: Code2 },
+  { key: "art", label: "", icon: Paintbrush },
 ];
 
 const categoryColors: Record<string, string> = {
@@ -37,6 +38,7 @@ const categoryColors: Record<string, string> = {
   organic: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
   craft: "bg-amber-500/10 text-amber-400 border-amber-500/20",
   digital: "bg-purple-500/10 text-purple-400 border-purple-500/20",
+  art: "bg-[#f2d479]/10 text-[#f2d479] border-[#f2d479]/20",
 };
 
 export default function ProductsPage() {

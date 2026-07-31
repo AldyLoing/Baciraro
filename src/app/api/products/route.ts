@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { slug, title, description, category, story, materials, total_plastic_kg, image_url, gallery } = await req.json();
+  const { slug, title, description, category, story, materials, total_plastic_kg, image_url, gallery, artists } = await req.json();
   const supabase = createAdminClient();
 
   // Compute next ID to work around sequence issue
@@ -55,6 +55,7 @@ export async function POST(req: NextRequest) {
       total_plastic_kg: total_plastic_kg || 0,
       image_url: image_url || "",
       gallery: gallery || [],
+      artists: artists || [],
     })
     .select("id")
     .single();
