@@ -509,6 +509,7 @@
     "heroDate": "Saturday, 1 August 2026",
     "heroVenue": "Kedai Kana, Desa Sukur, North Minahasa",
     "heroCta": "View Event Details",
+    "heroCtaRecap": "View Documentation",
     "countdownDays": "Days",
     "countdownHours": "Hours",
     "countdownMinutes": "Minutes",
@@ -569,6 +570,25 @@
       "workshopDesc": "Visitors learned to transform plastic bottle caps into unique keychains. A child from the USA made their own keychain — proof that creativity and recycling can be enjoyed by all ages and backgrounds.",
       "visitorsTitle": "Visitor Highlights",
       "visitorsDesc": "Lokawaya attracted visitors from all walks of life — international tourists and locals alike, all enthusiastically engaging with Baciraro Creative's products and workshop."
+    }
+  },
+  "dialogBudaya": {
+    "label": "Activity Recap",
+    "title": "Dialog Budaya Minahasa 2026",
+    "date": "Saturday, 1 August 2026",
+    "description": "A limited dialogue forum tracing the evolution of Kawasaran attributes — bringing together adat authorities, academics, artists, environmentalists, government, and youth to untangle the red thread between cultural authenticity and recycled plastic innovation.",
+    "cta": "View Full Documentation",
+    "detail": {
+      "heroSubtitle": "Dialog Budaya Recap",
+      "heroTitle": "Dialog Budaya Minahasa 2026",
+      "heroDate": "Saturday, 1 August 2026",
+      "heroDesc": "The Dialog Budaya Minahasa 2026 forum was successfully held at Kedai Kana, Sukur Village, North Minahasa. The forum traced the evolution of Kawasaran attributes — untangling the red thread between cultural authenticity and recycled plastic innovation, bringing together adat authorities, academics, artists, environmentalists, government, and youth.",
+      "registrasiTitle": "Registration & Atmosphere",
+      "registrasiDesc": "Participants were warmly welcomed through registration and welcome coffee before the forum began.",
+      "pidatoTitle": "Speech & Opening",
+      "pidatoDesc": "The opening and speeches opened a space for dialogue across cultural, academic, and environmental perspectives.",
+      "fotoBersamaTitle": "Group Photos",
+      "fotoBersamaDesc": "Declaration signing and group photos closed the cultural dialogue series."
     }
   },
   "undangan": {

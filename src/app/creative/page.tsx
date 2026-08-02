@@ -3,8 +3,8 @@
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { ArrowRight, Calendar, MapPin, ChevronDown, Sparkles, Target, Recycle } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, Calendar, MapPin, Sparkles, Target, Recycle } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/context";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -18,19 +18,6 @@ type Product = {
   image_url: string;
 };
 
-const EVENT_DATE = new Date("2026-08-01T00:00:00+08:00");
-
-function calcRemaining() {
-  const diff = EVENT_DATE.getTime() - Date.now();
-  if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-  return {
-    days: Math.floor(diff / 86400000),
-    hours: Math.floor((diff % 86400000) / 3600000),
-    minutes: Math.floor((diff % 3600000) / 60000),
-    seconds: Math.floor((diff % 60000) / 1000),
-  };
-}
-
 const categoryAccent: Record<string, string> = {
   plastic: "border-blue-500/20 bg-blue-500/10 text-blue-400",
   organic: "border-emerald-500/20 bg-emerald-500/10 text-emerald-400",
@@ -39,18 +26,10 @@ const categoryAccent: Record<string, string> = {
   art: "border-[#f2d479]/20 bg-[#f2d479]/10 text-[#f2d479]",
 };
 
-const rundownTimes = [
-  "08.30\u201309.00", "09.00\u201309.15", "09.15\u201309.25", "09.25\u201309.55",
-  "09.55\u201312.00", "12.00\u201314.00", "14.00\u201314.15", "14.15\u201314.30",
-  "14.30\u201314.45", "14.45\u201315.00", "15.00\u2013selesai",
-];
-
 export default function CreativePage() {
   const { t } = useLanguage();
-  const [cd, setCd] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showDetail, setShowDetail] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -58,12 +37,6 @@ export default function CreativePage() {
     offset: ["start start", "end start"],
   });
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
-  useEffect(() => {
-    setCd(calcRemaining());
-    const id = setInterval(() => setCd(calcRemaining()), 1000);
-    return () => clearInterval(id);
-  }, []);
 
   useEffect(() => {
     fetch("/api/products")
@@ -76,22 +49,12 @@ export default function CreativePage() {
       .finally(() => setLoading(false));
   }, []);
 
-  const cdItems = [
-    { value: cd.days, label: t("creative.countdownDays") },
-    { value: cd.hours, label: t("creative.countdownHours") },
-    { value: cd.minutes, label: t("creative.countdownMinutes") },
-    { value: cd.seconds, label: t("creative.countdownSeconds") },
-  ];
-
-  const prinsip = Array.from({ length: 5 }, (_, i) => t(`creative.eventPrinsip.${i}`));
-  const rundownItems = Array.from({ length: 11 }, (_, i) => t(`creative.rundown.${i}`));
-
   return (
     <main className="relative overflow-hidden text-primary-text min-h-screen">
       <div aria-hidden="true" className="page-bg" />
       <div className="relative z-[1]">
 
-        {/* ───── SECTION 1: HERO + COUNTDOWN ───── */}
+        {/* ───── SECTION 1: HERO ───── */}
         <section ref={heroRef} className="relative h-screen overflow-hidden">
           <video
             src="/teaser dialog budaya.mp4"
@@ -114,24 +77,6 @@ export default function CreativePage() {
                 height={48}
                 className="mb-8 h-auto w-28 object-contain md:w-36"
               />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.15, ease: springEase }}
-              className="mb-8 flex gap-4 sm:gap-6 md:gap-8"
-            >
-              {cdItems.map((item) => (
-                <div key={item.label} className="flex flex-col items-center">
-                  <span className="font-serif text-[clamp(40px,10vw,100px)] font-normal leading-none tracking-[-0.03em] text-brand-gold">
-                    {String(item.value).padStart(2, "0")}
-                  </span>
-                  <span className="mt-2 text-[10px] font-medium uppercase tracking-[0.2em] text-white/60 sm:text-xs">
-                    {item.label}
-                  </span>
-                </div>
-              ))}
             </motion.div>
 
             <motion.h1
@@ -176,10 +121,10 @@ export default function CreativePage() {
               className="mt-10"
             >
               <a
-                href="#event-detail"
+                href="#dialog-budaya"
                 className="group inline-flex items-center gap-3 rounded-full bg-brand-terracotta px-6 py-3 text-sm font-medium text-white transition-all hover:bg-brand-orange hover:gap-4"
               >
-                {t("creative.heroCta")}
+                {t("creative.heroCtaRecap")}
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </a>
             </motion.div>
@@ -240,122 +185,7 @@ export default function CreativePage() {
           </div>
         </section>
 
-        {/* ───── SECTION 3: DIALOG BUDAYA 2026 DETAIL ───── */}
-        <section id="event-detail" className="relative border-t border-white/5 px-4 py-20 sm:px-6 md:px-8 md:py-28">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_100%,rgba(217,122,43,0.06),transparent_60%)]" />
-          <div className="relative mx-auto max-w-5xl">
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: springEase }}
-              className="text-center text-xs font-bold uppercase tracking-[0.25em] text-brand-orange"
-            >
-              {t("creative.heroDate")}
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.1, ease: springEase }}
-              className="mt-4 text-center font-serif text-[clamp(24px,3.5vw,44px)] font-normal leading-[1.1] tracking-[-0.02em] text-white"
-            >
-              {t("creative.heroTitle")}
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2, ease: springEase }}
-              className="mt-3 text-center text-sm text-zinc-400"
-            >
-              {t("creative.eventKonsepBody")}
-            </motion.p>
-
-            {/* Toggle button */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3, ease: springEase }}
-              className="mt-10 text-center"
-            >
-              <button
-                type="button"
-                onClick={() => setShowDetail(!showDetail)}
-                className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-sm text-white/70 backdrop-blur transition-all hover:border-brand-terracotta/30 hover:text-white"
-              >
-                {showDetail ? t("creative.sembunyikan") : t("creative.pelajariEvent")}
-                <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${showDetail ? "rotate-180" : ""}`} />
-              </button>
-            </motion.div>
-
-            <AnimatePresence>
-              {showDetail && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.5, ease: springEase }}
-                  className="overflow-hidden"
-                >
-                  {/* Prinsip */}
-                  <div className="mt-14">
-                    <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-brand-gold">{t("creative.eventPrinsipTitle")}</h3>
-                    <ul className="mt-6 space-y-4">
-                      {prinsip.map((p, i) => (
-                        <li key={i} className="flex items-start gap-3 text-sm text-zinc-300">
-                          <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-terracotta/20 text-[11px] font-bold text-brand-terracotta">
-                            {i + 1}
-                          </span>
-                          <span>{p}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Rundown */}
-                  <div className="mt-14">
-                    <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-brand-gold">{t("creative.rundownTitle")}</h3>
-                    <div className="mt-6 space-y-0">
-                      {rundownItems.map((item, i) => (
-                        <div key={i} className="group flex items-start gap-4 border-l-2 border-white/5 py-3 pl-4 transition-colors hover:border-brand-terracotta/40 md:gap-6 md:pl-6">
-                          <span className="min-w-[70px] shrink-0 text-xs font-mono text-brand-orange md:min-w-[90px] md:text-sm">
-                            {rundownTimes[i]}
-                          </span>
-                          <span className="text-xs text-zinc-300 md:text-sm">
-                            {item}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Catatan */}
-                  <div className="mt-14 rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 backdrop-blur">
-                    <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-brand-gold">{t("creative.catatanTitle")}</h3>
-                    <ul className="mt-4 space-y-2 text-sm text-zinc-300">
-                      <li className="flex items-start gap-2">
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-terracotta" />
-                        {t("creative.catatanHadir")}
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-orange" />
-                        {t("creative.catatanIkut")}
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-gold" />
-                        {t("creative.catatanSesuai")}
-                      </li>
-                    </ul>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </section>
-
-        {/* ───── SECTION 4: PORTFOLIO PRODUK ───── */}
+        {/* ───── SECTION 3: PORTFOLIO PRODUK ───── */}
         <section className="relative border-t border-white/5 px-4 py-20 sm:px-6 md:px-8 md:py-28">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(111,175,79,0.05),transparent_60%)]" />
           <div className="relative mx-auto max-w-7xl">
@@ -431,6 +261,105 @@ export default function CreativePage() {
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </motion.div>
+          </div>
+        </section>
+
+        {/* ───── SECTION 4: DIALOG BUDAYA RECAP ───── */}
+        <section id="dialog-budaya" className="relative border-t border-white/5 overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(196,74,58,0.06),transparent_60%)]" />
+
+          <div className="relative grid grid-cols-1 lg:grid-cols-2">
+            {/* Left: photo full-height */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: springEase }}
+              className="relative h-[50vh] lg:h-auto overflow-hidden"
+            >
+              <Image
+                src="/Dialog Budaya/foto bersama 2.jpeg"
+                alt=""
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/10 to-transparent lg:bg-gradient-to-r lg:from-background/80 lg:via-background/20 lg:to-transparent" />
+            </motion.div>
+
+            {/* Right: content */}
+            <div className="flex flex-col justify-center px-6 py-16 sm:px-10 md:px-14 lg:py-20">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: springEase }}
+              >
+                <p className="text-xs font-bold uppercase tracking-[0.25em] text-brand-gold">
+                  {t("dialogBudaya.label")}
+                </p>
+                <h2 className="mt-3 font-serif text-[clamp(24px,4vw,44px)] font-normal leading-[1.1] tracking-[-0.02em] text-white">
+                  {t("dialogBudaya.title")}
+                </h2>
+                <p className="mt-1.5 text-sm text-brand-gold/80">
+                  {t("dialogBudaya.date")}
+                </p>
+                <p className="mt-4 max-w-lg text-sm leading-relaxed text-zinc-400">
+                  {t("dialogBudaya.description")}
+                </p>
+              </motion.div>
+
+              {/* Media thumbnails row */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.15, ease: springEase }}
+                className="mt-8 grid grid-cols-2 gap-3"
+              >
+                <div className="group relative aspect-video overflow-hidden rounded-xl border border-white/[0.07] bg-black/40">
+                  <Image
+                    src="/Dialog Budaya/registrasi.jpeg"
+                    alt=""
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-transparent to-transparent p-3">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-white/80">{t("dialogBudaya.detail.registrasiTitle")}</span>
+                  </div>
+                </div>
+                <div className="group relative aspect-video overflow-hidden rounded-xl border border-white/[0.07] bg-black/40">
+                  <video
+                    src="/Dialog Budaya/spech nyong sulut.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="none"
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-transparent to-transparent p-3">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-white/80">{t("dialogBudaya.detail.pidatoTitle")}</span>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.25, ease: springEase }}
+                className="mt-6"
+              >
+                <Link
+                  href="/creative/dialog-budaya"
+                  className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-sm text-white/70 backdrop-blur transition-all hover:border-brand-gold/30 hover:text-white"
+                >
+                  {t("dialogBudaya.cta")}
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </motion.div>
+            </div>
           </div>
         </section>
 

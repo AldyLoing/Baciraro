@@ -509,6 +509,7 @@
     "heroDate": "Sabtu, 1 Agustus 2026",
     "heroVenue": "Kedai Kana, Desa Sukur, Minahasa Utara",
     "heroCta": "Lihat Detail Event",
+    "heroCtaRecap": "Lihat Dokumentasi",
     "countdownDays": "Hari",
     "countdownHours": "Jam",
     "countdownMinutes": "Menit",
@@ -569,6 +570,25 @@
       "workshopDesc": "Pengunjung diajak belajar mengubah tutup botol plastik bekas menjadi gantungan kunci unik. Seorang anak dari USA berhasil membuat keychain-nya sendiri — bukti bahwa kreativitas dan daur ulang bisa dinikmati semua kalangan.",
       "visitorsTitle": "Kunjungan Pengunjung",
       "visitorsDesc": "Lokawaya menarik pengunjung dari berbagai kalangan — turis asing hingga lokal, semuanya antusias berinteraksi dengan produk dan workshop Baciraro Creative."
+    }
+  },
+  "dialogBudaya": {
+    "label": "Recap Kegiatan",
+    "title": "Dialog Budaya Minahasa 2026",
+    "date": "Sabtu, 1 Agustus 2026",
+    "description": "Forum dialog terbatas yang menelusuri evolusi atribut Kawasaran — mempertemukan tokoh adat, akademisi, seniman, pegiat lingkungan, pemerintah, dan generasi muda untuk mengurai benang merah antara otentisitas budaya dan inovasi plastik daur ulang.",
+    "cta": "Lihat Dokumentasi Lengkap",
+    "detail": {
+      "heroSubtitle": "Recap Dialog Budaya",
+      "heroTitle": "Dialog Budaya Minahasa 2026",
+      "heroDate": "Sabtu, 1 Agustus 2026",
+      "heroDesc": "Dialog Budaya Minahasa 2026 sukses diselenggarakan di Kedai Kana, Desa Sukur, Minahasa Utara. Forum ini menelusuri evolusi atribut Kawasaran — mengurai benang merah antara otentisitas budaya dengan inovasi plastik daur ulang, mempertemukan tokoh adat, akademisi, seniman, pegiat lingkungan, pemerintah, dan generasi muda.",
+      "registrasiTitle": "Registrasi & Suasana",
+      "registrasiDesc": "Peserta disambut hangat melalui proses registrasi dan welcome coffee sebelum forum dimulai.",
+      "pidatoTitle": "Pidato & Pembukaan",
+      "pidatoDesc": "Pembukaan dan pidato yang membuka ruang dialog lintas perspektif budaya, akademik, dan lingkungan.",
+      "fotoBersamaTitle": "Foto Bersama",
+      "fotoBersamaDesc": "Penandatanganan deklarasi dan foto bersama sebagai penutup rangkaian dialog budaya."
     }
   },
   "undangan": {
