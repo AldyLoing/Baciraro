@@ -1,13 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Mail, MessageCircle, Globe, MapPin } from "lucide-react";
+import { ArrowRight, Mail, MessageCircle, Globe, MapPin, Send } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/lib/i18n/context";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
+const WA_NUMBER = "6288212835350";
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -20,6 +22,18 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 export default function ContactPage() {
   const { t } = useLanguage();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [sent, setSent] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const text = `Halo Tim Baciraro,\n\nNama: ${name}\nEmail: ${email}\n\nPesan:\n${message}`;
+    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+    setSent(true);
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
   return (
     <main className="relative overflow-hidden text-foreground min-h-screen bg-background">
       <div aria-hidden="true" className="page-bg" />
@@ -110,22 +124,13 @@ export default function ContactPage() {
                     <Globe className="h-4 w-4" />
                     Instagram
                   </a>
-                  <a
-                    href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-zinc-300 backdrop-blur transition-all hover:bg-white/10 hover:text-white"
-                  >
-                    <Globe className="h-4 w-4" />
-                    YouTube
-                  </a>
                   <Link
-                    href="https://baciraro.com"
+                    href="https://baciraro.net"
                     target="_blank"
                     className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-zinc-300 backdrop-blur transition-all hover:bg-white/10 hover:text-white"
                   >
                     <Globe className="h-4 w-4" />
-                    baciraro.com
+                    baciraro.net
                   </Link>
                 </div>
               </div>
@@ -134,33 +139,48 @@ export default function ContactPage() {
               <div className="rounded-[2rem] border border-white/5 bg-black/25 p-6 shadow-xl backdrop-blur-sm sm:p-8">
                 <h3 className="text-xl font-semibold text-white">{t("contact.formTitle")}</h3>
                 <p className="mt-2 text-sm text-zinc-400">{t("contact.formDesc")}</p>
-                <form className="mt-6 space-y-4" onSubmit={(e) => e.preventDefault()}>
+                <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
                   <div className="grid gap-4 sm:grid-cols-2">
                     <input
                       type="text"
+                      required
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                       placeholder={t("contact.formNama")}
                       className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-zinc-500 backdrop-blur outline-none focus:border-emerald-500/50 transition-colors"
                     />
                     <input
                       type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       placeholder={t("contact.formEmail")}
                       className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-zinc-500 backdrop-blur outline-none focus:border-emerald-500/50 transition-colors"
                     />
                   </div>
                   <textarea
                     rows={4}
+                    required
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
                     placeholder={t("contact.formPesan")}
                     className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-zinc-500 backdrop-blur outline-none focus:border-emerald-500/50 transition-colors resize-none"
                   />
-                  <button
-                    type="submit"
-                    className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3 shadow-lg hover:bg-zinc-100"
-                  >
-                    {t("contact.kirimPesan")}
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black transition-transform group-hover:scale-110">
-                      <ArrowRight className="h-3 w-3 text-white" />
-                    </span>
-                  </button>
+                  {sent ? (
+                    <div className="rounded-xl border border-emerald-500/30 bg-emerald-950/40 px-4 py-3 text-sm text-emerald-300">
+                      {t("contact.formSent")}
+                    </div>
+                  ) : (
+                    <button
+                      type="submit"
+                      className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all hover:gap-3 shadow-lg hover:bg-zinc-100"
+                    >
+                      {t("contact.kirimPesan")}
+                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black transition-transform group-hover:scale-110">
+                        <Send className="h-3 w-3 text-white" />
+                      </span>
+                    </button>
+                  )}
                 </form>
               </div>
             </div>

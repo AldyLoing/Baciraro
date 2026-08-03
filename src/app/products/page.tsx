@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Recycle, Leaf, Palette, Code2, Paintbrush, ArrowRight, MessageCircle } from "lucide-react";
+import { Recycle, Leaf, Palette, Code2, Paintbrush, MessageCircle, Search, ArrowDownWideNarrow } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/lib/i18n/context";
@@ -22,6 +22,7 @@ type Product = {
   total_plastic_kg: number;
   image_url: string;
   gallery: string;
+  totalKg?: number;
 };
 
 const categories = [
@@ -45,6 +46,8 @@ export default function ProductsPage() {
   const { t } = useLanguage();
   const [products, setProducts] = useState<Product[]>([]);
   const [activeCategory, setActiveCategory] = useState("all");
+  const [query, setQuery] = useState("");
+  const [sort, setSort] = useState<"newest" | "oldest" | "name" | "kg">("newest");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -54,9 +57,34 @@ export default function ProductsPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  const filtered = activeCategory === "all"
-    ? products || []
-    : (products || []).filter((p) => p.category === activeCategory);
+  const filtered = (products || [])
+    .filter((p) => activeCategory === "all" || p.category === activeCategory)
+    .filter((p) => {
+      if (!query.trim()) return true;
+      const q = query.trim().toLowerCase();
+      return (
+        p.title.toLowerCase().includes(q) ||
+        (p.description || "").toLowerCase().includes(q) ||
+        (p.story || "").toLowerCase().includes(q)
+      );
+    })
+    .map((p) => {
+      const materials = typeof p.materials === "string" ? JSON.parse(p.materials || "[]") : (p.materials || []);
+      const totalKg = materials.reduce((sum: number, m: { amount: number }) => sum + m.amount, 0);
+      return { ...p, totalKg };
+    })
+    .sort((a, b) => {
+      switch (sort) {
+        case "name":
+          return a.title.localeCompare(b.title);
+        case "kg":
+          return b.totalKg - a.totalKg;
+        case "oldest":
+          return a.id - b.id;
+        default:
+          return b.id - a.id;
+      }
+    });
 
   return (
     <main className="relative min-h-screen text-[#fafafa] overflow-hidden">
@@ -97,6 +125,45 @@ export default function ProductsPage() {
           ))}
         </motion.div>
 
+        {/* Search & Sort */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3, ease: springEase }}
+          className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center"
+        >
+          <div className="relative flex-1 max-w-md">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={t("products.cari")}
+              className="w-full rounded-full border border-white/10 bg-white/5 py-3 pl-11 pr-4 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40 focus:ring-1 focus:ring-emerald-500/30 transition-all"
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <ArrowDownWideNarrow className="h-4 w-4 text-zinc-500" />
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as typeof sort)}
+              className="rounded-full border border-white/10 bg-white/5 px-4 py-3 text-xs font-bold uppercase tracking-wider text-zinc-300 focus:outline-none focus:border-emerald-500/40 cursor-pointer appearance-none"
+            >
+              <option value="newest" className="bg-zinc-900 text-zinc-300">{t("products.sortTerbaru")}</option>
+              <option value="oldest" className="bg-zinc-900 text-zinc-300">{t("products.sortTerlama")}</option>
+              <option value="name" className="bg-zinc-900 text-zinc-300">{t("products.sortNama")}</option>
+              <option value="kg" className="bg-zinc-900 text-zinc-300">{t("products.sortKg")}</option>
+            </select>
+          </div>
+        </motion.div>
+
+        {/* Result count */}
+        {!loading && (
+          <p className="mt-4 text-xs text-zinc-500">
+            {t("products.jumlahProduk", { count: filtered.length })}
+          </p>
+        )}
+
         {/* Product Grid */}
         {loading ? (
           <div className="mt-16 text-center text-zinc-500 text-sm">{t("products.memuat")}</div>
@@ -105,8 +172,7 @@ export default function ProductsPage() {
         ) : (
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((product, i) => {
-              const materials = typeof product.materials === "string" ? JSON.parse(product.materials || "[]") : (product.materials || []);
-              const totalKg = materials.reduce((sum: number, m: { amount: number }) => sum + m.amount, 0);
+              const totalKg = product.totalKg || 0;
 
               return (
                 <motion.div

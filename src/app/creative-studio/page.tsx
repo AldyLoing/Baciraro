@@ -376,10 +376,16 @@ export default function CreativeStudioPage() {
           <div className="flex items-center gap-3">
             <span className="text-xs text-zinc-400">{t("creativeStudio.hello")}<span className="text-white font-semibold">{displayName}</span></span>
             {isAdmin && (
-              <button onClick={handleLogout} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-zinc-400 hover:text-[#f87171] transition-all">
-                <LogOut className="h-3 w-3" />
-                {t("creativeStudio.logout")}
-              </button>
+              <>
+                <Link href="/dashboard/qr" className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-zinc-400 hover:text-emerald-400 transition-all">
+                  <QrCode className="h-3 w-3" />
+                  {t("creativeStudio.qrDashboard")}
+                </Link>
+                <button onClick={handleLogout} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-zinc-400 hover:text-[#f87171] transition-all">
+                  <LogOut className="h-3 w-3" />
+                  {t("creativeStudio.logout")}
+                </button>
+              </>
             )}
             {!isAdmin && (
               <button onClick={handleLogout} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs text-zinc-400 hover:text-[#f87171] transition-all">
@@ -498,7 +504,7 @@ export default function CreativeStudioPage() {
                         <span className="font-bold text-sm text-emerald-400">{bucket.code.replace("EMBR-", "")}</span>
                       </div>
                       <div>
-                        <p className="font-serif text-[17px] text-white">{bucket.code}</p>
+                        <Link href={`/compost/${bucket.code}`} className="font-serif text-[17px] text-white hover:text-emerald-400 transition-colors">{bucket.code}</Link>
                         <div className="flex flex-wrap items-center gap-2 mt-1">
                           {statusBadge(bucket.status)}
                           <span className="text-[10px] text-zinc-500">{typeLabel(bucket.type)}</span>

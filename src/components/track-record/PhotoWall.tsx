@@ -7,6 +7,7 @@ import { trackRecordData } from "@/lib/track-record-data";
 import type { TrackRecordActivity } from "@/lib/track-record-types";
 import { MapPin, X, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/context";
+import { BeforeAfterSlider } from "./BeforeAfterSlider";
 
 interface Cell {
   cols: number;
@@ -132,6 +133,24 @@ function ActivityDetail({ activity, onClose }: { activity: TrackRecordActivity; 
                   </motion.button>
                 ))}
               </div>
+
+              {activity.beforeAfter && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.25 }}
+                  className="mt-6"
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    <Sparkles className="h-4 w-4 text-emerald-400" />
+                    <span className="text-xs uppercase tracking-[0.2em] text-zinc-500 font-medium">{t("trackRecord.framesLabel")}</span>
+                  </div>
+                  <BeforeAfterSlider
+                    before={activity.beforeAfter.before}
+                    after={activity.beforeAfter.after}
+                  />
+                </motion.div>
+              )}
             </div>
 
             {/* Content */}
@@ -209,11 +228,16 @@ function ActivityDetail({ activity, onClose }: { activity: TrackRecordActivity; 
                   <div>
                     <span className="block text-xs uppercase tracking-[0.2em] text-zinc-500 font-medium mb-2">{t("trackRecord.kapabilitas")}</span>
                     <div className="flex flex-wrap gap-1.5">
-                      {activity.capabilities.map((cap) => (
-                        <span key={cap} className="inline-flex rounded-full bg-emerald-950/30 px-2.5 py-1 text-[10px] font-medium text-emerald-300/80 ring-1 ring-emerald-800/20">
-                          {t("trackRecord.capability." + cap.replace(/-/g, '_'))}
-                        </span>
-                      ))}
+                      {activity.capabilities.map((cap) => {
+                        const translated = t("trackRecord.capability." + cap.replace(/-/g, '_'));
+                        const fallback = capabilityLabels[cap] || cap;
+                        const label = translated.startsWith("trackRecord.capability.") ? fallback : translated;
+                        return (
+                          <span key={cap} className="inline-flex rounded-full bg-emerald-950/30 px-2.5 py-1 text-[10px] font-medium text-emerald-300/80 ring-1 ring-emerald-800/20">
+                            {label}
+                          </span>
+                        );
+                      })}
                     </div>
                   </div>
                 )}
@@ -308,7 +332,6 @@ export function PhotoWall() {
 
         {trackRecordData.map((yearData, yearIdx) => {
           const allPhotos = yearData.activities.flatMap((a) => a.photos);
-          const cells = getLayout(yearData.year, allPhotos.length);
           const era = yearData.activities[0]?.era || "awal";
 
           return (

@@ -2,10 +2,67 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { trackRecordData } from "@/lib/track-record-data";
 import { useLanguage } from "@/lib/i18n/context";
 import { MapPin, Users } from "lucide-react";
+
+type Chapter = {
+  year: number;
+  activities: typeof trackRecordData[number]["activities"];
+  era: string;
+};
+
+function ChapterSlide({
+  photo,
+  index,
+  activeIndex,
+  priority,
+}: {
+  photo: string;
+  index: number;
+  activeIndex: MotionValue<number>;
+  priority: boolean;
+}) {
+  const opacity = useTransform(activeIndex, (idx) => {
+    const dist = Math.abs(Math.round(idx) - index);
+    return dist === 0 ? 1 : 0;
+  });
+
+  return (
+    <motion.div className="absolute inset-0" style={{ opacity }}>
+      <Image src={photo} alt="" fill className="object-cover" priority={priority} />
+    </motion.div>
+  );
+}
+
+function EraBadge({ chapter }: { chapter: MotionValue<Chapter> }) {
+  const { t } = useLanguage();
+  const text = useTransform(chapter, (c) => {
+    const labels: Record<string, string> = {
+      awal: t("trackRecord.scrollEraAwal"),
+      tumbuh: t("trackRecord.scrollEraTumbuh"),
+      meluas: t("trackRecord.scrollEraMeluas"),
+      transformasi: t("trackRecord.scrollEraTransformasi"),
+    };
+    return c ? labels[c.era] || "" : "";
+  });
+
+  return (
+    <motion.span className="inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-400 backdrop-blur-sm">
+      {text}
+    </motion.span>
+  );
+}
+
+function YearDisplay({ chapter }: { chapter: MotionValue<Chapter> }) {
+  const year = useTransform(chapter, (c) => String(c?.year || ""));
+  return (
+    <motion.span className="text-[160px] sm:text-[200px] font-bold leading-none text-white/10 select-none">
+      {year}
+    </motion.span>
+  );
+}
 
 export function ScrollytellingJourney() {
   const { t } = useLanguage();
@@ -15,14 +72,7 @@ export function ScrollytellingJourney() {
     offset: ["start start", "end end"],
   });
 
-  const eraLabels: Record<string, string> = {
-    awal: t("trackRecord.scrollEraAwal"),
-    tumbuh: t("trackRecord.scrollEraTumbuh"),
-    meluas: t("trackRecord.scrollEraMeluas"),
-    transformasi: t("trackRecord.scrollEraTransformasi"),
-  };
-
-  const chapters = trackRecordData.map((yearData) => ({
+  const chapters: Chapter[] = trackRecordData.map((yearData) => ({
     year: yearData.year,
     activities: yearData.activities,
     era: yearData.activities[0]?.era || "awal",
@@ -48,59 +98,30 @@ export function ScrollytellingJourney() {
         {chapters.map((chapter, i) => {
           const allPhotos = chapter.activities.flatMap((a) => a.photos);
           return (
-            <motion.div
+            <ChapterSlide
               key={chapter.year}
-              className="absolute inset-0"
-              style={{
-                opacity: useTransform(currentIndex, (idx) => {
-                  const dist = Math.abs(Math.round(idx) - i);
-                  return dist === 0 ? 1 : 0;
-                }),
-              }}
-            >
-              {allPhotos[0] && (
-                <Image
-                  src={allPhotos[0].src}
-                  alt=""
-                  fill
-                  className="object-cover"
-                  priority={i === 0}
-                />
-              )}
-            </motion.div>
+              photo={allPhotos[0]?.src || ""}
+              index={i}
+              activeIndex={currentIndex}
+              priority={i === 0}
+            />
           );
         })}
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/60 z-10" />
 
-        <motion.div
-          className="absolute top-24 left-6 lg:left-12 z-20"
-          style={{
-            opacity: useTransform(currentIndex, (idx) => {
-              const c = chapters[Math.round(idx)];
-              if (!c) return 0;
-              return 1;
-            }),
-          }}
-        >
-          <motion.span className="inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-emerald-400 backdrop-blur-sm">
-            {useTransform(currentChapter, (c) => {
-              if (!c) return "";
-              return eraLabels[c.era] || "";
-            })}
-          </motion.span>
-        </motion.div>
+        <div className="absolute top-24 left-6 lg:left-12 z-20">
+          <EraBadge chapter={currentChapter} />
+        </div>
 
         <div className="absolute bottom-8 right-6 lg:right-12 z-20">
-          <motion.span className="text-[160px] sm:text-[200px] font-bold leading-none text-white/10 select-none">
-            {useTransform(currentChapter, (c) => String(c?.year || ""))}
-          </motion.span>
+          <YearDisplay chapter={currentChapter} />
         </div>
       </div>
 
       {/* Text content */}
       <div className="relative z-20 pointer-events-none">
-        {chapters.map((chapter, i) => (
+        {chapters.map((chapter) => (
           <div
             key={chapter.year}
             id={`chapter-${chapter.year}`}

@@ -36,7 +36,7 @@ export default function QRDashboardPage() {
         return;
       }
       const data = await res.json();
-      setCodes(data.codes);
+      setCodes(data.qrCodes || []);
       setAuthed(true);
       setLoading(false);
     };

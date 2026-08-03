@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, User, LogOut, Award, LayoutDashboard, Globe } from "lucide-react";
+import { Menu, X, User, LogOut, Award, LayoutDashboard, Globe, Gift } from "lucide-react";
 import { useCustomerAuth } from "@/lib/customer-auth-context";
 import { useAdminAuth } from "@/lib/admin-auth-context";
 import { useLanguage } from "@/lib/i18n/context";
@@ -14,6 +14,7 @@ const navLinks = [
   { nameKey: "home", href: "/" },
   { nameKey: "about", href: "/about" },
   { nameKey: "produk", href: "/products" },
+  { nameKey: "seniman", href: "/artists" },
   { nameKey: "trackRecord", href: "/track-record" },
   { nameKey: "leadership", href: "/leadership" },
   { nameKey: "creativeStudio", href: "/creative-studio" },
@@ -294,6 +295,14 @@ export default function Header(_props?: { subtitle?: string }) {
                 >
                   <Award className="h-4 w-4 text-zinc-500" />
                   {t("nav.riwayatPoin")}
+                </Link>
+                <Link
+                  href="/points-store"
+                  onClick={() => setDropdownOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 text-sm text-zinc-300 hover:text-white hover:bg-white/5 transition-all"
+                >
+                  <Gift className="h-4 w-4 text-zinc-500" />
+                  {t("nav.storePoin")}
                 </Link>
                 <button
                   onClick={() => { logout(); setDropdownOpen(false); }}

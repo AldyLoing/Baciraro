@@ -3,6 +3,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
+import ActivitiesSection from "@/components/ActivitiesSection";
 import PartnerMarquee from "@/components/PartnerMarquee";
 import EcosystemRadial from "@/components/EcosystemRadial";
 import FlowHorizontal from "@/components/FlowHorizontal";
@@ -22,6 +23,7 @@ export default function Home() {
         <Header />
 
         <HeroSection />
+        <ActivitiesSection />
         <PartnerMarquee />
         <EcosystemRadial />
         <FlowHorizontal />

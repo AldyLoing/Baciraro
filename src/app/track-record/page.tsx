@@ -7,16 +7,19 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import {
   innovationData, csrPrograms, partnerCategories, coreCompetencies,
-  ecosystemRegionData, productServiceData,
+  productServiceData,
 } from "@/lib/site-sections-data";
-import { trackRecordData } from "@/lib/track-record-data";
-import { ArrowRight, Landmark, ShieldCheck, MapPin, LayoutList } from "lucide-react";
+import { ArrowRight, Landmark, ShieldCheck, LayoutList, ScrollText } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/context";
 import { CinematicHero } from "@/components/track-record/CinematicHero";
 import { PhotoWall } from "@/components/track-record/PhotoWall";
 import { ArchiveIndex } from "@/components/track-record/ArchiveIndex";
 import { FramesOfChange } from "@/components/track-record/FramesOfChange";
 import { CaseStudyEditorial } from "@/components/track-record/CaseStudyEditorial";
+import { ScrollytellingJourney } from "@/components/track-record/ScrollytellingJourney";
+import { ImpactEvidenceSection } from "@/components/track-record/ImpactEvidenceSection";
+import { BaciraroRoleSection } from "@/components/track-record/BaciraroRoleSection";
+import { InteractiveRegionMap } from "@/components/track-record/InteractiveRegionMap";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -90,33 +93,7 @@ function EcosystemRegionSection() {
         <div className="mb-12">
           <SectionHeading eyebrow={t("siteSections.ekosistem")} title={t("siteSections.ekosistemTitle")} description={t("siteSections.ekosistemDesc")} />
         </div>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {ecosystemRegionData.map((region, index) => (
-            <motion.div
-              key={region.region}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: index * 0.08, ease: springEase }}
-              className="rounded-[2.25rem] border border-white/5 bg-zinc-900/20 p-6 shadow-xl backdrop-blur-sm hover:border-white/10 transition-all duration-300"
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="inline-flex rounded-xl bg-emerald-500/10 p-2.5 text-emerald-400 shrink-0">
-                  <region.icon className="h-5 w-5" />
-                </div>
-                <h3 className="text-lg font-semibold text-white">{region.titleKey ? t(region.titleKey) : region.region}</h3>
-              </div>
-              <ul className="space-y-3">
-                {region.points.map((point, i) => (
-                  <li key={point} className="flex items-start gap-2">
-                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-emerald-400/60" />
-                    <span className="text-sm text-zinc-400 leading-relaxed">{region.pointsKey?.[i] ? t(region.pointsKey[i]) : point}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
+        <InteractiveRegionMap />
       </div>
     </section>
   );
@@ -304,7 +281,7 @@ function CTASection() {
 
 export default function TrackRecordPage() {
   const { t } = useLanguage();
-  const [showArchive, setShowArchive] = useState(false);
+  const [view, setView] = useState<"photos" | "archive" | "story">("photos");
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -314,6 +291,7 @@ export default function TrackRecordPage() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
+
   return (
     <main className="relative overflow-hidden text-foreground min-h-screen bg-transparent">
       <div aria-hidden="true" className="page-bg" />
@@ -322,16 +300,16 @@ export default function TrackRecordPage() {
       <Header subtitle={t("trackRecord.label")} />
 
       <CinematicHero
-        onExploreStory={() => setShowArchive(false)}
-        onBrowseArchive={() => setShowArchive(true)}
+        onExploreStory={() => setView("photos")}
+        onBrowseArchive={() => setView("archive")}
       />
 
       {/* Simple toggle */}
       <div className="sticky top-16 z-30 flex justify-center py-3 bg-zinc-950/80 backdrop-blur-xl border-b border-white/5">
         <button
-          onClick={() => setShowArchive(false)}
+          onClick={() => setView("photos")}
           className={`inline-flex items-center gap-2 rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
-            !showArchive ? "bg-emerald-400 text-black shadow-lg" : "text-zinc-500 hover:text-zinc-300"
+            view === "photos" ? "bg-emerald-400 text-black shadow-lg" : "text-zinc-500 hover:text-zinc-300"
           }`}
         >
           <span className="h-2 w-2 rounded-full" />
@@ -339,20 +317,32 @@ export default function TrackRecordPage() {
         </button>
         <span className="w-2" />
         <button
-          onClick={() => setShowArchive(true)}
+          onClick={() => setView("archive")}
           className={`inline-flex items-center gap-2 rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
-            showArchive ? "bg-emerald-400 text-black shadow-lg" : "text-zinc-500 hover:text-zinc-300"
+            view === "archive" ? "bg-emerald-400 text-black shadow-lg" : "text-zinc-500 hover:text-zinc-300"
           }`}
         >
           <LayoutList className="h-3.5 w-3.5" />
           {t("siteSections.indeksArsip")}
         </button>
+        <span className="w-2" />
+        <button
+          onClick={() => setView("story")}
+          className={`inline-flex items-center gap-2 rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
+            view === "story" ? "bg-emerald-400 text-black shadow-lg" : "text-zinc-500 hover:text-zinc-300"
+          }`}
+        >
+          <ScrollText className="h-3.5 w-3.5" />
+          {t("trackRecord.ceritaPerjalanan")}
+        </button>
       </div>
 
-      {showArchive || isMobile ? <ArchiveIndex /> : <PhotoWall />}
+      {view === "photos" && !isMobile ? <PhotoWall /> : view === "archive" ? <ArchiveIndex /> : <ScrollytellingJourney />}
 
       <FramesOfChange />
+      <ImpactEvidenceSection />
       <CaseStudyEditorial />
+      <BaciraroRoleSection />
       <InnovationSection />
       <EcosystemRegionSection />
       <CSRProgramsSection />

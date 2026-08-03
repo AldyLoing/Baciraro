@@ -15,7 +15,7 @@ export function CinematicHero({ onExploreStory, onBrowseArchive }: { onExploreSt
   );
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [activeYear, setActiveYear] = useState(2024);
+  const [activeYear, setActiveYear] = useState(2026);
 
   const years = trackRecordData.map((y) => y.year);
 

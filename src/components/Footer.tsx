@@ -7,6 +7,7 @@ import { useLanguage } from "@/lib/i18n/context";
 
 const categoryLinks = [
   { key: "semuaProduk", href: "/products", icon: null, color: "" },
+  { key: "seniman", href: "/artists", icon: Palette, color: "bg-emerald-500" },
   { key: "plastik", href: "/products", icon: Recycle, color: "bg-blue-500" },
   { key: "kriya", href: "/products", icon: Palette, color: "bg-amber-500" },
   { key: "organik", href: "/products", icon: Leaf, color: "bg-emerald-500" },

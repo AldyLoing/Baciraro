@@ -147,3 +147,25 @@ ALTER TABLE products ADD COLUMN IF NOT EXISTS artists JSONB DEFAULT '[]';
 
 -- 14. storage bucket for customer photos
 -- Run this separately in Supabase Storage -> Create bucket "customer-photos" (public)
+
+-- 15. rewards (points store catalog)
+CREATE TABLE IF NOT EXISTS rewards (
+  id BIGSERIAL PRIMARY KEY,
+  title TEXT NOT NULL,
+  description TEXT DEFAULT '',
+  cost_points INTEGER NOT NULL DEFAULT 100,
+  image_url TEXT DEFAULT '',
+  stock INTEGER DEFAULT 0,
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 16. redemptions (points store history)
+CREATE TABLE IF NOT EXISTS redemptions (
+  id BIGSERIAL PRIMARY KEY,
+  customer_id BIGINT NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
+  reward_id BIGINT NOT NULL REFERENCES rewards(id),
+  cost_points INTEGER NOT NULL,
+  status TEXT NOT NULL DEFAULT 'pending',
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);

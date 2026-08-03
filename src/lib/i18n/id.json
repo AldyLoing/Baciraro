@@ -3,6 +3,7 @@
     "home": "Home",
     "about": "About",
     "produk": "Produk",
+    "seniman": "Seniman",
     "trackRecord": "Track Record",
     "leadership": "Leadership",
     "creativeStudio": "Creative Studio",
@@ -13,6 +14,7 @@
     "keluar": "Keluar",
     "profil": "Profil",
     "riwayatPoin": "Riwayat Poin",
+    "storePoin": "Store Poin",
     "totalPoin": "Total Poin",
     "toggleMenu": "Toggle menu"
   },
@@ -156,6 +158,36 @@
     "earned": "+{poin} Poin",
     "youHave": "Poin: {poin}"
   },
+  "pointsStore": {
+    "label": "TUKAR POIN",
+    "title": "Store Poin",
+    "desc": "Tukarkan poinmu dengan hadiah menarik dari Baciraro. Kumpulkan poin dengan men-scan QR pada setiap produk.",
+    "poinSaya": "Poin Saya",
+    "perluMasuk": "Masuk untuk menukarkan poinmu menjadi hadiah.",
+    "masukDaftar": "Masuk / Daftar",
+    "memuat": "Memuat hadiah...",
+    "kosong": "Belum ada hadiah yang tersedia.",
+    "tukarPoin": "Tukar Poin",
+    "menukarkan": "Menukarkan...",
+    "poinKurang": "Poin Belum Cukup",
+    "redemptionFailed": "Gagal menukarkan poin. Coba lagi.",
+    "suksesTitle": "Penukaran Berhasil!",
+    "suksesDesc": "Hadiah \"{title}\" telah berhasil ditukar. Kami akan segera menghubungimu.",
+    "selesai": "Selesai",
+    "kembaliAkun": "Kembali ke akun"
+  },
+  "compost": {
+    "label": "Lacak Kompos",
+    "memuat": "Memuat data kompos...",
+    "tidakDitemukan": "Kode kompos tidak ditemukan",
+    "kembali": "Kembali ke Track Record",
+    "sisaWaktu": "Perkiraan Panen",
+    "hari": "hari lagi",
+    "jenisKompos": "Jenis",
+    "tanggal": "Periode Pengomposan",
+    "bahan": "Bahan Organik",
+    "catatan": "Catatan"
+  },
   "reviews": {
     "label": "Apa Kata Mereka"
   },
@@ -220,6 +252,7 @@
     "ekosistemSirkular": "Ekosistem Sirkular",
     "produkLayanan": "Produk & Layanan",
     "semuaProduk": "Semua Produk",
+    "seniman": "Seniman",
     "plastik": "Plastik",
     "kriya": "Kriya",
     "organik": "Organik",
@@ -270,7 +303,23 @@
     "lihatQR": "Lihat QR",
     "cetak50QR": "Cetak 50 QR",
     "pesanWA": "Pesan via WhatsApp",
-    "waMessage": "Halo, saya ingin memesan produk {title}, bisa dibantu?"
+    "waMessage": "Halo, saya ingin memesan produk {title}, bisa dibantu?",
+    "cari": "Cari produk...",
+    "sortTerbaru": "Terbaru",
+    "sortTerlama": "Terlama",
+    "sortNama": "Nama A–Z",
+    "sortKg": "Bahan Terbanyak",
+    "jumlahProduk": "{count} produk",
+    "setaraBotol": "Setara Botol Plastik",
+    "botol": "botol",
+    "hindariCO2": "Emisi CO₂ Dihindari"
+  },
+  "artists": {
+    "label": "Seniman & Pengrajin",
+    "title": "Para Seniman",
+    "desc": "Setiap karya Baciraro lahir dari tangan para seniman dan pengrajin yang mengubah sampah menjadi karya bernilai. Jelajahi profil mereka dan karya-karya yang telah dihasilkan.",
+    "kosong": "Belum ada seniman yang terdokumentasi.",
+    "karyaTerkait": "Karya Terkait"
   },
   "qrModal": {
     "title": "Scan QR",
@@ -357,6 +406,7 @@
     "keluar": "Keluar",
     "totalPoin": "Total Poin",
     "poinDesc": "Setiap klaim produk memberi 10 poin",
+    "tukarPoin": "Tukar Poin",
     "belumAdaTx": "Belum ada transaksi poin",
     "txHint": "Scan QR code pada produk untuk mendapatkan poin",
     "gagalUpload": "Gagal mengunggah foto",
@@ -424,6 +474,8 @@
     "kolaborasiDesc": "Kami terbuka untuk diskusi kemitraan, implementasi CSR, dan program lingkungan bersama.",
     "hubungiKami": "Hubungi Kami",
     "lihatLeadership": "Lihat Leadership",
+    "lihatPerjalanan": "Lihat Perjalanan",
+    "statMitra": "Mitra",
     "ekosistemAlt": "Ekosistem Baciraro",
     "milestones": [
       {
@@ -495,6 +547,7 @@
     "formEmail": "Email",
     "formPesan": "Pesan Anda",
     "kirimPesan": "Kirim Pesan",
+    "formSent": "Pesan Anda siap dikirim — WhatsApp akan terbuka untuk melanjutkan. Terima kasih!",
     "ctaLabel": "Siap Bergerak",
     "ctaTitle": "Bersama kita ciptakan dampak nyata.",
     "ctaDesc": "Setiap langkah kolaborasi adalah investasi untuk masa depan yang lebih sirkular dan berkelanjutan.",
@@ -948,6 +1001,7 @@
     "heroDesc": "Sebuah arsip hidup perjalanan pengelolaan sampah berkelanjutan di Sulawesi Utara.",
     "jelajahiCerita": "Jelajahi Cerita",
     "jelajahiArsip": "Jelajahi Arsip",
+    "ceritaPerjalanan": "Perjalanan",
     "kegiatan": "Kegiatan",
     "wilayah": "Wilayah",
     "foto": "Foto",
@@ -984,6 +1038,14 @@
     "studiKasus": "Studi Kasus",
     "proyekUnggulan": "Proyek Unggulan",
     "studiKasusDesc": "Program dan inisiatif strategis Baciraro bersama mitra.",
+    "studiKasusBaca": "Baca Studi Kasus",
+    "studiKasusMitra": "Kolaborasi Bersama",
+    "studiKasusRangkuman": "Rangkuman Program",
+    "studiKasusTerkait": "Kegiatan Terkait",
+    "studiKasusSebelumnya": "Sebelumnya",
+    "studiKasusBerikutnya": "Berikutnya",
+    "studiKasusNotFound": "Studi kasus tidak ditemukan",
+    "kembali": "Kembali",
     "arsipTitle": "Arsip Lengkap",
     "arsipLabel": "Indeks Arsip Perjalanan",
     "arsipDesc": "Jelajahi seluruh rekam jejak Baciraro dari tahun ke tahun.",
@@ -995,6 +1057,8 @@
     "framesCount": "terdokumentasi dalam perjalanan Baciraro.",
     "role": {
       "mitra_pelaksana": "Mitra Pelaksana",
+      "mitra_riset": "Mitra Riset",
+      "penyelenggara": "Penyelenggara",
       "fasilitator": "Fasilitator",
       "executor": "Executor",
       "koordinator_lapangan": "Koordinator Lapangan",
@@ -1005,16 +1069,16 @@
     "capability": {
       "produksi_film": "Produksi Film",
       "strategi_kreatif": "Strategi Kreatif",
-      "desain_grafis": "Desain Grafis",
-      "fotografi": "Fotografi",
-      "penulisan_konten": "Penulisan Konten",
-      "media_sosial": "Media Sosial",
-      "manajemen_acara": "Manajemen Acara",
-      "riset_edukasi": "Riset Edukasi",
-      "pemberdayaan_masyarakat": "Pemberdayaan Masyarakat",
-      "logistik_operasional": "Logistik & Operasional",
-      "kemitraan_csr": "Kemitraan CSR",
-      "teknologi_lingkungan": "Teknologi Lingkungan"
+      "manajemen_kampanye": "Manajemen Kampanye",
+      "pendampingan_komunitas": "Pendampingan Komunitas",
+      "daur_ulang_plastik": "Daur Ulang Plastik",
+      "pengembangan_sistem_digital": "Pengembangan Sistem Digital",
+      "edukasi_lingkungan": "Edukasi Lingkungan",
+      "pemberdayaan_perempuan": "Pemberdayaan Perempuan",
+      "pengelolaan_sampah_organik": "Pengelolaan Sampah Organik",
+      "pengelolaan_sampah_wisata": "Pengelolaan Sampah Wisata",
+      "pengelolaan_sampah_pesisir": "Pengelolaan Sampah Pesisir",
+      "biogas_energi_terbarukan": "Biogas & Energi Terbarukan"
     }
   },
   "siteSections": {
@@ -1276,6 +1340,7 @@
     "dashboard": "Dashboard",
     "hello": "Halo, ",
     "logout": "Logout",
+    "qrDashboard": "QR Dashboard",
     "kembali": "Kembali",
     "dampakTerukur": "Dampak Terukur",
     "editData": "Edit Data",
@@ -1486,6 +1551,12 @@
     "integratedTagline": "Terintegrasi dari Hulu ke Hilir. Berdampak untuk Semua.",
     "mobileDesc": "Baciraro membangun sistem pengelolaan sampah terintegrasi yang menghubungkan edukasi, pengumpulan, pengolahan, produk kreatif, pemberdayaan masyarakat, dan pelacakan digital."
   },
+  "activities": {
+    "label": "Kegiatan & Dokumentasi",
+    "title": "Kegiatan ",
+    "titleItalic": "Baciraro",
+    "subtitle": "Dokumentasi kegiatan Baciraro Creative — forum budaya dan partisipasi komunitas dalam memperkuat warisan budaya melalui inovasi plastik daur ulang."
+  },
   "creativeShowcase": {
     "label": "PROGRAM AKTIF",
     "title": "Baciraro ",
@@ -1683,6 +1754,14 @@
       "42": {
         "title": "Program Desa Pesisir & Kolaborasi BUMN",
         "narrative": "Kolaborasi dengan Kementerian Kelautan, Perikanan, dan Kementerian Pariwisata untuk pemberdayaan nelayan dan desa wisata. Program Desa Pesisir Bersih di Desa Serawet dan pelatihan Manajemen Bank Sampah."
+      },
+      "43": {
+        "title": "Dialog Budaya Minahasa 2026",
+        "narrative": "Forum dialog yang menelusuri evolusi atribut Kawasaran — mengurai benang merah antara otentisitas budaya dan inovasi plastik daur ulang. Mempertemukan tokoh adat, akademisi, seniman, pegiat lingkungan, pemerintah, dan generasi muda di Kedai Kana, Desa Sukur, Minahasa Utara."
+      },
+      "44": {
+        "title": "Lokawaya × Baciraro Creative",
+        "narrative": "Partisipasi Baciraro Creative di event Lokawaya — workshop mengubah tutup botol menjadi keychain dan booth produk yang dapat ditukar dengan Dobu atau Doi Bulu. Dikunjungi turis asing dan lokal yang antusias berinteraksi dengan produk daur ulang."
       }
     }
   }

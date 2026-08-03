@@ -351,6 +351,25 @@ export default function ProductDetailPage() {
                   </div>
                 )}
               </div>
+
+              {product.total_plastic_kg > 0 && (
+                <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-[1rem] border border-white/[0.07] bg-white/[0.02] p-4">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">{t("products.setaraBotol")}</p>
+                    <p className="mt-1 font-serif text-[24px] text-emerald-400">
+                      {Math.round(product.total_plastic_kg / 0.03).toLocaleString()}
+                      <span className="text-sm text-zinc-500 font-sans"> {t("products.botol")}</span>
+                    </p>
+                  </div>
+                  <div className="rounded-[1rem] border border-white/[0.07] bg-white/[0.02] p-4">
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-zinc-500">{t("products.hindariCO2")}</p>
+                    <p className="mt-1 font-serif text-[24px] text-emerald-400">
+                      {(product.total_plastic_kg * 3).toLocaleString()}
+                      <span className="text-sm text-zinc-500 font-sans"> kg CO₂</span>
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </motion.section>
         )}

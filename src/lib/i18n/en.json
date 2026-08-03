@@ -3,6 +3,7 @@
     "home": "Home",
     "about": "About",
     "produk": "Products",
+    "seniman": "Artists",
     "trackRecord": "Track Record",
     "leadership": "Leadership",
     "creativeStudio": "Creative Studio",
@@ -13,6 +14,7 @@
     "keluar": "Log Out",
     "profil": "Profile",
     "riwayatPoin": "Points History",
+    "storePoin": "Points Store",
     "totalPoin": "Total Points",
     "toggleMenu": "Toggle menu"
   },
@@ -156,6 +158,36 @@
     "earned": "+{poin} Points",
     "youHave": "Points: {poin}"
   },
+  "pointsStore": {
+    "label": "REDEEM POINTS",
+    "title": "Points Store",
+    "desc": "Redeem your points for rewards from Baciraro. Earn points by scanning the QR code on every product.",
+    "poinSaya": "My Points",
+    "perluMasuk": "Sign in to redeem your points for rewards.",
+    "masukDaftar": "Sign In / Register",
+    "memuat": "Loading rewards...",
+    "kosong": "No rewards available yet.",
+    "tukarPoin": "Redeem Points",
+    "menukarkan": "Redeeming...",
+    "poinKurang": "Not Enough Points",
+    "redemptionFailed": "Failed to redeem points. Try again.",
+    "suksesTitle": "Redemption Successful!",
+    "suksesDesc": "Your reward \"{title}\" has been redeemed. We will contact you shortly.",
+    "selesai": "Done",
+    "kembaliAkun": "Back to account"
+  },
+  "compost": {
+    "label": "Compost Tracker",
+    "memuat": "Loading compost data...",
+    "tidakDitemukan": "Compost code not found",
+    "kembali": "Back to Track Record",
+    "sisaWaktu": "Estimated Harvest",
+    "hari": "days left",
+    "jenisKompos": "Type",
+    "tanggal": "Composting Period",
+    "bahan": "Organic Material",
+    "catatan": "Notes"
+  },
   "reviews": {
     "label": "What They Say"
   },
@@ -220,6 +252,7 @@
     "ekosistemSirkular": "Circular Ecosystem",
     "produkLayanan": "Products & Services",
     "semuaProduk": "All Products",
+    "seniman": "Artists",
     "plastik": "Plastic",
     "kriya": "Craft",
     "organik": "Organic",
@@ -270,7 +303,23 @@
     "lihatQR": "View QR",
     "cetak50QR": "Print 50 QR",
     "pesanWA": "Order via WhatsApp",
-    "waMessage": "Hello, I want to order {title}, can you help me?"
+    "waMessage": "Hello, I want to order {title}, can you help me?",
+    "cari": "Search products...",
+    "sortTerbaru": "Newest",
+    "sortTerlama": "Oldest",
+    "sortNama": "Name A–Z",
+    "sortKg": "Most Material",
+    "jumlahProduk": "{count} products",
+    "setaraBotol": "Plastic Bottle Equivalent",
+    "botol": "bottles",
+    "hindariCO2": "CO₂ Emissions Avoided"
+  },
+  "artists": {
+    "label": "Artists & Artisans",
+    "title": "The Artists",
+    "desc": "Every Baciraro work is born from the hands of artists and artisans who turn waste into valuable pieces. Explore their profiles and the works they have produced.",
+    "kosong": "No documented artists yet.",
+    "karyaTerkait": "Related Works"
   },
   "qrModal": {
     "title": "Scan QR",
@@ -357,6 +406,7 @@
     "keluar": "Log Out",
     "totalPoin": "Total Points",
     "poinDesc": "Each product claim gives 10 points",
+    "tukarPoin": "Redeem Points",
     "belumAdaTx": "No point transactions yet",
     "txHint": "Scan QR code on products to earn points",
     "gagalUpload": "Failed to upload photo",
@@ -424,6 +474,8 @@
     "kolaborasiDesc": "We are open to partnership discussions, CSR implementation, and joint environmental programs.",
     "hubungiKami": "Contact Us",
     "lihatLeadership": "View Leadership",
+    "lihatPerjalanan": "View Journey",
+    "statMitra": "Partners",
     "ekosistemAlt": "Baciraro Ecosystem",
     "milestones": [
       {
@@ -495,6 +547,7 @@
     "formEmail": "Email",
     "formPesan": "Your Message",
     "kirimPesan": "Send Message",
+    "formSent": "Your message is ready to send — WhatsApp will open to continue. Thank you!",
     "ctaLabel": "Ready to Move",
     "ctaTitle": "Together we create real impact.",
     "ctaDesc": "Every collaborative step is an investment in a more circular and sustainable future.",
@@ -948,6 +1001,7 @@
     "heroDesc": "A living archive of the sustainable waste management journey in North Sulawesi.",
     "jelajahiCerita": "Explore Stories",
     "jelajahiArsip": "Explore Archive",
+    "ceritaPerjalanan": "Journey",
     "kegiatan": "Activities",
     "wilayah": "Region",
     "foto": "Photos",
@@ -984,6 +1038,14 @@
     "studiKasus": "Case Studies",
     "proyekUnggulan": "Featured Projects",
     "studiKasusDesc": "Baciraro's strategic programs and initiatives with partners.",
+    "studiKasusBaca": "Read Case Study",
+    "studiKasusMitra": "In Collaboration With",
+    "studiKasusRangkuman": "Program Overview",
+    "studiKasusTerkait": "Related Activities",
+    "studiKasusSebelumnya": "Previous",
+    "studiKasusBerikutnya": "Next",
+    "studiKasusNotFound": "Case study not found",
+    "kembali": "Back",
     "arsipTitle": "Complete Archive",
     "arsipLabel": "Journey Archive Index",
     "arsipDesc": "Explore Baciraro's entire track record year by year.",
@@ -995,6 +1057,8 @@
     "framesCount": "documented in Baciraro's journey.",
     "role": {
       "mitra_pelaksana": "Implementing Partner",
+      "mitra_riset": "Research Partner",
+      "penyelenggara": "Organizer",
       "fasilitator": "Facilitator",
       "executor": "Executor",
       "koordinator_lapangan": "Field Coordinator",
@@ -1005,16 +1069,16 @@
     "capability": {
       "produksi_film": "Film Production",
       "strategi_kreatif": "Creative Strategy",
-      "desain_grafis": "Graphic Design",
-      "fotografi": "Photography",
-      "penulisan_konten": "Content Writing",
-      "media_sosial": "Social Media",
-      "manajemen_acara": "Event Management",
-      "riset_edukasi": "Educational Research",
-      "pemberdayaan_masyarakat": "Community Empowerment",
-      "logistik_operasional": "Logistics & Operations",
-      "kemitraan_csr": "CSR Partnership",
-      "teknologi_lingkungan": "Environmental Technology"
+      "manajemen_kampanye": "Campaign Management",
+      "pendampingan_komunitas": "Community Facilitation",
+      "daur_ulang_plastik": "Plastic Recycling",
+      "pengembangan_sistem_digital": "Digital Systems Development",
+      "edukasi_lingkungan": "Environmental Education",
+      "pemberdayaan_perempuan": "Women Empowerment",
+      "pengelolaan_sampah_organik": "Organic Waste Management",
+      "pengelolaan_sampah_wisata": "Tourism Waste Management",
+      "pengelolaan_sampah_pesisir": "Coastal Waste Management",
+      "biogas_energi_terbarukan": "Biogas & Renewable Energy"
     }
   },
   "siteSections": {
@@ -1276,6 +1340,7 @@
     "dashboard": "Dashboard",
     "hello": "Hello, ",
     "logout": "Logout",
+    "qrDashboard": "QR Dashboard",
     "kembali": "Back",
     "dampakTerukur": "Measurable Impact",
     "editData": "Edit Data",
@@ -1486,6 +1551,12 @@
     "integratedTagline": "Integrated from Upstream to Downstream. Impactful for All.",
     "mobileDesc": "Baciraro builds an integrated waste management system connecting education, collection, processing, creative products, community empowerment, and digital tracking."
   },
+  "activities": {
+    "label": "Activities & Documentation",
+    "title": "Baciraro ",
+    "titleItalic": "Activities",
+    "subtitle": "Documentation of Baciraro Creative's activities — cultural forums and community participation in strengthening cultural heritage through recycled plastic innovation."
+  },
   "creativeShowcase": {
     "label": "ACTIVE PROGRAM",
     "title": "Baciraro ",
@@ -1683,6 +1754,14 @@
       "42": {
         "title": "Coastal Village Program & BUMN Collaboration",
         "narrative": "Collaboration with the Ministry of Maritime Affairs, Fisheries, and the Ministry of Tourism for fisherfolk empowerment and tourism villages. The Clean Coastal Village Program in Serawet Village and Waste Bank Management training."
+      },
+      "43": {
+        "title": "Dialog Budaya Minahasa 2026",
+        "narrative": "A dialogue forum exploring the evolution of the Kawasaran attributes — unravelling the common thread between cultural authenticity and recycled plastic innovation. Bringing together traditional leaders, academics, artists, environmental activists, government, and the younger generation at Kedai Kana, Sukur Village, North Minahasa."
+      },
+      "44": {
+        "title": "Lokawaya × Baciraro Creative",
+        "narrative": "Baciraro Creative's participation in the Lokawaya event — a workshop turning bottle caps into keychains and a product booth exchangeable for Dobu or Doi Bulu. Visited by enthusiastic local and foreign tourists interacting with recycled products."
       }
     }
   }

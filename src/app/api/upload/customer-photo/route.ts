@@ -1,7 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 import { createAdminClient } from "@/utils/supabase/admin";
 
+const SECRET = process.env.JWT_SECRET || "baciraro-secret-dev";
+
+function getCustomer(req: NextRequest) {
+  const token = req.cookies.get("customer_token")?.value;
+  if (!token) return null;
+  try {
+    return jwt.verify(token, SECRET) as { id: number; email: string; name: string; role: string };
+  } catch {
+    return null;
+  }
+}
+
 export async function POST(req: NextRequest) {
+  const customer = getCustomer(req);
+  if (!customer) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const formData = await req.formData();
   const file = formData.get("file") as File | null;
   if (!file) {

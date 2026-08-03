@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Building2, Droplets, Ship, Landmark, Zap, Banknote } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/context";
 
 /**
@@ -44,6 +43,12 @@ const PARTNERS = [
     detail: "BNI 46 Manado",
     logo: "/partners/bni.png",
     scale: 0.88,
+  },
+  {
+    name: "Kemenbud",
+    detail: "Kementerian Kebudayaan",
+    logo: "/partners/kemenbud.png",
+    scale: 1.05,
   },
 ];
 

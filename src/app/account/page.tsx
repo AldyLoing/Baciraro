@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Award, User, Phone, Mail, ArrowLeft, Star, X, Upload, Pencil } from "lucide-react";
+import { Award, User, Phone, Mail, ArrowLeft, Star, X, Upload, Pencil, Gift } from "lucide-react";
 import Link from "next/link";
 import { useCustomerAuth } from "@/lib/customer-auth-context";
 import AuthModal from "@/components/AuthModal";
@@ -213,6 +213,13 @@ export default function AccountPage() {
             <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-zinc-500 mb-1">{t("account.totalPoin")}</p>
             <p className="font-serif text-5xl text-amber-400 mb-1">{customer.total_points}</p>
             <p className="text-xs text-zinc-500">{t("account.poinDesc")}</p>
+            <Link
+              href="/points-store"
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-amber-400/10 border border-amber-500/20 px-5 py-2.5 text-xs font-bold text-amber-300 hover:bg-amber-400/20 transition-colors"
+            >
+              <Gift className="h-4 w-4" />
+              {t("account.tukarPoin")}
+            </Link>
           </div>
 
           {/* Points History */}
