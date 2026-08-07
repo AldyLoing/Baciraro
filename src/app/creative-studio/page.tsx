@@ -565,6 +565,7 @@ export default function CreativeStudioPage() {
                       <option value="craft">{t("products.craft")}</option>
                       <option value="digital">{t("products.digital")}</option>
                       <option value="art">{t("products.art")}</option>
+                      <option value="3dprint">{t("products.3dprint")}</option>
                     </select>
                     <input value={productForm.total_plastic_kg || ""} onChange={e => setProductForm({ ...productForm, total_plastic_kg: parseFloat(e.target.value) || 0 })} type="number" step="0.1" placeholder={t("creativeStudio.totalPlastik")} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40" />
                   </div>

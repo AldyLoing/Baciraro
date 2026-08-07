@@ -278,10 +278,10 @@ export default function CreativePage() {
               className="relative h-[50vh] lg:h-auto overflow-hidden"
             >
               <Image
-                src="/Dialog Budaya/foto bersama 2.jpeg"
+                src="/Dialog Budaya/foto bersama dengan narasumber.webp"
                 alt=""
                 fill
-                className="object-cover"
+                className="object-cover object-top"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/10 to-transparent lg:bg-gradient-to-r lg:from-background/80 lg:via-background/20 lg:to-transparent" />

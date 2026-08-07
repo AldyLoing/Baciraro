@@ -178,7 +178,7 @@ export function ScrollytellingJourney() {
                               key={pi}
                               className="relative w-14 h-14 rounded-xl overflow-hidden border border-white/5 shrink-0"
                             >
-                              <Image src={p.src} alt="" fill className="object-cover" />
+                              <Image src={p.src} alt="" fill className="object-cover object-top" />
                             </div>
                           ))}
                           {photoCount > 4 && (

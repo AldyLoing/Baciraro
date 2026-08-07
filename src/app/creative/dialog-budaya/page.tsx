@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { ArrowLeft, Maximize2 } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/context";
+import Lightbox from "@/components/track-record/Lightbox";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -40,43 +41,126 @@ function VideoReel({ src, className }: { src: string; className?: string }) {
   );
 }
 
-function MediaGrid({
-  items,
-  layout,
+function Tile({
+  src,
+  alt,
+  ratioClass,
+  onClick,
+  delay,
+  rotateDeg = 0,
 }: {
-  items: { src: string; type: "video" | "image"; alt?: string }[];
-  layout: { cols: number; rows: number }[];
+  src: string;
+  alt: string;
+  ratioClass: string;
+  onClick: () => void;
+  delay: number;
+  rotateDeg?: number;
 }) {
   return (
-    <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-      {items.map((item, i) => {
-        const cell = layout[i % layout.length];
-        return (
+    <motion.button
+      type="button"
+      onClick={onClick}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, delay, ease: springEase }}
+      className="group relative overflow-hidden rounded-2xl border border-white/[0.07] bg-black/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50"
+    >
+      <div className={`relative w-full ${ratioClass}`}>
+        <div
+          className="absolute inset-0"
+          style={{ transform: rotateDeg ? `rotate(${rotateDeg}deg)` : undefined }}
+        >
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          />
+        </div>
+        <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/25" />
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10 backdrop-blur">
+            <Maximize2 className="h-4 w-4 text-white" />
+          </div>
+        </div>
+      </div>
+    </motion.button>
+  );
+}
+
+function GalleryGroup({
+  title,
+  desc,
+  srcs,
+  ratioClass,
+  diptychFirst = false,
+  rotateDeg = 0,
+}: {
+  title: string;
+  desc: string;
+  srcs: string[];
+  ratioClass: string;
+  diptychFirst?: boolean;
+  rotateDeg?: number;
+}) {
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const photos = srcs.map((src) => ({ src, alt: title }));
+  const firstTwo = diptychFirst ? srcs.slice(0, 2) : [];
+  const rest = diptychFirst ? srcs.slice(2) : srcs;
+
+  return (
+    <div className="mb-14 last:mb-0">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: springEase }}
+        className="mb-6"
+      >
+        <h3 className="font-serif text-xl font-normal text-white sm:text-2xl">{title}</h3>
+        <p className="mt-1 text-xs text-zinc-500">{desc}</p>
+      </motion.div>
+
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
+        {diptychFirst && (
           <motion.div
-            key={item.src}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5, delay: i * 0.06, ease: springEase }}
-            className={`relative overflow-hidden rounded-2xl border border-white/[0.07] bg-black/40 group ${
-              cell.cols === 2 ? "col-span-2" : "col-span-1"
-            } ${cell.rows === 2 ? "row-span-2" : "row-span-1"}`}
-            style={{ aspectRatio: cell.rows === 2 ? `${cell.cols}/${cell.rows}` : `${cell.cols}/1` }}
+            transition={{ duration: 0.5, ease: springEase }}
+            className="col-span-2 grid grid-cols-2 gap-3 sm:gap-4"
           >
-            {item.type === "video" ? (
-              <VideoReel src={item.src} />
-            ) : (
-              <Image
-                src={item.src}
-                alt={item.alt || ""}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-              />
-            )}
+            {firstTwo.map((src, i) => (
+              <Tile key={src} src={src} alt={title} ratioClass={ratioClass} rotateDeg={rotateDeg} delay={0} onClick={() => setLightboxIndex(i)} />
+            ))}
           </motion.div>
-        );
-      })}
+        )}
+        {rest.map((src, i) => (
+          <Tile
+            key={src}
+            src={src}
+            alt={title}
+            ratioClass={ratioClass}
+            rotateDeg={rotateDeg}
+            delay={0.06}
+            onClick={() => setLightboxIndex(i + (diptychFirst ? 2 : 0))}
+          />
+        ))}
+      </div>
+
+      <AnimatePresence>
+        {lightboxIndex !== null && (
+          <Lightbox
+            photos={photos}
+            index={lightboxIndex}
+            onClose={() => setLightboxIndex(null)}
+            caption={title}
+            rotateDeg={rotateDeg}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -243,20 +327,54 @@ export default function DialogBudayaPage() {
               </p>
             </motion.div>
 
-            <MediaGrid
-              items={[
-                { src: "/Dialog Budaya/foto bersama 2.jpeg", type: "image", alt: "" },
-                { src: "/Dialog Budaya/foto bersama 3.jpeg", type: "image", alt: "" },
-                { src: "/Dialog Budaya/foto bersama 4.jpeg", type: "image", alt: "" },
-                { src: "/Dialog Budaya/foto bersama 5.jpeg", type: "image", alt: "" },
-                { src: "/Dialog Budaya/foto bersama 6.jpeg", type: "image", alt: "" },
+            <GalleryGroup
+              title={t("dialogBudaya.detail.narasumberTitle")}
+              desc={t("dialogBudaya.detail.narasumberDesc")}
+              ratioClass="aspect-[4/3]"
+              diptychFirst
+              srcs={[
+                "/Dialog Budaya/foto bersama dengan narasumber.webp",
+                "/Dialog Budaya/foto bersama dengan narasumber 2.webp",
+                "/Dialog Budaya/foto bersama dengan narasumber 3.webp",
+                "/Dialog Budaya/foto bersama dengan narasumber 4.webp",
+                "/Dialog Budaya/foto bersama dengan narasumber 5.webp",
+                "/Dialog Budaya/foto bersama dengan narasumber 6.webp",
               ]}
-              layout={[
-                { cols: 1, rows: 1 },
-                { cols: 1, rows: 1 },
-                { cols: 2, rows: 1 },
-                { cols: 1, rows: 1 },
-                { cols: 1, rows: 1 },
+            />
+
+            <GalleryGroup
+              title={t("dialogBudaya.detail.tamuUndanganTitle")}
+              desc={t("dialogBudaya.detail.tamuUndanganDesc")}
+              ratioClass="aspect-video"
+              srcs={[
+                "/Dialog Budaya/foto bersama dengan narasumber dan tamu undangan2.jpeg",
+                "/Dialog Budaya/foto bersama dengan narasumber dan tamu undangan 3.jpeg",
+                "/Dialog Budaya/foto bersama dengan narasumber dan tamu undangan 4.jpeg",
+                "/Dialog Budaya/foto bersama dengan narasumber dan tamu undangan 5.jpeg",
+                "/Dialog Budaya/foto bersama dengan narasumber dan tamu undangan 6.jpeg",
+              ]}
+            />
+
+            <GalleryGroup
+              title={t("dialogBudaya.detail.panitiaTitle")}
+              desc={t("dialogBudaya.detail.panitiaDesc")}
+              ratioClass="aspect-[4/3]"
+              rotateDeg={90}
+              srcs={[
+                "/Dialog Budaya/foto bersama panitia.webp",
+                "/Dialog Budaya/foto bersama panitia 2.webp",
+                "/Dialog Budaya/foto bersama panitia 3.webp",
+                "/Dialog Budaya/foto bersama panitia 4.webp",
+                "/Dialog Budaya/foto bersama panitia 5.webp",
+                "/Dialog Budaya/foto bersama panitia 6.webp",
+                "/Dialog Budaya/foto bersama panitia 7.webp",
+                "/Dialog Budaya/foto bersama panitia 8.webp",
+                "/Dialog Budaya/foto bersama panitia 9.webp",
+                "/Dialog Budaya/foto bersama panitia 10.webp",
+                "/Dialog Budaya/foto bersama panitia 11.webp",
+                "/Dialog Budaya/foto bersama panitia 12.webp",
+                "/Dialog Budaya/foto bersama panitia 13.webp",
+                "/Dialog Budaya/foto bersama panitia 14.webp",
               ]}
             />
           </div>

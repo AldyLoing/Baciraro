@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { Recycle, Leaf, Palette, Code2, Paintbrush, QrCode, Package, ArrowLeft, Trash2, Star, Heart, MessageCircle, Printer } from "lucide-react";
+import { Recycle, Leaf, Palette, Code2, Paintbrush, Cpu, QrCode, Package, ArrowLeft, Trash2, Star, Heart, MessageCircle, Printer } from "lucide-react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -47,6 +47,7 @@ const categoryIcons: Record<string, typeof Recycle> = {
   craft: Palette,
   digital: Code2,
   art: Paintbrush,
+  "3dprint": Cpu,
 };
 
 const categoryAccent: Record<string, string> = {
@@ -55,6 +56,7 @@ const categoryAccent: Record<string, string> = {
   craft: "bg-amber-500/10 text-amber-400 border-amber-500/20",
   digital: "bg-purple-500/10 text-purple-400 border-purple-500/20",
   art: "bg-[#f2d479]/10 text-[#f2d479] border-[#f2d479]/20",
+  "3dprint": "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
 };
 
 export default function ProductDetailPage() {
@@ -69,6 +71,19 @@ export default function ProductDetailPage() {
   const { t } = useLanguage();
   const [notFound, setNotFound] = useState(false);
   const [reviews, setReviews] = useState<any[]>([]);
+  const [hasModel, setHasModel] = useState(false);
+  const [viewerReady, setViewerReady] = useState(false);
+  const [viewMode, setViewMode] = useState<"image" | "3d">("image");
+
+  useEffect(() => {
+    let mounted = true;
+    import("@google/model-viewer")
+      .then(() => mounted && setViewerReady(true))
+      .catch(() => {});
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     if (!slug) return;
@@ -83,6 +98,9 @@ export default function ProductDetailPage() {
     fetch(`/api/reviews/${slug}`)
       .then((res) => res.ok && res.json())
       .then((data) => data?.reviews && setReviews(data.reviews))
+      .catch(() => {});
+    fetch(`/models/${slug}.glb`, { method: "HEAD" })
+      .then((res) => setHasModel(res.ok))
       .catch(() => {});
   }, [slug]);
 
@@ -170,8 +188,43 @@ export default function ProductDetailPage() {
         <div className="mt-6 grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           {/* Left: Images */}
           <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: springEase }}>
+            <div className="flex items-center justify-between mb-3">
+              {hasModel && (
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setViewMode("image")}
+                    className={`rounded-full px-4 py-2 text-[11px] font-bold uppercase tracking-wider transition-all ${
+                      viewMode === "image" ? "bg-emerald-500 text-black" : "border border-white/10 bg-white/5 text-zinc-400 hover:text-white"
+                    }`}
+                  >
+                    {t("products.foto")}
+                  </button>
+                  <button
+                    onClick={() => setViewMode("3d")}
+                    className={`rounded-full px-4 py-2 text-[11px] font-bold uppercase tracking-wider transition-all ${
+                      viewMode === "3d" ? "bg-emerald-500 text-black" : "border border-white/10 bg-white/5 text-zinc-400 hover:text-white"
+                    }`}
+                  >
+                    {t("products.tampilan3d")}
+                  </button>
+                </div>
+              )}
+            </div>
             <div className="rounded-[2rem] border border-white/[0.07] bg-white/[0.02] backdrop-blur overflow-hidden aspect-[4/3] relative">
-              {allImages.length > 0 && allImages[selectedImage] ? (
+              {viewMode === "3d" && hasModel && viewerReady ? (
+                <model-viewer
+                  src={`/models/${product.slug}.glb`}
+                  alt={product.title}
+                  camera-controls
+                  auto-rotate
+                  rotation-per-second="18deg"
+                  shadow-intensity="1"
+                  exposure="1.1"
+                  camera-orbit="0deg 78deg 105%"
+                  interaction-prompt-threshold="2000"
+                  style={{ width: "100%", height: "100%" }}
+                />
+              ) : allImages.length > 0 && allImages[selectedImage] ? (
                 <Image
                   src={allImages[selectedImage]}
                   alt={product.title}
@@ -184,7 +237,7 @@ export default function ProductDetailPage() {
                 </div>
               )}
             </div>
-            {allImages.length > 1 && (
+            {viewMode === "image" && allImages.length > 1 && (
               <div className="mt-3 flex gap-2 overflow-x-auto pb-2">
                 {allImages.map((img, i) => (
                   <button

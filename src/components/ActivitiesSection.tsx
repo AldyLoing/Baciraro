@@ -10,7 +10,7 @@ const GOLD = "#F2D479";
 
 const ACTIVITIES = [
   {
-    image: "/Dialog Budaya/foto bersama 2.jpeg",
+    image: "/Dialog Budaya/foto bersama dengan narasumber.webp",
     slug: "/creative/dialog-budaya",
     labelKey: "dialogBudaya.label",
     titleKey: "dialogBudaya.title",

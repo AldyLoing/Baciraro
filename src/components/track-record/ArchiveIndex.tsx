@@ -5,61 +5,12 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { trackRecordData } from "@/lib/track-record-data";
 import { useLanguage } from "@/lib/i18n/context";
+import Lightbox from "@/components/track-record/Lightbox";
 import {
-  ChevronDown, MapPin, Users, CheckCircle2, Maximize2, X, ChevronLeft, ChevronRight,
+  ChevronDown, MapPin, Users, CheckCircle2, Maximize2,
 } from "lucide-react";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
-
-function Lightbox({ photos, index, onClose }: { photos: { src: string; alt: string }[]; index: number; onClose: () => void }) {
-  const [current, setCurrent] = useState(index);
-
-  const prev = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setCurrent((c) => (c - 1 + photos.length) % photos.length);
-  };
-  const next = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setCurrent((c) => (c + 1) % photos.length);
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
-      onClick={onClose}
-    >
-      <button onClick={onClose} className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-all">
-        <X className="h-5 w-5" />
-      </button>
-      {photos.length > 1 && (
-        <>
-          <button onClick={prev} className="absolute left-4 top-1/2 -translate-y-1/2 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-all backdrop-blur-sm">
-            <ChevronLeft className="h-6 w-6" />
-          </button>
-          <button onClick={next} className="absolute right-4 top-1/2 -translate-y-1/2 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-all backdrop-blur-sm">
-            <ChevronRight className="h-6 w-6" />
-          </button>
-        </>
-      )}
-      <motion.div
-        key={current}
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.2 }}
-        className="relative h-full w-full max-h-[90vh] max-w-[90vw]"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <Image src={photos[current].src} alt={photos[current].alt} fill className="object-contain" quality={100} />
-      </motion.div>
-      <div className="absolute bottom-6 flex items-center gap-3">
-        <span className="text-sm text-zinc-400 font-medium">{current + 1} / {photos.length}</span>
-      </div>
-    </motion.div>
-  );
-}
 
 function PhotoGrid({ photos }: { photos: { src: string; alt: string }[] }) {
   const { t } = useLanguage();

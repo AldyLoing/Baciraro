@@ -286,6 +286,7 @@
     "craft": "Craft",
     "digital": "Digital",
     "art": "Baciraro Art Series",
+    "3dprint": "3D Print",
     "memuat": "Memuat produk...",
     "kosong": "Belum ada produk di kategori ini.",
     "bahanTerselamatkan": "{kg} kg bahan terselamatkan",
@@ -312,7 +313,9 @@
     "jumlahProduk": "{count} produk",
     "setaraBotol": "Setara Botol Plastik",
     "botol": "botol",
-    "hindariCO2": "Emisi CO₂ Dihindari"
+    "hindariCO2": "Emisi CO₂ Dihindari",
+    "foto": "Foto",
+    "tampilan3d": "3D View"
   },
   "artists": {
     "label": "Seniman & Pengrajin",
@@ -641,7 +644,13 @@
       "pidatoTitle": "Pidato & Pembukaan",
       "pidatoDesc": "Pembukaan dan pidato yang membuka ruang dialog lintas perspektif budaya, akademik, dan lingkungan.",
       "fotoBersamaTitle": "Foto Bersama",
-      "fotoBersamaDesc": "Penandatanganan deklarasi dan foto bersama sebagai penutup rangkaian dialog budaya."
+      "fotoBersamaDesc": "Penandatanganan deklarasi dan foto bersama sebagai penutup rangkaian dialog budaya.",
+      "narasumberTitle": "Foto Bersama Narasumber",
+      "narasumberDesc": "Momen bersama para narasumber yang membuka ruang dialog lintas perspektif.",
+      "tamuUndanganTitle": "Narasumber & Tamu Undangan",
+      "tamuUndanganDesc": "Kebersamaan narasumber dengan para tamu undangan dalam rangkaian dialog.",
+      "panitiaTitle": "Foto Panitia",
+      "panitiaDesc": "Dokumentasi panitia di balik suksesnya penyelenggaraan dialog budaya."
     }
   },
   "undangan": {
@@ -1480,9 +1489,6 @@
     "subtitle": "Baciraro membangun ekosistem circular economy yang menghubungkan edukasi masyarakat, pengumpulan dan pengolahan sampah, teknologi lingkungan, produk kreatif, serta sistem digital dalam satu rangkaian yang terintegrasi.",
     "desc": "Setiap entitas memiliki fungsi khusus dalam ekosistem sirkular — dari edukasi di hulu hingga pelacakan digital di hilir.",
     "learnMore": "Pelajari Lebih Lanjut",
-    "flowLabel": "Alur ekosistem",
-    "flowDesc": "Setiap tahap saling terhubung untuk memastikan sampah dikelola secara bertanggung jawab dan menghasilkan manfaat yang dapat dirasakan oleh masyarakat, lingkungan, serta mitra kolaborasi.",
-    "flowCta": "Jelajahi Alur Ekosistem",
     "entities": {
       "tnl": {
         "tagline": "Edukasi Lingkungan dan Pemberdayaan Masyarakat",
@@ -1546,9 +1552,6 @@
         "desc": "Data transparan & dampak terukur"
       }
     },
-    "flowTitle": "Lima tahap, ",
-    "flowTitleItalic": "satu sirkuit.",
-    "integratedTagline": "Terintegrasi dari Hulu ke Hilir. Berdampak untuk Semua.",
     "mobileDesc": "Baciraro membangun sistem pengelolaan sampah terintegrasi yang menghubungkan edukasi, pengumpulan, pengolahan, produk kreatif, pemberdayaan masyarakat, dan pelacakan digital."
   },
   "activities": {

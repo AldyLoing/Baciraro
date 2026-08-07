@@ -9,9 +9,9 @@ import { useLanguage } from "@/lib/i18n/context";
 const TERRACOTTA = "#D4785C";
 
 const PRODUCTS = [
-  { image: "/produk/Flat Lay Katalog Medali.png", slug: "/products/souvenir-csr" },
-  { image: "/produk/Lifestyle Sofa.png", slug: "/products/sofa-puff-ecobrick" },
-  { image: "/produk/Lifestyle Beruang 2.png", slug: "/products/karya-kreatif" },
+  { image: "/produk/kriya/Flat Lay Katalog Medali.png", slug: "/products/souvenir-csr" },
+  { image: "/produk/kriya/Lifestyle Sofa.png", slug: "/products/sofa-puff-ecobrick" },
+  { image: "/produk/kriya/Lifestyle Beruang 2.png", slug: "/products/karya-kreatif" },
 ];
 
 export default function CreativeShowcase() {

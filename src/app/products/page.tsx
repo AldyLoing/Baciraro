@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Recycle, Leaf, Palette, Code2, Paintbrush, MessageCircle, Search, ArrowDownWideNarrow } from "lucide-react";
+import { Recycle, Leaf, Palette, Code2, Paintbrush, Cpu, MessageCircle, Search, ArrowDownWideNarrow } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/lib/i18n/context";
@@ -32,6 +32,7 @@ const categories = [
   { key: "craft", label: "", icon: Palette },
   { key: "digital", label: "", icon: Code2 },
   { key: "art", label: "", icon: Paintbrush },
+  { key: "3dprint", label: "", icon: Cpu },
 ];
 
 const categoryColors: Record<string, string> = {
@@ -40,6 +41,7 @@ const categoryColors: Record<string, string> = {
   craft: "bg-amber-500/10 text-amber-400 border-amber-500/20",
   digital: "bg-purple-500/10 text-purple-400 border-purple-500/20",
   art: "bg-[#f2d479]/10 text-[#f2d479] border-[#f2d479]/20",
+  "3dprint": "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
 };
 
 export default function ProductsPage() {
@@ -203,7 +205,7 @@ export default function ProductsPage() {
                       <h3 className="font-serif text-[17px] text-white group-hover:text-emerald-400 transition-colors">{product.title}</h3>
                       <p className="mt-2 text-xs text-zinc-400 leading-relaxed line-clamp-2">{product.description}</p>
                       <div className="mt-3 flex items-center justify-between">
-                        {totalKg > 0 && (
+                        {product.total_plastic_kg > 0 && (
                           <div className="flex items-center gap-2 text-[10px] text-emerald-400 font-semibold">
                             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                             {t("products.bahanTerselamatkan", { kg: totalKg })}

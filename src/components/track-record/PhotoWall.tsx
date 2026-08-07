@@ -120,13 +120,13 @@ function ActivityDetail({ activity, onClose }: { activity: TrackRecordActivity; 
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 + i * 0.05 }}
                     onClick={() => setLightboxIdx(i)}
-                    className="relative aspect-square overflow-hidden rounded-lg group cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+                    className="relative aspect-[4/3] overflow-hidden rounded-lg group cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
                   >
                     <Image
                       src={photo.src}
                       alt={photo.alt || ""}
                       fill
-                      className="object-cover transition-all duration-500 group-hover:scale-110"
+                      className="object-cover object-top transition-all duration-500 group-hover:scale-110"
                       sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />

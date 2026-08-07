@@ -7,9 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest"
+    "test": "vitest",
+    "stl2glb": "/opt/homebrew/bin/python3.11 scripts/3d/stl2glb.py",
+    "3d:preview": "/opt/homebrew/bin/python3.11 scripts/3d/preview.py"
   },
   "dependencies": {
+    "@google/model-viewer": "^4.3.1",
     "@gsap/react": "^2.1.2",
     "@supabase/ssr": "^0.12.3",
     "@supabase/supabase-js": "^2.110.8",
@@ -40,6 +43,7 @@
     "eslint-config-next": "16.2.4",
     "jsdom": "^25.0.0",
     "tailwindcss": "^4",
+    "three": "^0.185.1",
     "tsx": "^4.23.1",
     "typescript": "^5",
     "vitest": "^0.34.5"
