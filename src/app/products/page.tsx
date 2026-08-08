@@ -8,6 +8,7 @@ import { Recycle, Leaf, Palette, Code2, Paintbrush, Cpu, MessageCircle, Search, 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/lib/i18n/context";
+import { formatRupiah, formatMinutes, variantPrice } from "@/lib/pricing";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -22,6 +23,9 @@ type Product = {
   total_plastic_kg: number;
   image_url: string;
   gallery: string;
+  weight_g?: number | null;
+  print_time_min?: number | null;
+  variants?: unknown;
   totalKg?: number;
 };
 
@@ -183,10 +187,50 @@ export default function ProductsPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.05 * i, ease: springEase }}
                 >
-                  <Link
-                    href={`/products/${product.slug}`}
-                    className="group block rounded-[1.5rem] border border-white/[0.07] bg-white/[0.02] backdrop-blur overflow-hidden transition-all duration-300 hover:border-white/[0.15] hover:-translate-y-1"
-                  >
+                  {product.slug === "custom" ? (
+                    <a
+                      href={`https://wa.me/6288212835350?text=${encodeURIComponent(t("products.customWaMessage", { name: product.title }))}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group block rounded-[1.5rem] border border-emerald-500/20 bg-emerald-500/[0.03] backdrop-blur overflow-hidden transition-all duration-300 hover:border-emerald-500/40 hover:-translate-y-1"
+                    >
+                      <div className="aspect-[16/10] bg-zinc-900/50 relative overflow-hidden">
+                        <Image src={product.image_url} alt={product.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <div className="absolute top-3 left-3">
+                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-wider border bg-emerald-500 text-black border-emerald-500">
+                            {t("products.custom")}
+                          </span>
+                        </div>
+                        <div className="absolute bottom-3 left-3 right-3">
+                          <span className="inline-flex items-center gap-1.5 rounded-full bg-black/60 backdrop-blur px-3 py-1.5 text-[10px] font-bold text-emerald-300">
+                            <MessageCircle className="h-3 w-3" />
+                            {t("products.customCta")}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="p-5">
+                        <h3 className="font-serif text-[17px] text-white group-hover:text-emerald-400 transition-colors">{product.title}</h3>
+                        <p className="mt-2 text-xs text-zinc-400 leading-relaxed line-clamp-2">{product.description}</p>
+                        <div className="mt-3 flex items-center justify-between">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              e.preventDefault();
+                              window.open(`https://wa.me/6288212835350?text=${encodeURIComponent(t("products.customWaMessage", { name: product.title }))}`, '_blank', 'noopener');
+                            }}
+                            className="ml-auto inline-flex items-center gap-1.5 rounded-full bg-emerald-500 px-3 py-1.5 text-[10px] font-bold text-black hover:bg-emerald-400 transition-all"
+                          >
+                            <MessageCircle className="h-3 w-3" />
+                            {t("products.pesan")}
+                          </button>
+                        </div>
+                      </div>
+                    </a>
+                  ) : (
+                    <Link
+                      href={`/products/${product.slug}`}
+                      className="group block rounded-[1.5rem] border border-white/[0.07] bg-white/[0.02] backdrop-blur overflow-hidden transition-all duration-300 hover:border-white/[0.15] hover:-translate-y-1"
+                    >
                     <div className="aspect-[16/10] bg-zinc-900/50 relative overflow-hidden">
                       {product.image_url ? (
                         <Image src={product.image_url} alt={product.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
@@ -202,6 +246,22 @@ export default function ProductsPage() {
                       </div>
                     </div>
                     <div className="p-5">
+                      {product.weight_g != null && (
+                        <div className="mb-3 flex items-center gap-2">
+                          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-[10px] font-bold text-emerald-400">
+                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                            ±{product.weight_g} g · PLA
+                          </span>
+                          {product.print_time_min != null && (
+                            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-semibold text-zinc-300">
+                              ±{formatMinutes(product.print_time_min)}
+                            </span>
+                          )}
+                          <span className="ml-auto inline-flex items-center gap-1 rounded-full px-2 py-1 text-[11px] font-bold text-emerald-300">
+                            {t("products.dari")} {formatRupiah(variantPrice(product.weight_g))}
+                          </span>
+                        </div>
+                      )}
                       <h3 className="font-serif text-[17px] text-white group-hover:text-emerald-400 transition-colors">{product.title}</h3>
                       <p className="mt-2 text-xs text-zinc-400 leading-relaxed line-clamp-2">{product.description}</p>
                       <div className="mt-3 flex items-center justify-between">
@@ -224,7 +284,8 @@ export default function ProductsPage() {
                         </button>
                       </div>
                     </div>
-                  </Link>
+                    </Link>
+                  )}
                 </motion.div>
               );
             })}

@@ -37,8 +37,17 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ slug
   }
 
   const { slug } = await params;
-  const { title, description, category, story, materials, total_plastic_kg, image_url, gallery, artists, is_active } = await req.json();
+  const { title, description, category, story, materials, total_plastic_kg, image_url, gallery, artists, is_active, weight_g, print_time_min, variants } = await req.json();
   const supabase = createAdminClient();
+
+  let parsedVariants = variants;
+  if (typeof variants === "string") {
+    try {
+      parsedVariants = JSON.parse(variants || "[]");
+    } catch {
+      parsedVariants = [];
+    }
+  }
 
   const { error } = await supabase
     .from("products")
@@ -51,6 +60,9 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ slug
       gallery: gallery || [],
       artists: artists || [],
       is_active: is_active ?? true,
+      weight_g: weight_g ?? null,
+      print_time_min: print_time_min ?? null,
+      variants: parsedVariants || [],
       updated_at: new Date().toISOString(),
     })
     .eq("slug", slug);

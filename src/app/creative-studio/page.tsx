@@ -43,13 +43,21 @@ type Product = {
   gallery: string;
   artists: string;
   is_active: number;
+  weight_g?: number | null;
+  print_time_min?: number | null;
+  variants?: unknown;
 };
 
 const emptyBucket: Bucket = { id: 0, code: "", start_date: "", estimated_harvest: "", status: "fermenting", type: "both", material: "", notes: "" };
 
-const emptyProduct = {
+const emptyProduct: {
+  id?: number; slug: string; title: string; description: string; category: string; story: string;
+  materials: string; total_plastic_kg: number; image_url: string; gallery: string; artists: string;
+  weight_g: number | null; print_time_min: number | null; variants: string;
+} = {
   slug: "", title: "", description: "", category: "craft", story: "",
   materials: "[]", total_plastic_kg: 0, image_url: "", gallery: "[]", artists: "[]",
+  weight_g: null, print_time_min: null, variants: "[]",
 };
 
 const showcaseProducts = [
@@ -242,6 +250,9 @@ export default function CreativeStudioPage() {
       image_url: product.image_url,
       gallery: product.gallery,
       artists: typeof product.artists === "string" ? product.artists : JSON.stringify(product.artists || []),
+      weight_g: product.weight_g ?? null,
+      print_time_min: product.print_time_min ?? null,
+      variants: typeof product.variants === "string" ? product.variants : JSON.stringify(product.variants || []),
     });
     setShowProductForm(true);
   };
@@ -587,6 +598,13 @@ export default function CreativeStudioPage() {
                       {productForm.image_url && <span className="text-xs text-emerald-400">✓ {t("creativeStudio.gambarTerupload")}</span>}
                     </div>
                   </div>
+
+                  {/* 3D Print: weight, time, variants */}
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <input value={productForm.weight_g ?? ""} onChange={e => setProductForm({ ...productForm, weight_g: parseInt(e.target.value) || null })} type="number" min="0" placeholder={t("creativeStudio.berat")} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40" />
+                    <input value={productForm.print_time_min ?? ""} onChange={e => setProductForm({ ...productForm, print_time_min: parseInt(e.target.value) || null })} type="number" min="0" placeholder={t("creativeStudio.waktuCetak")} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40" />
+                  </div>
+                  <textarea value={typeof productForm.variants === "string" ? productForm.variants : JSON.stringify(productForm.variants || [])} onChange={e => setProductForm({ ...productForm, variants: e.target.value })} placeholder={t("creativeStudio.varian")} rows={3} className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-mono text-white placeholder-zinc-500 focus:outline-none focus:border-emerald-500/40" />
 
                   {/* Materials */}
                   <div>

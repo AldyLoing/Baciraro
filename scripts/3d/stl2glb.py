@@ -1,11 +1,12 @@
 #!/usr/bin/env python3.11
-"""Convert STL files (public/produk/3d/*.stl) to web-ready GLB (public/models/).
+"""Convert STL/3MF files (public/produk/3d/*.stl, *.3mf) to web-ready GLB (public/models/).
 
-Dependency: /opt/homebrew/bin/python3.11 with trimesh + fast-simplification.
+Dependency: /opt/homebrew/bin/python3.11 with trimesh + fast-simplification + networkx + lxml.
 
-Filename convention: nama file STL (tanpa ekstensi) dipetakan ke slug produk via
-SLUG_MAP; fallback: slugify(nama). Untuk pengurangan segitiga (STL slicer bisa
-juta-an segitiga), tambahkan slug ke MAX_FACES.
+Filename convention: nama file (tanpa ekstensi) dipetakan ke slug produk via
+SLUG_MAP; fallback: slugify(nama). Untuk .3mf multi-object, semua objek digabung
+menjadi satu mesh. Untuk pengurangan segitiga (slicer bisa juta-an segitiga),
+tambahkan slug ke MAX_FACES.
 """
 
 import os
@@ -22,10 +23,43 @@ OUT_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "public", "models"
 SLUG_MAP = {
     "Jimothy_Raccoon": "3d-jimothy-raccoon",
     "DRAGON_001": "3d-dragon",
+    # @MKONAPELSKY free-to-sell batch
+    "DUCK+low+QUALITY+3MF": "3d-duck",
+    "articulated+fox+3mf": "3d-flexi-fox",
+    "articulated+frog+three+colors+3mf": "3d-frog",
+    "articulated+worm+3mf": "3d-flexi-worm",
+    "carrot+articulated+v2+bigger+3mf": "3d-carrot",
+    "catch+all": "3d-spiral-tray",
+    "flexi+christmas+tree+ornament+3mf": "3d-flexi-christmas-tree",
+    "heart+fidget+spinner+3mf": "3d-valentine-gear",
+    "hexagon+drip+plate+3mf": "3d-hex-drip",
+    "infinity+cube+WITH+AMS+3mf": "3d-valentine-cube",
+    "large+catch+all": "3d-wave-tray",
+    "lizard+articulated+3mf": "3d-lizard",
+    "mesh+catchall+bowl+3mf": "3d-mesh-bowl",
+    "monster+v6+one+color+3mf": "3d-flexi-monster",
+    "panda+single+color+3mf": "3d-flexi-bear",
+    "small+daisy+magnet": "3d-daisy-magnets",
+    "spiral+cut+bowl": "3d-spiral-bowl",
+    "standing+dinosaur+3mf": "3d-mini-dino",
+    "tiger+pendant+3mf": "3d-tiger-necklace",
+    "unicorn+flexi+single+color+small+3mf": "3d-flexi-unicorn",
 }
 
 MAX_FACES = {
     "3d-dragon": 150000,
+    "3d-mesh-bowl": 150000,
+    "3d-flexi-monster": 150000,
+    "3d-valentine-gear": 150000,
+    "3d-tiger-necklace": 130000,
+    "3d-spiral-tray": 130000,
+    "3d-wave-tray": 130000,
+    "3d-valentine-cube": 150000,
+    "3d-duck": 150000,
+    "3d-flexi-worm": 150000,
+    "3d-flexi-bear": 120000,
+    "3d-mini-dino": 120000,
+    "3d-daisy-magnets": 120000,
 }
 
 CYAN = (0x22, 0xD3, 0xEE, 255)
@@ -36,9 +70,19 @@ def slugify(name):
     return f"3d-{s}"
 
 
+def load_mesh(path):
+    m = trimesh.load(path, force="scene")
+    geoms = [g for g in m.geometry.values() if hasattr(g, "faces") and len(g.faces)]
+    if not geoms:
+        raise ValueError("no mesh geometry in scene")
+    if len(geoms) == 1:
+        return geoms[0]
+    return trimesh.util.concatenate(geoms)
+
+
 def build(input_path, slug):
     t0 = time.time()
-    mesh = trimesh.load(input_path)
+    mesh = load_mesh(input_path)
     n0 = len(mesh.faces)
     print(f"== {os.path.basename(input_path)} -> {slug}.glb", flush=True)
     print(f"  loaded {len(mesh.vertices)}v/{n0}f in {time.time()-t0:.1f}s", flush=True)
@@ -51,6 +95,14 @@ def build(input_path, slug):
         mesh = trimesh.Trimesh(vertices=pts, faces=faces, process=False)
         print(
             f"  simplified to {len(mesh.vertices)}v/{len(mesh.faces)}f in {time.time()-t0:.1f}s",
+            flush=True,
+        )
+
+    span = mesh.extents
+    if max(span) > 500:
+        mesh.apply_scale(100.0 / max(span))
+        print(
+            f"  rescaled extents to {mesh.extents.round(1)} mm (was {span.round(1)})",
             flush=True,
         )
 
@@ -71,15 +123,19 @@ def build(input_path, slug):
 
 def main():
     os.makedirs(STL_DIR, exist_ok=True)
-    stls = sorted(f for f in os.listdir(STL_DIR) if f.lower().endswith(".stl"))
-    if not stls:
-        print(f"No .stl files found in {STL_DIR}")
+    files = sorted(
+        f
+        for f in os.listdir(STL_DIR)
+        if f.lower().endswith(".stl") or f.lower().endswith(".3mf")
+    )
+    if not files:
+        print(f"No .stl/.3mf files found in {STL_DIR}")
         sys.exit(0)
-    for f in stls:
+    for f in files:
         base = os.path.splitext(f)[0]
         slug = SLUG_MAP.get(base, slugify(base))
         build(os.path.join(STL_DIR, f), slug)
-    print(f"\nDone. {len(stls)} model(s) converted.")
+    print(f"\nDone. {len(files)} model(s) converted.")
 
 
 if __name__ == "__main__":

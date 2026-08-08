@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import QRModal from "@/components/QRModal";
 import { useAdminAuth } from "@/lib/admin-auth-context";
 import { useLanguage } from "@/lib/i18n/context";
+import { formatRupiah, formatMinutes, parseVariants, variantPrice, PRICE_PER_GRAM } from "@/lib/pricing";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -26,6 +27,9 @@ type Product = {
   image_url: string;
   gallery: string;
   artists: string;
+  weight_g?: number | null;
+  print_time_min?: number | null;
+  variants?: unknown;
 };
 
 type Material = {
@@ -74,6 +78,7 @@ export default function ProductDetailPage() {
   const [hasModel, setHasModel] = useState(false);
   const [viewerReady, setViewerReady] = useState(false);
   const [viewMode, setViewMode] = useState<"image" | "3d">("image");
+  const [selectedVariant, setSelectedVariant] = useState(0);
 
   useEffect(() => {
     let mounted = true;
@@ -169,6 +174,11 @@ export default function ProductDetailPage() {
   const allImages = [product.image_url, ...gallery].filter(Boolean);
   const totalKg = materials.reduce((sum, m) => sum + m.amount, 0);
   const Icon = categoryIcons[product.category] || Package;
+  const printVariants = parseVariants(product.variants);
+  const activeVariant = printVariants[Math.min(selectedVariant, Math.max(printVariants.length - 1, 0))] ?? null;
+  const hasPricing = product.weight_g != null;
+  const displayWeight = activeVariant?.weight_g ?? product.weight_g;
+  const displayMinutes = activeVariant?.minutes ?? product.print_time_min;
 
   return (
     <main className="relative min-h-screen text-[#fafafa] overflow-hidden">
@@ -268,6 +278,69 @@ export default function ProductDetailPage() {
             </h1>
             <p className="mt-4 text-[15px] text-zinc-300 leading-relaxed">{product.description}</p>
 
+            {/* Price & Variants */}
+            {hasPricing && (
+              <div className="mt-6 rounded-[1.5rem] border border-emerald-500/10 bg-emerald-500/[0.03] backdrop-blur p-6">
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-[10px] font-bold text-emerald-400">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                    ±{displayWeight} g · PLA
+                  </span>
+                  {displayMinutes != null && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-semibold text-zinc-300">
+                      ±{formatMinutes(displayMinutes)}
+                    </span>
+                  )}
+                  <span className="ml-auto inline-flex items-center gap-1 text-xs text-zinc-500">
+                    {t("products.perGram")} {formatRupiah(PRICE_PER_GRAM)}
+                  </span>
+                </div>
+
+                <div className="flex items-end justify-between gap-4">
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-emerald-400">
+                      {printVariants.length > 1 ? t("products.hargaMulai") : t("products.harga")}
+                    </p>
+                    <p className="mt-1 font-serif text-[32px] leading-none text-white">
+                      {displayWeight != null ? formatRupiah(variantPrice(displayWeight)) : "—"}
+                    </p>
+                  </div>
+                  {printVariants.length > 1 && (
+                    <p className="text-right text-[11px] text-zinc-500 max-w-[180px]">
+                      {t("products.pilihVarian")}
+                    </p>
+                  )}
+                </div>
+
+                {printVariants.length > 1 && (
+                  <div className="mt-5 flex flex-col gap-2">
+                    {printVariants.map((v, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setSelectedVariant(i)}
+                        className={`flex items-center justify-between gap-3 rounded-[1rem] border px-4 py-3 text-left transition-all ${
+                          i === selectedVariant
+                            ? "border-emerald-500/40 bg-emerald-500/10"
+                            : "border-white/[0.07] bg-white/[0.02] hover:border-white/[0.15]"
+                        }`}
+                      >
+                        <div className="min-w-0">
+                          <p className="text-[13px] font-semibold text-white truncate">{v.label}</p>
+                          <p className="mt-0.5 text-[11px] text-zinc-500">
+                            ±{v.weight_g} g · PLA
+                            {v.minutes ? ` · ±${formatMinutes(v.minutes)}` : ""}
+                          </p>
+                        </div>
+                        <span className="shrink-0 text-[13px] font-bold text-emerald-300">
+                          {formatRupiah(variantPrice(v.weight_g))}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* Story */}
             {product.story && (
               <div className="mt-8 rounded-[1.5rem] border border-white/[0.07] bg-white/[0.02] backdrop-blur p-6">
@@ -297,20 +370,26 @@ export default function ProductDetailPage() {
                 </>
               )}
               <a
-                href={`https://wa.me/6288212835350?text=${encodeURIComponent(t("products.waMessage", { title: product.title }))}`}
+                href={`https://wa.me/6288212835350?text=${encodeURIComponent(
+                  t("products.waMessage", {
+                    title: product.title,
+                    variant: activeVariant?.label ? ` - ${activeVariant.label} (${formatRupiah(variantPrice(activeVariant.weight_g))})` : "",
+                    price: displayWeight != null ? formatRupiah(variantPrice(displayWeight)) : "",
+                  })
+                )}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 rounded-full bg-emerald-500 hover:bg-emerald-400 px-6 py-3.5 text-sm font-bold text-black transition-all hover:gap-4"
               >
                 <MessageCircle className="h-5 w-5" />
-                {t("products.pesanWA")}
+                {displayWeight != null ? `${t("products.pesanWA")} · ${formatRupiah(variantPrice(displayWeight))}` : t("products.pesanWA")}
               </a>
             </div>
           </motion.div>
         </div>
 
         {/* About the Artists */}
-        {artists.length > 0 && (
+        {product.category !== "3dprint" && artists.length > 0 && (
           <motion.section
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}

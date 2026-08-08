@@ -33,8 +33,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { slug, title, description, category, story, materials, total_plastic_kg, image_url, gallery, artists } = await req.json();
+  const { slug, title, description, category, story, materials, total_plastic_kg, image_url, gallery, artists, weight_g, print_time_min, variants } = await req.json();
   const supabase = createAdminClient();
+
+  let parsedVariants = variants;
+  if (typeof variants === "string") {
+    try {
+      parsedVariants = JSON.parse(variants || "[]");
+    } catch {
+      parsedVariants = [];
+    }
+  }
 
   // Compute next ID to work around sequence issue
   const { data: maxData } = await supabase
@@ -56,6 +65,9 @@ export async function POST(req: NextRequest) {
       image_url: image_url || "",
       gallery: gallery || [],
       artists: artists || [],
+      weight_g: weight_g ?? null,
+      print_time_min: print_time_min ?? null,
+      variants: parsedVariants || [],
     })
     .select("id")
     .single();
