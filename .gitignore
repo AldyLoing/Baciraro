@@ -49,3 +49,7 @@ public/Jalan Perumahan Agape Griya No. BLOK F10-24 2.m4a
 
 # 3D source models (stl/3mf) — too large to serve publicly
 /models-src/
+
+# python
+__pycache__/
+*.py[cod]

@@ -18,6 +18,7 @@ import numpy as np
 import trimesh
 
 STL_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "public", "produk", "3d")
+MODELS_SRC_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "models-src")
 OUT_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "public", "models")
 
 SLUG_MAP = {
@@ -60,6 +61,20 @@ MAX_FACES = {
     "3d-flexi-bear": 120000,
     "3d-mini-dino": 120000,
     "3d-daisy-magnets": 120000,
+    # MakerWorld batch 2 (sea/satwa/religi/nama)
+    "3d-nativity-3kings": 250000,
+    "3d-nativity-illuminated": 300000,
+    "3d-whale-shark": 200000,
+    "3d-starfish": 150000,
+    "3d-orca-whale": 150000,
+    "3d-flexi-shark": 120000,
+    "3d-jellyfish-fidget": 180000,
+    "3d-hammerhead-shark": 120000,
+    "3d-flexi-seal": 120000,
+    "3d-flexi-turtle": 120000,
+    "3d-flexi-dolphin": 120000,
+    "3d-flexi-owl": 120000,
+    "3d-articulated-corgi": 150000,
 }
 
 CYAN = (0x22, 0xD3, 0xEE, 255)
@@ -123,18 +138,34 @@ def build(input_path, slug):
 
 def main():
     os.makedirs(STL_DIR, exist_ok=True)
-    files = sorted(
-        f
-        for f in os.listdir(STL_DIR)
-        if f.lower().endswith(".stl") or f.lower().endswith(".3mf")
-    )
+    os.makedirs(MODELS_SRC_DIR, exist_ok=True)
+
+    def collect(d):
+        return sorted(
+            f
+            for f in os.listdir(d)
+            if f.lower().endswith(".stl") or f.lower().endswith(".3mf")
+        )
+
+    files = []
+    seen = set()
+    for d in (STL_DIR, MODELS_SRC_DIR):
+        for f in collect(d):
+            if f in seen:
+                continue
+            seen.add(f)
+            files.append((os.path.join(d, f), f))
+
     if not files:
-        print(f"No .stl/.3mf files found in {STL_DIR}")
+        print(f"No .stl/.3mf files found in {STL_DIR} or {MODELS_SRC_DIR}")
         sys.exit(0)
-    for f in files:
+    for path, f in files:
         base = os.path.splitext(f)[0]
-        slug = SLUG_MAP.get(base, slugify(base))
-        build(os.path.join(STL_DIR, f), slug)
+        if base.startswith("3d-"):
+            slug = base
+        else:
+            slug = SLUG_MAP.get(base, slugify(base))
+        build(path, slug)
     print(f"\nDone. {len(files)} model(s) converted.")
 
 
