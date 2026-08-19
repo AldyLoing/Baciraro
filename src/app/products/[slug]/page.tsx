@@ -174,7 +174,8 @@ export default function ProductDetailPage() {
   const allImages = [product.image_url, ...gallery].filter(Boolean);
   const totalKg = materials.reduce((sum, m) => sum + m.amount, 0);
   const Icon = categoryIcons[product.category] || Package;
-  const printVariants = parseVariants(product.variants);
+  const allVariants = parseVariants(product.variants);
+  const printVariants = allVariants;
   const activeVariant = printVariants[Math.min(selectedVariant, Math.max(printVariants.length - 1, 0))] ?? null;
   const hasPricing = product.weight_g != null;
   const displayWeight = activeVariant?.weight_g ?? product.weight_g;
@@ -373,7 +374,7 @@ export default function ProductDetailPage() {
                 href={`https://wa.me/6288212835350?text=${encodeURIComponent(
                   t("products.waMessage", {
                     title: product.title,
-                    variant: activeVariant?.label ? ` - ${activeVariant.label} (${formatRupiah(variantPrice(activeVariant.weight_g))})` : "",
+                    variant: activeVariant?.label ? ` - ${activeVariant.label}` : "",
                     price: displayWeight != null ? formatRupiah(variantPrice(displayWeight)) : "",
                   })
                 )}`}

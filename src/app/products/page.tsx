@@ -4,13 +4,21 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Recycle, Leaf, Palette, Code2, Paintbrush, Cpu, MessageCircle, Search, ArrowDownWideNarrow } from "lucide-react";
+import { Recycle, Leaf, Palette, Code2, Paintbrush, Cpu, MessageCircle, Search, ArrowDownWideNarrow, Tags } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/lib/i18n/context";
 import { formatRupiah, formatMinutes, variantPrice } from "@/lib/pricing";
 
 const springEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+const priceRanges = [
+  { key: "all", min: 0, max: Infinity },
+  { key: "under50", min: 0, max: 50000 },
+  { key: "50to150", min: 50000, max: 150000 },
+  { key: "150to300", min: 150000, max: 300000 },
+  { key: "over300", min: 300000, max: Infinity },
+];
 
 type Product = {
   id: number;
@@ -48,12 +56,36 @@ const categoryColors: Record<string, string> = {
   "3dprint": "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
 };
 
+function priceFromVariants(raw: unknown): number | null {
+  if (!raw) return null;
+  let variants: { weight_g?: number }[] = [];
+  if (Array.isArray(raw)) variants = raw as { weight_g?: number }[];
+  else if (typeof raw === "string") {
+    try {
+      variants = JSON.parse(raw) as { weight_g?: number }[];
+    } catch {
+      variants = [];
+    }
+  }
+  const weights = variants.map((v) => v.weight_g).filter((w): w is number => typeof w === "number" && w > 0);
+  return weights.length ? variantPrice(Math.min(...weights)) : null;
+}
+
+const priceRangeLabels: Record<string, string> = {
+  all: "all",
+  under50: "≤ Rp 50rb",
+  "50to150": "Rp 50–150rb",
+  "150to300": "Rp 150–300rb",
+  over300: "Rp 300rb+",
+};
+
 export default function ProductsPage() {
   const { t } = useLanguage();
   const [products, setProducts] = useState<Product[]>([]);
   const [activeCategory, setActiveCategory] = useState("all");
   const [query, setQuery] = useState("");
-  const [sort, setSort] = useState<"newest" | "oldest" | "name" | "kg">("newest");
+  const [sort, setSort] = useState<"newest" | "oldest" | "name" | "kg" | "price-asc" | "price-desc">("newest");
+  const [priceRange, setPriceRange] = useState("all");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -74,12 +106,20 @@ export default function ProductsPage() {
         (p.story || "").toLowerCase().includes(q)
       );
     })
+    .filter((p) => {
+      const range = priceRanges.find((r) => r.key === priceRange) || priceRanges[0];
+      const price = p.variants != null ? priceFromVariants(p.variants) : (p.weight_g != null ? variantPrice(p.weight_g) : null);
+      if (price == null) return true;
+      return price >= range.min && price < range.max;
+    })
     .map((p) => {
       const materials = typeof p.materials === "string" ? JSON.parse(p.materials || "[]") : (p.materials || []);
       const totalKg = materials.reduce((sum: number, m: { amount: number }) => sum + m.amount, 0);
       return { ...p, totalKg };
     })
     .sort((a, b) => {
+      if (a.slug === "custom") return -1;
+      if (b.slug === "custom") return 1;
       switch (sort) {
         case "name":
           return a.title.localeCompare(b.title);
@@ -87,6 +127,10 @@ export default function ProductsPage() {
           return b.totalKg - a.totalKg;
         case "oldest":
           return a.id - b.id;
+        case "price-asc":
+          return (priceFromVariants(a.variants) ?? Infinity) - (priceFromVariants(b.variants) ?? Infinity);
+        case "price-desc":
+          return (priceFromVariants(b.variants) ?? -Infinity) - (priceFromVariants(a.variants) ?? -Infinity);
         default:
           return b.id - a.id;
       }
@@ -159,8 +203,36 @@ export default function ProductsPage() {
               <option value="oldest" className="bg-zinc-900 text-zinc-300">{t("products.sortTerlama")}</option>
               <option value="name" className="bg-zinc-900 text-zinc-300">{t("products.sortNama")}</option>
               <option value="kg" className="bg-zinc-900 text-zinc-300">{t("products.sortKg")}</option>
+              <option value="price-asc" className="bg-zinc-900 text-zinc-300">{t("products.sortHargaTerendah")}</option>
+              <option value="price-desc" className="bg-zinc-900 text-zinc-300">{t("products.sortHargaTertinggi")}</option>
             </select>
           </div>
+        </motion.div>
+
+        {/* Price Filter */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.35, ease: springEase }}
+          className="mt-4 flex flex-wrap items-center gap-2"
+        >
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-zinc-400">
+            <Tags className="h-3 w-3" />
+            {t("products.filterHarga")}
+          </span>
+          {priceRanges.map((r) => (
+            <button
+              key={r.key}
+              onClick={() => setPriceRange(r.key)}
+              className={`rounded-full px-4 py-2 text-[11px] font-bold transition-all ${
+                priceRange === r.key
+                  ? "bg-emerald-500 text-black"
+                  : "border border-white/10 bg-white/5 text-zinc-400 hover:text-white hover:border-white/20"
+              }`}
+            >
+              {priceRangeLabels[r.key]}
+            </button>
+          ))}
         </motion.div>
 
         {/* Result count */}

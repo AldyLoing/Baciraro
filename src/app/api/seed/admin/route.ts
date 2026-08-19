@@ -7,9 +7,18 @@ export async function POST() {
   const password = bcrypt.hashSync("baciraro", 10);
 
   const { data, error } = await supabase
-    .from("users")
+    .from("team_members")
     .upsert(
-      { username: "baciraro@gmail.com", password, name: "Admin" },
+      {
+        username: "baciraro@gmail.com",
+        email: "baciraro@gmail.com",
+        password,
+        name: "Admin",
+        role: "Founder",
+        division: "founder",
+        is_admin: true,
+        status: "active",
+      },
       { onConflict: "username" }
     )
     .select()

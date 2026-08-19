@@ -11,7 +11,7 @@ interface AdminUser {
 interface AdminAuthContextType {
   admin: AdminUser | null;
   loading: boolean;
-  loginAdmin: (password: string) => Promise<{ error?: string }>;
+  loginAdmin: (username: string, password: string) => Promise<{ error?: string }>;
   logoutAdmin: () => Promise<void>;
   refreshAdmin: () => Promise<void>;
 }
@@ -36,11 +36,11 @@ export function AdminAuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => { refreshAdmin(); }, [refreshAdmin]);
 
-  const loginAdmin = useCallback(async (password: string) => {
+  const loginAdmin = useCallback(async (username: string, password: string) => {
     const res = await fetch("/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: "baciraro@gmail.com", password }),
+      body: JSON.stringify({ username, password }),
     });
     const data = await res.json();
     if (!res.ok) return { error: data.error || "Login failed" };

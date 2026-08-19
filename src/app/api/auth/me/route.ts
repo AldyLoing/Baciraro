@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
     const decoded = jwt.verify(token, SECRET) as { id: number; username: string; name: string };
     const supabase = createAdminClient();
     const { data: user } = await supabase
-      .from("users")
+      .from("team_members")
       .select("id, username, name")
       .eq("id", decoded.id)
       .single();

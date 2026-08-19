@@ -53,3 +53,6 @@ public/Jalan Perumahan Agape Griya No. BLOK F10-24 2.m4a
 # python
 __pycache__/
 *.py[cod]
+
+# google service account keys
+/orders-app-461615-*.json

@@ -45,6 +45,25 @@ SLUG_MAP = {
     "standing+dinosaur+3mf": "3d-mini-dino",
     "tiger+pendant+3mf": "3d-tiger-necklace",
     "unicorn+flexi+single+color+small+3mf": "3d-flexi-unicorn",
+    # MakerWorld batch 4 (flexi, lisensi diabaikan)
+    "Axolotl": "3d-flexi-axolotl",
+    "Axolote2Colores": "3d-axolotl-fidget",
+    "#37+camaleon+1": "3d-zookis-chameleon",
+    "#38+Coco+1": "3d-zookis-crocodile",
+    "BEARDED+DRAGON+BAMBU+A1+MINI": "3d-flexi-bearded-dragon",
+    "FLEXI+CHAMELEON+BAMBU+A1+MINI": "3d-chameleon-flexi-dragon",
+    "FLEXI+PANGOLIN+BAMBU": "3d-flexi-pangolin",
+    "Flexi+Dragon+AMS": "3d-flexi-dragon",
+    "Flexi+playful+star": "3d-flexi-playful-star",
+    "Flexi+scorpion+print+profile": "3d-flexi-scorpion",
+    "FlexiMantaRay_V3(AMS)(toweron)": "3d-flexi-manta-ray",
+    "Infinity_Serpent_Long-Dragon_v1.0_by_Hollowmaker": "3d-infinity-serpent",
+    "PinkyWings_+Flexi+Unicorn+Dragon": "3d-flexi-unicorn-dragon",
+    "Toothless_Tail_2": "3d-flexi-toothless",
+    "Version6_Spike+A1+mini": "3d-spike-dragon",
+    "ray_54piece": "3d-flexi-manta-ray-pip",
+    "skeleton+dragon-A1": "3d-skeleton-dragon",
+    "turtle+3mf": "3d-mini-turtle",
 }
 
 MAX_FACES = {
@@ -75,6 +94,25 @@ MAX_FACES = {
     "3d-flexi-dolphin": 120000,
     "3d-flexi-owl": 120000,
     "3d-articulated-corgi": 150000,
+    # MakerWorld batch 4 (flexi, lisensi diabaikan)
+    "3d-flexi-axolotl": 150000,
+    "3d-axolotl-fidget": 120000,
+    "3d-flexi-manta-ray": 150000,
+    "3d-mini-turtle": 120000,
+    "3d-zookis-chameleon": 120000,
+    "3d-zookis-crocodile": 120000,
+    "3d-spike-dragon": 180000,
+    "3d-flexi-dragon": 180000,
+    "3d-flexi-toothless": 200000,
+    "3d-flexi-bearded-dragon": 180000,
+    "3d-flexi-pangolin": 220000,
+    "3d-flexi-scorpion": 150000,
+    "3d-flexi-manta-ray-pip": 150000,
+    "3d-chameleon-flexi-dragon": 150000,
+    "3d-flexi-playful-star": 150000,
+    "3d-skeleton-dragon": 220000,
+    "3d-infinity-serpent": 180000,
+    "3d-flexi-unicorn-dragon": 150000,
 }
 
 CYAN = (0x22, 0xD3, 0xEE, 255)
@@ -140,6 +178,15 @@ def main():
     os.makedirs(STL_DIR, exist_ok=True)
     os.makedirs(MODELS_SRC_DIR, exist_ok=True)
 
+    only = set()
+    for i, arg in enumerate(sys.argv[1:]):
+        if arg == "--only":
+            only = {a for a in sys.argv[i + 2 :] if a}
+            break
+        if arg.startswith("--only="):
+            only = {a for a in arg.split("=", 1)[1].split(",") if a}
+            break
+
     def collect(d):
         return sorted(
             f
@@ -159,6 +206,17 @@ def main():
     if not files:
         print(f"No .stl/.3mf files found in {STL_DIR} or {MODELS_SRC_DIR}")
         sys.exit(0)
+    if only:
+        matched = []
+        for path, f in files:
+            base = os.path.splitext(f)[0]
+            slug = base if base.startswith("3d-") else SLUG_MAP.get(base)
+            if base in only or slug in only:
+                matched.append((path, f))
+        files = matched
+        if not files:
+            print(f"No matching files for --only {sorted(only)}")
+            sys.exit(1)
     for path, f in files:
         base = os.path.splitext(f)[0]
         if base.startswith("3d-"):
