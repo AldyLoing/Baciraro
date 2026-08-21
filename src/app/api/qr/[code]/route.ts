@@ -22,6 +22,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ code
     .from("qr_codes")
     .select("*, products!inner(title, image_url, points_per_scan)")
     .eq("code", code)
+    .eq("is_event", false)
     .single();
 
   if (error || !data) {
@@ -41,6 +42,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ code
     .from("qr_codes")
     .select("id, product_slug, buyer_name, claimed_at")
     .eq("code", code)
+    .eq("is_event", false)
     .single();
 
   if (!qr) {
