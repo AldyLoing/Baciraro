@@ -18,18 +18,27 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ code
   const { code } = await params;
   const supabase = createAdminClient();
 
-  const { data, error } = await supabase
+  const { data: qr, error } = await supabase
     .from("qr_codes")
-    .select("*, products!inner(title, image_url, points_per_scan)")
+    .select("*")
     .eq("code", code)
-    .eq("is_event", false)
-    .single();
+    .maybeSingle();
 
-  if (error || !data) {
+  if (error || !qr) {
     return NextResponse.json({ error: "QR code not found" }, { status: 404 });
   }
 
-  return NextResponse.json({ qr: data });
+  if (qr.is_event) {
+    return NextResponse.json({ qr });
+  }
+
+  const { data: product } = await supabase
+    .from("products")
+    .select("title, image_url, points_per_scan")
+    .eq("slug", qr.product_slug)
+    .maybeSingle();
+
+  return NextResponse.json({ qr: { ...qr, products: product ?? null } });
 }
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ code: string }> }) {
@@ -38,14 +47,13 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ code
   const supabase = createAdminClient();
   const customer = getCustomer(req);
 
-  const { data: qr } = await supabase
+  const { data: qr, error } = await supabase
     .from("qr_codes")
-    .select("id, product_slug, buyer_name, claimed_at")
+    .select("id, product_slug, buyer_name, claimed_at, is_event, event_name, event_points")
     .eq("code", code)
-    .eq("is_event", false)
-    .single();
+    .maybeSingle();
 
-  if (!qr) {
+  if (error || !qr) {
     return NextResponse.json({ error: "QR code not found" }, { status: 404 });
   }
 
@@ -53,7 +61,31 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ code
     return NextResponse.json({ error: "QR code sudah diklaim sebelumnya" }, { status: 409 });
   }
 
-  const { error } = await supabase
+  let points: number;
+  let description: string;
+
+  if (qr.is_event) {
+    if (qr.event_points == null) {
+      return NextResponse.json({ error: "QR event belum diatur jumlah poinnya." }, { status: 400 });
+    }
+    points = qr.event_points;
+    description = `Klaim QR Event ${qr.event_name || ""}`.trim();
+  } else {
+    const { data: product } = await supabase
+      .from("products")
+      .select("points_per_scan")
+      .eq("slug", qr.product_slug)
+      .maybeSingle();
+
+    if (!product) {
+      return NextResponse.json({ error: "Produk untuk QR ini tidak ditemukan." }, { status: 404 });
+    }
+
+    points = product.points_per_scan;
+    description = `Klaim produk ${qr.product_slug}`;
+  }
+
+  const { data: updated, error: updErr } = await supabase
     .from("qr_codes")
     .update({
       buyer_name: buyer_name || "",
@@ -61,33 +93,28 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ code
       customer_id: customer?.id || null,
       claimed_at: new Date().toISOString(),
     })
-    .eq("code", code);
+    .eq("code", code)
+    .is("claimed_at", null)
+    .select("id")
+    .maybeSingle();
 
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  if (updErr || !updated) {
+    return NextResponse.json({ error: "QR code sudah diklaim sebelumnya" }, { status: 409 });
   }
 
   if (customer) {
-    const { data: product } = await supabase
-      .from("products")
-      .select("points_per_scan")
-      .eq("slug", qr.product_slug)
-      .single();
-
-    const points = product?.points_per_scan || 10;
-
     await supabase.from("points_transactions").insert({
       customer_id: customer.id,
       qr_code_id: qr.id,
       points,
-      description: `Klaim produk ${qr.product_slug}`,
+      description,
     });
 
     const { data: cust } = await supabase
       .from("customers")
       .select("total_points")
       .eq("id", customer.id)
-      .single();
+      .maybeSingle();
 
     if (cust) {
       await supabase
