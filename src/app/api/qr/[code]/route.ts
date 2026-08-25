@@ -65,10 +65,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ code
   let description: string;
 
   if (qr.is_event) {
-    if (qr.event_points == null) {
-      return NextResponse.json({ error: "QR event belum diatur jumlah poinnya." }, { status: 400 });
-    }
-    points = qr.event_points;
+    points = 10;
     description = `Klaim QR Event ${qr.event_name || ""}`.trim();
   } else {
     const { data: product } = await supabase

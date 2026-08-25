@@ -62,7 +62,7 @@ export default function ClaimPage() {
     setSubmitting(false);
 
     if (customer) {
-      const productPoints = qr?.is_event ? (qr.event_points ?? 0) : (qr?.products?.points_per_scan ?? 0);
+      const productPoints = qr?.is_event ? 10 : (qr?.products?.points_per_scan ?? 0);
       setPointsEarned(productPoints);
     }
 
