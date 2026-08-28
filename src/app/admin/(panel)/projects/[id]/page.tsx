@@ -26,7 +26,7 @@ export default async function ProjectDetailPage({
 
   const { data: projectMembers } = await supabase
     .from("project_members")
-    .select("id, member_id, name, contribution_percent, amount, team_members(id, name, role, photo_url)")
+    .select("id, member_id, name, contribution_percent, amount, tugas, team_members(id, name, role, photo_url)")
     .eq("project_id", id)
     .order("contribution_percent", { ascending: false });
 
@@ -61,6 +61,7 @@ export default async function ProjectDetailPage({
           avatar_url: pm.team_members?.photo_url ?? null,
           contribution_percent: Number(pm.contribution_percent),
           amount: pm.amount == null ? null : Number(pm.amount),
+          tugas: pm.tugas ?? null,
         }))}
         allMembers={(allMembers ?? []).map((m) => ({ id: m.id, name: m.name, role: m.role }))}
         isAdmin={admin?.is_admin ?? false}

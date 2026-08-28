@@ -15,6 +15,7 @@ type ContributionRow = {
   name: string;
   percent: string;
   amount: string;
+  tugas: string;
 };
 
 const inputCls =
@@ -34,11 +35,11 @@ export default function ProjectForm({ members }: { members: Member[] }) {
   const [loading, setLoading] = useState(false);
 
   function addRow() {
-    setRows((prev) => [...prev, { type: "member", member_id: "", name: "", percent: "", amount: "" }]);
+    setRows((prev) => [...prev, { type: "member", member_id: "", name: "", percent: "", amount: "", tugas: "" }]);
   }
 
   function addExternalRow() {
-    setRows((prev) => [...prev, { type: "external", member_id: "", name: "", percent: "", amount: "" }]);
+    setRows((prev) => [...prev, { type: "external", member_id: "", name: "", percent: "", amount: "", tugas: "" }]);
   }
 
   function removeRow(index: number) {
@@ -59,9 +60,9 @@ export default function ProjectForm({ members }: { members: Member[] }) {
       setError("Nama project wajib diisi.");
       return;
     }
-    const value = Number(totalValue);
-    if (!totalValue || value <= 0) {
-      setError("Nilai project wajib diisi dan lebih dari 0.");
+    const value = totalValue === "" ? 0 : Number(totalValue);
+    if (isNaN(value) || value < 0) {
+      setError("Nilai project tidak boleh negatif.");
       return;
     }
     if (rows.length > 0) {
@@ -100,6 +101,7 @@ export default function ProjectForm({ members }: { members: Member[] }) {
           name: r.type === "external" ? r.name.trim() : undefined,
           contribution_percent: Number(r.percent),
           amount: r.amount === "" ? null : Number(r.amount),
+          tugas: r.tugas === "" ? null : r.tugas.trim(),
         })),
       }),
     });
@@ -174,7 +176,7 @@ export default function ProjectForm({ members }: { members: Member[] }) {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-white/70 mb-1">Nilai Total (Rp) *</label>
+              <label className="block text-sm font-medium text-white/70 mb-1">Nilai Total (Rp) <span className="text-white/40">· opsional</span></label>
               <input
                 type="number"
                 min="0"
@@ -241,65 +243,74 @@ export default function ProjectForm({ members }: { members: Member[] }) {
           ) : (
             <div className="space-y-3">
               {rows.map((row, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <div className="flex-1">
-                    {row.type === "member" ? (
-                      <select
-                        value={row.member_id}
-                        onChange={(e) => updateRow(index, "member_id", e.target.value)}
-                        className={selectCls}
-                      >
-                        <option value="">Pilih anggota...</option>
-                        {availableMembers(row.member_id).map((m) => (
-                          <option key={m.id} value={m.id}>
-                            {m.name} · {m.role}
-                          </option>
-                        ))}
-                      </select>
-                    ) : (
-                      <input
-                        type="text"
-                        value={row.name}
-                        onChange={(e) => updateRow(index, "name", e.target.value)}
-                        placeholder="Nama kontributor luar..."
-                        className={inputCls}
-                      />
-                    )}
-                  </div>
-                  <div className="w-36">
-                    <div className="flex items-center">
+                <div key={index} className="flex flex-col gap-2 bg-white/[0.03] border border-white/5 rounded-lg p-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1">
+                      {row.type === "member" ? (
+                        <select
+                          value={row.member_id}
+                          onChange={(e) => updateRow(index, "member_id", e.target.value)}
+                          className={selectCls}
+                        >
+                          <option value="">Pilih anggota...</option>
+                          {availableMembers(row.member_id).map((m) => (
+                            <option key={m.id} value={m.id}>
+                              {m.name} · {m.role}
+                            </option>
+                          ))}
+                        </select>
+                      ) : (
+                        <input
+                          type="text"
+                          value={row.name}
+                          onChange={(e) => updateRow(index, "name", e.target.value)}
+                          placeholder="Nama kontributor luar..."
+                          className={inputCls}
+                        />
+                      )}
+                    </div>
+                    <div className="w-32">
+                      <div className="flex items-center">
+                        <input
+                          type="number"
+                          min="0"
+                          max="100"
+                          value={row.percent}
+                          onChange={(e) => updateRow(index, "percent", e.target.value)}
+                          placeholder="%"
+                          className={inputCls}
+                        />
+                        <span className="ml-2 text-white/50 text-sm">%</span>
+                      </div>
+                    </div>
+                    <div className="w-40">
                       <input
                         type="number"
                         min="0"
-                        max="100"
-                        value={row.percent}
-                        onChange={(e) => updateRow(index, "percent", e.target.value)}
-                        placeholder="%"
+                        value={row.amount}
+                        onChange={(e) => updateRow(index, "amount", e.target.value)}
+                        placeholder="Nominal (opsional)"
                         className={inputCls}
                       />
-                      <span className="ml-2 text-white/50 text-sm">%</span>
                     </div>
+                    <button
+                      type="button"
+                      onClick={() => removeRow(index)}
+                      className="p-2 text-white/40 hover:text-red-400 transition"
+                      aria-label="Hapus"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    </button>
                   </div>
-                  <div className="w-44">
-                    <input
-                      type="number"
-                      min="0"
-                      value={row.amount}
-                      onChange={(e) => updateRow(index, "amount", e.target.value)}
-                      placeholder="Nominal (opsional)"
-                      className={inputCls}
-                    />
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => removeRow(index)}
-                    className="p-2 text-white/40 hover:text-red-400 transition"
-                    aria-label="Hapus"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
-                  </button>
+                  <input
+                    type="text"
+                    value={row.tugas}
+                    onChange={(e) => updateRow(index, "tugas", e.target.value)}
+                    placeholder="Tugas / peran di project ini (mis. cetak 3D, editing, pemasaran)..."
+                    className={inputCls}
+                  />
                 </div>
               ))}
             </div>

@@ -13,6 +13,7 @@ type Payout = {
   orders_fee: number;
   net_amount: number;
   status: "pending" | "processing" | "paid";
+  finalized_at: string | null;
   created_at: string;
 };
 
@@ -23,12 +24,13 @@ type PayoutMember = {
   name: string;
   contribution_percent: number;
   amount: number;
+  tugas: string | null;
 };
 
 type Project = { id: string; name: string; status: string; total_value: number; client_name: string | null };
-type ProjectMember = { id: string; project_id: string; member_id: number | null; contribution_percent: number; member_name: string };
+type ProjectMember = { id: string; project_id: string; member_id: number | null; contribution_percent: number; member_name: string; tugas: string | null };
 type AllMember = { id: number; name: string; role: string; status: string };
-type FormMember = { key: string; member_id: number | null; member_name: string; contribution_percent: number };
+type FormMember = { key: string; member_id: number | null; member_name: string; contribution_percent: number; tugas: string };
 
 type Props = {
   payouts: Payout[];
@@ -73,6 +75,8 @@ export default function PayoutsClient({
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [finalizeDrafts, setFinalizeDrafts] = useState<Record<string, string>>({});
+  const [finalizingId, setFinalizingId] = useState<string | null>(null);
 
   function showError(msg: string) { setError(msg); setSuccess(null); }
   function showSuccess(msg: string) { setSuccess(msg); setError(null); }
@@ -106,6 +110,7 @@ export default function PayoutsClient({
         member_id: pm.member_id,
         member_name: pm.member_name,
         contribution_percent: pm.contribution_percent,
+        tugas: pm.tugas ?? "",
       }));
     setFormMembers(prefill);
   }
@@ -123,7 +128,7 @@ export default function PayoutsClient({
       : Number((100 / (formMembers.length + 1)).toFixed(2));
     setFormMembers((prev) => [
       ...prev.map((fm) => ({ ...fm, contribution_percent: Number((100 / (prev.length + 1)).toFixed(2)) })),
-      { key: `add-${Date.now()}`, member_id: member.id, member_name: member.name, contribution_percent: share },
+      { key: `add-${Date.now()}`, member_id: member.id, member_name: member.name, contribution_percent: share, tugas: "" },
     ]);
     setNewMemberId("");
     setError(null);
@@ -133,6 +138,10 @@ export default function PayoutsClient({
     setFormMembers((prev) =>
       prev.map((fm) => (fm.key === key ? { ...fm, contribution_percent: percent } : fm))
     );
+  }
+
+  function updateMemberTugas(key: string, tugas: string) {
+    setFormMembers((prev) => prev.map((fm) => (fm.key === key ? { ...fm, tugas } : fm)));
   }
 
   function removeMemberRow(key: string) {
@@ -172,6 +181,7 @@ export default function PayoutsClient({
           member_id: fm.member_id,
           name: fm.member_name,
           contribution_percent: fm.contribution_percent,
+          tugas: fm.tugas.trim() || undefined,
         })),
       }),
     });
@@ -225,11 +235,62 @@ export default function PayoutsClient({
     router.refresh();
   }
 
+  async function finalizePayout(p: Payout) {
+    const actual = Number(finalizeDrafts[p.id]);
+    if (finalizeDrafts[p.id] === undefined || finalizeDrafts[p.id] === "" || isNaN(actual) || actual < 0) {
+      showError("Isi total riil pendapatan dulu.");
+      return;
+    }
+    setFinalizingId(p.id);
+    setError(null);
+    const res = await fetch("/api/admin/payouts/finalize", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: p.id, actual_total: actual }),
+    });
+    const data = await res.json();
+    setFinalizingId(null);
+    if (!res.ok || !data.ok) {
+      showError("Gagal menyimpan total riil: " + (data.error ?? "unknown"));
+      return;
+    }
+
+    const contribs = (membersByPayout.get(p.id) ?? []).map((m) => ({ percent: m.contribution_percent }));
+    const dist = calculateDistribution(actual, contribs);
+    const memberAmounts = (membersByPayout.get(p.id) ?? []).map((m) => {
+      const amount = dist.totalPercent > 0 ? (dist.distributable * m.contribution_percent) / dist.totalPercent : 0;
+      return { id: m.id, amount: Number(amount.toFixed(2)) };
+    });
+
+    setRows((prev) =>
+      prev.map((r) =>
+        r.id === p.id
+          ? {
+              ...r,
+              total_amount: Number(dist.total.toFixed(2)),
+              orders_fee: Number(dist.kasAmount.toFixed(2)),
+              net_amount: Number(dist.distributable.toFixed(2)),
+              finalized_at: new Date().toISOString(),
+            }
+          : r
+      )
+    );
+    setMembers((prev) =>
+      prev.map((m) => {
+        const upd = memberAmounts.find((ma) => ma.id === m.id);
+        return upd ? { ...m, amount: upd.amount } : m;
+      })
+    );
+    setFinalizeDrafts((prev) => ({ ...prev, [p.id]: "" }));
+    showSuccess(data.message ?? "Total riil disimpan.");
+    router.refresh();
+  }
+
   function exportCsv() {
     const header = ["Tanggal", "Project", "Total (Rp)", "Fee Baciraro (Rp)", "Net (Rp)", "Status", "Rincian Member"];
     const lines = filtered.map((p) => {
       const ms = (membersByPayout.get(p.id) ?? [])
-        .map((m) => `${m.name} ${formatRupiah(m.amount)}`)
+        .map((m) => `${m.name} (${m.contribution_percent}%${m.tugas ? ` - ${m.tugas}` : ""}) ${formatRupiah(m.amount)}`)
         .join("; ");
       return [
         p.date,
@@ -359,23 +420,32 @@ export default function PayoutsClient({
               {formMembers.length > 0 && (
                 <div className="space-y-2 mb-3">
                   {formMembers.map((fm) => (
-                    <div key={fm.key} className="flex items-center gap-3 bg-white/5 rounded-lg px-3 py-2">
-                      <div className="min-w-0 flex-1">
-                        <p className="text-sm font-medium text-white">{fm.member_name}</p>
-                        <p className="text-xs text-white/40">Rp {(formMembers.length > 0 && preview ? ((preview.distributable * fm.contribution_percent) / formTotalPercent) : 0).toLocaleString("id-ID")}</p>
+                    <div key={fm.key} className="flex flex-col gap-2 bg-white/5 rounded-lg px-3 py-2">
+                      <div className="flex items-center gap-3">
+                        <div className="min-w-0 flex-1">
+                          <p className="text-sm font-medium text-white">{fm.member_name}</p>
+                          <p className="text-xs text-white/40">nominal menyusul (dihitung dari total riil)</p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <input type="number" min="0" max="100" step="0.01" value={fm.contribution_percent}
+                            onChange={(e) => updateMemberPercent(fm.key, Number(e.target.value))}
+                            className="w-24 px-3 py-2 rounded-lg border border-white/10 bg-[#0d0d0d] text-white text-right focus:border-[#D97A2B] outline-none transition" />
+                          <span className="text-white/50 text-sm">%</span>
+                        </div>
+                        <button type="button" onClick={() => removeMemberRow(fm.key)}
+                          className="p-1.5 text-white/30 hover:text-red-400 transition" aria-label="Hapus">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <input type="number" min="0" max="100" step="0.01" value={fm.contribution_percent}
-                          onChange={(e) => updateMemberPercent(fm.key, Number(e.target.value))}
-                          className="w-24 px-3 py-2 rounded-lg border border-white/10 bg-[#0d0d0d] text-white text-right focus:border-[#D97A2B] outline-none transition" />
-                        <span className="text-white/50 text-sm">%</span>
-                      </div>
-                      <button type="button" onClick={() => removeMemberRow(fm.key)}
-                        className="p-1.5 text-white/30 hover:text-red-400 transition" aria-label="Hapus">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
+                      <input
+                        type="text"
+                        value={fm.tugas}
+                        onChange={(e) => updateMemberTugas(fm.key, e.target.value)}
+                        placeholder="Tugas / peran (mis. cetak 3D, editing, pemasaran)..."
+                        className="w-full px-3 py-2 rounded-lg border border-white/10 bg-[#0d0d0d] text-white placeholder:text-white/25 focus:border-[#D97A2B] outline-none transition"
+                      />
                     </div>
                   ))}
                   <div className="flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium bg-[#D97A2B]/10 text-[#E9A64E]">
@@ -402,7 +472,7 @@ export default function PayoutsClient({
 
           {preview && (
             <div className="bg-white/5 rounded-xl p-4">
-              <p className="text-sm font-semibold text-white mb-2">Ringkasan</p>
+              <p className="text-sm font-semibold text-white mb-2">Ringkasan (estimasi dari nilai project — nominal riil diisi setelah payout dibuat)</p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
                 <div>
                   <p className="text-xs text-white/50">Nilai Project</p>
@@ -475,8 +545,15 @@ export default function PayoutsClient({
                   </div>
                   <div className="text-right shrink-0">
                     <p className="font-bold text-emerald-400">{formatRupiah(p.net_amount)}</p>
-                    <span className={`inline-block mt-1 px-2 py-0.5 rounded-full text-[11px] font-medium ${statusColor[p.status]}`}>
-                      {statusLabel[p.status]}
+                    <span className="inline-flex items-center gap-1.5">
+                      {!p.finalized_at && p.status !== "paid" && (
+                        <span className="inline-block px-2 py-0.5 rounded-full text-[11px] font-medium bg-white/5 text-white/40">
+                          belum diisi nominal
+                        </span>
+                      )}
+                      <span className={`inline-block px-2 py-0.5 rounded-full text-[11px] font-medium ${statusColor[p.status]}`}>
+                        {statusLabel[p.status]}
+                      </span>
                     </span>
                   </div>
                   <div className="flex items-center gap-2 shrink-0 print:hidden">
@@ -502,12 +579,61 @@ export default function PayoutsClient({
                   </div>
                 </div>
                 {isOpen && (
-                  <div className="border-t border-white/5 px-4 py-3 space-y-2">
+                  <div className="border-t border-white/5 px-4 py-3 space-y-3">
+                    {!p.finalized_at && p.status !== "paid" && (
+                      <div className="rounded-lg border border-[#D97A2B]/30 bg-[#D97A2B]/5 p-3">
+                        <p className="text-sm font-medium text-[#E9A64E] mb-2">Isi Total Riil Pendapatan</p>
+                        <p className="text-xs text-white/40 mb-2">
+                          Persen sudah dikunci dari awal. Masukkan total pendapatan riil (mis. dari barang terjual),
+                          otomatis dibagi ke tiap anggota sesuai persen.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-2">
+                          <input
+                            type="number"
+                            min="0"
+                            value={finalizeDrafts[p.id] ?? ""}
+                            onChange={(e) => setFinalizeDrafts((prev) => ({ ...prev, [p.id]: e.target.value }))}
+                            placeholder="Total riil (Rp)"
+                            className="flex-1 px-3 py-2 rounded-lg border border-white/10 bg-[#0d0d0d] text-white placeholder:text-white/25 focus:border-[#D97A2B] outline-none transition"
+                          />
+                          <button
+                            onClick={() => finalizePayout(p)}
+                            disabled={finalizingId === p.id}
+                            className="px-4 py-2 rounded-lg bg-[#D97A2B] text-white text-sm font-semibold hover:opacity-90 transition disabled:opacity-60 disabled:cursor-not-allowed"
+                          >
+                            {finalizingId === p.id ? "Menyimpan..." : "Hitung & Simpan"}
+                          </button>
+                        </div>
+                        {(() => {
+                          const raw = finalizeDrafts[p.id];
+                          const actual = Number(raw);
+                          if (raw === undefined || raw === "" || isNaN(actual) || actual < 0) return null;
+                          const dist = calculateDistribution(actual, ms.map((m) => ({ percent: m.contribution_percent })));
+                          return (
+                            <div className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm">
+                              <div>
+                                <p className="text-xs text-white/50">Fee Baciraro (10%)</p>
+                                <p className="font-semibold text-[#E9A64E]">{formatRupiah(dist.kasAmount)}</p>
+                              </div>
+                              <div>
+                                <p className="text-xs text-white/50">Net untuk Member</p>
+                                <p className="font-semibold text-emerald-400">{formatRupiah(dist.distributable)}</p>
+                              </div>
+                              <div>
+                                <p className="text-xs text-white/50">Total Riil</p>
+                                <p className="font-semibold text-white">{formatRupiah(dist.total)}</p>
+                              </div>
+                            </div>
+                          );
+                        })()}
+                      </div>
+                    )}
                     {ms.length > 0 ? (
                       <table className="w-full text-sm">
                         <thead>
                           <tr className="text-left text-xs text-white/50 border-b border-white/10">
                             <th className="py-2 pr-3 font-medium">Anggota</th>
+                            <th className="py-2 pr-3 font-medium">Tugas</th>
                             <th className="py-2 pr-3 font-medium text-right">Kontribusi</th>
                             <th className="py-2 font-medium text-right">Jumlah</th>
                           </tr>
@@ -516,8 +642,13 @@ export default function PayoutsClient({
                           {ms.map((m) => (
                             <tr key={m.id} className="border-b border-white/5">
                               <td className="py-2 pr-3 font-medium text-white">{m.name}</td>
+                              <td className="py-2 pr-3 text-white/40">
+                                {m.tugas ? m.tugas : <span className="text-white/25">-</span>}
+                              </td>
                               <td className="py-2 pr-3 text-right text-white/50">{m.contribution_percent}%</td>
-                              <td className="py-2 text-right font-semibold text-emerald-400">{formatRupiah(m.amount)}</td>
+                              <td className="py-2 text-right font-semibold text-emerald-400">
+                                {p.finalized_at ? formatRupiah(m.amount) : <span className="text-white/30 font-normal">belum diisi</span>}
+                              </td>
                             </tr>
                           ))}
                         </tbody>

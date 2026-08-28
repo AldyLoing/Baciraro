@@ -17,11 +17,18 @@ export async function PATCH(req: NextRequest) {
     .from("payouts")
     .update({ status })
     .eq("id", id)
-    .select("id, project_id, project_name, net_amount")
+    .select("id, project_id, project_name, net_amount, finalized_at")
     .single();
 
   if (updErr || !payout) {
     return NextResponse.json({ error: updErr?.message ?? "Gagal update status." }, { status: 400 });
+  }
+
+  if (status === "paid" && !payout.finalized_at) {
+    return NextResponse.json(
+      { error: "Isi total riil pendapatan dulu sebelum menandai payout dibayar." },
+      { status: 400 }
+    );
   }
 
   let expenseRecorded = false;

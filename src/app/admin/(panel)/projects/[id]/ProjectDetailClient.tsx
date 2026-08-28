@@ -23,6 +23,7 @@ type Member = {
   avatar_url?: string | null;
   contribution_percent: number;
   amount: number | null;
+  tugas: string | null;
 };
 
 type AllMember = { id: number; name: string; role: string };
@@ -66,6 +67,8 @@ export default function ProjectDetailClient({
   const [newName, setNewName] = useState("");
   const [newPercent, setNewPercent] = useState("");
   const [newAmount, setNewAmount] = useState("");
+  const [newTugas, setNewTugas] = useState("");
+  const [editingTugas, setEditingTugas] = useState<{ pm_id: number; value: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -82,14 +85,14 @@ export default function ProjectDetailClient({
   async function saveProject() {
     setLoading(true);
     setError(null);
-    const value = Number(form.total_value);
+    const value = form.total_value === "" ? 0 : Number(form.total_value);
     if (!form.name.trim()) {
       showError("Nama project wajib diisi.");
       setLoading(false);
       return;
     }
-    if (!form.total_value || value <= 0) {
-      showError("Nilai project harus lebih dari 0.");
+    if (isNaN(value) || value < 0) {
+      showError("Nilai project tidak boleh negatif.");
       setLoading(false);
       return;
     }
@@ -154,6 +157,7 @@ export default function ProjectDetailClient({
         name: addType === "external" ? memberName : undefined,
         contribution_percent: Number(newPercent),
         amount: newAmount === "" ? null : Number(newAmount),
+        tugas: newTugas.trim() || undefined,
       }),
     });
     const data = await res.json();
@@ -173,12 +177,14 @@ export default function ProjectDetailClient({
         avatar_url: chosen ? undefined : null,
         contribution_percent: Number(newPercent),
         amount: newAmount === "" ? null : Number(newAmount),
+        tugas: newTugas.trim() || null,
       },
     ]);
     setNewMemberId("");
     setNewName("");
     setNewPercent("");
     setNewAmount("");
+    setNewTugas("");
     setAddType("member");
     setAddingMember(false);
     showSuccess("Kontributor ditambahkan.");
@@ -199,6 +205,25 @@ export default function ProjectDetailClient({
     }
     setMembers((prev) => prev.filter((m) => m.pm_id !== pmId));
     showSuccess(`${memberName} dihapus dari project.`);
+    router.refresh();
+  }
+
+  async function saveTugas(pmId: number) {
+    const value = editingTugas?.value.trim() ?? "";
+    setError(null);
+    const res = await fetch("/api/admin/project-members", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: pmId, tugas: value || null }),
+    });
+    const data = await res.json();
+    if (!res.ok || !data.ok) {
+      showError("Gagal menyimpan tugas: " + (data.error ?? "unknown"));
+      return;
+    }
+    setMembers((prev) => prev.map((m) => (m.pm_id === pmId ? { ...m, tugas: value || null } : m)));
+    setEditingTugas(null);
+    showSuccess("Tugas diperbarui.");
     router.refresh();
   }
 
@@ -379,6 +404,8 @@ export default function ProjectDetailClient({
               </div>
               <input type="number" min="0" value={newAmount} onChange={(e) => setNewAmount(e.target.value)}
                 placeholder="Nominal (opsional)" className={inputCls + " flex-1"} />
+              <input type="text" value={newTugas} onChange={(e) => setNewTugas(e.target.value)}
+                placeholder="Tugas / peran..." className={inputCls + " flex-1"} />
               <button onClick={addMemberRow} className="px-4 py-2.5 rounded-lg bg-[#D97A2B] text-white text-sm font-semibold hover:opacity-90 transition">
                 Tambah
               </button>
@@ -410,6 +437,41 @@ export default function ProjectDetailClient({
                       {m.member_id ? (m.role ?? "Anggota") : "Kontributor luar"}
                       {m.amount != null && ` · nominal ${formatRupiah(m.amount)}`}
                     </p>
+                    {editingTugas?.pm_id === m.pm_id ? (
+                      <div className="flex items-center gap-2 mt-1">
+                        <input
+                          type="text"
+                          autoFocus
+                          value={editingTugas.value}
+                          onChange={(e) => setEditingTugas({ pm_id: m.pm_id, value: e.target.value })}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") saveTugas(m.pm_id);
+                            if (e.key === "Escape") setEditingTugas(null);
+                          }}
+                          placeholder="Tugas / peran di project..."
+                          className="w-full max-w-xs px-2 py-1 text-xs rounded border border-white/10 bg-[#0d0d0d] text-white focus:border-[#D97A2B] outline-none"
+                        />
+                        <button onClick={() => saveTugas(m.pm_id)} className="p-1 text-emerald-400 hover:bg-emerald-500/10 rounded" aria-label="Simpan">
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </button>
+                        <button onClick={() => setEditingTugas(null)} className="p-1 text-white/40 hover:bg-white/10 rounded" aria-label="Batal">
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </div>
+                    ) : (
+                      m.tugas && (
+                        <p className="text-xs text-[#E9A64E] mt-1 flex items-center gap-1">
+                          <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                          </svg>
+                          {m.tugas}
+                        </p>
+                      )
+                    )}
                   </div>
                   <div className="w-32 hidden md:block">
                     <div className="h-2 bg-white/10 rounded-full overflow-hidden">
@@ -422,12 +484,22 @@ export default function ProjectDetailClient({
                     {formatRupiah(amount)}
                   </span>
                   {isAdmin && (
-                    <button onClick={() => removeMember(m.pm_id, m.name)}
-                      className="p-1.5 text-white/30 hover:text-red-400 transition" aria-label="Hapus">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                      </svg>
-                    </button>
+                    <>
+                      <button
+                        onClick={() => setEditingTugas(editingTugas?.pm_id === m.pm_id ? null : { pm_id: m.pm_id, value: m.tugas ?? "" })}
+                        className="p-1.5 text-white/30 hover:text-[#E9A64E] transition" aria-label="Edit tugas"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                      </button>
+                      <button onClick={() => removeMember(m.pm_id, m.name)}
+                        className="p-1.5 text-white/30 hover:text-red-400 transition" aria-label="Hapus">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                      </button>
+                    </>
                   )}
                 </div>
               );

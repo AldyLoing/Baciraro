@@ -13,9 +13,9 @@ export async function POST(req: NextRequest) {
   if (!name || !String(name).trim()) {
     return NextResponse.json({ error: "Nama project wajib diisi." }, { status: 400 });
   }
-  const value = Number(total_value);
-  if (!value || value <= 0) {
-    return NextResponse.json({ error: "Nilai project harus lebih dari 0." }, { status: 400 });
+  const value = total_value === "" || total_value == null ? 0 : Number(total_value);
+  if (isNaN(value) || value < 0) {
+    return NextResponse.json({ error: "Nilai project tidak boleh negatif." }, { status: 400 });
   }
 
   const membersList: any[] = Array.isArray(members) ? members : [];
@@ -75,6 +75,7 @@ export async function POST(req: NextRequest) {
         name: memberName || null,
         contribution_percent: Number(m.contribution_percent),
         amount: m.amount === "" || m.amount == null ? null : Number(m.amount),
+        tugas: m.tugas === "" || m.tugas == null ? null : String(m.tugas).trim(),
       });
     }
     const { error: membersError } = await supabase.from("project_members").insert(rows);
@@ -101,9 +102,9 @@ export async function PATCH(req: NextRequest) {
   if (!name || !String(name).trim()) {
     return NextResponse.json({ error: "Nama project wajib diisi." }, { status: 400 });
   }
-  const value = Number(total_value);
-  if (!value || value <= 0) {
-    return NextResponse.json({ error: "Nilai project harus lebih dari 0." }, { status: 400 });
+  const value = total_value === "" || total_value == null ? 0 : Number(total_value);
+  if (isNaN(value) || value < 0) {
+    return NextResponse.json({ error: "Nilai project tidak boleh negatif." }, { status: 400 });
   }
   if (!["active", "completed", "paid"].includes(status)) {
     return NextResponse.json({ error: "Status tidak valid." }, { status: 400 });

@@ -29,7 +29,7 @@ export default async function AdminPayoutsPage({
 
   const { data: projectMembers } = await supabase
     .from("project_members")
-    .select("id, project_id, member_id, name, contribution_percent, amount");
+    .select("id, project_id, member_id, name, contribution_percent, amount, tugas");
 
   const { data: allMembers } = await supabase
     .from("team_members")
@@ -47,6 +47,7 @@ export default async function AdminPayoutsPage({
         orders_fee: Number(p.orders_fee),
         net_amount: Number(p.net_amount),
         status: p.status,
+        finalized_at: p.finalized_at ?? null,
         created_at: p.created_at,
       }))}
       payoutMembers={(payoutMembers ?? []).map((pm) => ({
@@ -56,6 +57,7 @@ export default async function AdminPayoutsPage({
         name: pm.name,
         contribution_percent: Number(pm.contribution_percent),
         amount: Number(pm.amount),
+        tugas: pm.tugas ?? null,
       }))}
       projects={(projects ?? []).map((p) => ({
         id: p.id,
@@ -70,6 +72,7 @@ export default async function AdminPayoutsPage({
         member_id: pm.member_id ?? null,
         contribution_percent: Number(pm.contribution_percent),
         member_name: pm.name ?? "Anggota",
+        tugas: pm.tugas ?? null,
       }))}
       allMembers={(allMembers ?? []).map((m) => ({
         id: m.id,

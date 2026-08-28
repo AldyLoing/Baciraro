@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/utils/admin";
 import { createAdminClient } from "@/utils/supabase/admin";
-import { calculateDistribution } from "@/lib/admin/format";
 
 export async function POST(req: NextRequest) {
   const admin = await requireAdmin();
@@ -27,12 +26,13 @@ export async function POST(req: NextRequest) {
   if (!selected) {
     const { data: projectMembers } = await supabase
       .from("project_members")
-      .select("member_id, name, contribution_percent")
+      .select("member_id, name, contribution_percent, tugas")
       .eq("project_id", project_id);
     selected = (projectMembers ?? []).map((pm: any) => ({
       member_id: pm.member_id,
       name: pm.name ?? "Anggota",
       contribution_percent: Number(pm.contribution_percent),
+      tugas: pm.tugas ?? null,
     }));
   }
 
@@ -46,20 +46,17 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const dist = calculateDistribution(
-    Number(project.total_value) || 0,
-    selected.map((m: any) => ({ percent: Number(m.contribution_percent) }))
-  );
-
+  // Nominal menyusul: payout dibuat dengan 0, persen + tugas dikunci dari awal.
+  // Setelah barang terjual, admin isi total riil lewat PATCH /payouts/finalize.
   const { data: payout, error: err } = await supabase
     .from("payouts")
     .insert({
       project_id: project.id,
       project_name: project.name,
       date,
-      total_amount: dist.total,
-      orders_fee: dist.kasAmount,
-      net_amount: dist.distributable,
+      total_amount: 0,
+      orders_fee: 0,
+      net_amount: 0,
       status: "pending",
       created_by: admin.id,
     })
@@ -74,7 +71,6 @@ export async function POST(req: NextRequest) {
     const memberId = m.member_id ?? null;
     const name = m.name ?? "";
     const percent = Number(m.contribution_percent) || 0;
-    const amount = dist.totalPercent > 0 ? (dist.distributable * percent) / dist.totalPercent : 0;
 
     let memberName = name;
     if (memberId && !name) {
@@ -87,7 +83,8 @@ export async function POST(req: NextRequest) {
       member_id: memberId,
       name: memberName,
       contribution_percent: percent,
-      amount: Number(amount.toFixed(2)),
+      amount: 0,
+      tugas: m.tugas === "" || m.tugas == null ? null : String(m.tugas).trim(),
     });
     if (merr) {
       return NextResponse.json(
